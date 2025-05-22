@@ -1,0 +1,76 @@
+name: Mirror
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches:
+
+env:
+  MIRROR_URL: "git@github.com:EpitechPromo2028/"
+  EXECUTABLES: "zappy_server zappy_client zappy_gui"
+
+jobs:
+  compare-keys:
+    name: Compare CLI 
+    runs-on: ubuntu-latest
+    container: epitechcontent/epitest-docker:latest
+    if: github.repository != 'EpitechPromo2028/B-OOP-400-BDX-4-1-raytracer-nolann.dubos'
+    steps:
+      - name: Checkout GH repo
+        uses: actions/checkout@v4
+
+      - name: Check repository
+        run: echo "Repository check passed"
+
+  check_compilation:
+    needs: [compare-keys]
+    name: Check compilation
+    runs-on: ubuntu-latest
+    container: 
+      image: epitechcontent/epitest-docker
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build project with Makefile
+        run: make
+
+  # check_tests:
+  #   needs: [check_compilation]
+  #   name: Check tests
+  #   runs-on: ubuntu-latest
+  #   container: 
+  #     image: epitechcontent/epitest-docker
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
+  #
+  #     - name: Configure with CMake
+  #       run: cmake -B .build
+  #
+  #     - name: Build project
+  #       run: cmake --build .build
+  #
+  #     - name: Run tests 
+  #       run: ./unit_tests
+
+
+  push_to_mirror:
+    needs: [check_compilation] # Don't forget to add the check_tests job here if you uncomment it
+    if: github.repository != 'EpitechPromo2028/' && github.ref_name == 'main'
+    name: Push to Mirror Repository
+    runs-on: ubuntu-latest
+    container: 
+      image: epitechcontent/epitest-docker
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Push to Mirror
+        uses: pixta-dev/repository-mirroring-action@v1
+        with:
+          ssh_private_key: ${{ secrets.GIT_SSH_PRIVATE_KEY }}
+          target_repo_url: ${{ env.MIRROR_URL }}

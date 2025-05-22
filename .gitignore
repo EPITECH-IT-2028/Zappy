@@ -1,0 +1,9 @@
+zappy_gui
+zappy_server
+zappy_client
+
+*.o
+
+.vscode/
+compile-commands.json
+
