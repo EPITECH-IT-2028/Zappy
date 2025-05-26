@@ -23,6 +23,7 @@ typedef struct params_s {
     char **teams_names;
     int client_per_team;
     int frequence;
+    int teams_count;
 } params_t;
 
 typedef struct client_s {
@@ -49,7 +50,7 @@ typedef struct command_s {
 } command_t;
 
 int server(int ac, char **av);
-int check_params(server_t *server, int ac, char **av);
+int check_params(params_t *params, int ac, char **av);
 
 /* Struct initialization functions */
 int init_client_struct(client_t *clients);

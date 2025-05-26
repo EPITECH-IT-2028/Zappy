@@ -49,19 +49,20 @@ int bind_server(server_t *server, params_t *params)
     return SUCCESS;
 }
 
-int server(__attribute__((unused)) int ac, __attribute__((unused)) char **av)
+int server(int ac, char **av)
 {
     server_t *server = malloc(sizeof(server_t));
     params_t *params = malloc(sizeof(params_t));
 
-    if (server == NULL) {
-        perror("Failed to allocate memory for server");
+    if (server == NULL || params == NULL) {
+        perror("Failed to allocate memory for server or params");
         return ERROR;
     }
-    params->port = 8080;
+    if (check_params(params, ac, av) == ERROR) {
+        perror("Invalid parameters");
+        return ERROR;
+    }
     if (bind_server(server, params) == ERROR) {
-        free(server);
-        free(params);
         perror("Failed to bind server");
         return ERROR;
     }
