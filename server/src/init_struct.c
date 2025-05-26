@@ -10,9 +10,9 @@
 
 int init_client_struct(client_t *clients)
 {
-    clients->fd = 0;
+    clients->fd = -1;
     clients->addr_len = sizeof(clients->addr);
-    clients->fd_open = 0;
+    clients->fd_open = -1;
     clients->connected = false;
     return SUCCESS;
 }
@@ -32,6 +32,7 @@ int init_server_struct(server_t *server, params_t *params)
     server->nfds = 1;
     server->fds[SERVER_INDEX].fd = server->fd;
     server->fds[SERVER_INDEX].events = POLLIN;
+    server->running = true;
     return SUCCESS;
 }
 

@@ -9,7 +9,8 @@ SRC = ./src/main.c \
 			./src/server.c \
 			./src/utils.c \
 			./src/init_struct.c \
-			./src/events_server.c
+			./src/events_server.c \
+			./src/memory.c
 
 SRC += ./src/error/error_params.c
 SRC += ./src/error/check_clients_nb.c
@@ -19,7 +20,6 @@ SRC += ./src/error/check_teams_names.c
 SRC += ./src/error/check_freq.c
 SRC += ./src/error/check_port.c
 SRC += ./src/error/help_flag.c
-SRC += ./src/memory_management/free_server.c
 
 OBJ = $(SRC:.c=.o)
 

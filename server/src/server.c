@@ -12,7 +12,7 @@
 static
 int server_loop(server_t *server)
 {
-    for (;;) {
+    while (server->running) {
         if (poll(server->fds, server->nfds, 0) < 0) {
             perror("poll failed");
             return ERROR;

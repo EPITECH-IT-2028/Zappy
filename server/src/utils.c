@@ -15,5 +15,6 @@ void send_code(int fd, const char *msg)
     char buffer[2048];
 
     snprintf(buffer, sizeof(buffer), "%s\n", msg);
-    write(fd, buffer, strlen(buffer));
+    if (write(fd, buffer, strlen(buffer)) < 0)
+        perror("write failed");
 }

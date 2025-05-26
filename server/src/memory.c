@@ -9,7 +9,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-void free_server(params_t *params)
+void free_params(params_t *params)
 {
     if (params->teams_names) {
         for (int i = 0; i < params->teams_count; i += 1) {

@@ -9,7 +9,6 @@
     #define SERVER_H_
 
     #include <stdio.h>
-    #include <stdio.h>
     #include <stdlib.h>
     #include <sys/socket.h>
     #include <netinet/in.h>
@@ -42,6 +41,7 @@ typedef struct server_s {
     char *path;
     struct pollfd *fds;
     int nfds;
+    bool running;
 } server_t;
 
 typedef struct command_s {
@@ -60,6 +60,7 @@ void init_params(params_t *params);
 /* Event handling functions */
 int get_new_connection(server_t *server);
 
-void free_server(params_t *params);
+/* Resource management functions */
+void free_params(params_t *params);
 
 #endif /* SERVER_H_ */

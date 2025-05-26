@@ -14,7 +14,10 @@ static
 void accept_client(server_t *server, int client_fd)
 {
     server->clients[server->nfds] = malloc(sizeof(client_t));
-    init_client_struct(server->clients[server->nfds]);
+    if (init_client_struct(server->clients[server->nfds]) == ERROR) {
+        perror("Failed to initialize client struct");
+        return;
+    }
     server->fds[server->nfds].fd = client_fd;
     server->fds[server->nfds].events = POLLIN;
     server->nfds++;
@@ -38,7 +41,7 @@ int get_new_connection(server_t *server)
         if (server->fds == NULL || server->clients == NULL)
             return ERROR;
         accept_client(server, client_fd);
-        send_code(client_fd, "220 Service ready for new user.\r\n");
+        send_code(client_fd, "WELCOME");
         printf("New connection\n");
     }
     return 0;
