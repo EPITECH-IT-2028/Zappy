@@ -24,7 +24,7 @@ int check_teams_names(params_t *params, char **av, size_t *av_idx);
 int check_clients_nb(params_t *params, char **av, size_t *av_idx);
 int check_freq(params_t *params, char **av, size_t *av_idx);
 
-static const flags_t tab_check_func[] = {
+const flags_t tab_check_func[] = {
     {"-p", &check_port},
     {"-x", &check_width},
     {"-y", &check_height},

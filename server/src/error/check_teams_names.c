@@ -7,8 +7,8 @@
 
 #include <stddef.h>
 #include <stdlib.h>
-#include "params.h"
 #include "macro.h"
+#include "server.h"
 
 int check_teams_names(params_t *params, char **av, size_t *av_idx)
 {
