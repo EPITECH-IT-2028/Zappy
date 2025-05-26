@@ -1,5 +1,6 @@
 SRC = ./src/main.c
 SRC += ./src/server.c
+SRC += ./src/error/error_params.c
 
 OBJ = $(SRC:.c=.o)
 

@@ -5,8 +5,12 @@
 ** server.c
 */
 
+#include "server.h"
+
 int server(int ac, char **av) {
-  (void)ac;
-  (void)av;
-  return 0;
+  server_t server;
+  if (check_params(&server, ac, av)) {
+    return ERROR;
+  }
+  return SUCCESS;
 }

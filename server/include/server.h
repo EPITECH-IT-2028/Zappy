@@ -8,6 +8,10 @@
 #ifndef SERVER_H_
   #define SERVER_H_
 
+#define ERROR 1
+#define SUCCESS 0
+#define MIN_PARAMS 7 // 7 because : BIN + -p + PORT + -x + WIDTH + -y + HEIGHT + -n + (MIN 2 TEAMS) + -c + CLIENTNB + -f + FREQ = 14
+
 typedef struct {
   int port;
   int width;
@@ -18,5 +22,7 @@ typedef struct {
 } server_t;
 
 int server(int ac, char **av);
+
+int check_params(server_t *server, int ac, char **av);
 
 #endif /* SERVER_H_ */
