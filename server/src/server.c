@@ -7,6 +7,7 @@
 
 #include "server.h"
 #include "macro.h"
+#include <stddef.h>
 
 static
 int server_loop(server_t *server)
@@ -58,6 +59,7 @@ int server(int ac, char **av)
         perror("Failed to allocate memory for server or params");
         return ERROR;
     }
+    init_params(params);
     if (check_params(params, ac, av) == ERROR) {
         perror("Invalid parameters");
         return ERROR;

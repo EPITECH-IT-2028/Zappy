@@ -55,8 +55,11 @@ int check_params(params_t *params, int ac, char **av);
 /* Struct initialization functions */
 int init_client_struct(client_t *clients);
 int init_server_struct(server_t *server, params_t *params);
+void init_params(params_t *params);
 
 /* Event handling functions */
 int get_new_connection(server_t *server);
+
+void free_server(params_t *params);
 
 #endif /* SERVER_H_ */

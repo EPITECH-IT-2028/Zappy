@@ -19,6 +19,7 @@ SRC += ./src/error/check_teams_names.c
 SRC += ./src/error/check_freq.c
 SRC += ./src/error/check_port.c
 SRC += ./src/error/help_flag.c
+SRC += ./src/memory_management/free_server.c
 
 OBJ = $(SRC:.c=.o)
 

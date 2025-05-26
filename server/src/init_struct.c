@@ -34,3 +34,14 @@ int init_server_struct(server_t *server, params_t *params)
     server->fds[SERVER_INDEX].events = POLLIN;
     return SUCCESS;
 }
+
+void init_params(params_t *params)
+{
+    params->client_per_team = -1;
+    params->teams_count = 0;
+    params->teams_names = NULL;
+    params->frequence = -1;
+    params->height = -1;
+    params->width = -1;
+    params->port = -1;
+}
