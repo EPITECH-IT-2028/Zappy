@@ -23,6 +23,6 @@ If you want to contribute to the project, please create a new branch and make a 
 - [@Arthur](https://github.com/ZifFiji)
 - [@Nolann](https://github.com/MelmanC)
 - [@Quentin](https://github.com/quentin-lpr)
-- [@Valentin]()
+- [@Valentin](https://github.com/jeanmiii)
 - [@Robin](https://github.com/RobinChassagne)
 

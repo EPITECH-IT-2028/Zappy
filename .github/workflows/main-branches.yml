@@ -1,21 +1,17 @@
-name: Mirror
+name: Mirror Repository
 
 on:
   push:
     branches: [main]
-  pull_request:
-    branches:
 
 env:
-  MIRROR_URL: "git@github.com:EpitechPromo2028/"
-  EXECUTABLES: "zappy_server zappy_client zappy_gui"
+  MIRROR_URL: "git@github.com:EpitechPromo2028/B-YEP-400-BDX-4-1-zappy-nolann.dubos.git"
 
 jobs:
   compare-keys:
-    name: Compare CLI 
+    name: Check Repository
     runs-on: ubuntu-latest
-    container: epitechcontent/epitest-docker:latest
-    if: github.repository != 'EpitechPromo2028/B-OOP-400-BDX-4-1-raytracer-nolann.dubos'
+    if: github.repository != 'EpitechPromo2028/B-YEP-400-BDX-4-1-zappy-nolann.dubos'
     steps:
       - name: Checkout GH repo
         uses: actions/checkout@v4
@@ -23,42 +19,9 @@ jobs:
       - name: Check repository
         run: echo "Repository check passed"
 
-  check_compilation:
-    needs: [compare-keys]
-    name: Check compilation
-    runs-on: ubuntu-latest
-    container: 
-      image: epitechcontent/epitest-docker
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Build project with Makefile
-        run: make
-
-  # check_tests:
-  #   needs: [check_compilation]
-  #   name: Check tests
-  #   runs-on: ubuntu-latest
-  #   container: 
-  #     image: epitechcontent/epitest-docker
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v4
-  #
-  #     - name: Configure with CMake
-  #       run: cmake -B .build
-  #
-  #     - name: Build project
-  #       run: cmake --build .build
-  #
-  #     - name: Run tests 
-  #       run: ./unit_tests
-
-
   push_to_mirror:
-    needs: [check_compilation] # Don't forget to add the check_tests job here if you uncomment it
-    if: github.repository != 'EpitechPromo2028/' && github.ref_name == 'main'
+    needs: [compare-keys]
+    if: github.repository != 'EpitechPromo2028/B-YEP-400-BDX-4-1-zappy-nolann.dubos' && github.ref_name == 'main'
     name: Push to Mirror Repository
     runs-on: ubuntu-latest
     container: 

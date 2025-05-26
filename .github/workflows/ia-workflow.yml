@@ -1,0 +1,26 @@
+name: AI Workflow
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'ia/**'
+  pull_request:
+    paths:
+      - 'ia/**'
+
+env:
+  EXECUTABLES: "zappy_client"
+
+jobs:
+  check_compilation:
+    name: Check AI compilation
+    runs-on: ubuntu-latest
+    container: 
+      image: epitechcontent/epitest-docker
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build AI client
+        run: cd ia && make

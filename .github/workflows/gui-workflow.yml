@@ -1,0 +1,26 @@
+name: GUI Workflow
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'gui/**'
+  pull_request:
+    paths:
+      - 'gui/**'
+
+env:
+  EXECUTABLES: "zappy_gui"
+
+jobs:
+  check_compilation:
+    name: Check GUI compilation
+    runs-on: ubuntu-latest
+    container: 
+      image: epitechcontent/epitest-docker
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build GUI
+        run: cd gui && make

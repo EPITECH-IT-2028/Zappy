@@ -1,0 +1,39 @@
+name: Server Workflow
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'server/**'
+  pull_request:
+    paths:
+      - 'server/**'
+
+env:
+  EXECUTABLES: "zappy_server"
+
+jobs:
+  check_compilation:
+    name: Check server compilation
+    runs-on: ubuntu-latest
+    container: 
+      image: epitechcontent/epitest-docker
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build server
+        run: cd server && make
+
+  # check_tests:
+  #   needs: [check_compilation]
+  #   name: Run server tests
+  #   runs-on: ubuntu-latest
+  #   container: 
+  #     image: epitechcontent/epitest-docker
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
+  #
+  #     - name: Run tests
+  #       run: cd server && make tests
