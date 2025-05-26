@@ -17,4 +17,6 @@ typedef struct {
   int frequence;
 } server_t;
 
+int server(int ac, char **av);
+
 #endif /* SERVER_H_ */

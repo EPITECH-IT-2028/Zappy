@@ -1,4 +1,5 @@
 SRC = ./src/main.c
+SRC += ./src/server.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -9,7 +10,8 @@ CFLAGS = -W -Werror -Wall -Wextra -I./include -g
 NAME = zappy_server
 
 all: $(NAME)
-	$(NAME): $(OBJ)
+
+$(NAME): $(OBJ)
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ)
 	@echo "$(NAME) compiled successfully."
 

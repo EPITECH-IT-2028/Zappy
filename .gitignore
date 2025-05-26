@@ -6,4 +6,6 @@ zappy_client
 
 .vscode/
 compile-commands.json
+compile_commands.json
+.cache
 

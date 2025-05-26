@@ -5,7 +5,9 @@
 ** main.c
 */
 
+#include "server.h"
+
 int main(int ac, char **av)
 {
-
+  return server(ac, av);
 }
