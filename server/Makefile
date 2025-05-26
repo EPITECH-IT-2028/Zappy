@@ -1,5 +1,8 @@
-SRC = ./src/main.c
-SRC += ./src/server.c
+SRC = ./src/main.c \
+			./src/server.c \
+			./src/utils.c \
+			./src/init_struct.c \
+			./src/events_server.c
 SRC += ./src/error/error_params.c
 
 OBJ = $(SRC:.c=.o)
