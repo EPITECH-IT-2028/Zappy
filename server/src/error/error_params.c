@@ -31,7 +31,7 @@ static int verif_params(server_t *server, char **av, size_t *av_idx)
 
 static int check_help_flag(int ac, char **av)
 {
-    for (size_t i = 1; i < (size_t) ac; i += 1) {
+    for (size_t i = 1; i < (size_t)ac; i += 1) {
         if (strcmp("-h", av[i]) == 0 || strcmp("-help", av[i]) == 0) {
             help_flag();
             return SUCCESS;
@@ -40,21 +40,49 @@ static int check_help_flag(int ac, char **av)
     return ERROR;
 }
 
+static int check_server_all_set(server_t *server)
+{
+    if (server->port == -1)
+        return ERROR;
+    if (server->width == -1)
+        return ERROR;
+    if (server->height == -1)
+        return ERROR;
+    if (server->frequence == -1)
+        return ERROR;
+    if (server->client_per_team == -1)
+        return ERROR;
+    if (server->teams_names == NULL)
+        return ERROR;
+    if (server->teams_count == 0)
+        return ERROR;
+    return SUCCESS;
+}
+
+static void print_error_message(void)
+{
+    fprintf(stderr,
+            "Error: Invalid number of parameters.\nYou need to have: -p, "
+            "-x, -y, -n, -c, -f flags.\nCheck with ./zappy_server -h to "
+            "understand how to use it.\n");
+}
+
 int check_params(server_t *server, int ac, char **av)
 {
     if (check_help_flag(ac, av) == SUCCESS)
         return ERROR;
     if (ac < MIN_PARAMS) {
-        fprintf(stderr,
-                "Error: Invalid number of parameters. You need to have at "
-                "least 14 parameters.\nCheck with ./zappy_server -h to "
-                "understand how to use it.\n");
+        print_error_message();
         return ERROR;
     }
     for (size_t i = 1; i < (size_t)ac; i++) {
         if (verif_params(server, av, &i)) {
             return ERROR;
         }
+    }
+    if (check_server_all_set(server)) {
+        print_error_message();
+        return ERROR;
     }
     return SUCCESS;
 }

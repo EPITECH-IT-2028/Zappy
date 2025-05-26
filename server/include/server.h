@@ -34,4 +34,6 @@ int server(int ac, char **av);
 
 int check_params(server_t *server, int ac, char **av);
 
+void free_server(server_t *server);
+
 #endif /* SERVER_H_ */
