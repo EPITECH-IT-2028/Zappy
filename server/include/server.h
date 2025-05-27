@@ -8,19 +8,14 @@
 #ifndef SERVER_H_
     #define SERVER_H_
 
-    #define ERROR 1
-    #define SUCCESS 0
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <sys/socket.h>
+    #include <netinet/in.h>
+    #include <poll.h>
+    #include <stdbool.h>
 
-    #define MIN_PARAMS 14
-    // 14 because :
-    // BIN + -p + PORT + -x + WIDTH + -y + HEIGHT + -n
-    // + (MIN 2 TEAMS) + -c + CLIENTNB + -f + FREQ = 14
-
-    #define MIN_X 10
-    #define MIN_Y 10
-    #define MIN_CLIENT 1
-
-typedef struct {
+typedef struct params_s {
     int port;
     int width;
     int height;
@@ -28,12 +23,44 @@ typedef struct {
     int client_per_team;
     int frequence;
     int teams_count;
+} params_t;
+
+typedef struct client_s {
+    int fd;
+    struct sockaddr_in addr;
+    socklen_t addr_len;
+    int fd_open;
+    bool connected;
+} client_t;
+
+typedef struct server_s {
+    int fd;
+    struct sockaddr_in addr;
+    socklen_t addr_len;
+    client_t **clients;
+    char *path;
+    struct pollfd *fds;
+    int nfds;
+    bool running;
 } server_t;
 
+typedef struct command_s {
+    char *name;
+    void (*f)(server_t *server, int i, char *str);
+} command_t;
+
 int server(int ac, char **av);
+int check_params(params_t *params, int ac, char **av);
 
-int check_params(server_t *server, int ac, char **av);
+/* Struct initialization functions */
+void init_client_struct(client_t *clients);
+int init_server_struct(server_t *server, params_t *params);
+void init_params(params_t *params);
 
-void free_server(server_t *server);
+/* Event handling functions */
+int get_new_connection(server_t *server);
+
+/* Resource management functions */
+void free_params(params_t *params);
 
 #endif /* SERVER_H_ */

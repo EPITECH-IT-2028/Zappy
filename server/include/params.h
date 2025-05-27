@@ -11,19 +11,18 @@
     #include "server.h"
     #include <stddef.h>
 
-typedef struct {
+typedef struct flags_s {
     char *params_name;
-    int (*func)(server_t *server, char **av, size_t *av_idx);
+    int (*func)(params_t *params, char **av, size_t *av_idx);
 } flags_t;
 
 int help_flag(void);
-
-int check_port(server_t *server, char **av, size_t *av_idx);
-int check_width(server_t *server, char **av, size_t *av_idx);
-int check_height(server_t *server, char **av, size_t *av_idx);
-int check_teams_names(server_t *server, char **av, size_t *av_idx);
-int check_clients_nb(server_t *server, char **av, size_t *av_idx);
-int check_freq(server_t *server, char **av, size_t *av_idx);
+int check_port(params_t *params, char **av, size_t *av_idx);
+int check_width(params_t *params, char **av, size_t *av_idx);
+int check_height(params_t *params, char **av, size_t *av_idx);
+int check_teams_names(params_t *params, char **av, size_t *av_idx);
+int check_clients_nb(params_t *params, char **av, size_t *av_idx);
+int check_freq(params_t *params, char **av, size_t *av_idx);
 
 const flags_t tab_check_func[] = {
     {"-p", &check_port},

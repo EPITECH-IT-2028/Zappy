@@ -7,28 +7,25 @@
 
 #include <stddef.h>
 #include <stdlib.h>
+#include "macro.h"
 #include <string.h>
 #include "server.h"
 
-int check_teams_names(server_t *server, char **av, size_t *av_idx)
+int check_teams_names(params_t *params, char **av, size_t *av_idx)
 {
     for (; av[*av_idx] != NULL; *av_idx += 1) {
         if (av[*av_idx][0] == '-')
             break;
-        if (!server->teams_names) {
-            server->teams_names =
-                malloc(sizeof(char *) * (server->teams_count + 2));
-        }
-        if (server->teams_names) {
-            server->teams_names = realloc(
-                server->teams_names,
-                sizeof(char *) * (server->teams_count + 2));
-        }
-        if (server->teams_names == NULL)
+        params->teams_names = realloc(
+            params->teams_names,
+            sizeof(char *) * (params->teams_count + 2));
+        if (params->teams_names == NULL)
             return ERROR;
-        server->teams_names[server->teams_count] = strdup(av[*av_idx]);
-        server->teams_names[server->teams_count + 1] = NULL;
-        server->teams_count += 1;
+        params->teams_names[params->teams_count] = strdup(av[*av_idx]);
+        if (params->teams_names[params->teams_count] == NULL)
+            return ERROR;
+        params->teams_names[params->teams_count + 1] = NULL;
+        params->teams_count += 1;
     }
     return SUCCESS;
 }

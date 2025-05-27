@@ -6,28 +6,70 @@
 */
 
 #include "server.h"
+#include "macro.h"
 #include <stddef.h>
 
-static void init_server(server_t *server)
+static
+int server_loop(server_t *server)
 {
-    server->client_per_team = -1;
-    server->teams_count = 0;
-    server->teams_names = NULL;
-    server->frequence = -1;
-    server->height = -1;
-    server->width = -1;
-    server->port = -1;
+    while (server->running) {
+        if (poll(server->fds, server->nfds, 0) < 0) {
+            perror("poll failed");
+            return ERROR;
+        }
+        if (get_new_connection(server) == ERROR) {
+            perror("get_new_connection failed");
+            return ERROR;
+        }
+        // handle_all_clients(server);
+    }
+    return SUCCESS;
+}
+
+static
+int bind_server(server_t *server, params_t *params)
+{
+    if (init_server_struct(server, params) == ERROR) {
+        perror("init_server_struct failed");
+        return ERROR;
+    }
+    if (setsockopt(server->fd, SOL_SOCKET, SO_REUSEADDR, &(int){1},
+            sizeof(int)) == -1) {
+        perror("setsockopt failed");
+        return ERROR;
+    }
+    if (bind(server->fd, (struct sockaddr *)&server->addr,
+            sizeof(server->addr)) == -1) {
+        perror("bind failed");
+        return ERROR;
+    }
+    if (listen(server->fd, SOMAXCONN) == -1) {
+        perror("listen failed");
+        return ERROR;
+    }
+    return SUCCESS;
 }
 
 int server(int ac, char **av)
 {
-    server_t server;
+    server_t *server = malloc(sizeof(server_t));
+    params_t *params = malloc(sizeof(params_t));
 
-    init_server(&server);
-    if (check_params(&server, ac, av)) {
-        free_server(&server);
+    if (server == NULL || params == NULL) {
+        perror("Failed to allocate memory for server or params");
         return ERROR;
     }
-    free_server(&server);
+    init_params(params);
+    if (check_params(params, ac, av) == ERROR) {
+        return ERROR;
+    }
+    if (bind_server(server, params) == ERROR) {
+        perror("Failed to bind server");
+        return ERROR;
+    }
+    if (server_loop(server) == ERROR) {
+        perror("Server loop failed");
+        return ERROR;
+    }
     return SUCCESS;
 }

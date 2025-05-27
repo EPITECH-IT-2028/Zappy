@@ -8,8 +8,9 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include "server.h"
+#include "macro.h"
 
-int check_height(server_t *server, char **av, size_t *av_idx)
+int check_height(params_t *params, char **av, size_t *av_idx)
 {
     int height = atoi(av[*av_idx]);
 
@@ -20,6 +21,6 @@ int check_height(server_t *server, char **av, size_t *av_idx)
         return ERROR;
     }
     *av_idx += 1;
-    server->height = height;
+    params->height = height;
     return SUCCESS;
 }

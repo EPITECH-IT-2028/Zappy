@@ -8,8 +8,9 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include "server.h"
+#include "macro.h"
 
-int check_clients_nb(server_t *server, char **av, size_t *av_idx)
+int check_clients_nb(params_t *params, char **av, size_t *av_idx)
 {
     int client_nb = atoi(av[*av_idx]);
 
@@ -20,6 +21,6 @@ int check_clients_nb(server_t *server, char **av, size_t *av_idx)
         return ERROR;
     }
     *av_idx += 1;
-    server->client_per_team = client_nb;
+    params->client_per_team = client_nb;
     return SUCCESS;
 }

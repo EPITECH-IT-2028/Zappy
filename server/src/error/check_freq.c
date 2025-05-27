@@ -7,8 +7,9 @@
 
 #include <stdlib.h>
 #include "server.h"
+#include "macro.h"
 
-int check_freq(server_t *server, char **av, size_t *av_idx)
+int check_freq(params_t *params, char **av, size_t *av_idx)
 {
     int freq = atoi(av[*av_idx]);
 
@@ -16,6 +17,6 @@ int check_freq(server_t *server, char **av, size_t *av_idx)
         return ERROR;
     }
     *av_idx += 1;
-    server->frequence = freq;
+    params->frequence = freq;
     return SUCCESS;
 }

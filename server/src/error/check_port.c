@@ -8,8 +8,9 @@
 #include "server.h"
 #include <stddef.h>
 #include <stdlib.h>
+#include "macro.h"
 
-int check_port(server_t *server, char **av, size_t *av_idx)
+int check_port(params_t *params, char **av, size_t *av_idx)
 {
     int port = atoi(av[*av_idx]);
 
@@ -17,6 +18,6 @@ int check_port(server_t *server, char **av, size_t *av_idx)
         return ERROR;
     }
     *av_idx += 1;
-    server->port = port;
+    params->port = port;
     return SUCCESS;
 }
