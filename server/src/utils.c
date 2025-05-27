@@ -27,4 +27,3 @@ void remove_newline(char *buffer)
         buffer[len - 1] = '\0';
     }
 }
-

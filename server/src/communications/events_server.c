@@ -87,5 +87,5 @@ void handle_all_client(server_t *server)
             bytes = read(server->fds[i].fd, buffer, BUFFER_SIZE - 1);
             handle_client(server, i, buffer, bytes);
         }
-    };
+    }
 }

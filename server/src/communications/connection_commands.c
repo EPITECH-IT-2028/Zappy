@@ -24,7 +24,6 @@ bool has_team_name(server_t *server, const char *buffer)
     return false;
 }
 
-
 void connection_command(server_t *server, int index, char *buffer)
 {
     char response[BUFFER_SIZE];
