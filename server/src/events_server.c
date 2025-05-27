@@ -14,10 +14,11 @@ static
 void accept_client(server_t *server, int client_fd)
 {
     server->clients[server->nfds] = malloc(sizeof(client_t));
-    if (init_client_struct(server->clients[server->nfds]) == ERROR) {
-        perror("Failed to initialize client struct");
+    if (server->clients[server->nfds] == NULL) {
+        perror("Error while allocating new clients");
         return;
     }
+    init_client_struct(server->clients[server->nfds]);
     server->fds[server->nfds].fd = client_fd;
     server->fds[server->nfds].events = POLLIN;
     server->nfds++;

@@ -66,7 +66,7 @@ int check_server_all_set(params_t *params)
 static
 void print_error_message(void)
 {
-    fprintf(stderr, "Error: Invalid number of parameters.\n"
+    perror("Error: Invalid number of parameters.\n"
             "You need to have: -p, " "-x, -y, -n, -c, -f flags.\n"
             "Check with ./zappy_server -h to "
             "understand how to use it.\n");

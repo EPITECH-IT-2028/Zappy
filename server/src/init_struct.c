@@ -8,13 +8,12 @@
 #include "macro.h"
 #include "server.h"
 
-int init_client_struct(client_t *clients)
+void init_client_struct(client_t *clients)
 {
     clients->fd = -1;
     clients->addr_len = sizeof(clients->addr);
     clients->fd_open = -1;
     clients->connected = false;
-    return SUCCESS;
 }
 
 int init_server_struct(server_t *server, params_t *params)
@@ -28,6 +27,9 @@ int init_server_struct(server_t *server, params_t *params)
     server->addr_len = sizeof(server->addr);
     server->fds = malloc(sizeof(struct pollfd));
     server->clients = malloc(sizeof(client_t));
+    if (server->fds == NULL || server->clients == NULL) {
+        return ERROR;
+    }
     server->clients[SERVER_INDEX] = NULL;
     server->nfds = 1;
     server->fds[SERVER_INDEX].fd = server->fd;

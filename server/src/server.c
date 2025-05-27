@@ -61,7 +61,6 @@ int server(int ac, char **av)
     }
     init_params(params);
     if (check_params(params, ac, av) == ERROR) {
-        perror("Invalid parameters");
         return ERROR;
     }
     if (bind_server(server, params) == ERROR) {

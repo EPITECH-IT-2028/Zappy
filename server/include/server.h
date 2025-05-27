@@ -53,7 +53,7 @@ int server(int ac, char **av);
 int check_params(params_t *params, int ac, char **av);
 
 /* Struct initialization functions */
-int init_client_struct(client_t *clients);
+void init_client_struct(client_t *clients);
 int init_server_struct(server_t *server, params_t *params);
 void init_params(params_t *params);
 

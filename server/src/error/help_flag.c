@@ -10,9 +10,7 @@
 #include "server.h"
 #include "macro.h"
 
-int help_flag(__attribute__((unused)) params_t *params,
-    __attribute__((unused)) char **av,
-    __attribute__((unused)) size_t *av_idx)
+int help_flag(void)
 {
     printf(
         "USAGE: ./zappy_server -p port -x width -y "
