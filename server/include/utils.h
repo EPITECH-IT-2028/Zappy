@@ -10,4 +10,6 @@
 
 void send_code(int fd, const char *msg);
 
+void remove_newline(char *buffer);
+
 #endif /* UTILS_H_ */

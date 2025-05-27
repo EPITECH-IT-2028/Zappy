@@ -28,6 +28,7 @@ typedef struct params_s {
 
 typedef struct client_data_s {
     char *team_name;
+    bool is_graphic;
     int x;
     int y;
     int level;
@@ -64,17 +65,21 @@ int server(int ac, char **av);
 int check_params(params_t *params, int ac, char **av);
 
 /* Struct initialization functions */
-void init_client_struct(client_t *clients);
+void init_client_struct(client_t *clients, int fd);
 int init_server_struct(server_t *server, params_t *params);
 void init_params(params_t *params);
 
 /* Event handling functions */
 int get_new_connection(server_t *server);
+void handle_all_client(server_t *server);
 
 /* Resource management functions */
 void free_params(params_t *params);
 
 /* Function for multi-thread */
 void *game(void *arg);
+
+/* Connection commands */
+void connection_command(server_t *server, int index, char *buffer);
 
 #endif /* SERVER_H_ */

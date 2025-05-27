@@ -9,6 +9,8 @@
 #include "server.h"
 #include "utils.h"
 #include <sys/poll.h>
+#include <unistd.h>
+#include <string.h>
 
 static
 void accept_client(server_t *server, int client_fd)
@@ -18,7 +20,7 @@ void accept_client(server_t *server, int client_fd)
         perror("Error while allocating new clients");
         return;
     }
-    init_client_struct(server->clients[server->nfds]);
+    init_client_struct(server->clients[server->nfds], client_fd);
     server->fds[server->nfds].fd = client_fd;
     server->fds[server->nfds].events = POLLIN;
     server->nfds++;
@@ -46,4 +48,44 @@ int get_new_connection(server_t *server)
         printf("New connection\n");
     }
     return 0;
+}
+
+static
+void handle_client(server_t *server, int index, char *buffer, int bytes)
+{
+    const char *buffer_end = NULL;
+
+    if (bytes <= 0) {
+        close(server->fds[index].fd);
+        free(server->clients[index]);
+        server->clients[index] = NULL;
+        server->fds[index].fd = -1;
+        printf("Client disconnected\n");
+        return;
+    }
+    buffer[bytes] = '\0';
+    printf("Received from client %d: %s\n", index, buffer);
+    buffer_end = strchr(buffer, '\n');
+    if (buffer_end == NULL) {
+        send_code(server->clients[index]->fd, "ko");
+        return;
+    }
+    remove_newline(buffer);
+    if (server->clients[index]->data.team_name == NULL)
+        connection_command(server, index, buffer);
+}
+
+void handle_all_client(server_t *server)
+{
+    char buffer[BUFFER_SIZE];
+    int bytes = 0;
+
+    for (int i = 1; i < server->nfds; i++) {
+        if (server->fds[i].fd == -1)
+            continue;
+        if (server->fds[i].revents & POLLIN) {
+            bytes = read(server->fds[i].fd, buffer, BUFFER_SIZE - 1);
+            handle_client(server, i, buffer, bytes);
+        }
+    };
 }

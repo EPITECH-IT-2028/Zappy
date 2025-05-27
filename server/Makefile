@@ -6,10 +6,11 @@
 ##
 
 SRC = ./src/main.c \
-			./src/server.c \
+			./src/communications/server.c \
+			./src/communications/init_struct.c \
+			./src/communications/events_server.c \
+			./src/communications/connection_commands.c \
 			./src/utils.c \
-			./src/init_struct.c \
-			./src/events_server.c \
 			./src/memory.c \
 			./src/game/game.c
 

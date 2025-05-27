@@ -15,5 +15,6 @@
     #define MIN_Y 10
     #define MIN_CLIENT 1
     #define GRAPHIC_NAME "GRAPHIC"
+    #define BUFFER_SIZE 1024
 
 #endif /* MACRO_H_ */
