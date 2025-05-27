@@ -10,7 +10,8 @@ SRC = ./src/main.c \
 			./src/utils.c \
 			./src/init_struct.c \
 			./src/events_server.c \
-			./src/memory.c
+			./src/memory.c \
+			./src/game/game.c
 
 SRC += ./src/error/error_params.c
 SRC += ./src/error/check_clients_nb.c
