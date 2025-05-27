@@ -14,5 +14,6 @@
     #define MIN_X 10
     #define MIN_Y 10
     #define MIN_CLIENT 1
+    #define GRAPHIC_NAME "GRAPHIC"
 
 #endif /* MACRO_H_ */

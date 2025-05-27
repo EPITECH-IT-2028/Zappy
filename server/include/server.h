@@ -25,12 +25,20 @@ typedef struct params_s {
     int teams_count;
 } params_t;
 
+typedef struct client_data_s {
+    char *team_name;
+    int x;
+    int y;
+    int level;
+} client_data_t;
+
 typedef struct client_s {
     int fd;
     struct sockaddr_in addr;
     socklen_t addr_len;
     int fd_open;
     bool connected;
+    client_data_t data;
 } client_t;
 
 typedef struct server_s {
@@ -42,6 +50,7 @@ typedef struct server_s {
     struct pollfd *fds;
     int nfds;
     bool running;
+    params_t *params;
 } server_t;
 
 typedef struct command_s {
