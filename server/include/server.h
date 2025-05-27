@@ -10,6 +10,7 @@
 
     #include <stdio.h>
     #include <stdlib.h>
+    #include <stdatomic.h>
     #include <sys/socket.h>
     #include <netinet/in.h>
     #include <poll.h>
@@ -49,8 +50,9 @@ typedef struct server_s {
     char *path;
     struct pollfd *fds;
     int nfds;
-    bool running;
-    params_t *params;
+    params_t params;
+    atomic_bool running;
+    pthread_t game_thread;
 } server_t;
 
 typedef struct command_s {
@@ -71,5 +73,8 @@ int get_new_connection(server_t *server);
 
 /* Resource management functions */
 void free_params(params_t *params);
+
+/* Function for multi-thread */
+void *game(void *arg);
 
 #endif /* SERVER_H_ */
