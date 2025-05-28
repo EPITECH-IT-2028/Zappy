@@ -82,4 +82,13 @@ void *game(void *arg);
 /* Connection commands */
 void connection_command(server_t *server, int index, char *buffer);
 
+/* Parameters checks */
+int help_flag(void);
+int check_port(params_t *params, char **av, size_t *av_idx);
+int check_width(params_t *params, char **av, size_t *av_idx);
+int check_height(params_t *params, char **av, size_t *av_idx);
+int check_teams_names(params_t *params, char **av, size_t *av_idx);
+int check_clients_nb(params_t *params, char **av, size_t *av_idx);
+int check_freq(params_t *params, char **av, size_t *av_idx);
+
 #endif /* SERVER_H_ */
