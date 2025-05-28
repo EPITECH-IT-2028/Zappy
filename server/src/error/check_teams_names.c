@@ -13,6 +13,8 @@
 
 int check_teams_names(params_t *params, char **av, size_t *av_idx)
 {
+    if (!av || !av_idx)
+        return ERROR;
     for (; av[*av_idx] != NULL; *av_idx += 1) {
         if (av[*av_idx][0] == '-')
             break;
