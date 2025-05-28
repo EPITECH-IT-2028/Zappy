@@ -15,9 +15,5 @@ void *game(void *arg)
     server_t *server = (server_t *)arg;
 
     printf("Here is the port used: %d\n", server->params.port);
-    // while (server->running) {
-    //     printf("Hello World\n");
-    //     sleep(1);
-    // }
     return NULL;
 }
