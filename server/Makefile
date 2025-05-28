@@ -27,6 +27,12 @@ OBJ = $(SRC:.c=.o)
 TEST_SRC = $(filter-out ./src/main.c, $(SRC))
 TEST_SRC += ./tests/test_help_flag.c
 TEST_SRC += ./tests/test_check_clients_nb.c
+TEST_SRC += ./tests/test_check_freq.c
+TEST_SRC += ./tests/test_check_height.c
+TEST_SRC += ./tests/test_check_width.c
+TEST_SRC += ./tests/test_check_teams_names.c
+TEST_SRC += ./tests/test_check_port.c
+TEST_SRC += ./tests/test_error_params.c
 
 TEST_OBJ = $(TEST_SRC:.c=.test.o)
 
