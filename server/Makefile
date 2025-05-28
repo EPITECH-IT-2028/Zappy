@@ -28,13 +28,14 @@ TEST_SRC = $(filter-out ./src/main.c, $(SRC))
 TEST_SRC += ./tests/test_help_flag.c
 TEST_SRC += ./tests/test_check_clients_nb.c
 
-TEST_OBJ = $(TEST_SRC:.c=.o)
+TEST_OBJ = $(TEST_SRC:.c=.test.o)
 
 TEST_NAME = unit_tests
 TEST_CFLAGS = -W -Wall -Wextra -I./include -g --coverage -lcriterion
+TEST_SRC_FILE_NAME = %.test.o
 
 CC = gcc
-CFLAGS = -W -Wall -Wextra -I./include -g
+CFLAGS = -W -Wall -Wextra -I./include
 
 NAME = zappy_server
 
@@ -44,7 +45,15 @@ $(NAME): $(OBJ)
 	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ)
 	@echo "$(NAME) compiled successfully."
 
-$(TEST_OBJ): %.o: %.c
+%.o: %.c
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+# Rule for test object files (with coverage)
+$(TEST_SRC_FILE_NAME): %.c
+	@$(CC) $(TEST_CFLAGS) -c $< -o $@
+
+# Rule for test files in tests/ directory
+./tests/%.o: ./tests/%.c
 	@$(CC) $(TEST_CFLAGS) -c $< -o $@
 
 clean:
@@ -59,6 +68,7 @@ fclean: clean
 	@rm -f $(NAME)
 	@echo "$(NAME) cleaned."
 
+unit_tests: CFLAGS = $(TEST_CFLAGS)
 unit_tests: $(TEST_OBJ)
 	@$(CC) -o $(TEST_NAME) $(TEST_OBJ) $(TEST_CFLAGS)
 
