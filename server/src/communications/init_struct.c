@@ -8,12 +8,17 @@
 #include "macro.h"
 #include "server.h"
 
-void init_client_struct(client_t *clients)
+void init_client_struct(client_t *clients, int fd)
 {
-    clients->fd = -1;
+    clients->fd = fd;
     clients->addr_len = sizeof(clients->addr);
-    clients->fd_open = -1;
+    clients->fd_open = 0;
     clients->connected = false;
+    clients->data.team_name = NULL;
+    clients->data.x = 0;
+    clients->data.y = 0;
+    clients->data.level = 1;
+    clients->data.is_graphic = false;
 }
 
 int init_server_struct(server_t *server, params_t *params)

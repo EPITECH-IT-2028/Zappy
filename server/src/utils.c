@@ -18,3 +18,12 @@ void send_code(int fd, const char *msg)
     if (write(fd, buffer, strlen(buffer)) < 0)
         perror("write failed");
 }
+
+void remove_newline(char *buffer)
+{
+    int len = strlen(buffer);
+
+    if (len > 0 && buffer[len - 1] == '\n') {
+        buffer[len - 1] = '\0';
+    }
+}

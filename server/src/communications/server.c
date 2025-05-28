@@ -24,7 +24,7 @@ int server_loop(server_t *server)
             perror("get_new_connection failed");
             return ERROR;
         }
-        // handle_all_clients(server);
+        handle_all_client(server);
     }
     return SUCCESS;
 }
