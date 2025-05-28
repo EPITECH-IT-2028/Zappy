@@ -10,10 +10,14 @@ execute_process(
 )
 
 add_compile_options(-W -Wall -Wextra -std=c++20)
-add_executable(${PROJECT_NAME}
+
+set(SOURCES
   src/main.cpp
   src/raylib/Raylib.cpp
+  src/server/ServerSocket.cpp
 )
+
+add_executable(${PROJECT_NAME} ${SOURCES})
 
 find_package(raylib REQUIRED)
 find_package(raylib_cpp QUIET)
@@ -25,6 +29,14 @@ if (NOT raylib_cpp_FOUND)
         GIT_TAG v5.5.0
     )
     FetchContent_MakeAvailable(raylib_cpp)
+endif()
+
+if (DEBUG)
+  add_executable(${PROJECT_NAME}_debug ${SOURCES})
+
+  target_include_directories(${PROJECT_NAME}_debug PUBLIC src)
+  target_link_libraries(${PROJECT_NAME}_debug PRIVATE raylib raylib_cpp)
+  target_compile_options(${PROJECT_NAME}_debug PRIVATE -g -O0 -DDEBUG)
 endif()
 
 target_include_directories(${PROJECT_NAME} PUBLIC src)
