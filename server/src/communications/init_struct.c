@@ -7,6 +7,7 @@
 
 #include "macro.h"
 #include "server.h"
+#include <string.h>
 
 void init_client_struct(client_t *clients, int fd)
 {
@@ -21,6 +22,18 @@ void init_client_struct(client_t *clients, int fd)
     clients->data.is_graphic = false;
 }
 
+static
+int init_teams_struct(teams_t *teams, params_t *params)
+{
+    for (int i = 0; i < params->teams_count; i++) {
+        teams[i].name = strdup(params->teams_names[i]);
+        if (teams[i].name == NULL)
+            return ERROR;
+        teams[i].clients_count = 0;
+    }
+    return SUCCESS;
+}
+
 int init_server_struct(server_t *server, params_t *params)
 {
     server->fd = socket(AF_INET, SOCK_STREAM, 0);
@@ -32,9 +45,11 @@ int init_server_struct(server_t *server, params_t *params)
     server->addr_len = sizeof(server->addr);
     server->fds = malloc(sizeof(struct pollfd));
     server->clients = malloc(sizeof(client_t));
-    if (server->fds == NULL || server->clients == NULL) {
+    server->teams = malloc(sizeof(teams_t) * params->teams_count);
+    if (server->fds == NULL || server->clients == NULL ||
+        server->teams == NULL)
         return ERROR;
-    }
+    init_teams_struct(server->teams, params);
     server->clients[SERVER_INDEX] = NULL;
     server->nfds = 1;
     server->fds[SERVER_INDEX].fd = server->fd;
