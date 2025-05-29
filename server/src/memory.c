@@ -8,6 +8,7 @@
 #include "server.h"
 #include <stddef.h>
 #include <stdlib.h>
+#include <pthread.h>
 
 void free_params(params_t *params)
 {
@@ -17,4 +18,23 @@ void free_params(params_t *params)
         }
         free(params->teams_names);
     }
+}
+
+void free_server(server_t *server)
+{
+    if (server == NULL)
+        return;
+    if (server->game_thread != NULL)
+        pthread_join(server->game_thread, NULL);
+    for (int i = 0; i < server->nfds; i += 1) {
+        if (server->clients[i] != NULL) {
+            free(server->clients[i]->data.team_name);
+            free(server->clients[i]);
+        }
+    }
+    free(server->clients);
+    free_params(&server->params);
+    free(server->teams);
+    free(server->fds);
+    free(server);
 }

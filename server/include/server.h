@@ -81,6 +81,7 @@ void handle_all_client(server_t *server);
 
 /* Resource management functions */
 void free_params(params_t *params);
+void free_server(server_t *server);
 
 /* Function for multi-thread */
 void *game(void *arg);

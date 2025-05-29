@@ -47,9 +47,9 @@ int init_server_struct(server_t *server, params_t *params)
     server->clients = malloc(sizeof(client_t));
     server->teams = malloc(sizeof(teams_t) * params->teams_count);
     if (server->fds == NULL || server->clients == NULL ||
-        server->teams == NULL)
+        server->teams == NULL ||
+        init_teams_struct(server->teams, params) == ERROR)
         return ERROR;
-    init_teams_struct(server->teams, params);
     server->clients[SERVER_INDEX] = NULL;
     server->nfds = 1;
     server->fds[SERVER_INDEX].fd = server->fd;
