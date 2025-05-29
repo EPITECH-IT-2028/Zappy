@@ -52,16 +52,29 @@ int get_new_connection(server_t *server)
 }
 
 static
+void remove_player(server_t *server, int index)
+{
+    int team_index = find_team_index(server,
+        server->clients[index]->data.team_name);
+
+    if (!server->clients[index]->data.is_graphic &&
+        team_index != ERROR && server->teams[team_index].clients_count > 0) {
+        server->teams[team_index].clients_count--;
+    }
+    close(server->fds[index].fd);
+    free(server->clients[index]);
+    server->clients[index] = NULL;
+    server->fds[index].fd = -1;
+    printf("Client %d disconnected\n", index);
+}
+
+static
 void handle_client(server_t *server, int index, char *buffer, int bytes)
 {
     const char *buffer_end = NULL;
 
     if (bytes <= 0) {
-        close(server->fds[index].fd);
-        free(server->clients[index]);
-        server->clients[index] = NULL;
-        server->fds[index].fd = -1;
-        printf("Client disconnected\n");
+        remove_player(server, index);
         return;
     }
     buffer[bytes] = '\0';

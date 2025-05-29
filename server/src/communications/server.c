@@ -70,22 +70,23 @@ int server(int ac, char **av)
 {
     server_t *server = malloc(sizeof(server_t));
 
-    if (server == NULL) {
-        perror("Failed to allocate memory for server or params");
+    if (server == NULL)
+        return ERROR;
+    init_params(&server->params);
+    if (check_params(&server->params, ac, av) == ERROR) {
+        free_server(server);
         return ERROR;
     }
-    init_params(&server->params);
-    if (check_params(&server->params, ac, av) == ERROR)
-        return ERROR;
     if (bind_server(server, &server->params) == ERROR) {
-        perror("Failed to bind server");
+        free_server(server);
         return ERROR;
     }
     if (game_loop(server) == ERROR)
         return ERROR;
     if (server_loop(server) == ERROR) {
-        perror("Server loop failed");
+        free_server(server);
         return ERROR;
     }
+    free_server(server);
     return SUCCESS;
 }

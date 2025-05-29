@@ -86,4 +86,7 @@ tests_run: unit_tests
 
 re: fclean all
 
-.PHONY: all clean fclean re unit_tests tests_run
+debug: CFLAGS += -g
+debug: $(NAME)
+
+.PHONY: all clean fclean re unit_tests tests_run debug
