@@ -24,8 +24,7 @@ void free_server(server_t *server)
 {
     if (server == NULL)
         return;
-    if (server->game_thread != NULL)
-        pthread_join(server->game_thread, NULL);
+    pthread_exit(&server->threads.game_thread);
     for (int i = 0; i < server->nfds; i += 1) {
         if (server->clients[i] != NULL) {
             free(server->clients[i]->data.team_name);

@@ -19,7 +19,7 @@ void *game(void *arg)
 
     while (server->running) {
         if (queue_pop_request(server, &request) == SUCCESS) {
-            response.client_fd = request.client_fd;
+            response.client = request.client;
             // NEED TO ADD PROCESS TO HANDLE ALL CLIENTS COMMANDS
             // BY USING SERVER, RESPONSE AND REQUEST
             if (queue_add_response(server, &response) == ERROR) {

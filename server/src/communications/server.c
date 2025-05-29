@@ -20,7 +20,7 @@ void handle_request(server_t *server)
     response_t response;
     
     if (queue_pop_response(server, &response) == SUCCESS) {
-        send_code(response.client_fd, response.response);   
+        send_code(response.client->fd, response.response);   
     }
 }
 

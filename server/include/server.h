@@ -53,15 +53,13 @@ typedef struct threads_s {
 } threads_t;
 
 typedef struct request_s {
-    int client_fd;
+    client_t *client;
     char request[BUFFER_SIZE];
-    int response_len;
 } request_t;
 
 typedef struct response_s {
-    int client_fd;
+    client_t *client;
     char response[BUFFER_SIZE];
-    int response_len;
 } response_t;
 
 typedef struct queue_response_s {
@@ -108,7 +106,6 @@ int check_params(params_t *params, int ac, char **av);
 void init_client_struct(client_t *clients, int fd);
 int init_server_struct(server_t *server, params_t *params);
 void init_params(params_t *params);
-void init_threads(server_t *server);
 
 /* Event handling functions */
 int get_new_connection(server_t *server);
