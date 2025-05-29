@@ -26,6 +26,11 @@ typedef struct params_s {
     int teams_count;
 } params_t;
 
+typedef struct teams_s {
+    char *name;
+    int clients_count;
+} teams_t;
+
 typedef struct client_data_s {
     char *team_name;
     bool is_graphic;
@@ -52,6 +57,7 @@ typedef struct server_s {
     struct pollfd *fds;
     int nfds;
     params_t params;
+    teams_t *teams;
     atomic_bool running;
     pthread_t game_thread;
 } server_t;
@@ -75,6 +81,7 @@ void handle_all_client(server_t *server);
 
 /* Resource management functions */
 void free_params(params_t *params);
+void free_server(server_t *server);
 
 /* Function for multi-thread */
 void *game(void *arg);
