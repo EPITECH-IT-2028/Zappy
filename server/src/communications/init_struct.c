@@ -11,6 +11,18 @@
 #include <pthread.h>
 #include <stdlib.h>
 
+static
+void init_client_inventory(client_data_t *cd)
+{
+    cd->inventory.food = 0;
+    cd->inventory.linemate = 0;
+    cd->inventory.deraumere = 0;
+    cd->inventory.sibur = 0;
+    cd->inventory.mendiane = 0;
+    cd->inventory.phiras = 0;
+    cd->inventory.thystame = 0;
+}
+
 void init_client_struct(client_t *clients, int fd)
 {
     clients->fd = fd;
@@ -22,6 +34,7 @@ void init_client_struct(client_t *clients, int fd)
     clients->data.y = 0;
     clients->data.level = 1;
     clients->data.is_graphic = false;
+    init_client_inventory(&clients->data);
 }
 
 static
@@ -31,7 +44,7 @@ void init_queue_request_struct(queue_request_t *qr)
     qr->tail = 0;
     qr->len = 0;
     pthread_mutex_init(&qr->mutex, NULL);
-    for (size_t i = 0; i < QUEUE_MAX_SIZE; i ++) {
+    for (size_t i = 0; i < QUEUE_MAX_SIZE; i++) {
         qr->queue[i].client = NULL;
         memset(qr->queue[i].request, 0, BUFFER_SIZE);
     }
@@ -44,7 +57,7 @@ void init_queue_response_struct(queue_response_t *qr)
     qr->tail = 0;
     qr->len = 0;
     pthread_mutex_init(&qr->mutex, NULL);
-    for (size_t i = 0; i < QUEUE_MAX_SIZE; i ++) {
+    for (size_t i = 0; i < QUEUE_MAX_SIZE; i++) {
         qr->queue[i].client = NULL;
         memset(qr->queue[i].response, 0, BUFFER_SIZE);
     }

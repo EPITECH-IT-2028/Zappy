@@ -14,6 +14,7 @@
     #include <netinet/in.h>
     #include <poll.h>
     #include <stdbool.h>
+    #include "inventory.h"
     #include "macro.h"
 
 typedef struct params_s {
@@ -37,6 +38,7 @@ typedef struct client_data_s {
     int x;
     int y;
     int level;
+    inventory_t inventory;
 } client_data_t;
 
 typedef struct client_s {
