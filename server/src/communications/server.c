@@ -72,7 +72,6 @@ int server(int ac, char **av)
 
     if (server == NULL)
         return ERROR;
-    init_params(&server->params);
     if (check_params(&server->params, ac, av) == ERROR) {
         free_server(server);
         return ERROR;
@@ -81,9 +80,7 @@ int server(int ac, char **av)
         free_server(server);
         return ERROR;
     }
-    if (game_loop(server) == ERROR)
-        return ERROR;
-    if (server_loop(server) == ERROR) {
+    if (game_loop(server) == ERROR || server_loop(server) == ERROR) {
         free_server(server);
         return ERROR;
     }
