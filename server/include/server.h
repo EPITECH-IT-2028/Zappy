@@ -68,7 +68,7 @@ typedef struct queue_response_s {
     int tail;
     int len;
     pthread_mutex_t mutex;
-} queue_reponse_t;
+} queue_response_t;
 
 typedef struct queue_request_s {
     request_t queue[QUEUE_MAX_SIZE];
@@ -89,7 +89,7 @@ typedef struct server_s {
     params_t params;
     teams_t *teams;
     atomic_bool running;
-    queue_reponse_t queue_response;
+    queue_response_t queue_response;
     queue_request_t queue_request;
     threads_t threads;
 } server_t;

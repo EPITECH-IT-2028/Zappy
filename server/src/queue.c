@@ -26,7 +26,7 @@ int queue_add_request(server_t *server, request_t *request)
       pthread_mutex_unlock(&server->queue_request.mutex);
       return ERROR;
     }
-    server->queue_request.queue[server->queue_request.len] = *request;
+    server->queue_request.queue[server->queue_request.tail] = *request;
     server->queue_request.tail =
         (server->queue_request.tail + 1) % QUEUE_MAX_SIZE;
     server->queue_request.len += 1;
@@ -79,7 +79,7 @@ int queue_add_response(server_t *server, response_t *response)
       pthread_mutex_unlock(&server->queue_response.mutex);
       return ERROR;
     }
-    server->queue_response.queue[server->queue_response.len] = *response;
+    server->queue_response.queue[server->queue_response.tail] = *response;
     server->queue_response.tail =
         (server->queue_response.tail + 1) % QUEUE_MAX_SIZE;
     server->queue_response.len += 1;
