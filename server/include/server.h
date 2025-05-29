@@ -8,14 +8,13 @@
 #ifndef SERVER_H_
     #define SERVER_H_
 
-    #include "macro.h"
-#include <stdio.h>
-    #include <stdlib.h>
+    #include <stdio.h>
     #include <stdatomic.h>
     #include <sys/socket.h>
     #include <netinet/in.h>
     #include <poll.h>
     #include <stdbool.h>
+    #include "macro.h"
 
 typedef struct params_s {
     int port;
@@ -46,20 +45,35 @@ typedef struct client_s {
 
 typedef struct threads_s {
     pthread_t game_thread;
-    pthread_mutex_t data_mutex;
-    pthread_cond_t request_mutex;
-    pthread_cond_t response_mutex;
 } threads_t;
 
 typedef struct request_s {
     int client_fd;
     char request[BUFFER_SIZE];
+    int response_len;
 } request_t;
 
-typedef struct respons_s {
+typedef struct response_s {
     int client_fd;
     char response[BUFFER_SIZE];
+    int response_len;
 } response_t;
+
+typedef struct queue_response_s {
+    response_t queue[QUEUE_MAX_SIZE];
+    int head;
+    int tail;
+    int len;
+    pthread_mutex_t mutex;
+} queue_reponse_t;
+
+typedef struct queue_request_s {
+    request_t queue[QUEUE_MAX_SIZE];
+    int head;
+    int tail;
+    int len;
+    pthread_mutex_t mutex;
+} queue_request_t;
 
 typedef struct server_s {
     int fd;
@@ -71,6 +85,8 @@ typedef struct server_s {
     int nfds;
     params_t params;
     atomic_bool running;
+    queue_reponse_t queue_response;
+    queue_request_t queue_request;
     threads_t threads;
 } server_t;
 
@@ -110,5 +126,11 @@ int check_height(params_t *params, char **av, size_t *av_idx);
 int check_teams_names(params_t *params, char **av, size_t *av_idx);
 int check_clients_nb(params_t *params, char **av, size_t *av_idx);
 int check_freq(params_t *params, char **av, size_t *av_idx);
+
+/* Queues functions */
+int queue_add_request(server_t *server, request_t *request);
+int queue_add_response(server_t *server, response_t *response);
+int queue_pop_request(server_t *server, request_t *request);
+int queue_pop_response(server_t *server, response_t *response);
 
 #endif /* SERVER_H_ */

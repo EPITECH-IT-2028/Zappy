@@ -7,10 +7,22 @@
 
 #include "server.h"
 #include "macro.h"
+#include "utils.h"
 #include <pthread.h>
 #include <stddef.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
+
+static
+void handle_request(server_t *server)
+{
+    response_t response;
+    
+    if (queue_pop_response(server, &response) == SUCCESS) {
+        send_code(response.client_fd, response.response);   
+    }
+}
 
 static
 int server_loop(server_t *server)
@@ -25,6 +37,7 @@ int server_loop(server_t *server)
             return ERROR;
         }
         handle_all_client(server);
+        handle_request(server);
     }
     return SUCCESS;
 }

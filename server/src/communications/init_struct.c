@@ -58,4 +58,6 @@ void init_params(params_t *params)
 void init_threads(server_t *server)
 {
     pthread_mutex_init(&server->threads.data_mutex, NULL);
+    pthread_cond_init(&server->threads.request_mutex, NULL); 
+    pthread_cond_init(&server->threads.response_mutex, NULL); 
 }

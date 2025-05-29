@@ -14,9 +14,20 @@
 void *game(void *arg)
 {
     server_t *server = (server_t *)arg;
+    request_t request;
+    response_t response;
 
     while (server->running) {
-        pthread_mutex_lock(&server->threads.data_mutex);
+        if (queue_pop_request(server, &request) == SUCCESS) {
+            response.client_fd = request.client_fd;
+            // NEED TO ADD PROCESS TO HANDLE ALL CLIENTS COMMANDS
+            // BY USING SERVER, RESPONSE AND REQUEST
+            if (queue_add_response(server, &response) == ERROR) {
+                fprintf(stderr, "Error: Queue was full request will"
+                " not be sent.\n"
+                );
+            }
+        }
     }
     return NULL;
 }

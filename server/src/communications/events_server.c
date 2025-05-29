@@ -11,6 +11,7 @@
 #include <sys/poll.h>
 #include <unistd.h>
 #include <string.h>
+#include <stdlib.h>
 
 static
 void accept_client(server_t *server, int client_fd)
