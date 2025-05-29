@@ -7,6 +7,7 @@
 
 #include "macro.h"
 #include "server.h"
+#include <pthread.h>
 
 void init_client_struct(client_t *clients, int fd)
 {
@@ -52,4 +53,9 @@ void init_params(params_t *params)
     params->height = -1;
     params->width = -1;
     params->port = -1;
+}
+
+void init_threads(server_t *server)
+{
+    pthread_mutex_init(&server->threads.data_mutex, NULL);
 }

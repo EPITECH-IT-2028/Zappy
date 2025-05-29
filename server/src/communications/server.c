@@ -68,11 +68,11 @@ int server(int ac, char **av)
         perror("Failed to bind server");
         return ERROR;
     }
-    pthread_create(&server->game_thread, NULL, game, server);
+    if (game_loop(server) == ERROR)
+        return ERROR;
     if (server_loop(server) == ERROR) {
         perror("Server loop failed");
         return ERROR;
     }
-    pthread_join(server->game_thread, NULL);
     return SUCCESS;
 }

@@ -8,7 +8,8 @@
 #ifndef SERVER_H_
     #define SERVER_H_
 
-    #include <stdio.h>
+    #include "macro.h"
+#include <stdio.h>
     #include <stdlib.h>
     #include <stdatomic.h>
     #include <sys/socket.h>
@@ -43,6 +44,23 @@ typedef struct client_s {
     client_data_t data;
 } client_t;
 
+typedef struct threads_s {
+    pthread_t game_thread;
+    pthread_mutex_t data_mutex;
+    pthread_cond_t request_mutex;
+    pthread_cond_t response_mutex;
+} threads_t;
+
+typedef struct request_s {
+    int client_fd;
+    char request[BUFFER_SIZE];
+} request_t;
+
+typedef struct respons_s {
+    int client_fd;
+    char response[BUFFER_SIZE];
+} response_t;
+
 typedef struct server_s {
     int fd;
     struct sockaddr_in addr;
@@ -53,7 +71,7 @@ typedef struct server_s {
     int nfds;
     params_t params;
     atomic_bool running;
-    pthread_t game_thread;
+    threads_t threads;
 } server_t;
 
 typedef struct command_s {
@@ -68,6 +86,7 @@ int check_params(params_t *params, int ac, char **av);
 void init_client_struct(client_t *clients, int fd);
 int init_server_struct(server_t *server, params_t *params);
 void init_params(params_t *params);
+void init_threads(server_t *server);
 
 /* Event handling functions */
 int get_new_connection(server_t *server);
@@ -78,6 +97,7 @@ void free_params(params_t *params);
 
 /* Function for multi-thread */
 void *game(void *arg);
+int game_loop(server_t *server);
 
 /* Connection commands */
 void connection_command(server_t *server, int index, char *buffer);
