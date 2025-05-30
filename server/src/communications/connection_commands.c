@@ -42,7 +42,7 @@ int send_ai(server_t *server, int index, char *buffer, char *response)
         return ERROR;
     remaining_slots = server->params.client_per_team -
         server->teams[team_index].clients_count;
-    snprintf(response, BUFFER_SIZE,"%d\n%d %d", remaining_slots,
+    snprintf(response, BUFFER_SIZE, "%d\n%d %d", remaining_slots,
         server->params.width, server->params.height);
     return SUCCESS;
 }

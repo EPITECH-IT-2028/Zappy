@@ -10,6 +10,7 @@
 #include <pthread.h>
 #include <stdio.h>
 #include <unistd.h>
+#include <string.h>
 
 void *game(void *arg)
 {
@@ -22,6 +23,7 @@ void *game(void *arg)
             response.client = request.client;
             // NEED TO ADD PROCESS TO HANDLE ALL CLIENTS COMMANDS
             // BY USING SERVER, RESPONSE AND REQUEST
+            strcpy(response.response, request.request);
             if (queue_add_response(server, &response) == ERROR) {
                 fprintf(stderr, "Error: Queue was full request will"
                 " not be sent.\n"

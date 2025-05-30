@@ -22,6 +22,8 @@ void init_client_struct(client_t *clients, int fd)
     clients->data.y = 0;
     clients->data.level = 1;
     clients->data.is_graphic = false;
+    clients->data.pending_requests = 0;
+    pthread_mutex_init(&clients->data.pending_mutex, NULL);
 }
 
 static
@@ -31,7 +33,7 @@ void init_queue_request_struct(queue_request_t *qr)
     qr->tail = 0;
     qr->len = 0;
     pthread_mutex_init(&qr->mutex, NULL);
-    for (size_t i = 0; i < QUEUE_MAX_SIZE; i ++) {
+    for (size_t i = 0; i < QUEUE_MAX_SIZE; i++) {
         qr->queue[i].client = NULL;
         memset(qr->queue[i].request, 0, BUFFER_SIZE);
     }
@@ -44,7 +46,7 @@ void init_queue_response_struct(queue_response_t *qr)
     qr->tail = 0;
     qr->len = 0;
     pthread_mutex_init(&qr->mutex, NULL);
-    for (size_t i = 0; i < QUEUE_MAX_SIZE; i ++) {
+    for (size_t i = 0; i < QUEUE_MAX_SIZE; i++) {
         qr->queue[i].client = NULL;
         memset(qr->queue[i].response, 0, BUFFER_SIZE);
     }

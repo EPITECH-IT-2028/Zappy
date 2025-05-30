@@ -87,6 +87,10 @@ void handle_client(server_t *server, int index, char *buffer, int bytes)
     remove_newline(buffer);
     if (server->clients[index]->data.team_name == NULL)
         connection_command(server, index, buffer);
+    else if (server->clients[index]->data.is_graphic)
+        send_code(server->clients[index]->fd, "ko");
+    else
+        player_command(server, index, buffer);
 }
 
 void handle_all_client(server_t *server)
