@@ -37,6 +37,8 @@ typedef struct client_data_s {
     int x;
     int y;
     int level;
+    int pending_requests; 
+    pthread_mutex_t pending_mutex;
 } client_data_t;
 
 typedef struct client_s {
@@ -121,6 +123,7 @@ int game_loop(server_t *server);
 
 /* Connection commands */
 void connection_command(server_t *server, int index, char *buffer);
+void player_command(server_t *server, int index, const char *buffer);
 
 /* Parameters checks */
 int help_flag(void);

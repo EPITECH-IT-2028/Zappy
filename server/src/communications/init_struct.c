@@ -22,6 +22,8 @@ void init_client_struct(client_t *clients, int fd)
     clients->data.y = 0;
     clients->data.level = 1;
     clients->data.is_graphic = false;
+    clients->data.pending_requests = 0;
+    pthread_mutex_init(&clients->data.pending_mutex, NULL);
 }
 
 static
