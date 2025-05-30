@@ -16,5 +16,6 @@
     #define MIN_CLIENT 1
     #define GRAPHIC_NAME "GRAPHIC"
     #define BUFFER_SIZE 1024
+    #define QUEUE_MAX_SIZE 100
 
 #endif /* MACRO_H_ */

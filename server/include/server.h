@@ -9,12 +9,12 @@
     #define SERVER_H_
 
     #include <stdio.h>
-    #include <stdlib.h>
     #include <stdatomic.h>
     #include <sys/socket.h>
     #include <netinet/in.h>
     #include <poll.h>
     #include <stdbool.h>
+    #include "macro.h"
 
 typedef struct params_s {
     int port;
@@ -48,6 +48,36 @@ typedef struct client_s {
     client_data_t data;
 } client_t;
 
+typedef struct threads_s {
+    pthread_t game_thread;
+} threads_t;
+
+typedef struct request_s {
+    client_t *client;
+    char request[BUFFER_SIZE];
+} request_t;
+
+typedef struct response_s {
+    client_t *client;
+    char response[BUFFER_SIZE];
+} response_t;
+
+typedef struct queue_response_s {
+    response_t queue[QUEUE_MAX_SIZE];
+    int head;
+    int tail;
+    int len;
+    pthread_mutex_t mutex;
+} queue_response_t;
+
+typedef struct queue_request_s {
+    request_t queue[QUEUE_MAX_SIZE];
+    int head;
+    int tail;
+    int len;
+    pthread_mutex_t mutex;
+} queue_request_t;
+
 typedef struct server_s {
     int fd;
     struct sockaddr_in addr;
@@ -59,7 +89,9 @@ typedef struct server_s {
     params_t params;
     teams_t *teams;
     atomic_bool running;
-    pthread_t game_thread;
+    queue_response_t queue_response;
+    queue_request_t queue_request;
+    threads_t threads;
 } server_t;
 
 typedef struct command_s {
@@ -85,6 +117,7 @@ void free_server(server_t *server);
 
 /* Function for multi-thread */
 void *game(void *arg);
+int game_loop(server_t *server);
 
 /* Connection commands */
 void connection_command(server_t *server, int index, char *buffer);
@@ -97,5 +130,11 @@ int check_height(params_t *params, char **av, size_t *av_idx);
 int check_teams_names(params_t *params, char **av, size_t *av_idx);
 int check_clients_nb(params_t *params, char **av, size_t *av_idx);
 int check_freq(params_t *params, char **av, size_t *av_idx);
+
+/* Queues functions */
+int queue_add_request(server_t *server, request_t *request);
+int queue_add_response(server_t *server, response_t *response);
+int queue_pop_request(server_t *server, request_t *request);
+int queue_pop_response(server_t *server, response_t *response);
 
 #endif /* SERVER_H_ */

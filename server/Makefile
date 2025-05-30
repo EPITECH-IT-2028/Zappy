@@ -21,6 +21,7 @@ SRC += ./src/error/check_teams_names.c
 SRC += ./src/error/check_freq.c
 SRC += ./src/error/check_port.c
 SRC += ./src/error/help_flag.c
+SRC += ./src/queue.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -41,7 +42,7 @@ TEST_CFLAGS = -W -Wall -Wextra -I./include -g --coverage -lcriterion
 TEST_SRC_FILE_NAME = %.test.o
 
 CC = gcc
-CFLAGS = -W -Wall -Wextra -I./include
+CFLAGS = -W -Wall -Wextra -I./include -lpthread
 
 NAME = zappy_server
 

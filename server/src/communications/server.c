@@ -7,10 +7,22 @@
 
 #include "server.h"
 #include "macro.h"
+#include "utils.h"
 #include <pthread.h>
 #include <stddef.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
+
+static
+void handle_request(server_t *server)
+{
+    response_t response;
+    
+    if (queue_pop_response(server, &response) == SUCCESS) {
+        send_code(response.client->fd, response.response);   
+    }
+}
 
 static
 int server_loop(server_t *server)
@@ -25,6 +37,7 @@ int server_loop(server_t *server)
             return ERROR;
         }
         handle_all_client(server);
+        handle_request(server);
     }
     return SUCCESS;
 }
@@ -59,7 +72,6 @@ int server(int ac, char **av)
 
     if (server == NULL)
         return ERROR;
-    init_params(&server->params);
     if (check_params(&server->params, ac, av) == ERROR) {
         free_server(server);
         return ERROR;
@@ -68,8 +80,7 @@ int server(int ac, char **av)
         free_server(server);
         return ERROR;
     }
-    pthread_create(&server->game_thread, NULL, game, server);
-    if (server_loop(server) == ERROR) {
+    if (game_loop(server) == ERROR || server_loop(server) == ERROR) {
         free_server(server);
         return ERROR;
     }

@@ -8,6 +8,8 @@
 #include "macro.h"
 #include "server.h"
 #include <string.h>
+#include <pthread.h>
+#include <stdlib.h>
 
 void init_client_struct(client_t *clients, int fd)
 {
@@ -23,6 +25,32 @@ void init_client_struct(client_t *clients, int fd)
 }
 
 static
+void init_queue_request_struct(queue_request_t *qr)
+{
+    qr->head = 0;
+    qr->tail = 0;
+    qr->len = 0;
+    pthread_mutex_init(&qr->mutex, NULL);
+    for (size_t i = 0; i < QUEUE_MAX_SIZE; i ++) {
+        qr->queue[i].client = NULL;
+        memset(qr->queue[i].request, 0, BUFFER_SIZE);
+    }
+}
+
+static
+void init_queue_response_struct(queue_response_t *qr)
+{
+    qr->head = 0;
+    qr->tail = 0;
+    qr->len = 0;
+    pthread_mutex_init(&qr->mutex, NULL);
+    for (size_t i = 0; i < QUEUE_MAX_SIZE; i ++) {
+        qr->queue[i].client = NULL;
+        memset(qr->queue[i].response, 0, BUFFER_SIZE);
+    }
+}
+
+static
 int init_teams_struct(teams_t *teams, params_t *params)
 {
     for (int i = 0; i < params->teams_count; i++) {
@@ -31,6 +59,14 @@ int init_teams_struct(teams_t *teams, params_t *params)
             return ERROR;
         teams[i].clients_count = 0;
     }
+    return SUCCESS;
+}
+
+static
+int init_queues(server_t *server)
+{
+    init_queue_request_struct(&server->queue_request);
+    init_queue_response_struct(&server->queue_response);
     return SUCCESS;
 }
 
@@ -47,7 +83,7 @@ int init_server_struct(server_t *server, params_t *params)
     server->clients = malloc(sizeof(client_t));
     server->teams = malloc(sizeof(teams_t) * params->teams_count);
     if (server->fds == NULL || server->clients == NULL ||
-        server->teams == NULL ||
+        server->teams == NULL || init_queues(server) == ERROR ||
         init_teams_struct(server->teams, params) == ERROR)
         return ERROR;
     server->clients[SERVER_INDEX] = NULL;
