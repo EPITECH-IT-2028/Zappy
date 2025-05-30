@@ -17,7 +17,7 @@
 ** @param server Pointer to the server structure.
 ** @param request Pointer of the request.
 **
-** @return SUCCESS (0) if successful, ERROR (-1) if the queue is full.
+** @return SUCCESS (0) if successful, ERROR (84) if the queue is full.
 */
 int queue_add_request(server_t *server, request_t *request)
 {
@@ -42,7 +42,7 @@ int queue_add_request(server_t *server, request_t *request)
 ** @param server Pointer to the server structure.
 ** @param request Pointer to store the popped request.
 **
-** @return SUCCESS (0) if successful, ERROR (-1) if the queue is empty.
+** @return SUCCESS (0) if successful, ERROR (84) if the queue is empty.
 */
 int queue_pop_request(server_t *server, request_t *request)
 {
