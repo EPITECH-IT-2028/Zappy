@@ -26,6 +26,18 @@ typedef struct params_s {
     int teams_count;
 } params_t;
 
+typedef struct map_s {
+    int food;
+    int linemate;
+    int deraumere;
+    int sibur;
+    int mendiane;
+    int phiras;
+    int thystame;
+    int players;
+    int eggs;
+} map_t;
+
 typedef struct teams_s {
     char *name;
     int clients_count;
@@ -94,6 +106,7 @@ typedef struct server_s {
     queue_response_t queue_response;
     queue_request_t queue_request;
     threads_t threads;
+    map_t **map;
 } server_t;
 
 typedef struct command_s {
@@ -139,5 +152,8 @@ int queue_add_request(server_t *server, request_t *request);
 int queue_add_response(server_t *server, response_t *response);
 int queue_pop_request(server_t *server, request_t *request);
 int queue_pop_response(server_t *server, response_t *response);
+
+/* Map functions */
+int place_resources(server_t *server);
 
 #endif /* SERVER_H_ */
