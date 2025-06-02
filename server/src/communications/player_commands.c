@@ -16,7 +16,7 @@ bool check_commands(const char *buffer)
     static const char *commands[] = {
         "Forward", "Right", "Left", "Look", "Inventory",
         "Broadcast", "Connect_nbr", "Fork", "Eject",
-        "Take", "Set", "Incantation"
+        "Take", "Set", "Incantation", NULL
     };
 
     for (int i = 0; commands[i] != NULL; i++) {
@@ -41,7 +41,7 @@ void player_command(server_t *server, int index, const char *buffer)
         send_code(client->fd, "ko");
     } else {
         request.client = client;
-        strncpy(request.request, buffer, BUFFER_SIZE - 1);
+        snprintf(request.request, BUFFER_SIZE, "%s", buffer);
         queue_add_request(server, &request);
     }
 }
