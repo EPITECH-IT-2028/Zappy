@@ -77,7 +77,6 @@ void init_queue_response_struct(queue_response_t *qr)
     }
 }
 
-
 static
 int init_queues(server_t *server)
 {

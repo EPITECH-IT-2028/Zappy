@@ -51,7 +51,7 @@ typedef struct client_data_s {
     int x;
     int y;
     int level;
-    int pending_requests; 
+    int pending_requests;
     pthread_mutex_t pending_mutex;
     inventory_t inventory;
 } client_data_t;
