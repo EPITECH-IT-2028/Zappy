@@ -41,6 +41,21 @@ void add_resources(server_t *server, int total, int type)
     }
 }
 
+static
+void add_eggs(server_t *server)
+{
+    int x = 0;
+    int y = 0;
+    int nbr_of_clients_max = server->params.client_per_team *
+        server->params.teams_count;
+
+    for (int i = 0; i < nbr_of_clients_max; i++) {
+        x = rand() % server->params.width;
+        y = rand() % server->params.height;
+        server->map[x][y].eggs++;
+    }
+}
+
 int place_resources(server_t *server)
 {
     const float table[TOTAL_RESOURCES] = {
@@ -51,5 +66,6 @@ int place_resources(server_t *server)
     for (int i = 0; i < TOTAL_RESOURCES; i++) {
         add_resources(server, map_size * table[i], i);
     }
+    add_eggs(server);
     return SUCCESS;
 }
