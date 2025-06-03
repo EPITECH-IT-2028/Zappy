@@ -17,7 +17,7 @@
 ** @param server Pointer to the server structure.
 ** @param request Pointer of the request.
 **
-** @return SUCCESS (0) if successful, ERROR (-1) if the queue is full.
+** @return SUCCESS (0) if successful, ERROR (84) if the queue is full.
 */
 int queue_add_request(server_t *server, request_t *request)
 {
@@ -26,6 +26,9 @@ int queue_add_request(server_t *server, request_t *request)
         pthread_mutex_unlock(&server->queue_request.mutex);
         return ERROR;
     }
+    pthread_mutex_lock(&request->client->data.pending_mutex);
+    request->client->data.pending_requests++;
+    pthread_mutex_unlock(&request->client->data.pending_mutex);
     server->queue_request.queue[server->queue_request.tail] = *request;
     server->queue_request.tail =
         (server->queue_request.tail + 1) % QUEUE_MAX_SIZE;
@@ -42,7 +45,7 @@ int queue_add_request(server_t *server, request_t *request)
 ** @param server Pointer to the server structure.
 ** @param request Pointer to store the popped request.
 **
-** @return SUCCESS (0) if successful, ERROR (-1) if the queue is empty.
+** @return SUCCESS (0) if successful, ERROR (84) if the queue is empty.
 */
 int queue_pop_request(server_t *server, request_t *request)
 {
@@ -52,6 +55,9 @@ int queue_pop_request(server_t *server, request_t *request)
         return ERROR;
     }
     *request = server->queue_request.queue[server->queue_request.head];
+    pthread_mutex_lock(&request->client->data.pending_mutex);
+    request->client->data.pending_requests--;
+    pthread_mutex_unlock(&request->client->data.pending_mutex);
     server->queue_request.head =
         (server->queue_request.head + 1) % QUEUE_MAX_SIZE;
     server->queue_request.len -= 1;

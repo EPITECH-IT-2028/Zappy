@@ -19,13 +19,13 @@
     #define BUFFER_SIZE 1024
     #define QUEUE_MAX_SIZE 100
 
-    // RESSOURCES DENSITY
-    #define FOOD_DENSITY 0.5
-    #define LINEMATE_DENSITY 0.3
-    #define DERAUMERE_DENSITY 0.15
-    #define SIBUR_DENSITY 0.1
-    #define MENDIANE_DENSITY 0.1
-    #define PHIRAS_DENSITY 0.08
-    #define THYSTAME_DENSITY 0.05
+    #define FOOD 0.5f
+    #define LINEMATE 0.3f
+    #define DERAUMERE 0.15f
+    #define SIBUR 0.10f
+    #define MENDIANE 0.10f
+    #define PHIRAS 0.08f
+    #define THYSTAME 0.05f
+    #define TOTAL_RESOURCES 7
 
 #endif /* MACRO_H_ */

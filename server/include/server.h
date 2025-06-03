@@ -13,9 +13,10 @@
     #include <sys/socket.h>
     #include <netinet/in.h>
     #include <poll.h>
+    #include <pthread.h>
     #include <stdbool.h>
-    #include "inventory.h"
     #include "macro.h"
+    #include "inventory.h"
 
 typedef struct params_s {
     int port;
@@ -26,6 +27,18 @@ typedef struct params_s {
     int frequence;
     int teams_count;
 } params_t;
+
+typedef struct map_s {
+    int food;
+    int linemate;
+    int deraumere;
+    int sibur;
+    int mendiane;
+    int phiras;
+    int thystame;
+    int players;
+    int eggs;
+} map_t;
 
 typedef struct teams_s {
     char *name;
@@ -38,6 +51,8 @@ typedef struct client_data_s {
     int x;
     int y;
     int level;
+    int pending_requests; 
+    pthread_mutex_t pending_mutex;
     inventory_t inventory;
 } client_data_t;
 
@@ -94,6 +109,7 @@ typedef struct server_s {
     queue_response_t queue_response;
     queue_request_t queue_request;
     threads_t threads;
+    map_t **map;
 } server_t;
 
 typedef struct command_s {
@@ -123,6 +139,7 @@ int game_loop(server_t *server);
 
 /* Connection commands */
 void connection_command(server_t *server, int index, char *buffer);
+void player_command(server_t *server, int index, const char *buffer);
 
 /* Parameters checks */
 int help_flag(void);
@@ -138,5 +155,8 @@ int queue_add_request(server_t *server, request_t *request);
 int queue_add_response(server_t *server, response_t *response);
 int queue_pop_request(server_t *server, request_t *request);
 int queue_pop_response(server_t *server, response_t *response);
+
+/* Map functions */
+int place_resources(server_t *server);
 
 #endif /* SERVER_H_ */

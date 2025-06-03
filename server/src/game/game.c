@@ -47,16 +47,15 @@ void *game(void *arg)
 
     while (server->running) {
         if (queue_pop_request(server, &request) == SUCCESS) {
+            response.client = request.client;
+            strcpy(response.response, request.request);
             handle_request(server, &response, &request);
+            if (queue_add_response(server, &response) == ERROR) {
+                fprintf(stderr, "Error: Queue was full request will"
+                " not be sent.\n"
+                );
+            }
         }
     }
     return NULL;
-}
-
-int game_loop(server_t *server)
-{
-    if (pthread_create(&server->threads.game_thread, NULL, game, server)) {
-        return ERROR;
-    }
-    return SUCCESS;
 }
