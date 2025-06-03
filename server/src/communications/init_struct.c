@@ -11,6 +11,18 @@
 #include <pthread.h>
 #include <stdlib.h>
 
+static
+void init_client_inventory(client_data_t *cd)
+{
+    cd->inventory.food = 0;
+    cd->inventory.linemate = 0;
+    cd->inventory.deraumere = 0;
+    cd->inventory.sibur = 0;
+    cd->inventory.mendiane = 0;
+    cd->inventory.phiras = 0;
+    cd->inventory.thystame = 0;
+}
+
 void init_client_struct(client_t *clients, int fd)
 {
     clients->fd = fd;
@@ -24,6 +36,19 @@ void init_client_struct(client_t *clients, int fd)
     clients->data.is_graphic = false;
     clients->data.pending_requests = 0;
     pthread_mutex_init(&clients->data.pending_mutex, NULL);
+    init_client_inventory(&clients->data);
+}
+
+static
+int init_teams_struct(teams_t *teams, params_t *params)
+{
+    for (int i = 0; i < params->teams_count; i++) {
+        teams[i].name = strdup(params->teams_names[i]);
+        if (teams[i].name == NULL)
+            return ERROR;
+        teams[i].clients_count = 0;
+    }
+    return SUCCESS;
 }
 
 static
@@ -50,18 +75,6 @@ void init_queue_response_struct(queue_response_t *qr)
         qr->queue[i].client = NULL;
         memset(qr->queue[i].response, 0, BUFFER_SIZE);
     }
-}
-
-static
-int init_teams_struct(teams_t *teams, params_t *params)
-{
-    for (int i = 0; i < params->teams_count; i++) {
-        teams[i].name = strdup(params->teams_names[i]);
-        if (teams[i].name == NULL)
-            return ERROR;
-        teams[i].clients_count = 0;
-    }
-    return SUCCESS;
 }
 
 static

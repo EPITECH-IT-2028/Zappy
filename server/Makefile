@@ -25,6 +25,7 @@ SRC += ./src/error/check_freq.c
 SRC += ./src/error/check_port.c
 SRC += ./src/error/help_flag.c
 SRC += ./src/queue.c
+SRC += ./src/game/inventory.c
 
 OBJ = $(SRC:.c=.o)
 
