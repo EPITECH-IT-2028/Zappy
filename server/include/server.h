@@ -13,8 +13,10 @@
     #include <sys/socket.h>
     #include <netinet/in.h>
     #include <poll.h>
+    #include <pthread.h>
     #include <stdbool.h>
     #include "macro.h"
+    #include "inventory.h"
 
 typedef struct params_s {
     int port;
@@ -49,8 +51,9 @@ typedef struct client_data_s {
     int x;
     int y;
     int level;
-    int pending_requests; 
+    int pending_requests;
     pthread_mutex_t pending_mutex;
+    inventory_t inventory;
 } client_data_t;
 
 typedef struct client_s {

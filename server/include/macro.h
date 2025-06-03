@@ -7,6 +7,7 @@
 
 #ifndef MACRO_H_
     #define MACRO_H_
+
     #define ERROR 84
     #define SUCCESS 0
     #define MIN_PARAMS 14
@@ -17,6 +18,7 @@
     #define GRAPHIC_NAME "GRAPHIC"
     #define BUFFER_SIZE 1024
     #define QUEUE_MAX_SIZE 100
+
     #define FOOD 0.5f
     #define LINEMATE 0.3f
     #define DERAUMERE 0.15f
