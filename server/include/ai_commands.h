@@ -5,8 +5,8 @@
 ** game.h
 */
 
-#ifndef GAME_H_
-    #define GAME_H_
+#ifndef AI_COMMANDS_H_
+    #define AI_COMMANDS_H_
 
     #include "server.h"
 
@@ -19,6 +19,7 @@ int handle_inventory(response_t *response, request_t *request);
 
 const ai_commands_t tab_ai_commands[] = {
     {"Inventory", &handle_inventory},
+    {NULL, NULL}
 };
 
-#endif /* GAME_H_ */
+#endif /* AI_COMMANDS_H_ */

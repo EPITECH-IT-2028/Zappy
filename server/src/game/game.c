@@ -31,7 +31,9 @@ static
 void handle_request(server_t *server, response_t *response, request_t *request)
 {
     response->client = request->client;
-    check_request(response, request);
+    if (check_request(response, request) == ERROR) {
+        sprintf(response->response, "ko");
+    }
     if (queue_add_response(server, response) == ERROR) {
         fprintf(stderr, "Error: Queue was full request will"
         " not be sent.\n"
@@ -47,7 +49,6 @@ void *game(void *arg)
 
     while (server->running) {
         if (queue_pop_request(server, &request) == SUCCESS) {
-            response.client = request.client;
             handle_request(server, &response, &request);
         }
     }
