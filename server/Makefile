@@ -10,9 +10,11 @@ SRC = ./src/main.c \
 			./src/communications/init_struct.c \
 			./src/communications/events_server.c \
 			./src/communications/connection_commands.c \
+			./src/communications/player_commands.c \
 			./src/utils.c \
 			./src/memory.c \
 			./src/game/game.c
+
 SRC += ./src/error/error_params.c
 SRC += ./src/error/check_clients_nb.c
 SRC += ./src/error/check_height.c
