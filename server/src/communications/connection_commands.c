@@ -47,14 +47,26 @@ int send_ai(server_t *server, int index, char *buffer, char *response)
     return SUCCESS;
 }
 
+static
+int send_gui(server_t *server, int index, char *buffer)
+{
+    char response[BUFFER_SIZE];
+
+    if (set_data(server, index, buffer, true) == ERROR)
+        return ERROR;
+    snprintf(response, BUFFER_SIZE, "msz %d %d", server->params.width,
+        server->params.height);
+    send_code(server->clients[index]->fd, response);
+    return SUCCESS;
+}
+
 void connection_command(server_t *server, int index, char *buffer)
 {
     char response[BUFFER_SIZE];
 
     if (strcmp(buffer, GRAPHIC_NAME) == 0) {
         set_data(server, index, GRAPHIC_NAME, true);
-        snprintf(response, BUFFER_SIZE, "msz %d %d", server->params.width,
-            server->params.height);
+        send_gui(server, index, buffer);
     } else if (has_team_name(server, buffer)) {
         return send_ai(server, index, buffer, response) == ERROR
             ? send_code(server->clients[index]->fd, "ko")

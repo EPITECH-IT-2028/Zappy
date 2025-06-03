@@ -136,7 +136,12 @@ int game_loop(server_t *server);
 
 /* Connection commands */
 void connection_command(server_t *server, int index, char *buffer);
+
+/* Player commands */
 void player_command(server_t *server, int index, const char *buffer);
+
+/* Gui commands */
+int map_commands(server_t *server, int index, char *buffer);
 
 /* Parameters checks */
 int help_flag(void);

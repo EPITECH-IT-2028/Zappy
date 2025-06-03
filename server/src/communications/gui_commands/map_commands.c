@@ -1,0 +1,82 @@
+/*
+** EPITECH PROJECT, 2025
+** src
+** File description:
+** map_commands.c
+*/
+
+#include "macro.h"
+#include "server.h"
+#include "utils.h"
+#include <string.h>
+
+static
+int send_map_size(server_t *server, int index)
+{
+    char response[BUFFER_SIZE];
+
+    snprintf(response, BUFFER_SIZE, "msz %d %d", server->params.width,
+        server->params.height);
+    send_code(server->clients[index]->fd, response);
+    return SUCCESS;
+}
+
+static
+int send_map_content(server_t *server, int index)
+{
+    char response[BUFFER_SIZE];
+    int x = 0;
+    int y = 0;
+
+    for (y = 0; y < server->params.height; y++) {
+        for (x = 0; x < server->params.width; x++) {
+            snprintf(response, BUFFER_SIZE, "bct %d %d %d %d %d %d %d %d\n",
+                x, y,
+                server->map[y][x].food,
+                server->map[y][x].linemate,
+                server->map[y][x].deraumere,
+                server->map[y][x].sibur,
+                server->map[y][x].mendiane,
+                server->map[y][x].phiras);
+            send_code(server->clients[index]->fd, response);
+        }
+    }
+    return SUCCESS;
+}
+
+static
+int send_index_content(server_t *server, int index, int x, int y)
+{
+    char response[BUFFER_SIZE];
+
+    snprintf(response, BUFFER_SIZE, "bct %d %d %d %d %d %d %d %d\n",
+        x, y,
+        server->map[y][x].food,
+        server->map[y][x].linemate,
+        server->map[y][x].deraumere,
+        server->map[y][x].sibur,
+        server->map[y][x].mendiane,
+        server->map[y][x].phiras);
+    send_code(server->clients[index]->fd, response);
+    return SUCCESS;
+}
+
+int map_commands(server_t *server, int index, char *buffer)
+{
+    int x = 0;
+    int y = 0;
+
+    if (server->clients[index]->data.is_graphic == false)
+        send_code(server->clients[index]->fd, "ko");
+    if (sscanf(buffer, "bct %d %d", &x, &y) != 2)
+        send_code(server->clients[index]->fd, "ko");
+    if (strcmp(buffer, "msz") == 0) {
+        return send_map_size(server, index);
+    } else if (strcmp(buffer, "mct") == 0) {
+        return send_map_content(server, index);
+    } else if (strcmp(buffer, "bct") == 0) {
+        return send_index_content(server, index, x, y);
+    } else
+        send_code(server->clients[index]->fd, "ko");
+    return SUCCESS;
+}
