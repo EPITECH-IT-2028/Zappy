@@ -13,7 +13,8 @@ SRC = ./src/main.c \
 			./src/communications/player_commands.c \
 			./src/utils.c \
 			./src/memory.c \
-			./src/game/game.c
+			./src/game/game.c \
+			./src/game/init_map.c
 
 SRC += ./src/error/error_params.c
 SRC += ./src/error/check_clients_nb.c

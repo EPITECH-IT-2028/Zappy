@@ -13,6 +13,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <time.h>
 
 static
 void handle_request(server_t *server)
@@ -70,6 +71,7 @@ int server(int ac, char **av)
 {
     server_t *server = malloc(sizeof(server_t));
 
+    srand(time(NULL));
     if (server == NULL)
         return ERROR;
     if (check_params(&server->params, ac, av) == ERROR) {

@@ -20,6 +20,16 @@ void free_params(params_t *params)
     }
 }
 
+void free_map(map_t **map, params_t *params)
+{
+    if (map == NULL || params == NULL)
+        return;
+    for (int i = 0; i < params->width; i++) {
+        free(map[i]);
+    }
+    free(map);
+}
+
 void free_server(server_t *server)
 {
     if (server == NULL)
@@ -32,6 +42,7 @@ void free_server(server_t *server)
         }
     }
     free(server->clients);
+    free_map(server->map, &server->params);
     free_params(&server->params);
     free(server->teams);
     free(server->fds);

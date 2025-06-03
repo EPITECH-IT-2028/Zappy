@@ -72,11 +72,27 @@ int init_queues(server_t *server)
     return SUCCESS;
 }
 
+static
+int init_map_struct(server_t *server, params_t *params)
+{
+    server->map = malloc(sizeof(map_t *) * params->width);
+    if (server->map == NULL)
+        return ERROR;
+    for (int x = 0; x < params->width; x++) {
+        server->map[x] = malloc(sizeof(map_t) * params->height);
+        if (server->map[x] == NULL)
+            return ERROR;
+        for (int y = 0; y < params->height; y++)
+            server->map[x][y] = (map_t){0};
+    }
+    if (place_resources(server) == ERROR)
+        return ERROR;
+    return SUCCESS;
+}
+
 int init_server_struct(server_t *server, params_t *params)
 {
     server->fd = socket(AF_INET, SOCK_STREAM, 0);
-    if (server->fd == -1)
-        return ERROR;
     server->addr.sin_family = AF_INET;
     server->addr.sin_port = htons(params->port);
     server->addr.sin_addr.s_addr = htonl(INADDR_ANY);
@@ -86,7 +102,8 @@ int init_server_struct(server_t *server, params_t *params)
     server->teams = malloc(sizeof(teams_t) * params->teams_count);
     if (server->fds == NULL || server->clients == NULL ||
         server->teams == NULL || init_queues(server) == ERROR ||
-        init_teams_struct(server->teams, params) == ERROR)
+        init_teams_struct(server->teams, params) == ERROR ||
+        init_map_struct(server, params) == ERROR || server->fd < 0)
         return ERROR;
     server->clients[SERVER_INDEX] = NULL;
     server->nfds = 1;
