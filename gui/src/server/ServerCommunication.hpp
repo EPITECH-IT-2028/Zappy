@@ -2,43 +2,27 @@
 
 #include <netinet/in.h>
 #include <poll.h>
-#include <vector>
+#include <string>
 
 namespace Network {
-  class PollManager {
+  class ClientCommunication {
     public:
-      struct pollfd *data();
-      size_t getSize() const;
-      const struct pollfd &getSocket(size_t index) const;
+      ClientCommunication(int port, const std::string &hostname = "127.0.0.1");
+      ~ClientCommunication();
 
-      size_t addSocket(int fd, short events = POLLIN);
-      void removeSocket(size_t index);
+      bool isConnected() const;
+      void connectToServer();
+      void sendMessage(const std::string &message);
+      std::string receiveMessage();
 
     private:
-      std::vector<struct pollfd> _pollFds;
-  };
-
-  class ServerCommunication {
-    public:
-      ServerCommunication(int port);
-      ServerCommunication(int port, const std::string &hostname);
-      ~ServerCommunication();
-
-      void run();
-      static void requestShutdown();
-
-    private:
-      PollManager _pollManager;
-
       void createSocket();
-      void bindSocket();
-      void listenSocket();
-      int acceptSocket();
-      std::string handleIncomingMessage(int clientFd);
+      void establishConnection();
 
-      int _serverFd;
+      int _clientFd;
       int _port;
       std::string _hostname;
-      static bool _shutdownRequested;
+      struct sockaddr_in _serverAddr;
+      bool _connected;
   };
 }  // namespace Network
