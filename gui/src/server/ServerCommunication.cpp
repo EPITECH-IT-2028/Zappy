@@ -4,6 +4,7 @@
 #include <sys/socket.h>
 #include <unistd.h>
 #include <cerrno>
+#include <iostream>
 #include <stdexcept>
 #include <string>
 
@@ -62,11 +63,20 @@ Network::ServerCommunication::~ServerCommunication() {
   }
 }
 
+bool Network::ServerCommunication::_shutdownRequested = false;
+
+void Network::ServerCommunication::requestShutdown() {
+  _shutdownRequested = true;
+}
+
 void Network::ServerCommunication::run() {
-  while (!_shudownRequested) {
+  while (!_shutdownRequested) {
     int pollCount = poll(_pollManager.data(), _pollManager.getSize(), -1);
-    if (pollCount < 0)
+    if (pollCount < 0) {
+      if (errno == EINTR)
+        continue;
       throw std::runtime_error("Poll failed: " + std::to_string(errno));
+    }
 
     for (size_t i = 0; i < _pollManager.getSize(); i++) {
       if (_pollManager.getSocket(i).revents & POLLIN) {
