@@ -14,7 +14,7 @@ add_compile_options(-W -Wall -Wextra -std=c++20)
 set(SOURCES
   src/main.cpp
   src/raylib/Raylib.cpp
-  src/server/ServerSocket.cpp
+  src/server/ServerCommunication.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES})
