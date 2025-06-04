@@ -19,6 +19,7 @@ namespace Network {
   class ServerCommunication {
     public:
       ServerCommunication(int port);
+      ServerCommunication(int port, const std::string &hostname);
       ~ServerCommunication();
 
     private:
