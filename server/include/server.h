@@ -54,6 +54,7 @@ typedef struct client_data_s {
     int pending_requests;
     pthread_mutex_t pending_mutex;
     inventory_t inventory;
+    bool has_egg;
 } client_data_t;
 
 typedef struct client_s {
@@ -144,7 +145,9 @@ void connection_command(server_t *server, int index, char *buffer);
 void player_command(server_t *server, int index, const char *buffer);
 
 /* Gui commands */
-int map_commands(server_t *server, int index, char *buffer);
+void map_commands(server_t *server, int index, char *buffer);
+void time_commands(server_t *server, int index, char *buffer);
+void player_commands(server_t *server, int index, char *buffer);
 
 /* Parameters checks */
 int help_flag(void);

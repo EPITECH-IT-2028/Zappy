@@ -11,18 +11,17 @@
 #include <string.h>
 
 static
-int send_map_size(server_t *server, int index)
+void send_map_size(server_t *server, int index)
 {
     char response[BUFFER_SIZE];
 
     snprintf(response, BUFFER_SIZE, "msz %d %d", server->params.width,
         server->params.height);
     send_code(server->clients[index]->fd, response);
-    return SUCCESS;
 }
 
 static
-int send_map_content(server_t *server, int index)
+void send_map_content(server_t *server, int index)
 {
     char response[BUFFER_SIZE];
     int x = 0;
@@ -30,7 +29,7 @@ int send_map_content(server_t *server, int index)
 
     for (y = 0; y < server->params.height; y++) {
         for (x = 0; x < server->params.width; x++) {
-            snprintf(response, BUFFER_SIZE, "bct %d %d %d %d %d %d %d %d\n",
+            snprintf(response, BUFFER_SIZE, "bct %d %d %d %d %d %d %d %d",
                 x, y,
                 server->map[y][x].food,
                 server->map[y][x].linemate,
@@ -41,15 +40,14 @@ int send_map_content(server_t *server, int index)
             send_code(server->clients[index]->fd, response);
         }
     }
-    return SUCCESS;
 }
 
 static
-int send_index_content(server_t *server, int index, int x, int y)
+void send_index_content(server_t *server, int index, int x, int y)
 {
     char response[BUFFER_SIZE];
 
-    snprintf(response, BUFFER_SIZE, "bct %d %d %d %d %d %d %d %d\n",
+    snprintf(response, BUFFER_SIZE, "bct %d %d %d %d %d %d %d %d",
         x, y,
         server->map[y][x].food,
         server->map[y][x].linemate,
@@ -58,25 +56,23 @@ int send_index_content(server_t *server, int index, int x, int y)
         server->map[y][x].mendiane,
         server->map[y][x].phiras);
     send_code(server->clients[index]->fd, response);
-    return SUCCESS;
 }
 
-int map_commands(server_t *server, int index, char *buffer)
+void map_commands(server_t *server, int index, char *buffer)
 {
     int x = 0;
     int y = 0;
 
     if (server->clients[index]->data.is_graphic == false)
-        send_code(server->clients[index]->fd, "ko");
-    if (sscanf(buffer, "bct %d %d", &x, &y) != 2)
-        send_code(server->clients[index]->fd, "ko");
-    if (strcmp(buffer, "msz") == 0) {
+        return send_code(server->clients[index]->fd, "ko");
+    if (strcmp(buffer, "msz") == 0)
         return send_map_size(server, index);
-    } else if (strcmp(buffer, "mct") == 0) {
+    else if (strcmp(buffer, "mct") == 0)
         return send_map_content(server, index);
-    } else if (strcmp(buffer, "bct") == 0) {
-        return send_index_content(server, index, x, y);
-    } else
-        send_code(server->clients[index]->fd, "ko");
-    return SUCCESS;
+    if (sscanf(buffer, "bct %d %d", &x, &y) != 2)
+        return send_code(server->clients[index]->fd, "ko");
+    if (x < 0 || x >= server->params.width || y < 0
+        || y >= server->params.height)
+        return send_code(server->clients[index]->fd, "ko");
+    return send_index_content(server, index, x, y);
 }

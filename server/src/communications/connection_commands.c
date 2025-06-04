@@ -50,13 +50,12 @@ int send_ai(server_t *server, int index, char *buffer, char *response)
 static
 int send_gui(server_t *server, int index, char *buffer)
 {
-    char response[BUFFER_SIZE];
-
     if (set_data(server, index, buffer, true) == ERROR)
         return ERROR;
-    snprintf(response, BUFFER_SIZE, "msz %d %d", server->params.width,
-        server->params.height);
-    send_code(server->clients[index]->fd, response);
+    map_commands(server, index, "msz");
+    time_commands(server, index, "sgt");
+    map_commands(server, index, "mct");
+    player_commands(server, index, "tna");
     return SUCCESS;
 }
 
@@ -67,6 +66,7 @@ void connection_command(server_t *server, int index, char *buffer)
     if (strcmp(buffer, GRAPHIC_NAME) == 0) {
         set_data(server, index, GRAPHIC_NAME, true);
         send_gui(server, index, buffer);
+        return;
     } else if (has_team_name(server, buffer)) {
         return send_ai(server, index, buffer, response) == ERROR
             ? send_code(server->clients[index]->fd, "ko")

@@ -39,3 +39,31 @@ int find_team_index(server_t *server, const char *team_name)
     }
     return ERROR;
 }
+
+/**
+    * Finds the AI client by its player ID.
+    * The player ID is the index of the AI in the list of clients,
+    * excluding graphic clients and clients without a team name.
+    *
+    * @param server The server instance.
+    * @param player_id The ID of the AI player to find.
+    * @return The client_t pointer if found, NULL otherwise.
+*/
+client_t *find_ai_by_id(server_t *server, unsigned int player_id)
+{
+    unsigned int cmpt = 0;
+ 
+    for (int i = 1; i < server->nfds; i++) {
+        if (server->clients[i] == NULL)
+            continue;
+        if (server->clients[i]->data.is_graphic)
+            continue;
+        if (server->clients[i]->data.team_name == NULL)
+            continue;
+        if (cmpt == player_id) {
+            return server->clients[i];
+        }
+        cmpt++;
+    }
+    return NULL;
+}

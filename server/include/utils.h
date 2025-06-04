@@ -16,4 +16,6 @@ void remove_newline(char *buffer);
 
 int find_team_index(server_t *server, const char *team_name);
 
+client_t *find_ai_by_id(server_t *server, unsigned int player_id);
+
 #endif /* UTILS_H_ */
