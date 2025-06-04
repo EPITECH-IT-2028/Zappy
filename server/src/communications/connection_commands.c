@@ -56,6 +56,7 @@ int send_gui(server_t *server, int index, char *buffer)
     time_commands(server, index, "sgt");
     map_commands(server, index, "mct");
     player_commands(server, index, "tna");
+    game_events(server, index, "enw");
     return SUCCESS;
 }
 
