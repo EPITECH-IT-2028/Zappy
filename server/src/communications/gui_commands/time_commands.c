@@ -27,7 +27,7 @@ void modify_time(server_t *server, int index, char *buffer)
     int new_freq = atoi(buffer + 3);
 
     if (new_freq <= 0) {
-        send_code(server->clients[index]->fd, "ko");
+        send_code(server->clients[index]->fd, "sbp");
         return;
     }
     server->params.frequence = new_freq;
@@ -44,5 +44,5 @@ void time_commands(server_t *server, int index, char *buffer)
         modify_time(server, index, buffer);
         return;
     }
-    send_code(server->clients[index]->fd, "ko");
+    send_code(server->clients[index]->fd, "suc");
 }

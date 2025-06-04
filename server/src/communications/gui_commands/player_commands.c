@@ -43,9 +43,13 @@ void player_position(server_t *server, int index, int id)
 
 void player_commands(server_t *server, int index, char *buffer)
 {
+    int player_id;
+    
     if (strcmp(buffer, "tna") == 0) {
         send_teams_name(server, index);
-    } else if (strcmp(buffer, "ppo") == 0) {
-        player_position(server, index, 0);
+    } else if (sscanf(buffer, "ppo #%d", &player_id) == 1) {
+        player_position(server, index, player_id);
+    } else {
+        send_code(server->clients[index]->fd, "suc");
     }
 }
