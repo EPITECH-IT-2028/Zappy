@@ -87,7 +87,7 @@ void Network::ServerCommunication::run() {
           }
         } else {
           int clientFd = _pollManager.getSocket(i).fd;
-          std::string message = handleClientMessage(clientFd);
+          std::string message = handleIncomingMessage(clientFd);
           if (message.empty()) {
             close(clientFd);
             _pollManager.removeSocket(i);
@@ -139,7 +139,7 @@ int Network::ServerCommunication::acceptSocket() {
   return clientFd;
 }
 
-std::string Network::ServerCommunication::handleClientMessage(int clientFd) {
+std::string Network::ServerCommunication::handleIncomingMessage(int clientFd) {
   char buffer[1024];
   ssize_t bytesRead = read(clientFd, buffer, sizeof(buffer));
   if (bytesRead < 0) {
