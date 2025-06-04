@@ -36,6 +36,15 @@ Network::ServerCommunication::ServerCommunication(int port)
   _pollManager.addSocket(_serverFd, POLLIN);
 }
 
+Network::ServerCommunication::ServerCommunication(int port,
+                                                  const std::string &hostname)
+    : _serverFd(-1), _port(port), _hostname(hostname) {
+  createSocket();
+  bindSocket();
+  listenSocket();
+  _pollManager.addSocket(_serverFd, POLLIN);
+}
+
 Network::ServerCommunication::~ServerCommunication() {
   if (_serverFd >= 0) {
     close(_serverFd);
