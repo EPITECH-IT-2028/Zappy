@@ -58,6 +58,7 @@ typedef struct client_data_s {
     bool is_graphic;
     int x;
     int y;
+    int orientation;
     int level;
     int pending_requests;
     pthread_mutex_t pending_mutex;

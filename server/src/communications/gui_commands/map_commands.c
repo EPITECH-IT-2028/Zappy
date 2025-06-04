@@ -63,16 +63,18 @@ void map_commands(server_t *server, int index, char *buffer)
     int x = 0;
     int y = 0;
 
-    if (server->clients[index]->data.is_graphic == false)
-        return send_code(server->clients[index]->fd, "ko");
+    if (buffer == NULL || server == NULL) {
+        perror("map_commands: NULL argument");
+        return;
+    }
     if (strcmp(buffer, "msz") == 0)
         return send_map_size(server, index);
     else if (strcmp(buffer, "mct") == 0)
         return send_map_content(server, index);
     if (sscanf(buffer, "bct %d %d", &x, &y) != 2)
-        return send_code(server->clients[index]->fd, "ko");
+        return send_code(server->clients[index]->fd, "sbp");
     if (x < 0 || x >= server->params.width || y < 0
         || y >= server->params.height)
-        return send_code(server->clients[index]->fd, "ko");
+        return send_code(server->clients[index]->fd, "sbp");
     return send_index_content(server, index, x, y);
 }

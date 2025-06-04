@@ -60,4 +60,5 @@ void game_events(server_t *server, int index, char *buffer)
             return;
         }
     }
+    send_code(server->clients[index]->fd, "suc");
 }

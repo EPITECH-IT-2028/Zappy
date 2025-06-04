@@ -21,6 +21,7 @@ void send_time(server_t *server, int index)
     send_code(server->clients[index]->fd, response);
 }
 
+/* WARNING: Atoi is dangerous, need to rewrite the function */
 static
 void modify_time(server_t *server, int index, char *buffer)
 {

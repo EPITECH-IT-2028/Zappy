@@ -15,8 +15,10 @@ egg_t *create_egg(int id, int x, int y, int player_id)
 {
     egg_t *egg = malloc(sizeof(egg_t));
 
-    if (!egg)
+    if (!egg) {
+        perror("malloc failed");
         return NULL;
+    }
     egg->id = id;
     egg->x = x;
     egg->y = y;
@@ -31,8 +33,10 @@ int place_egg(map_t *tile, egg_t *egg)
     egg_t *new_eggs = realloc(tile->eggs, sizeof(egg_t) *
                         (tile->eggs_count + 1));
 
-    if (!new_eggs)
+    if (!new_eggs) {
+        perror("realloc failed");
         return ERROR;
+    }
     tile->eggs = new_eggs;
     tile->eggs[tile->eggs_count] = *egg;
     tile->eggs_count++;
@@ -53,7 +57,7 @@ int add_eggs(server_t *server)
     for (int i = 0; i < nbr_of_clients_max; i++) {
         x = rand() % server->params.width;
         y = rand() % server->params.height;
-        egg = create_egg(egg_id, x, y, -1);
+        egg = create_egg(egg_id, x, y, UNASSIGNED_PLAYER_ID);
         if (!egg)
             return ERROR;
         if (place_egg(&server->map[x][y], egg) == ERROR)

@@ -29,7 +29,7 @@ void player_position(server_t *server, int index, int id)
     char response[BUFFER_SIZE];
     client_t *client = find_ai_by_id(server, id);
 
-    if (client == NULL || client->data.is_graphic) {
+    if (client == NULL) {
         send_code(server->clients[index]->fd, "sbp");
         return;
     }
@@ -37,7 +37,7 @@ void player_position(server_t *server, int index, int id)
         id,
         client->data.x,
         client->data.y,
-        1);
+        client->data.orientation);
     send_code(server->clients[index]->fd, response);
 }
 

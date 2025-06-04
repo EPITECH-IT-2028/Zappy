@@ -65,7 +65,6 @@ void connection_command(server_t *server, int index, char *buffer)
     char response[BUFFER_SIZE];
 
     if (strcmp(buffer, GRAPHIC_NAME) == 0) {
-        set_data(server, index, GRAPHIC_NAME, true);
         send_gui(server, index, buffer);
         return;
     } else if (has_team_name(server, buffer)) {
