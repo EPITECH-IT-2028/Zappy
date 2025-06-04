@@ -28,9 +28,8 @@ void Network::PollManager::removeSocket(size_t index) {
   _pollFds[index].fd = -1;
 }
 
-Network::ServerCommunication::ServerCommunication(int port,
-                                                  std::string hostname)
-    : _serverFd(-1), _port(port), _hostname(hostname) {
+Network::ServerCommunication::ServerCommunication(int port)
+    : _serverFd(-1), _port(port), _hostname("127.0.0.1") {
   createSocket();
   bindSocket();
   listenSocket();
