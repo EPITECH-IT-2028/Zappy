@@ -25,6 +25,7 @@ namespace Network {
       ~ServerCommunication();
 
       void run();
+      static void requestShutdown();
 
     private:
       PollManager _pollManager;
@@ -38,6 +39,6 @@ namespace Network {
       int _serverFd;
       int _port;
       std::string _hostname;
-      bool _shudownRequested = false;
+      static bool _shutdownRequested;
   };
 }  // namespace Network
