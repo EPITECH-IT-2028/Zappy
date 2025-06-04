@@ -22,6 +22,8 @@ int main(int argc, char* argv[]) {
 
     std::cout << "Parsed options: port: " << config.getOptionP()
               << " / host: " << config.getOptionH() << std::endl;
+    Network::ServerCommunication server(8080);
+    server.run();
     std::cout << "GUI application started successfully." << std::endl;
     return OK;
   } catch (const gui::Error& e) {

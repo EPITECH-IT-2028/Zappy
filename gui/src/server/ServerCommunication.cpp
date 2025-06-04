@@ -1,17 +1,28 @@
 #include "ServerCommunication.hpp"
 #include <netinet/in.h>
+#include <sys/poll.h>
 #include <sys/socket.h>
 #include <unistd.h>
 #include <cerrno>
 #include <stdexcept>
 #include <string>
 
+struct pollfd *Network::PollManager::data() {
+  return _pollFds.data();
+}
+
 size_t Network::PollManager::getSize() const {
   return _pollFds.size();
 }
 
+const struct pollfd &Network::PollManager::getSocket(size_t index) const {
+  if (index >= _pollFds.size())
+    throw std::out_of_range("Index out of range in PollManager");
+  return _pollFds[index];
+}
+
 size_t Network::PollManager::addSocket(int fd, short events) {
-  for (size_t i = 0; i < _pollFds.size(); ++i) {
+  for (size_t i = 0; i < _pollFds.size(); i++) {
     if (_pollFds[i].fd == -1) {
       _pollFds[i] = {fd, events, 0};
       return i;
@@ -48,6 +59,34 @@ Network::ServerCommunication::ServerCommunication(int port,
 Network::ServerCommunication::~ServerCommunication() {
   if (_serverFd >= 0) {
     close(_serverFd);
+  }
+}
+
+void Network::ServerCommunication::run() {
+  while (!_shudownRequested) {
+    int pollCount = poll(_pollManager.data(), _pollManager.getSize(), -1);
+    if (pollCount < 0)
+      throw std::runtime_error("Poll failed: " + std::to_string(errno));
+
+    for (size_t i = 0; i < _pollManager.getSize(); i++) {
+      if (_pollManager.getSocket(i).revents & POLLIN) {
+        if (i == 0) {
+          int clientFd = acceptSocket();
+          if (clientFd >= 0) {
+            _pollManager.addSocket(clientFd, POLLIN);
+          }
+        } else {
+          int clientFd = _pollManager.getSocket(i).fd;
+          std::string message = handleClientMessage(clientFd);
+          if (message.empty()) {
+            close(clientFd);
+            _pollManager.removeSocket(i);
+          } else {
+            printf("Received message: %s", message.c_str());
+          }
+        }
+      }
+    }
   }
 }
 
@@ -88,4 +127,16 @@ int Network::ServerCommunication::acceptSocket() {
     throw std::runtime_error("Failed to accept connection: " +
                              std::to_string(errno));
   return clientFd;
+}
+
+std::string Network::ServerCommunication::handleClientMessage(int clientFd) {
+  char buffer[1024];
+  ssize_t bytesRead = read(clientFd, buffer, sizeof(buffer));
+  if (bytesRead < 0) {
+    throw std::runtime_error("Failed to read from client: " +
+                             std::to_string(errno));
+  } else if (bytesRead == 0) {
+    return "";
+  }
+  return std::string(buffer, bytesRead);
 }

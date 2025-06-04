@@ -7,7 +7,9 @@
 namespace Network {
   class PollManager {
     public:
+      struct pollfd *data();
       size_t getSize() const;
+      const struct pollfd &getSocket(size_t index) const;
 
       size_t addSocket(int fd, short events = POLLIN);
       void removeSocket(size_t index);
@@ -22,14 +24,20 @@ namespace Network {
       ServerCommunication(int port, const std::string &hostname);
       ~ServerCommunication();
 
+      void run();
+
     private:
       PollManager _pollManager;
+
       void createSocket();
       void bindSocket();
       void listenSocket();
       int acceptSocket();
+      std::string handleClientMessage(int clientFd);
+
       int _serverFd;
       int _port;
       std::string _hostname;
+      bool _shudownRequested = false;
   };
 }  // namespace Network
