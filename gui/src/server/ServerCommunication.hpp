@@ -34,7 +34,7 @@ namespace Network {
       void bindSocket();
       void listenSocket();
       int acceptSocket();
-      std::string handleClientMessage(int clientFd);
+      std::string handleIncomingMessage(int clientFd);
 
       int _serverFd;
       int _port;
