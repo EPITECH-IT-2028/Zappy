@@ -27,16 +27,16 @@ void send_map_content(server_t *server, int index)
     int x = 0;
     int y = 0;
 
-    for (y = 0; y < server->params.height; y++) {
-        for (x = 0; x < server->params.width; x++) {
+    for (x = 0; x < server->params.width; x++) {
+        for (y = 0; y < server->params.height; y++) {
             snprintf(response, BUFFER_SIZE, "bct %d %d %d %d %d %d %d %d",
                 x, y,
-                server->map[y][x].food,
-                server->map[y][x].linemate,
-                server->map[y][x].deraumere,
-                server->map[y][x].sibur,
-                server->map[y][x].mendiane,
-                server->map[y][x].phiras);
+                server->map[x][y].food,
+                server->map[x][y].linemate,
+                server->map[x][y].deraumere,
+                server->map[x][y].sibur,
+                server->map[x][y].mendiane,
+                server->map[x][y].phiras);
             send_code(server->clients[index]->fd, response);
         }
     }
