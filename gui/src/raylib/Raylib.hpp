@@ -8,12 +8,12 @@
 #define LOGO_DURATION_FRAMES 120
 
 namespace Gui {
-  typedef enum GameScreen {
+  enum GameScreen {
     LOGO,
     TITLE,
     GAMEPLAY,
     ENDING
-  } GameScreen;
+  };
 
   class Raylib {
     public:
