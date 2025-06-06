@@ -6,6 +6,7 @@
 */
 
 #include "ParsingArgs.hpp"
+#include "Error.hpp"
 
 bool gui::Config::parse(int argc, char* argv[])
 {
@@ -15,6 +16,14 @@ bool gui::Config::parse(int argc, char* argv[])
     std::string arg = argv[i];
     if (arg == "-p" && i + 1 < argc) {
       optionP = argv[i+=1];
+      try {
+        int port = std::stoi(optionP);
+        if (port <= 0 || port > 65535) {
+          return false;
+        }
+      } catch (const std::exception&) {
+        return false;
+      }
       countP++;
       if (countP > 1)
         return false;
@@ -23,8 +32,7 @@ bool gui::Config::parse(int argc, char* argv[])
       countH++;
       if (countH > 1)
         return false;
-    }
-    else
+    } else
       return false;
   }
   return true;
