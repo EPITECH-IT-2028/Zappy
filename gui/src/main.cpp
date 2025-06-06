@@ -3,6 +3,7 @@
 #include <string>
 #include "Error.hpp"
 #include "ParsingArgs.hpp"
+#include "server/ServerCommunication.hpp"
 
 #define OK 0
 #define KO 84

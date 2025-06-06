@@ -11,7 +11,7 @@ namespace Network {
       ~ClientCommunication();
 
       bool isConnected() const;
-      void connectToServer();
+      bool connectToServer();
       void sendMessage(const std::string &message);
       std::string receiveMessage();
 

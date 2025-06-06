@@ -1,6 +1,11 @@
 #include "Raylib.hpp"
 
-Gui::Raylib::Raylib() : _currentScreen(LOGO), _framesCounter(0), _window(SCREEN_WIDTH, SCREEN_HEIGHT, "Zappy") {
+Gui::Raylib::Raylib()
+    : _currentScreen(LOGO),
+      _framesCounter(0),
+      _window(SCREEN_WIDTH, SCREEN_HEIGHT, "Zappy") {
+  if (!IsWindowReady())
+    throw std::runtime_error("Failed to initialize Raylib window");
 }
 
 void Gui::Raylib::run() {
@@ -10,7 +15,7 @@ void Gui::Raylib::run() {
     switch (_currentScreen) {
       case LOGO: {
         _framesCounter++;
-        if (_framesCounter > 120)
+        if (_framesCounter > LOGO_DURATION_FRAMES)
           _currentScreen = TITLE;
       } break;
       case TITLE: {
@@ -51,8 +56,7 @@ void Gui::Raylib::run() {
       case ENDING:
         DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, BLUE);
         DrawText("ENDING SCREEN", 20, 20, 40, DARKBLUE);
-        DrawText("PRESS ENTER to JUMP to TITLE SCREEN", 130, 220, 20,
-                 DARKBLUE);
+        DrawText("PRESS ENTER to JUMP to TITLE SCREEN", 130, 220, 20, DARKBLUE);
         break;
       default:
         break;
