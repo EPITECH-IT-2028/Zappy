@@ -3,6 +3,8 @@ zappy_server
 zappy_client
 
 *.o
+*.gcda
+*.gcdo
 
 .vscode/
 compile-commands.json

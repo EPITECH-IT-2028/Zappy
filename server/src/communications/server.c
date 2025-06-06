@@ -7,7 +7,23 @@
 
 #include "server.h"
 #include "macro.h"
+#include "utils.h"
+#include <pthread.h>
 #include <stddef.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <time.h>
+
+static
+void handle_request(server_t *server)
+{
+    response_t response;
+
+    if (queue_pop_response(server, &response) == SUCCESS) {
+        send_code(response.client->fd, response.response);
+    }
+}
 
 static
 int server_loop(server_t *server)
@@ -21,7 +37,8 @@ int server_loop(server_t *server)
             perror("get_new_connection failed");
             return ERROR;
         }
-        // handle_all_clients(server);
+        handle_all_client(server);
+        handle_request(server);
     }
     return SUCCESS;
 }
@@ -53,23 +70,22 @@ int bind_server(server_t *server, params_t *params)
 int server(int ac, char **av)
 {
     server_t *server = malloc(sizeof(server_t));
-    params_t *params = malloc(sizeof(params_t));
 
-    if (server == NULL || params == NULL) {
-        perror("Failed to allocate memory for server or params");
+    srand(time(NULL));
+    if (server == NULL)
+        return ERROR;
+    if (check_params(&server->params, ac, av) == ERROR) {
+        free_server(server);
         return ERROR;
     }
-    init_params(params);
-    if (check_params(params, ac, av) == ERROR) {
+    if (bind_server(server, &server->params) == ERROR) {
+        free_server(server);
         return ERROR;
     }
-    if (bind_server(server, params) == ERROR) {
-        perror("Failed to bind server");
+    if (game_loop(server) == ERROR || server_loop(server) == ERROR) {
+        free_server(server);
         return ERROR;
     }
-    if (server_loop(server) == ERROR) {
-        perror("Server loop failed");
-        return ERROR;
-    }
+    free_server(server);
     return SUCCESS;
 }
