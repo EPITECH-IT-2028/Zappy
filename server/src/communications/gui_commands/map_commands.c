@@ -9,6 +9,7 @@
 #include "server.h"
 #include "utils.h"
 #include <string.h>
+#include <stdio.h>
 
 static
 void send_map_size(server_t *server, int index)

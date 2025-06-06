@@ -11,17 +11,16 @@
 #include <string.h>
 
 static
-void loop_eggs(server_t *server, int index, map_t *map)
+void loop_eggs(server_t *server, int index, map_t map)
 {
     char response[BUFFER_SIZE];
-    egg_t *egg;
 
-    if (map->eggs_count == 0)
+    if (map.eggs_count == 0)
         return;
-    for (int i = 0; i < map->eggs_count; i++) {
-        egg = &map->eggs[i];
+    for (int i = 0; i < map.eggs_count; i++) {
         snprintf(response, BUFFER_SIZE, "enw #%d #%d %d %d",
-            egg->id, egg->player_id, egg->x, egg->y);
+            map.eggs[i].id, map.eggs[i].player_id, map.eggs[i].x,
+                 map.eggs[i].y);
         send_code(server->clients[index]->fd, response);
     }
 }
@@ -29,12 +28,9 @@ void loop_eggs(server_t *server, int index, map_t *map)
 static
 void egg_laid(server_t *server, int index)
 {
-    map_t *map;
-
     for (int x = 0; x < server->params.width; x++) {
         for (int y = 0; y < server->params.height; y++) {
-            map = &server->map[x][y];
-            loop_eggs(server, index, map);
+            loop_eggs(server, index, server->map[x][y]);
         }
     }
 }

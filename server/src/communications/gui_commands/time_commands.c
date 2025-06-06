@@ -21,28 +21,28 @@ void send_time(server_t *server, int index)
     send_code(server->clients[index]->fd, response);
 }
 
-/* WARNING: Atoi is dangerous, need to rewrite the function */
 static
-void modify_time(server_t *server, int index, char *buffer)
+void modify_time(server_t *server, int index, int freq)
 {
-    int new_freq = atoi(buffer + 3);
-
-    if (new_freq <= 0) {
+    if (freq <= 0) {
         send_code(server->clients[index]->fd, "sbp");
         return;
     }
-    server->params.frequence = new_freq;
+    server->params.frequence = freq;
     send_time(server, index);
 }
 
 void time_commands(server_t *server, int index, char *buffer)
 {
+    int freq;
+
     if (strcmp(buffer, "sgt") == 0) {
         send_time(server, index);
         return;
     }
-    if (strncmp(buffer, "sst ", 4) == 0) {
-        modify_time(server, index, buffer);
+    if (strncmp(buffer, "sst ", 4) == 0 &&
+        sscanf(buffer, "sst %d", &freq) == 1) {
+        modify_time(server, index, freq);
         return;
     }
     send_code(server->clients[index]->fd, "suc");
