@@ -15,7 +15,7 @@ bool check_commands(const char *buffer)
 {
     static const char *commands[] = {
         "Forward", "Right", "Left", "Look", "Inventory",
-        "Broadcast", "Connect_nbr", "Fork", "Eject",
+        "Broadcast", "Connect_nbr", "Fork", "Eject", "Vision",
         "Take", "Set", "Incantation", NULL
     };
 

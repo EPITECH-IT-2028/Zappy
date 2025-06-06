@@ -18,6 +18,13 @@
     #include "macro.h"
     #include "inventory.h"
 
+typedef enum direction_s {
+    LEFT,
+    RIGHT,
+    UP,
+    DOWN
+} direction_t;
+
 typedef struct params_s {
     int port;
     int width;
@@ -54,6 +61,7 @@ typedef struct client_data_s {
     int pending_requests;
     pthread_mutex_t pending_mutex;
     inventory_t inventory;
+    direction_t direction;
 } client_data_t;
 
 typedef struct client_s {

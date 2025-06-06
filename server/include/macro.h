@@ -16,8 +16,11 @@
     #define MIN_Y 10
     #define MIN_CLIENT 1
     #define GRAPHIC_NAME "GRAPHIC"
-    #define BUFFER_SIZE 1024
+    #define BUFFER_SIZE 2048
     #define QUEUE_MAX_SIZE 100
+    #define MAX_DIRECTION 4
+    #define DEFAULT_VISION_DEPTH 1
+    #define ADDITIONAL_VISION 1
 
     #define FOOD 0.5f
     #define LINEMATE 0.3f

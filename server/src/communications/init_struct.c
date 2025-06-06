@@ -23,6 +23,17 @@ void init_client_inventory(client_data_t *cd)
     cd->inventory.thystame = 0;
 }
 
+static
+void init_direction(direction_t *direction)
+{
+    static const direction_t directions[MAX_DIRECTION] =
+        {LEFT, RIGHT, UP, DOWN};
+    int pos = 0;
+
+    pos = rand() % MAX_DIRECTION;
+    *direction = directions[pos];
+}
+
 void init_client_struct(client_t *clients, int fd)
 {
     clients->fd = fd;
@@ -35,6 +46,7 @@ void init_client_struct(client_t *clients, int fd)
     clients->data.level = 1;
     clients->data.is_graphic = false;
     clients->data.pending_requests = 0;
+    init_direction(&clients->data.direction);
     pthread_mutex_init(&clients->data.pending_mutex, NULL);
     init_client_inventory(&clients->data);
 }
