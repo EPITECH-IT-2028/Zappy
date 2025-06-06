@@ -23,7 +23,7 @@ Network::ClientCommunication::~ClientCommunication() {
   _connected = false;
 }
 
-bool Network::ClientCommunication::isConnected() const {
+bool Network::ClientCommunication::isConnected() const noexcept {
   return _connected;
 }
 

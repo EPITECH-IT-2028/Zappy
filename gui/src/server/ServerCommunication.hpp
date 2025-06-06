@@ -10,7 +10,7 @@ namespace Network {
       ClientCommunication(int port, const std::string &hostname = "127.0.0.1");
       ~ClientCommunication();
 
-      bool isConnected() const;
+      bool isConnected() const noexcept;
       bool connectToServer();
       void sendMessage(const std::string &message);
       std::string receiveMessage();
