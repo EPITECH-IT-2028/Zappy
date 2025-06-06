@@ -12,7 +12,7 @@
   #define ERROR_HPP_
 
 namespace gui {
-  class Error : std::exception {
+  class Error : public std::exception {
     public:
       Error(const std::string &message);
       ~Error() = default;
