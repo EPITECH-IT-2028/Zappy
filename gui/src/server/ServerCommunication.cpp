@@ -86,19 +86,30 @@ std::string Network::ClientCommunication::receiveMessage() {
   if (!_connected || _clientFd == -1)
     throw std::runtime_error("Not connected to server");
 
-  const size_t BUFFER_SIZE = 4096;
+  std::string message;
+  const size_t BUFFER_SIZE = 1024;
   char buffer[BUFFER_SIZE];
-  ssize_t bytesReceived = recv(_clientFd, buffer, BUFFER_SIZE - 1, 0);
 
-  if (bytesReceived == -1)
-    if (errno == EINTR)
-      return receiveMessage();
-  throw std::runtime_error("Failed to receive message: " +
-                           std::string(strerror(errno)));
-  if (bytesReceived == 0) {
-    _connected = false;
-    throw std::runtime_error("Server disconnected");
+  while (true) {
+    ssize_t bytesReceived = recv(_clientFd, buffer, BUFFER_SIZE - 1, 0);
+
+    if (bytesReceived == -1) {
+      if (errno == EINTR)
+        continue;
+      throw std::runtime_error("Failed to receive message: " +
+                               std::string(strerror(errno)));
+    }
+
+    if (bytesReceived == 0) {
+      _connected = false;
+      throw std::runtime_error("Server disconnected");
+    }
+
+    buffer[bytesReceived] = '\0';
+    message += std::string(buffer, bytesReceived);
+
+    size_t newlinePos = message.find('\n');
+    if (newlinePos != std::string::npos)
+      return message.substr(0, newlinePos + 1);
   }
-  buffer[bytesReceived] = '\0';
-  return std::string(buffer);
 }
