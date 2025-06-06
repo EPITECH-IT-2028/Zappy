@@ -27,12 +27,15 @@ bool Network::ClientCommunication::isConnected() const {
   return _connected;
 }
 
-void Network::ClientCommunication::connectToServer() {
+bool Network::ClientCommunication::connectToServer() {
   try {
     createSocket();
     establishConnection();
+    sendMessage("GRAPHIC\n");
+    return true;
   } catch (const std::exception &e) {
     std::cerr << "Connection failed: " << e.what() << std::endl;
+    return false;
   }
 }
 
@@ -56,31 +59,45 @@ void Network::ClientCommunication::establishConnection() {
                              std::string(strerror(errno)));
   }
   _connected = true;
-  sendMessage("GRAPHIC\n");
 }
 
 void Network::ClientCommunication::sendMessage(const std::string &message) {
   if (!_connected || _clientFd == -1)
     throw std::runtime_error("Not connected to server");
 
-  ssize_t bytesSent = send(_clientFd, message.c_str(), message.length(), 0);
-  if (bytesSent == -1)
-    throw std::runtime_error("Failed to send message: " +
-                             std::string(strerror(errno)));
+  size_t totalSent = 0;
+  size_t messageLength = message.length();
+
+  while (totalSent < messageLength) {
+    ssize_t bytesSent = send(_clientFd, message.c_str() + totalSent,
+                             messageLength - totalSent, 0);
+    if (bytesSent == -1) {
+      if (errno == EINTR)
+        continue;
+      throw std::runtime_error("Failed to send message: " +
+                               std::string(strerror(errno)));
+    }
+    totalSent += bytesSent;
+  }
   std::cout << "Sent to server: " << message;
 }
 
 std::string Network::ClientCommunication::receiveMessage() {
   if (!_connected || _clientFd == -1)
     throw std::runtime_error("Not connected to server");
-  char buffer[1024];
-  ssize_t bytesReceived = recv(_clientFd, buffer, sizeof(buffer) - 1, 0);
+
+  const size_t BUFFER_SIZE = 4096;
+  char buffer[BUFFER_SIZE];
+  ssize_t bytesReceived = recv(_clientFd, buffer, BUFFER_SIZE - 1, 0);
+
   if (bytesReceived == -1)
-    throw std::runtime_error("Failed to receive message: " +
-                             std::string(strerror(errno)));
+    if (errno == EINTR)
+      return receiveMessage();
+  throw std::runtime_error("Failed to receive message: " +
+                           std::string(strerror(errno)));
   if (bytesReceived == 0) {
     _connected = false;
-    return "";
+    throw std::runtime_error("Server disconnected");
   }
   buffer[bytesReceived] = '\0';
   return std::string(buffer);

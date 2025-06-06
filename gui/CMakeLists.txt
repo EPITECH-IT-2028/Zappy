@@ -31,13 +31,12 @@ if (NOT raylib_cpp_FOUND)
     FetchContent_MakeAvailable(raylib_cpp)
 endif()
 
-if (DEBUG)
-  add_executable(${PROJECT_NAME}_debug ${SOURCES})
-
-  target_include_directories(${PROJECT_NAME}_debug PUBLIC src)
-  target_link_libraries(${PROJECT_NAME}_debug PRIVATE raylib raylib_cpp)
-  target_compile_options(${PROJECT_NAME}_debug PRIVATE -g -O0 -DDEBUG)
-endif()
-
 target_include_directories(${PROJECT_NAME} PUBLIC src)
 target_link_libraries(${PROJECT_NAME} PRIVATE raylib raylib_cpp)
+
+# Target for the debug build
+add_executable(${PROJECT_NAME}_debug EXCLUDE_FROM_ALL ${SOURCES})
+target_include_directories(${PROJECT_NAME}_debug PUBLIC src)
+target_link_libraries(${PROJECT_NAME}_debug PRIVATE raylib raylib_cpp)
+target_compile_options(${PROJECT_NAME}_debug PRIVATE -g -O0 -DDEBUG)
+add_custom_target(debug DEPENDS ${PROJECT_NAME}_debug)

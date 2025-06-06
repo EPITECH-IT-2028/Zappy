@@ -5,6 +5,7 @@
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 450
+#define LOGO_DURATION_FRAMES 120
 
 namespace Gui {
   typedef enum GameScreen {
