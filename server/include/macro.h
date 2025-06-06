@@ -12,6 +12,7 @@
     #define SUCCESS 0
     #define MIN_PARAMS 14
     #define SERVER_INDEX 0
+    #define REMOVE_USELESS_COMMA 1
     #define MIN_X 10
     #define MIN_Y 10
     #define MIN_CLIENT 1
@@ -19,7 +20,7 @@
     #define BUFFER_SIZE 2048
     #define QUEUE_MAX_SIZE 100
     #define MAX_DIRECTION 4
-    #define DEFAULT_VISION_DEPTH 1
+    #define DEFAULT_VISION_DEPTH 2
     #define ADDITIONAL_VISION 1
 
     #define FOOD 0.5f

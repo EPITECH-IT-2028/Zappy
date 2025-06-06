@@ -31,7 +31,7 @@ void add_to_look(char *response, map_t current_case)
         strcat(response, " sibur");
     if (current_case.thystame > 0)
         strcat(response, " thystame");
-    strcat(response, ", ");
+    strcat(response, ",");
 }
 
 static
@@ -151,9 +151,9 @@ int handle_vision(server_t *server, response_t *response, request_t *request)
     if (!server || !response || !request) {
         return ERROR;
     }
-    handle_direction(&request->client->data, server, response, request);
     sprintf(response->response, "[");
-    response->response[strlen(response->response)] = ']';
+    handle_direction(&request->client->data, server, response, request);
+    response->response[strlen(response->response) - REMOVE_USELESS_COMMA] = ']';
     response->response[strlen(response->response)] = '\0';
     return SUCCESS;
 }
