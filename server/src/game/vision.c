@@ -52,7 +52,7 @@ void handle_left_direction(server_t *server, response_t *response,
             target_y = (((client_data->y + j) % height) + height) % height;
             add_to_look(response->response, server->map[target_y][target_x]);
         }
-        if (vision_width + 1 < server->params.height)
+        if (2 * (vision_width + 1) + 1 <= width)
             vision_width++;
     }
 }
@@ -75,7 +75,7 @@ void handle_right_direction(server_t *server, response_t *response,
             target_y = (((client_data->y + j) % height) + height) % height;
             add_to_look(response->response, server->map[target_y][target_x]);
         }
-        if (vision_width + 1 < server->params.height)
+        if (2 * (vision_width + 1) + 1 <= width)
             vision_width++;
     }
 }
@@ -98,7 +98,7 @@ void handle_up_direction(server_t *server, response_t *response,
             target_y = (((client_data->y - i) % height) + height) % height;
             add_to_look(response->response, server->map[target_y][target_x]);
         }
-        if (vision_width + 1 < server->params.height)
+        if (2 * (vision_width + 1) + 1 <= width)
             vision_width++;
     }
 }
@@ -121,7 +121,7 @@ void handle_down_direction(server_t *server, response_t *response,
             target_y = (((client_data->y + i) % height) + height) % height;
             add_to_look(response->response, server->map[target_y][target_x]);
         }
-        if (vision_width + 1 < server->params.height)
+        if (2 * (vision_width + 1) + 1 <= width)
             vision_width++;
     }
 }
