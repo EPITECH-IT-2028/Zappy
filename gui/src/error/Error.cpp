@@ -9,9 +9,9 @@
 #include <stdlib.h>
 #include <string>
 
-nts::Error::Error(const std::string &message) : _msg(message) {
+gui::Error::Error(const std::string &message) : _msg(message) {
 }
 
-const char *nts::Error::what() const noexcept {
+const char *gui::Error::what() const noexcept {
   return _msg.c_str();
 }
