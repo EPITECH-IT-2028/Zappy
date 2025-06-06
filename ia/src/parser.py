@@ -3,7 +3,7 @@ import sys
 from utils import exit_error
 from models import iaParser
 
-def ia_parser(argv: list[str]):
+def ia_parser(argv: list[str]) -> iaParser:
     try:
         port = None
         name = None

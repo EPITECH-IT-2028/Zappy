@@ -4,7 +4,7 @@ from parser import ia_parser
 from utils import exit_error
 from message import *
 
-def iaProcess(argv: list[str]):
+def iaProcess(argv: list[str]) -> None:
         """
         Main function that handles command line arguments.
 
