@@ -42,6 +42,6 @@ int main(int argc, char* argv[])
     return ERROR;
   }
   std::cout << "Parsed options: port: " << config.getOptionP() << " / host: " << config.getOptionH() << std::endl;
-  std::cout << "GUIIII STARTEDDDD" << std::endl;
+  std::cout << "GUI application started successfully." << std::endl;  
   return SUCCESS;
 }

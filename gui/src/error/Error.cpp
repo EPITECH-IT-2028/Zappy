@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2024
 ** zappy
 ** File description:
-** check_error.cpp
+** Error.cpp
 */
 
 #include "Error.hpp"
