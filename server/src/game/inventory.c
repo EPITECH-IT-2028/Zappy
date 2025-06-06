@@ -8,9 +8,10 @@
 #include "server.h"
 #include <stdio.h>
 
-int handle_inventory(response_t *response, request_t *request)
+int handle_inventory(server_t *server, response_t *response,
+    request_t *request)
 {
-    if (!request || !response)
+    if (!request || !response || !server)
         return ERROR;
     sprintf(response->response,
         "[food %d, linemate %d, deraumere %d, sibur %d, mendiane %d, phiras "
