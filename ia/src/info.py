@@ -1,7 +1,7 @@
 import sys
 
 
-def info():
+def info() -> None:
     """
     Display usage instructions for the 110borwein program. This function outputs the correct format
     for invoking the program from the command line and briefly describes the purpose of the input
