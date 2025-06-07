@@ -26,5 +26,10 @@ namespace Gui {
       GameScreen _currentScreen;
       int _framesCounter;
       raylib::Window _window;
+
+      void renderLogoScreen();
+      void renderTitleScreen();
+      void renderGameplayScreen();
+      void renderEndingScreen();
   };
 }  // namespace Gui
