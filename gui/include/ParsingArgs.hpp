@@ -15,8 +15,12 @@ namespace gui {
     public:
       bool parse(int argc, char* argv[]);
 
-      std::string getOptionP() const { return optionP; }
-      std::string getOptionH() const { return optionH; }
+      std::string getOptionP() const {
+        return optionP;
+      }
+      std::string getOptionH() const {
+        return optionH;
+      }
 
     private:
       std::string optionP;

@@ -8,14 +8,13 @@
 #include "ParsingArgs.hpp"
 #include "Error.hpp"
 
-bool gui::Config::parse(int argc, char* argv[])
-{
+bool gui::Config::parse(int argc, char* argv[]) {
   int countP = 0;
   int countH = 0;
   for (int i = 1; i < argc; i++) {
     std::string arg = argv[i];
     if (arg == "-p" && i + 1 < argc) {
-      optionP = argv[i+=1];
+      optionP = argv[i += 1];
       try {
         int port = std::stoi(optionP);
         if (port <= 0 || port > 65535) {
@@ -28,7 +27,7 @@ bool gui::Config::parse(int argc, char* argv[])
       if (countP > 1)
         return false;
     } else if (arg == "-h" && i + 1 < argc) {
-      optionH = argv[i+=1];
+      optionH = argv[i += 1];
       countH++;
       if (countH > 1)
         return false;
