@@ -39,24 +39,16 @@ void Gui::Raylib::run() {
 
     switch (_currentScreen) {
       case LOGO:
-        DrawText("LOGO SCREEN", 20, 20, 40, LIGHTGRAY);
-        DrawText("Fake loading... Please wait 2 seconds.", 230, 220, 20, GRAY);
+        renderLogoScreen();
         break;
       case TITLE:
-        DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, GREEN);
-        DrawText("TITLE SCREEN", 20, 20, 40, DARKGREEN);
-        DrawText("PRESS ENTER to JUMP to GAMEPLAY SCREEN", 120, 220, 20,
-                 DARKGREEN);
+        renderTitleScreen();
         break;
       case GAMEPLAY:
-        DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, PURPLE);
-        DrawText("GAMEPLAY SCREEN", 20, 20, 40, MAROON);
-        DrawText("PRESS ENTER to JUMP to ENDING SCREEN", 130, 220, 20, MAROON);
+        renderGameplayScreen();
         break;
       case ENDING:
-        DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, BLUE);
-        DrawText("ENDING SCREEN", 20, 20, 40, DARKBLUE);
-        DrawText("PRESS ENTER to JUMP to TITLE SCREEN", 130, 220, 20, DARKBLUE);
+        renderEndingScreen();
         break;
       default:
         break;
@@ -64,4 +56,27 @@ void Gui::Raylib::run() {
 
     EndDrawing();
   }
+}
+
+void Gui::Raylib::renderLogoScreen() {
+  DrawText("LOGO SCREEN", 20, 20, 40, LIGHTGRAY);
+  DrawText("Fake loading... Please wait 2 seconds.", 230, 220, 20, GRAY);
+}
+
+void Gui::Raylib::renderTitleScreen() {
+  DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, GREEN);
+  DrawText("TITLE SCREEN", 20, 20, 40, DARKGREEN);
+  DrawText("PRESS ENTER to JUMP to GAMEPLAY SCREEN", 120, 220, 20, DARKGREEN);
+}
+
+void Gui::Raylib::renderGameplayScreen() {
+  DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, PURPLE);
+  DrawText("GAMEPLAY SCREEN", 20, 20, 40, MAROON);
+  DrawText("PRESS ENTER to JUMP to ENDING SCREEN", 130, 220, 20, MAROON);
+}
+
+void Gui::Raylib::renderEndingScreen() {
+  DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, BLUE);
+  DrawText("ENDING SCREEN", 20, 20, 40, DARKBLUE);
+  DrawText("PRESS ENTER to JUMP to TITLE SCREEN", 130, 220, 20, DARKBLUE);
 }
