@@ -22,7 +22,12 @@ int checkError(int ac) {
 int help_flag(int ac, char **av) {
   std::string help = "-h";
   if (ac == 2 && help.compare(av[1]) == 0) {
-    std::cout << "USAGE: ./zappy_gui -p port -h machine" << std::endl;
+    std::cout << "USAGE: ./zappy_gui [-p port] [-h host]\n"
+              << "  -p port: specify the port to connect to the server "
+                 "(default: 8080)\n"
+              << "  -h host: specify the host to connect to the server "
+                 "(default: localhost)\n"
+              << "  -h: display this help message\n";
     return OK;
   }
   return KO;
