@@ -5,6 +5,7 @@
 #include <sys/socket.h>
 #include <unistd.h>
 #include <cerrno>
+#include <cstring>
 #include <iostream>
 #include <stdexcept>
 #include <string>
@@ -88,9 +89,13 @@ std::string Network::ClientCommunication::receiveMessage() {
 
   std::string message;
   const size_t BUFFER_SIZE = 1024;
+  const size_t MAX_MESSAGE_SIZE = 65536;
   char buffer[BUFFER_SIZE];
 
   while (true) {
+    if (message.size() > MAX_MESSAGE_SIZE)
+      throw std::runtime_error("Message too large");
+
     ssize_t bytesReceived = recv(_clientFd, buffer, BUFFER_SIZE - 1, 0);
 
     if (bytesReceived == -1) {
