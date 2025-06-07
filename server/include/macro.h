@@ -18,6 +18,7 @@
     #define GRAPHIC_NAME "GRAPHIC"
     #define BUFFER_SIZE 1024
     #define QUEUE_MAX_SIZE 100
+    #define UNASSIGNED_PLAYER_ID -1
 
     #define FOOD 0.5f
     #define LINEMATE 0.3f

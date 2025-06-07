@@ -9,6 +9,64 @@
 #include "macro.h"
 #include <stdlib.h>
 
+/* TODO: Should be in Fork Command */
+static
+egg_t *create_egg(int id, int x, int y, int player_id)
+{
+    egg_t *egg = malloc(sizeof(egg_t));
+
+    if (!egg) {
+        perror("malloc failed");
+        return NULL;
+    }
+    egg->id = id;
+    egg->x = x;
+    egg->y = y;
+    egg->player_id = player_id;
+    return egg;
+}
+
+/* TODO: Should be in Fork Command */
+static
+int place_egg(map_t *tile, egg_t *egg)
+{
+    egg_t *new_eggs = realloc(tile->eggs, sizeof(egg_t) *
+                        (tile->eggs_count + 1));
+
+    if (!new_eggs) {
+        perror("realloc failed");
+        return ERROR;
+    }
+    tile->eggs = new_eggs;
+    tile->eggs[tile->eggs_count] = *egg;
+    tile->eggs_count++;
+    free(egg);
+    return SUCCESS;
+}
+
+static
+int add_eggs(server_t *server)
+{
+    int x = 0;
+    int y = 0;
+    int egg_id = 0;
+    int nbr_of_clients_max = server->params.client_per_team *
+        server->params.teams_count;
+    egg_t *egg = NULL;
+
+    for (int i = 0; i < nbr_of_clients_max; i++) {
+        x = rand() % server->params.width;
+        y = rand() % server->params.height;
+        egg = create_egg(egg_id, x, y, UNASSIGNED_PLAYER_ID);
+        if (!egg)
+            return ERROR;
+        if (place_egg(&server->map[x][y], egg) == ERROR)
+            return ERROR;
+        egg_id++;
+    }
+    return SUCCESS;
+}
+
 static
 void increment_resources(map_t *map, int type)
 {
@@ -38,21 +96,6 @@ void add_resources(server_t *server, int total, int type)
         x = rand() % server->params.width;
         y = rand() % server->params.height;
         increment_resources(&server->map[x][y], type);
-    }
-}
-
-static
-void add_eggs(server_t *server)
-{
-    int x = 0;
-    int y = 0;
-    int nbr_of_clients_max = server->params.client_per_team *
-        server->params.teams_count;
-
-    for (int i = 0; i < nbr_of_clients_max; i++) {
-        x = rand() % server->params.width;
-        y = rand() % server->params.height;
-        server->map[x][y].eggs++;
     }
 }
 
