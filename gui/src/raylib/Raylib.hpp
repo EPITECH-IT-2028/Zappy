@@ -23,9 +23,10 @@ namespace Gui {
       void run();
 
     private:
-      GameScreen _currentScreen;
-      int _framesCounter;
       raylib::Window _window;
+      int _framesCounter;
+
+      GameScreen _currentScreen;
 
       void renderLogoScreen();
       void renderTitleScreen();

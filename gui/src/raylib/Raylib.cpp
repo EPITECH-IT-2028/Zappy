@@ -1,15 +1,15 @@
 #include "Raylib.hpp"
 
 Gui::Raylib::Raylib()
-    : _currentScreen(LOGO),
+    : _window(SCREEN_WIDTH, SCREEN_HEIGHT, "Zappy"),
       _framesCounter(0),
-      _window(SCREEN_WIDTH, SCREEN_HEIGHT, "Zappy") {
+      _currentScreen(LOGO) {
   if (!IsWindowReady())
     throw std::runtime_error("Failed to initialize Raylib window");
 }
 
 void Gui::Raylib::run() {
-  SetTargetFPS(60);
+  _window.SetTargetFPS(60);
 
   while (!WindowShouldClose()) {
     switch (_currentScreen) {
@@ -34,8 +34,8 @@ void Gui::Raylib::run() {
         break;
     }
 
-    BeginDrawing();
-    ClearBackground(RAYWHITE);
+    _window.BeginDrawing();
+    _window.ClearBackground(RAYWHITE);
 
     switch (_currentScreen) {
       case LOGO:
@@ -54,7 +54,7 @@ void Gui::Raylib::run() {
         break;
     }
 
-    EndDrawing();
+    _window.EndDrawing();
   }
 }
 
