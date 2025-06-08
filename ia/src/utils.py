@@ -1,6 +1,6 @@
 import sys
 
-def exit_error(message):
+def exit_error(message) -> None:
     """
     Displays an error message and exits the program.
 
