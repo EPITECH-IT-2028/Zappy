@@ -94,7 +94,6 @@ typedef struct threads_s {
     pthread_t game_thread;
     pthread_t timer_thread;
     pthread_mutex_t timer_mutex;
-    pthread_mutex_t game_mutex;
 } threads_t;
 
 typedef struct request_s {
