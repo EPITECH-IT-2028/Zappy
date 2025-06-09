@@ -25,6 +25,11 @@ typedef enum direction_s {
     DOWN
 } direction_t;
 
+typedef struct {
+    int x;
+    int y;
+} direction_offset_t;
+
 typedef struct params_s {
     int port;
     int width;
