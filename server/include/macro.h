@@ -22,6 +22,7 @@
     #define MAX_DIRECTION 4
     #define DEFAULT_VISION_DEPTH 2
     #define ADDITIONAL_VISION 1
+    #define UNASSIGNED_PLAYER_ID -1
 
     #define FOOD 0.5f
     #define LINEMATE 0.3f

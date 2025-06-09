@@ -40,6 +40,13 @@ typedef struct params_s {
     int teams_count;
 } params_t;
 
+typedef struct egg_s {
+    int id;
+    int x;
+    int y;
+    int player_id;
+} egg_t;
+
 typedef struct map_s {
     int food;
     int linemate;
@@ -49,7 +56,8 @@ typedef struct map_s {
     int phiras;
     int thystame;
     int players;
-    int eggs;
+    egg_t *eggs;
+    int eggs_count;
 } map_t;
 
 typedef struct teams_s {
@@ -62,11 +70,13 @@ typedef struct client_data_s {
     bool is_graphic;
     int x;
     int y;
+    int orientation;
     int level;
     int pending_requests;
     pthread_mutex_t pending_mutex;
     inventory_t inventory;
     direction_t direction;
+    bool has_egg;
 } client_data_t;
 
 typedef struct client_s {
@@ -130,6 +140,11 @@ typedef struct command_s {
     void (*f)(server_t *server, int i, char *str);
 } command_t;
 
+typedef struct event_s {
+    char *name;
+    void (*f)(server_t *server, int index);
+} event_t;
+
 int server(int ac, char **av);
 int check_params(params_t *params, int ac, char **av);
 
@@ -152,7 +167,17 @@ int game_loop(server_t *server);
 
 /* Connection commands */
 void connection_command(server_t *server, int index, char *buffer);
+
+/* Player commands */
 void player_command(server_t *server, int index, const char *buffer);
+
+/* Gui commands */
+void map_commands(server_t *server, int index, char *buffer);
+void time_commands(server_t *server, int index, char *buffer);
+void player_commands(server_t *server, int index, char *buffer);
+
+/* Game Events */
+void game_events(server_t *server, int index, char *buffer);
 
 /* Parameters checks */
 int help_flag(void);
