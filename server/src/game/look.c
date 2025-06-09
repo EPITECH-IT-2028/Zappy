@@ -15,7 +15,7 @@ void add_to_look(char *response, map_t current_case)
 {
     if (current_case.deraumere > 0)
         strcat(response, " deraumere");
-    if (current_case.eggs > 0)
+    if (current_case.eggs != NULL)
         strcat(response, " egg");
     if (current_case.food > 0)
         strcat(response, " food");
@@ -112,7 +112,8 @@ int handle_look(server_t *server, response_t *response, request_t *request)
     }
     sprintf(response->response, "[");
     handle_direction(&request->client->data, server, response, request);
-    strcat(response->response, "]");
+    response->response[strlen(response->response) - REMOVE_USELESS_COMMA]
+        = ']';
     response->response[strlen(response->response)] = '\0';
     response->client->data.is_busy = true;
     response->client->data.action_end_time = server->timer_count +
