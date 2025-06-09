@@ -14,13 +14,13 @@
 #include <unistd.h>
 
 static
-int check_request(response_t *response, request_t *request)
+int check_request(server_t *server, response_t *response, request_t *request)
 {
     int result = 0;
 
     for (int i = 0; tab_ai_commands[i].request != NULL; i++) {
         if (strcmp(tab_ai_commands[i].request, request->request) == 0) {
-            result = tab_ai_commands[i].func(response, request);
+            result = tab_ai_commands[i].func(server, response, request);
             break;
         }
     }
@@ -31,7 +31,7 @@ static
 void handle_request(server_t *server, response_t *response, request_t *request)
 {
     response->client = request->client;
-    if (check_request(response, request) == ERROR) {
+    if (check_request(server, response, request) == ERROR) {
         sprintf(response->response, "ko");
     }
     if (queue_add_response(server, response) == ERROR) {

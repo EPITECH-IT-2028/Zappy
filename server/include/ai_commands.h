@@ -12,13 +12,15 @@
 
 typedef struct ai_commands_s {
     char *request;
-    int (*func)(response_t *response, request_t *request);
+    int (*func)(server_t *server, response_t *response, request_t *request);
 } ai_commands_t;
 
-int handle_inventory(response_t *response, request_t *request);
+int handle_inventory(server_t *, response_t *, request_t *);
+int handle_look(server_t *server, response_t *response, request_t *request);
 
 const ai_commands_t tab_ai_commands[] = {
     {"Inventory", &handle_inventory},
+    {"Look", &handle_look},
     {NULL, NULL}
 };
 
