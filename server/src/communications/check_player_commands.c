@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2025
 ** server
 ** File description:
-** player_commands.c
+** check_player_commands.c
 */
 
 #include "server.h"
@@ -26,7 +26,7 @@ bool check_commands(const char *buffer)
     return false;
 }
 
-void player_command(server_t *server, int index, const char *buffer)
+void check_player_command(server_t *server, int index, const char *buffer)
 {
     client_t *client = server->clients[index];
     request_t request;

@@ -169,7 +169,7 @@ int game_loop(server_t *server);
 void connection_command(server_t *server, int index, char *buffer);
 
 /* Player commands */
-void player_command(server_t *server, int index, const char *buffer);
+void check_player_command(server_t *server, int index, const char *buffer);
 
 /* Gui commands */
 void map_commands(server_t *server, int index, char *buffer);
