@@ -79,7 +79,7 @@ void handle_vision_direction(server_t *server, response_t *response,
             target_x = (((client_data->x + offset.x) % width) + width) % width;
             target_y = (((client_data->y + offset.y) %
                 height) + height) % height;
-            add_to_look(response->response, server->map[target_y][target_x]);
+            add_to_look(response->response, server->map[target_x][target_y]);
         }
         if (2 * (vision_width + 1) + 1 <= width)
             vision_width++;
