@@ -36,6 +36,7 @@ void init_client_struct(client_t *clients, int fd)
     clients->data.level = 1;
     clients->data.is_graphic = false;
     clients->data.pending_requests = 0;
+    clients->data.is_busy = false;
     pthread_mutex_init(&clients->data.pending_mutex, NULL);
     init_client_inventory(&clients->data);
 }

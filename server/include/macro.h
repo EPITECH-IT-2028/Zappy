@@ -29,4 +29,17 @@
     #define THYSTAME 0.05f
     #define TOTAL_RESOURCES 7
 
+    #define FORWARD_TIME 7
+    #define RIGHT_TIME 7
+    #define LEFT_TIME 7
+    #define LOOK_TIME 7
+    #define INVENTORY_TIME 1
+    #define CONNECT_NBR_TIME 0
+    #define FORK_TIME 42
+    #define EJECT_TIME 7
+    #define DEATH_TIME 7
+    #define TAKE_TIME 7
+    #define SET_TIME 7
+    #define INCANTATION_TIME 300
+
 #endif /* MACRO_H_ */

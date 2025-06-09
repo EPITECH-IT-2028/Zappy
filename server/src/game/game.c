@@ -31,6 +31,9 @@ static
 void handle_request(server_t *server, response_t *response, request_t *request)
 {
     response->client = request->client;
+    if (request->client->data.is_busy == true) {
+        return;
+    }
     if (check_request(response, request) == ERROR) {
         sprintf(response->response, "ko");
     }

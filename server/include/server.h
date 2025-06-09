@@ -64,6 +64,8 @@ typedef struct client_data_s {
     pthread_mutex_t pending_mutex;
     inventory_t inventory;
     bool has_egg;
+    bool is_busy;
+    time_t action_end_time;
 } client_data_t;
 
 typedef struct client_s {
@@ -118,6 +120,7 @@ typedef struct server_s {
     atomic_bool running;
     queue_response_t queue_response;
     queue_request_t queue_request;
+    int timer_count;
     threads_t threads;
     map_t **map;
 } server_t;
