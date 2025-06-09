@@ -94,6 +94,7 @@ void init_queue_response_struct(queue_response_t *qr)
 static
 int init_queues(server_t *server)
 {
+    pthread_mutex_init(&server->threads.timer_mutex, NULL);
     init_queue_request_struct(&server->queue_request);
     init_queue_response_struct(&server->queue_response);
     return SUCCESS;
