@@ -55,7 +55,6 @@ direction_offset_t get_direction_offset(direction_t direction, int i, int j)
         case DOWN:
             offset.x = j;
             offset.y = i;
-            break;
     }
     return offset;
 }
@@ -113,8 +112,10 @@ int handle_look(server_t *server, response_t *response, request_t *request)
     }
     sprintf(response->response, "[");
     handle_direction(&request->client->data, server, response, request);
-    response->response[strlen(response->response) - REMOVE_USELESS_COMMA]
-        = ']';
+    strcat(response->response, "]");
     response->response[strlen(response->response)] = '\0';
+    response->client->data.is_busy = true;
+    response->client->data.action_end_time = server->timer_count +
+        (LOOK_TIME * server->params.frequence);
     return SUCCESS;
 }

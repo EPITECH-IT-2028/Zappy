@@ -46,4 +46,6 @@
     #define SET_TIME 7
     #define INCANTATION_TIME 300
 
+    #define FOOD_DURATION 126
+
 #endif /* MACRO_H_ */

@@ -92,6 +92,9 @@ typedef struct client_s {
 
 typedef struct threads_s {
     pthread_t game_thread;
+    pthread_t timer_thread;
+    pthread_mutex_t timer_mutex;
+    pthread_mutex_t game_mutex;
 } threads_t;
 
 typedef struct request_s {
@@ -165,7 +168,6 @@ void free_params(params_t *params);
 void free_server(server_t *server);
 
 /* Function for multi-thread */
-void *game(void *arg);
 int game_loop(server_t *server);
 
 /* Connection commands */
@@ -181,6 +183,7 @@ void player_commands(server_t *server, int index, char *buffer);
 
 /* Game Events */
 void game_events(server_t *server, int index, char *buffer);
+void remove_food(server_t *server);
 
 /* Parameters checks */
 int help_flag(void);
