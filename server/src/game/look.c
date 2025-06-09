@@ -113,7 +113,8 @@ int handle_look(server_t *server, response_t *response, request_t *request)
     sprintf(response->response, "[");
     handle_direction(&request->client->data, server, response, request);
     response->response[strlen(response->response) - REMOVE_USELESS_COMMA]
-        = ']';
+        = ' ';
+    strcat(response->response, "]");
     response->response[strlen(response->response)] = '\0';
     response->client->data.is_busy = true;
     response->client->data.action_end_time = server->timer_count +
