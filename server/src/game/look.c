@@ -55,6 +55,7 @@ direction_offset_t get_direction_offset(direction_t direction, int i, int j)
         case DOWN:
             offset.x = j;
             offset.y = i;
+            break;
     }
     return offset;
 }
