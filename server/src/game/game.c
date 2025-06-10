@@ -28,11 +28,24 @@ int check_request(server_t *server, response_t *response, request_t *request)
 }
 
 static
+int is_client_on_cd(client_data_t *client_data)
+{
+    struct timespec current_time;
+
+    clock_gettime(CLOCK_MONOTONIC, &current_time);
+    if (client_data->action_end_time.tv_sec > current_time.tv_sec ||
+        (client_data->action_end_time.tv_sec == current_time.tv_sec &&
+         client_data->action_end_time.tv_nsec > current_time.tv_nsec)) {
+        return SUCCESS;
+    }
+    return ERROR;
+}
+
+static
 void handle_request(server_t *server, response_t *response, request_t *request)
 {
     response->client = request->client;
-    if (response->client->data.action_end_time.tv_nsec >
-        server->server_timer.tv_nsec) {
+    if (is_client_on_cd(&response->client->data) == SUCCESS) {
         return;
     }
     request->client->data.is_busy = false;

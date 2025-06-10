@@ -55,7 +55,7 @@ long long get_current_timer_units(server_t *server)
     clock_gettime(CLOCK_MONOTONIC, &current_time);
     elapsed_seconds = (current_time.tv_sec - server->server_timer.tv_sec) +
         (current_time.tv_nsec - server->server_timer.tv_nsec)
-        / 1e9;
+        / (double)NANOSECONDS_PER_SECOND;
     return (long long)(elapsed_seconds * server->params.frequence);
 }
 
