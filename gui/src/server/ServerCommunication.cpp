@@ -56,8 +56,7 @@ void Network::ClientCommunication::establishConnection() {
       0) {
     close(_clientFd);
     _clientFd = -1;
-    throw std::runtime_error("Connection failed: " +
-                             std::string(strerror(errno)));
+    throw std::runtime_error(std::string(strerror(errno)));
   }
   _connected = true;
 }
