@@ -2,6 +2,7 @@
 
 #include <raylib.h>
 #include "raylib-cpp.hpp"
+#include "server/ServerCommunication.hpp"
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 450
@@ -17,7 +18,7 @@ namespace gui {
 
   class Raylib {
     public:
-      Raylib();
+      Raylib(Network::ServerCommunication& serverCommunication);
       ~Raylib() = default;
 
       void run();
@@ -27,6 +28,7 @@ namespace gui {
       int _framesCounter;
 
       GameScreen _currentScreen;
+      Network::ServerCommunication _serverCommunication;
 
       void renderLogoScreen();
       void renderTitleScreen();

@@ -1,9 +1,10 @@
 #include "Raylib.hpp"
 
-gui::Raylib::Raylib()
+gui::Raylib::Raylib(Network::ServerCommunication& serverCommunication)
     : _window(SCREEN_WIDTH, SCREEN_HEIGHT, "Zappy"),
       _framesCounter(0),
-      _currentScreen(GameScreen::LOGO) {
+      _currentScreen(GameScreen::LOGO),
+      _serverCommunication(serverCommunication) {
   if (!IsWindowReady())
     throw std::runtime_error("Failed to initialize Raylib window");
 }

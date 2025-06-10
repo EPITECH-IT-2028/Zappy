@@ -28,7 +28,7 @@ int main(int argc, char* argv[]) {
                 << ":" << config.getOptionP() << std::endl;
       return KO;
     }
-    gui::Raylib app;
+    gui::Raylib app(serverCommunication);
     app.run();
     std::cout << "GUI application started successfully." << std::endl;
     return OK;
