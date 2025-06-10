@@ -1,4 +1,4 @@
-#include "Parser.hpp"
+#include "ArgsParser.hpp"
 #include <iostream>
 
 void gui::Config::parse(int argc, char* argv[]) {

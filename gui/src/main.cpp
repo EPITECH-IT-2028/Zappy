@@ -1,7 +1,7 @@
 #include <exception>
 #include <iostream>
 #include <string>
-#include "parser/Parser.hpp"
+#include "parser/ArgsParser.hpp"
 #include "raylib/Raylib.hpp"
 #include "server/ServerCommunication.hpp"
 
