@@ -7,7 +7,7 @@
 #define SCREEN_HEIGHT 450
 #define LOGO_DURATION_FRAMES 120
 
-namespace Gui {
+namespace gui {
   enum GameScreen {
     LOGO,
     TITLE,
@@ -33,4 +33,4 @@ namespace Gui {
       void renderGameplayScreen();
       void renderEndingScreen();
   };
-}  // namespace Gui
+}  // namespace gui
