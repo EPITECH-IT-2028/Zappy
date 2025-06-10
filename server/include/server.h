@@ -197,4 +197,8 @@ int queue_pop_response(server_t *server, response_t *response);
 /* Map functions */
 int place_resources(server_t *server);
 
+/* Egg functions */
+int assign_random_egg_position(server_t *server, client_t *client);
+void remove_egg(map_t *tile, int index);
+
 #endif /* SERVER_H_ */
