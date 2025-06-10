@@ -37,7 +37,12 @@ def handle_Set(client, response) -> None:
     send_message(client, "Inventory")
 
 def handle_Inventory(client, response) -> None:
-    client["inventory"] = response
+    cleaned_response = response.strip().lstrip('[]').rstrip(']')
+    for item in cleaned_response.split(', '):
+        if item:
+            resource, quantity = item.split()
+            client["inventory"][resource] = int(quantity)
+    print(f"Inventaire mis à jour: {client['inventory']}")
 
 def handle_Dead(client, response) -> None:
     client["socket"].close()
@@ -77,7 +82,7 @@ def handle_client(client) -> None:
     buffer = ""
 
     while client["is_alive"]:
-        execute_command(client, "Broadcast", "Hello")
+        execute_command(client, "Inventory", "Hello")
         response = client["socket"].recv(1024).decode()
 
         buffer += response
@@ -101,7 +106,7 @@ def connect_client(server_address, team_name) -> int:
         "team_name": team_name,
         "mape_size": [0, 0],
         "commandes": [],
-        "inventory": [],
+        "inventory": {},
         "level": 1,
         "is_alive": True,
     }
