@@ -27,7 +27,7 @@ static
 void init_direction(direction_t *direction)
 {
     static const direction_t directions[MAX_DIRECTION] =
-        {LEFT, RIGHT, UP, DOWN};
+        {LEFT, UP, RIGHT, DOWN};
     int pos = 0;
 
     pos = rand() % MAX_DIRECTION;

@@ -20,8 +20,8 @@
 
 typedef enum direction_s {
     LEFT,
-    RIGHT,
     UP,
+    RIGHT,
     DOWN
 } direction_t;
 
