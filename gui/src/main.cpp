@@ -11,8 +11,8 @@
 #include "Error.hpp"
 #include "ParsingArgs.hpp"
 
-#define OK 0;
-#define KO 84;
+#define OK 0
+#define KO 84
 
 bool isHelpRequested(int argc, char** argv) {
   return argc == 2 && std::string(argv[1]) == "--help";
