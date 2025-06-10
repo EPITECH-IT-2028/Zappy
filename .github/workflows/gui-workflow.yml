@@ -22,5 +22,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Change directory to gui
+        run: cd gui
+
       - name: Build GUI
-        run: cd gui && make
+        run: |
+          cmake -B .build
+          cmake --build .build
