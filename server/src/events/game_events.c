@@ -20,7 +20,7 @@ void loop_eggs(server_t *server, int index, map_t map)
     for (int i = 0; i < map.eggs_count; i++) {
         snprintf(response, BUFFER_SIZE, "enw #%d #%d %d %d",
             map.eggs[i].id, map.eggs[i].player_id, map.eggs[i].x,
-                 map.eggs[i].y);
+                map.eggs[i].y);
         send_code(server->clients[index]->fd, response);
     }
 }
