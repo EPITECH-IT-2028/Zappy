@@ -3,7 +3,7 @@
 gui::Raylib::Raylib()
     : _window(SCREEN_WIDTH, SCREEN_HEIGHT, "Zappy"),
       _framesCounter(0),
-      _currentScreen(LOGO) {
+      _currentScreen(GameScreen::LOGO) {
   if (!IsWindowReady())
     throw std::runtime_error("Failed to initialize Raylib window");
 }
@@ -13,22 +13,22 @@ void gui::Raylib::run() {
 
   while (!WindowShouldClose()) {
     switch (_currentScreen) {
-      case LOGO: {
+      case GameScreen::LOGO: {
         _framesCounter++;
         if (_framesCounter > LOGO_DURATION_FRAMES)
-          _currentScreen = TITLE;
+          _currentScreen = GameScreen::TITLE;
       } break;
-      case TITLE: {
+      case GameScreen::TITLE: {
         if (IsKeyPressed(KEY_ENTER))
-          _currentScreen = GAMEPLAY;
+          _currentScreen = GameScreen::GAMEPLAY;
       } break;
-      case GAMEPLAY: {
+      case GameScreen::GAMEPLAY: {
         if (IsKeyPressed(KEY_ENTER))
-          _currentScreen = ENDING;
+          _currentScreen = GameScreen::ENDING;
       } break;
-      case ENDING: {
+      case GameScreen::ENDING: {
         if (IsKeyPressed(KEY_ENTER))
-          _currentScreen = TITLE;
+          _currentScreen = GameScreen::TITLE;
       } break;
       default:
         break;
@@ -38,16 +38,16 @@ void gui::Raylib::run() {
     _window.ClearBackground(RAYWHITE);
 
     switch (_currentScreen) {
-      case LOGO:
+      case GameScreen::LOGO:
         renderLogoScreen();
         break;
-      case TITLE:
+      case GameScreen::TITLE:
         renderTitleScreen();
         break;
-      case GAMEPLAY:
+      case GameScreen::GAMEPLAY:
         renderGameplayScreen();
         break;
-      case ENDING:
+      case GameScreen::ENDING:
         renderEndingScreen();
         break;
       default:

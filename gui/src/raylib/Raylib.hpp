@@ -8,7 +8,7 @@
 #define LOGO_DURATION_FRAMES 120
 
 namespace gui {
-  enum GameScreen {
+  enum class GameScreen {
     LOGO,
     TITLE,
     GAMEPLAY,
