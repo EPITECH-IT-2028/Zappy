@@ -7,7 +7,6 @@
 
 #include "macro.h"
 #include "server.h"
-#include <bits/time.h>
 #include <string.h>
 #include <pthread.h>
 #include <stdlib.h>

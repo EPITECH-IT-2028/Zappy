@@ -7,7 +7,6 @@
 
 #include "macro.h"
 #include "server.h"
-#include <bits/time.h>
 #include <stdio.h>
 
 int handle_inventory(server_t *server, response_t *response,
