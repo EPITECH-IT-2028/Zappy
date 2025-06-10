@@ -10,13 +10,13 @@
 #include <stdexcept>
 #include <string>
 
-Network::ClientCommunication::ClientCommunication(int port,
+Network::ServerCommunication::ServerCommunication(int port,
                                                   const std::string &hostname)
     : _clientFd(-1), _port(port), _hostname(hostname), _connected(false) {
   std::memset(&_serverAddr, 0, sizeof(_serverAddr));
 }
 
-Network::ClientCommunication::~ClientCommunication() {
+Network::ServerCommunication::~ServerCommunication() {
   if (_clientFd != -1) {
     close(_clientFd);
     _clientFd = -1;
@@ -24,11 +24,11 @@ Network::ClientCommunication::~ClientCommunication() {
   _connected = false;
 }
 
-bool Network::ClientCommunication::isConnected() const noexcept {
+bool Network::ServerCommunication::isConnected() const noexcept {
   return _connected;
 }
 
-bool Network::ClientCommunication::connectToServer() {
+bool Network::ServerCommunication::connectToServer() {
   try {
     createSocket();
     establishConnection();
@@ -40,14 +40,14 @@ bool Network::ClientCommunication::connectToServer() {
   }
 }
 
-void Network::ClientCommunication::createSocket() {
+void Network::ServerCommunication::createSocket() {
   _clientFd = socket(AF_INET, SOCK_STREAM, 0);
   if (_clientFd == -1)
     throw std::runtime_error("Failed to create socket: " +
                              std::string(strerror(errno)));
 }
 
-void Network::ClientCommunication::establishConnection() {
+void Network::ServerCommunication::establishConnection() {
   _serverAddr.sin_family = AF_INET;
   _serverAddr.sin_port = htons(_port);
   if (inet_pton(AF_INET, _hostname.c_str(), &_serverAddr.sin_addr) <= 0)
@@ -61,7 +61,7 @@ void Network::ClientCommunication::establishConnection() {
   _connected = true;
 }
 
-void Network::ClientCommunication::sendMessage(const std::string &message) {
+void Network::ServerCommunication::sendMessage(const std::string &message) {
   if (!_connected || _clientFd == -1)
     throw std::runtime_error("Not connected to server");
 
@@ -82,7 +82,7 @@ void Network::ClientCommunication::sendMessage(const std::string &message) {
   std::cout << "Sent to server: " << message;
 }
 
-std::string Network::ClientCommunication::receiveMessage() {
+std::string Network::ServerCommunication::receiveMessage() {
   if (!_connected || _clientFd == -1)
     throw std::runtime_error("Not connected to server");
 

@@ -5,10 +5,10 @@
 #include <string>
 
 namespace Network {
-  class ClientCommunication {
+  class ServerCommunication {
     public:
-      ClientCommunication(int port, const std::string &hostname = "127.0.0.1");
-      ~ClientCommunication();
+      ServerCommunication(int port, const std::string &hostname = "127.0.0.1");
+      ~ServerCommunication();
 
       bool isConnected() const noexcept;
       bool connectToServer();

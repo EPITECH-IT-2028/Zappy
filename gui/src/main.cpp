@@ -21,9 +21,9 @@ int main(int argc, char* argv[]) {
     }
     config.parse(argc, argv);
 
-    Network::ClientCommunication communication(std::stoi(config.getOptionP()),
+    Network::ServerCommunication serverCommunication(std::stoi(config.getOptionP()),
                                                config.getOptionH());
-    if (!communication.connectToServer()) {
+    if (!serverCommunication.connectToServer()) {
       std::cerr << "Error while connecting to server at " << config.getOptionH()
                 << ":" << config.getOptionP() << std::endl;
       return KO;
