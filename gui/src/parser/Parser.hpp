@@ -1,10 +1,3 @@
-/*
-** EPITECH PROJECT, 2024
-** zappy
-** File description:
-** ParsingArgs.hpp
-*/
-
 #include <string>
 
 #ifndef PARSINGARGS_HPP_

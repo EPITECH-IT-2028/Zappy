@@ -15,6 +15,7 @@ set(SOURCES
   src/main.cpp
   src/raylib/Raylib.cpp
   src/server/ServerCommunication.cpp
+  src/parser/Parser.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES})

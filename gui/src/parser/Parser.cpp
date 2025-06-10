@@ -1,15 +1,14 @@
-#include "ParsingArgs.hpp"
+#include "Parser.hpp"
 #include <iostream>
-#include "Error.hpp"
 
 void gui::Config::parse(int argc, char* argv[]) {
   int countP = 0;
   int countH = 0;
 
   if (argc != 5) {
-    throw gui::Error(
-        "Invalid number of arguments. Expected 4 arguments : [-p port] [-h "
-        "host]");
+    throw std::invalid_argument(
+        "Invalid number of arguments. Expected 4 arguments, got: " +
+        std::to_string(argc - 1) + ". Use --help for usage information.");
   }
 
   for (int i = 1; i < argc; i++) {
@@ -19,38 +18,40 @@ void gui::Config::parse(int argc, char* argv[]) {
       try {
         int port = std::stoi(_optionP);
         if (port <= 0 || port > 65535) {
-          throw gui::Error("Port must be between 1 and 65535, got: " +
-                           _optionP);
+          throw std::out_of_range("Port must be between 1 and 65535, got: " +
+                                  _optionP);
         }
       } catch (const std::invalid_argument&) {
-        throw gui::Error("Invalid port format: " + _optionP);
+        throw std::invalid_argument("Invalid port format: " + _optionP);
       } catch (const std::out_of_range&) {
-        throw gui::Error("Port number out of range: " + _optionP);
+        throw std::out_of_range("Port out of range: " + _optionP);
       }
       countP++;
       if (countP > 1) {
-        throw gui::Error("Port option (-p) specified multiple times");
+        throw std::invalid_argument(
+            "Port option (-p) specified multiple times");
       }
     } else if (arg == "-h" && i + 1 < argc) {
       _optionH = argv[i += 1];
       if (_optionH.empty()) {
-        throw gui::Error("Host option (-h) cannot be empty");
+        throw std::invalid_argument("Host option (-h) cannot be empty");
       }
       countH++;
       if (countH > 1) {
-        throw gui::Error("Host option (-h) specified multiple times");
+        throw std::invalid_argument(
+            "Host option (-h) specified multiple times");
       }
     } else {
-      throw gui::Error("Invalid argument: " + arg +
-                       ". Use -p for port and -h for host");
+      throw std::invalid_argument("Unknown option: " + arg +
+                                  ". Use --help for usage information.");
     }
   }
 
   if (countP == 0) {
-    throw gui::Error("Missing required port option (-p)");
+    throw std::invalid_argument("Missing required port option (-p)");
   }
   if (countH == 0) {
-    throw gui::Error("Missing required host option (-h)");
+    throw std::invalid_argument("Missing required host option (-h)");
   }
 }
 
