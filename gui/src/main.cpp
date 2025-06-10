@@ -3,6 +3,7 @@
 #include <string>
 #include "parser/Parser.hpp"
 #include "raylib/Raylib.hpp"
+#include "server/ServerCommunication.hpp"
 
 #define OK 0
 #define KO 84
@@ -20,8 +21,13 @@ int main(int argc, char* argv[]) {
     }
     config.parse(argc, argv);
 
-    std::cout << "Parsed options: port: " << config.getOptionP()
-              << " / host: " << config.getOptionH() << std::endl;
+    Network::ClientCommunication communication(std::stoi(config.getOptionP()),
+                                               config.getOptionH());
+    if (!communication.connectToServer()) {
+      std::cerr << "Error while connecting to server at " << config.getOptionH()
+                << ":" << config.getOptionP() << std::endl;
+      return KO;
+    }
     gui::Raylib app;
     app.run();
     std::cout << "GUI application started successfully." << std::endl;
