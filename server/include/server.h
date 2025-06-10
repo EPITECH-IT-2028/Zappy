@@ -15,6 +15,7 @@
     #include <poll.h>
     #include <pthread.h>
     #include <stdbool.h>
+    #include <time.h>
     #include "macro.h"
     #include "inventory.h"
 
@@ -77,6 +78,8 @@ typedef struct client_data_s {
     inventory_t inventory;
     direction_t direction;
     bool has_egg;
+    bool is_busy;
+    struct timespec action_end_time;
 } client_data_t;
 
 typedef struct client_s {
@@ -131,6 +134,8 @@ typedef struct server_s {
     atomic_bool running;
     queue_response_t queue_response;
     queue_request_t queue_request;
+    struct timespec server_timer;
+    long long server_timer_count;
     threads_t threads;
     map_t **map;
 } server_t;
@@ -162,7 +167,6 @@ void free_params(params_t *params);
 void free_server(server_t *server);
 
 /* Function for multi-thread */
-void *game(void *arg);
 int game_loop(server_t *server);
 
 /* Connection commands */
@@ -178,6 +182,7 @@ void player_commands(server_t *server, int index, char *buffer);
 
 /* Game Events */
 void game_events(server_t *server, int index, char *buffer);
+void remove_food(server_t *server);
 
 /* Parameters checks */
 int help_flag(void);
@@ -196,5 +201,10 @@ int queue_pop_response(server_t *server, response_t *response);
 
 /* Map functions */
 int place_resources(server_t *server);
+
+/* Timer functions */
+struct timespec get_action_end_time(server_t *server, int action_duration);
+long long get_current_timer_units(server_t *server);
+bool has_time_passed(server_t *server, long long, int duration);
 
 #endif /* SERVER_H_ */
