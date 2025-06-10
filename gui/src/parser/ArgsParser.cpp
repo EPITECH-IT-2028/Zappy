@@ -1,4 +1,4 @@
-#include "Argsparser.hpp"
+#include "ArgsParser.hpp"
 #include <iostream>
 
 void parser::Config::parse(int argc, char* argv[]) {
