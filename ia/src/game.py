@@ -32,11 +32,11 @@ def cleanup_thread() -> None :
 def game(process_args) -> None :
   global threads
 
-  server_adress = (process_args.machine, process_args.port)
+  server_address = (process_args.machine, process_args.port)
 
-  unused_slot = 1;
+  unused_slot = 1
   while unused_slot > 0:
-    unused_slot = protocole.connect_client(server_adress, process_args.name)
+    unused_slot = protocole.connect_client(server_address, process_args.name)
     print("Client connected")
 
   while len(threads) > 0:
