@@ -5,48 +5,48 @@
 ** main.cpp
 */
 
+#include <exception>
 #include <iostream>
 #include <string>
+#include "Error.hpp"
 #include "ParsingArgs.hpp"
 
-#define OK 0
-#define KO 84
+#define OK 0;
+#define KO 84;
 
-int checkError(int ac) {
-  if (ac != 5) {
-    return KO;
-  }
-  return OK;
+void displayHelp() {
+  std::cout << "USAGE: ./zappy_gui [-p port] [-h host]\n"
+            << "  -p port: specify the port to connect to the server\n"
+            << "  -h host: specify the host to connect to the server\n"
+            << "  -h: display this help message\n";
 }
 
-int help_flag(int ac, char **av) {
-  std::string help = "-h";
-  if (ac == 2 && help.compare(av[1]) == 0) {
-    std::cout << "USAGE: ./zappy_gui [-p port] [-h host]\n"
-              << "  -p port: specify the port to connect to the server "
-                 "(default: 8080)\n"
-              << "  -h host: specify the host to connect to the server "
-                 "(default: localhost)\n"
-              << "  -h: display this help message\n";
-    return OK;
-  }
-  return KO;
+bool isHelpRequested(int argc, char** argv) {
+  return argc == 2 && std::string(argv[1]) == "-h";
 }
 
-int main(int argc, char *argv[]) {
-  gui::Config config;
-  if (help_flag(argc, argv) == OK)
+int main(int argc, char* argv[]) {
+  try {
+    gui::Config config;
+    if (isHelpRequested(argc, argv)) {
+      config.displayHelp();
+      return OK;
+    }
+    config.parse(argc, argv);
+
+    std::cout << "Parsed options: port: " << config.getOptionP()
+              << " / host: " << config.getOptionH() << std::endl;
+    std::cout << "GUI application started successfully." << std::endl;
     return OK;
-  if (checkError(argc) == KO) {
-    std::cerr << "Invalid arguments. Use -h for help." << std::endl;
+  } catch (const gui::Error& e) {
+    std::cerr << "Error: " << e.what() << std::endl;
+    std::cerr << "Use -h for help." << std::endl;
+    return KO;
+  } catch (const std::exception& e) {
+    std::cerr << "Unexpected error: " << e.what() << std::endl;
+    return KO;
+  } catch (...) {
+    std::cerr << "Unknown error occurred." << std::endl;
     return KO;
   }
-  if (!config.parse(argc, argv)) {
-    std::cerr << "Error parsing arguments." << std::endl;
-    return KO;
-  }
-  std::cout << "Parsed options: port: " << config.getOptionP()
-            << " / host: " << config.getOptionH() << std::endl;
-  std::cout << "GUI application started successfully." << std::endl;
-  return OK;
 }

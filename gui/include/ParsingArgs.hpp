@@ -13,18 +13,15 @@
 namespace gui {
   class Config {
     public:
-      bool parse(int argc, char* argv[]);
+      void parse(int argc, char* argv[]);
+      void displayHelp() const;
 
-      std::string getOptionP() const {
-        return optionP;
-      }
-      std::string getOptionH() const {
-        return optionH;
-      }
+      std::string getOptionP() const;
+      std::string getOptionH() const;
 
     private:
-      std::string optionP;
-      std::string optionH;
+      std::string _optionP;
+      std::string _optionH;
   };
 }  // namespace gui
 
