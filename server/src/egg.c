@@ -39,12 +39,9 @@ void remove_egg(map_t *tile, int index)
 static
 int assign_egg_position(map_t *tile, client_t *client, int target)
 {
-    egg_t *egg = NULL;
-
     if (target < tile->eggs_count) {
-        egg = &tile->eggs[target];
-        client->data.x = egg->x;
-        client->data.y = egg->y;
+        client->data.x = tile->eggs[target].x;
+        client->data.y = tile->eggs[target].y;
         tile->players++;
         remove_egg(tile, target);
         return true;
