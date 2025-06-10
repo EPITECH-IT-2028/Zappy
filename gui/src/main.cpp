@@ -1,9 +1,8 @@
 #include <exception>
 #include <iostream>
 #include <string>
-#include "Error.hpp"
-#include "server/ServerCommunication.hpp"
 #include "parser/Parser.hpp"
+#include "raylib/Raylib.hpp"
 
 #define OK 0
 #define KO 84
@@ -23,11 +22,11 @@ int main(int argc, char* argv[]) {
 
     std::cout << "Parsed options: port: " << config.getOptionP()
               << " / host: " << config.getOptionH() << std::endl;
-    Network::ServerCommunication server(8080);
-    server.run();
+    gui::Raylib app;
+    app.run();
     std::cout << "GUI application started successfully." << std::endl;
     return OK;
-  } catch (const gui::Error& e) {
+  } catch (const std::invalid_argument& e) {
     std::cerr << "Error: " << e.what() << std::endl;
     std::cerr << "Use --help for help." << std::endl;
     return KO;
