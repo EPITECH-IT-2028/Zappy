@@ -7,14 +7,16 @@
 
 #include "macro.h"
 #include "server.h"
+#include <bits/time.h>
 #include <string.h>
 #include <pthread.h>
 #include <stdlib.h>
+#include <time.h>
 
 static
 void init_client_inventory(client_data_t *cd)
 {
-    cd->inventory.food = 0;
+    cd->inventory.food = 10;
     cd->inventory.linemate = 0;
     cd->inventory.deraumere = 0;
     cd->inventory.sibur = 0;
@@ -47,6 +49,7 @@ void init_client_struct(client_t *clients, int fd)
     clients->data.level = 1;
     clients->data.is_graphic = false;
     clients->data.pending_requests = 0;
+    clients->data.is_busy = false;
     init_direction(&clients->data.direction);
     pthread_mutex_init(&clients->data.pending_mutex, NULL);
     init_client_inventory(&clients->data);
@@ -129,6 +132,7 @@ int init_server_struct(server_t *server, params_t *params)
     if (server->fds == NULL || server->clients == NULL ||
         server->teams == NULL || init_queues(server) == ERROR ||
         init_teams_struct(server->teams, params) == ERROR ||
+        clock_gettime(CLOCK_MONOTONIC, &server->server_timer) ||
         init_map_struct(server, params) == ERROR || server->fd < 0)
         return ERROR;
     server->clients[SERVER_INDEX] = NULL;
