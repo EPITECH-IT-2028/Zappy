@@ -6,7 +6,7 @@
 ##
 
 SRC = ./src/main.cpp \
-	  ./src/ParsingArgs.cpp \
+      ./src/ParsingArgs.cpp \
       ./src/error/Error.cpp \
 
 OBJ = $(SRC:.cpp=.o)
