@@ -1,6 +1,6 @@
 #include "Raylib.hpp"
 
-gui::Raylib::Raylib(Network::ServerCommunication& serverCommunication)
+gui::Raylib::Raylib(network::ServerCommunication& serverCommunication)
     : _window(SCREEN_WIDTH, SCREEN_HEIGHT, "Zappy"),
       _framesCounter(0),
       _currentScreen(GameScreen::LOGO),

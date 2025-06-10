@@ -14,14 +14,14 @@ bool isHelpRequested(int argc, char** argv) {
 
 int main(int argc, char* argv[]) {
   try {
-    gui::Config config;
+    parser::Config config;
     if (isHelpRequested(argc, argv)) {
       config.displayHelp();
       return OK;
     }
     config.parse(argc, argv);
 
-    Network::ServerCommunication serverCommunication(std::stoi(config.getOptionP()),
+    network::ServerCommunication serverCommunication(std::stoi(config.getOptionP()),
                                                config.getOptionH());
     if (!serverCommunication.connectToServer()) {
       std::cerr << "Error while connecting to server at " << config.getOptionH()

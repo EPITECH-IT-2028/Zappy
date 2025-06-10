@@ -1,7 +1,7 @@
-#include "ArgsParser.hpp"
+#include "Argsparser.hpp"
 #include <iostream>
 
-void gui::Config::parse(int argc, char* argv[]) {
+void parser::Config::parse(int argc, char* argv[]) {
   int countP = 0;
   int countH = 0;
 
@@ -55,16 +55,16 @@ void gui::Config::parse(int argc, char* argv[]) {
   }
 }
 
-std::string gui::Config::getOptionP() const {
+std::string parser::Config::getOptionP() const {
   return _optionP;
 }
 
-std::string gui::Config::getOptionH() const {
+std::string parser::Config::getOptionH() const {
   return _optionH;
 }
 
-void gui::Config::displayHelp() const {
-  std::cout << "USAGE: ./zappy_gui [-p port] [-h host]\n"
+void parser::Config::displayHelp() const {
+  std::cout << "USAGE: ./zappy_parser [-p port] [-h host]\n"
             << "  -p port: specify the port to connect to the server\n"
             << "  -h host: specify the host to connect to the server\n"
             << "  --help: display this help message\n";

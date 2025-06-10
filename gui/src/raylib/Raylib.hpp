@@ -18,7 +18,7 @@ namespace gui {
 
   class Raylib {
     public:
-      Raylib(Network::ServerCommunication& serverCommunication);
+      Raylib(network::ServerCommunication& serverCommunication);
       ~Raylib() = default;
 
       void run();
@@ -28,7 +28,7 @@ namespace gui {
       int _framesCounter;
 
       GameScreen _currentScreen;
-      Network::ServerCommunication &_serverCommunication;
+      network::ServerCommunication &_serverCommunication;
 
       void renderLogoScreen();
       void renderTitleScreen();

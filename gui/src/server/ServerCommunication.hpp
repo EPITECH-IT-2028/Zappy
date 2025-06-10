@@ -4,7 +4,7 @@
 #include <poll.h>
 #include <string>
 
-namespace Network {
+namespace network {
   class ServerCommunication {
     public:
       ServerCommunication(int port, const std::string &hostname = "127.0.0.1");
@@ -26,4 +26,4 @@ namespace Network {
       bool _connected;
       std::string _pendingData;
   };
-}  // namespace Network
+}  // namespace network

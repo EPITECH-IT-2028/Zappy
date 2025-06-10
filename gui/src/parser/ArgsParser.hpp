@@ -3,7 +3,7 @@
 #ifndef PARSINGARGS_HPP_
   #define PARSINGARGS_HPP_
 
-namespace gui {
+namespace parser {
   class Config {
     public:
       void parse(int argc, char* argv[]);
@@ -16,6 +16,6 @@ namespace gui {
       std::string _optionP;
       std::string _optionH;
   };
-}  // namespace gui
+}  // namespace parser
 
 #endif /* PARSINGARGS_HPP_ */
