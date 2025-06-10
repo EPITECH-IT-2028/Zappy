@@ -114,7 +114,10 @@ std::string Network::ClientCommunication::receiveMessage() {
     message += std::string(buffer, bytesReceived);
 
     size_t newlinePos = message.find('\n');
-    if (newlinePos != std::string::npos)
-      return message.substr(0, newlinePos + 1);
+    if (newlinePos != std::string::npos) {
+      std::string result = message.substr(0, newlinePos + 1);
+      _pendingData = message.substr(newlinePos + 1);
+      return result;
+    }
   }
 }

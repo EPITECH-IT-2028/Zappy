@@ -24,5 +24,6 @@ namespace Network {
       std::string _hostname;
       struct sockaddr_in _serverAddr;
       bool _connected;
+      std::string _pendingData;
   };
 }  // namespace Network
