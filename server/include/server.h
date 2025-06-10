@@ -19,10 +19,10 @@
     #include "inventory.h"
 
 typedef enum direction_s {
-    LEFT,
     UP,
     RIGHT,
-    DOWN
+    DOWN,
+    LEFT
 } direction_t;
 
 typedef struct {
