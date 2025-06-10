@@ -19,4 +19,5 @@ void remove_food(server_t *server)
             send_code(server->clients[i]->fd, "dead");
         }
     }
+    server->server_timer_count = get_current_timer_units(server);
 }

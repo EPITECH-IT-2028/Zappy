@@ -15,6 +15,7 @@
     #include <poll.h>
     #include <pthread.h>
     #include <stdbool.h>
+    #include <time.h>
     #include "macro.h"
     #include "inventory.h"
 
@@ -78,7 +79,7 @@ typedef struct client_data_s {
     direction_t direction;
     bool has_egg;
     bool is_busy;
-    time_t action_end_time;
+    struct timespec action_end_time;
 } client_data_t;
 
 typedef struct client_s {
@@ -92,8 +93,6 @@ typedef struct client_s {
 
 typedef struct threads_s {
     pthread_t game_thread;
-    pthread_t timer_thread;
-    pthread_mutex_t timer_mutex;
 } threads_t;
 
 typedef struct request_s {
@@ -135,7 +134,8 @@ typedef struct server_s {
     atomic_bool running;
     queue_response_t queue_response;
     queue_request_t queue_request;
-    int timer_count;
+    struct timespec server_timer;
+    long long server_timer_count;
     threads_t threads;
     map_t **map;
 } server_t;
@@ -201,5 +201,10 @@ int queue_pop_response(server_t *server, response_t *response);
 
 /* Map functions */
 int place_resources(server_t *server);
+
+/* Timer functions */
+struct timespec get_action_end_time(server_t *server, int action_duration);
+long long get_current_timer_units(server_t *server);
+bool has_time_passed(server_t *server, long long, int duration);
 
 #endif /* SERVER_H_ */

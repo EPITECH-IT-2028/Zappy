@@ -7,9 +7,11 @@
 
 #include "macro.h"
 #include "server.h"
+#include <bits/time.h>
 #include <string.h>
 #include <pthread.h>
 #include <stdlib.h>
+#include <time.h>
 
 static
 void init_client_inventory(client_data_t *cd)
@@ -94,7 +96,6 @@ void init_queue_response_struct(queue_response_t *qr)
 static
 int init_queues(server_t *server)
 {
-    pthread_mutex_init(&server->threads.timer_mutex, NULL);
     init_queue_request_struct(&server->queue_request);
     init_queue_response_struct(&server->queue_response);
     return SUCCESS;
@@ -131,6 +132,7 @@ int init_server_struct(server_t *server, params_t *params)
     if (server->fds == NULL || server->clients == NULL ||
         server->teams == NULL || init_queues(server) == ERROR ||
         init_teams_struct(server->teams, params) == ERROR ||
+        clock_gettime(CLOCK_MONOTONIC, &server->server_timer) ||
         init_map_struct(server, params) == ERROR || server->fd < 0)
         return ERROR;
     server->clients[SERVER_INDEX] = NULL;

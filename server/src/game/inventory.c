@@ -5,7 +5,9 @@
 ** inventory.c
 */
 
+#include "macro.h"
 #include "server.h"
+#include <bits/time.h>
 #include <stdio.h>
 
 int handle_inventory(server_t *server, response_t *response,
@@ -24,7 +26,7 @@ int handle_inventory(server_t *server, response_t *response,
         response->client->data.inventory.phiras,
         response->client->data.inventory.thystame);
     response->client->data.is_busy = true;
-    response->client->data.action_end_time = server->timer_count +
-        (INVENTORY_TIME * server->params.frequence);
+    response->client->data.action_end_time = get_action_end_time(server,
+        INVENTORY_TIME);
     return SUCCESS;
 }

@@ -32,6 +32,7 @@ SRC += ./src/queue.c
 SRC += ./src/game/inventory.c
 SRC += ./src/game/look.c
 SRC += ./src/game/food.c
+SRC += ./src/game/timer_handling.c
 
 OBJ = $(SRC:.c=.o)
 
