@@ -28,7 +28,7 @@ namespace gui {
       int _framesCounter;
 
       GameScreen _currentScreen;
-      Network::ServerCommunication _serverCommunication;
+      Network::ServerCommunication &_serverCommunication;
 
       void renderLogoScreen();
       void renderTitleScreen();
