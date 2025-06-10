@@ -86,7 +86,16 @@ std::string Network::ServerCommunication::receiveMessage() {
   if (!_connected || _clientFd == -1)
     throw std::runtime_error("Not connected to server");
 
-  std::string message;
+  if (!_pendingData.empty()) {
+    size_t newlinePos = _pendingData.find('\n');
+    if (newlinePos != std::string::npos) {
+      std::string result = _pendingData.substr(0, newlinePos + 1);
+      _pendingData = _pendingData.substr(newlinePos + 1);
+      return result;
+    }
+  }
+
+  std::string message = _pendingData;
   const size_t BUFFER_SIZE = 1024;
   const size_t MAX_MESSAGE_SIZE = 65536;
   char buffer[BUFFER_SIZE];
