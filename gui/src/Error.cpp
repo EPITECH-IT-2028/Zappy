@@ -1,10 +1,3 @@
-/*
-** EPITECH PROJECT, 2024
-** zappy
-** File description:
-** Error.cpp
-*/
-
 #include "Error.hpp"
 
 namespace gui {

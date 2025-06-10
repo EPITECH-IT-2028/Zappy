@@ -1,10 +1,3 @@
-/*
-** EPITECH PROJECT, 2024
-** zappy
-** File description:
-** ParsingArgs.cpp
-*/
-
 #include "ParsingArgs.hpp"
 #include <iostream>
 #include "Error.hpp"

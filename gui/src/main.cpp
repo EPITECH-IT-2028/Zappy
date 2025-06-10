@@ -1,10 +1,3 @@
-/*
-** EPITECH PROJECT, 2024
-** zappy
-** File description:
-** main.cpp
-*/
-
 #include <exception>
 #include <iostream>
 #include <string>

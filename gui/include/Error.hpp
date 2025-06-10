@@ -1,10 +1,3 @@
-/*
-** EPITECH PROJECT, 2024
-** zappy
-** File description:
-** Error.hpp
-*/
-
 #include <exception>
 #include <string>
 
