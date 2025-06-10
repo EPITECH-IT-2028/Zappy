@@ -14,15 +14,8 @@
 #define OK 0;
 #define KO 84;
 
-void displayHelp() {
-  std::cout << "USAGE: ./zappy_gui [-p port] [-h host]\n"
-            << "  -p port: specify the port to connect to the server\n"
-            << "  -h host: specify the host to connect to the server\n"
-            << "  -h: display this help message\n";
-}
-
 bool isHelpRequested(int argc, char** argv) {
-  return argc == 2 && std::string(argv[1]) == "-h";
+  return argc == 2 && std::string(argv[1]) == "--help";
 }
 
 int main(int argc, char* argv[]) {
@@ -40,7 +33,7 @@ int main(int argc, char* argv[]) {
     return OK;
   } catch (const gui::Error& e) {
     std::cerr << "Error: " << e.what() << std::endl;
-    std::cerr << "Use -h for help." << std::endl;
+    std::cerr << "Use --help for help." << std::endl;
     return KO;
   } catch (const std::exception& e) {
     std::cerr << "Unexpected error: " << e.what() << std::endl;

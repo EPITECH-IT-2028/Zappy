@@ -73,5 +73,5 @@ void gui::Config::displayHelp() const {
   std::cout << "USAGE: ./zappy_gui [-p port] [-h host]\n"
             << "  -p port: specify the port to connect to the server\n"
             << "  -h host: specify the host to connect to the server\n"
-            << "  -h: display this help message\n";
+            << "  --help: display this help message\n";
 }
