@@ -1,7 +1,6 @@
-#include <string>
+#pragma once
 
-#ifndef PARSINGARGS_HPP_
-  #define PARSINGARGS_HPP_
+#include <string>
 
 namespace parser {
   class Config {
@@ -17,5 +16,3 @@ namespace parser {
       std::string _optionH;
   };
 }  // namespace parser
-
-#endif /* PARSINGARGS_HPP_ */

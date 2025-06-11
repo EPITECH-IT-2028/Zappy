@@ -1,3 +1,5 @@
+#pragma once
+
 #include <string>
 #include <vector>
 
@@ -24,9 +26,9 @@ namespace parser {
       CommandParser() = default;
       ~CommandParser() = default;
 
-      MapSize parseMsz(const std::string& command);
-      TimeUnit parseSgt(const std::string& command);
-      TeamNames parseTna(const std::string& command);
+      static MapSize parseMsz(const std::string& command);
+      static TimeUnit parseSgt(const std::string& command);
+      static TeamNames parseTna(const std::string& command);
 
     private:
   };

@@ -1,7 +1,6 @@
 #pragma once
 
 #include <netinet/in.h>
-#include <poll.h>
 #include <string>
 
 namespace network {

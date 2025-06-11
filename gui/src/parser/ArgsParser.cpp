@@ -1,5 +1,6 @@
 #include "ArgsParser.hpp"
 #include <iostream>
+#include <stdexcept>
 
 void parser::Config::parse(int argc, char* argv[]) {
   int countP = 0;
@@ -64,7 +65,7 @@ std::string parser::Config::getOptionH() const {
 }
 
 void parser::Config::displayHelp() const {
-  std::cout << "USAGE: ./zappy_parser [-p port] [-h host]\n"
+  std::cout << "USAGE: ./zappy_gui [-p port] [-h host]\n"
             << "  -p port: specify the port to connect to the server\n"
             << "  -h host: specify the host to connect to the server\n"
             << "  --help: display this help message\n";

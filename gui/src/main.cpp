@@ -21,14 +21,14 @@ int main(int argc, char* argv[]) {
     }
     config.parse(argc, argv);
 
-    network::ServerCommunication serverCommunication(std::stoi(config.getOptionP()),
-                                               config.getOptionH());
+    network::ServerCommunication serverCommunication(
+        std::stoi(config.getOptionP()), config.getOptionH());
     if (!serverCommunication.connectToServer()) {
       std::cerr << "Error while connecting to server at " << config.getOptionH()
                 << ":" << config.getOptionP() << std::endl;
       return KO;
     }
-    gui::Raylib app(serverCommunication);
+    gui::Raylib app{serverCommunication};
     app.run();
     std::cout << "GUI application started successfully." << std::endl;
     return OK;

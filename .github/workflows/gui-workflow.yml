@@ -23,7 +23,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build GUI
+        working-directory: gui
         run: |
-          cd gui
           cmake -B .build -S .
           cmake --build .build

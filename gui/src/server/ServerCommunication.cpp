@@ -12,7 +12,11 @@
 
 network::ServerCommunication::ServerCommunication(int port,
                                                   const std::string &hostname)
-    : _clientFd(-1), _port(port), _hostname(hostname), _connected(false) {
+    : _clientFd(-1),
+      _port(port),
+      _hostname(hostname),
+      _connected(false),
+      _pendingData() {
   std::memset(&_serverAddr, 0, sizeof(_serverAddr));
 }
 
