@@ -1,16 +1,8 @@
-/*
-** EPITECH PROJECT, 2024
-** zappy
-** File description:
-** ParsingArgs.hpp
-*/
+#pragma once
 
 #include <string>
 
-#ifndef PARSINGARGS_HPP_
-  #define PARSINGARGS_HPP_
-
-namespace gui {
+namespace parser {
   class Config {
     public:
       void parse(int argc, char* argv[]);
@@ -23,6 +15,4 @@ namespace gui {
       std::string _optionP;
       std::string _optionH;
   };
-}  // namespace gui
-
-#endif /* PARSINGARGS_HPP_ */
+}  // namespace parser
