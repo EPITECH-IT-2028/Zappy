@@ -27,7 +27,6 @@ void remove_food(server_t *server)
         if (server->clients[i] == NULL || server->fds[i].fd == -1)
             continue;
         if (server->clients[i]->data.team_name != NULL) {
-            send_code(server->clients[i]->fd, "Food have been removed");
             server->clients[i]->data.inventory.food--;
             check_death(server->clients[i]);
         }

@@ -5,6 +5,7 @@
 ** movement.c
 */
 
+#include "macro.h"
 #include "server.h"
 
 static
@@ -61,6 +62,9 @@ int move_forward(server_t *server, response_t *response, request_t *request)
     check_map_bounds(server, client);
     map[client->data.x][client->data.y].players++;
     sprintf(response->response, "ok");
+    response->client->data.is_busy = true;
+    response->client->data.action_end_time =
+        get_action_end_time(server, FORWARD_TIME);
     return SUCCESS;
 }
 
@@ -72,6 +76,9 @@ int rotate_right(server_t *server, response_t *response, request_t *request)
         return ERROR;
     client->data.direction = (client->data.direction + 1) % MAX_DIRECTION;
     sprintf(response->response, "ok");
+    response->client->data.is_busy = true;
+    response->client->data.action_end_time =
+        get_action_end_time(server, RIGHT_TIME);
     return SUCCESS;
 }
 
@@ -84,5 +91,8 @@ int rotate_left(server_t *server, response_t *response, request_t *request)
     client->data.direction = (client->data.direction - 1 + MAX_DIRECTION)
         % MAX_DIRECTION;
     sprintf(response->response, "ok");
+    response->client->data.is_busy = true;
+    response->client->data.action_end_time =
+        get_action_end_time(server, LEFT_TIME);
     return SUCCESS;
 }
