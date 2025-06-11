@@ -1,6 +1,8 @@
 import socket
 import threading
 import game
+import ml_agent
+import random
 
 allowed_commands = [
     "Forward",
@@ -31,18 +33,17 @@ def handle_Left(client, response) -> None:
     print("Rotation à gauche réussie")
 
 def handle_Take(client, response) -> None:
-    send_message(client, "Inventory")
+    print(f"Taking food")
 
 def handle_Set(client, response) -> None:
     send_message(client, "Inventory")
 
 def handle_Inventory(client, response) -> None:
-    cleaned_response = response.strip().lstrip('[]').rstrip(']')
+    cleaned_response = response.strip().lstrip('[').rstrip(']')
     for item in cleaned_response.split(', '):
         if item:
             resource, quantity = item.split()
             client["inventory"][resource] = int(quantity)
-    print(f"Inventaire mis à jour: {client['inventory']}")
 
 def handle_Dead(client, response) -> None:
     client["socket"].close()
@@ -59,12 +60,34 @@ def handle_Broadcast(client, response) -> None:
         return
     print(f"Message broadcast reçu: {response}")
 
+def handle_Look(client, response) -> None:
+    cleaned_response = response.strip().lstrip('[').rstrip(']')
+    client["last_look"] = [item.strip() for item in cleaned_response.split(',')]
+
+    vision_data = ml_agent.analyze_vision(client)
+    if vision_data["food"]:
+        ml_agent.get_food(client)
+    else:
+        client["move"]["consecutive_turns"] += 1
+        if client["move"]["consecutive_turns"] >= 3:
+            client["move"]["consecutive_turns"] = 0
+            client["move"]["forward"] = True
+            execute_command(client, "Forward", None)
+        else:
+            if random.random() < 0.7:
+                execute_command(client, "Right", None)
+            else:
+                execute_command(client, "Forward", None)
+    execute_command(client, "Inventory", None)
+    execute_command(client, "Look", None)
+
 def handle_commande(client, commande, response):
     func_name = f"handle_{commande}"
 
     if func_name in globals():
         handler = globals()[func_name]
         handler(client, response)
+        client["commandes"].pop(0)
 
 def execute_command(client, commande, args) -> None:
     global allowed_commands
@@ -81,8 +104,9 @@ def execute_command(client, commande, args) -> None:
 def handle_client(client) -> None:
     buffer = ""
 
+    execute_command(client, "Look", None)
+
     while client["is_alive"]:
-        execute_command(client, "Inventory", "Hello")
         response = client["socket"].recv(1024).decode()
 
         buffer += response
@@ -107,8 +131,15 @@ def connect_client(server_address, team_name) -> int:
         "mape_size": [0, 0],
         "commandes": [],
         "inventory": {},
+        "last_look": [],
         "level": 1,
         "is_alive": True,
+        "move": {
+            "consecutive_turns": 0,
+            "forward": False,
+            "distance_to_food": -1,
+            "last_food": None,
+        }
     }
 
     welcome_msg = client["socket"].recv(1024).decode()
