@@ -16,8 +16,10 @@ void gui::Raylib::run() {
     switch (_currentScreen) {
       case GameScreen::LOGO: {
         _framesCounter++;
-        if (_framesCounter > LOGO_DURATION_FRAMES)
+        if (_framesCounter > LOGO_DURATION_FRAMES) {
           _currentScreen = GameScreen::TITLE;
+          _framesCounter = 0;
+        }
       } break;
       case GameScreen::TITLE: {
         if (IsKeyPressed(KEY_ENTER))
