@@ -73,7 +73,7 @@ void handle_vision_direction(server_t *server, response_t *response,
     int target_y = 0;
 
     for (int i = 0; i < vision_depth; i++) {
-        for (int j = vision_width; j >= -vision_width; j--) {
+        for (int j = vision_width; j >= - vision_width; j--) {
             offset = get_direction_offset(direction, i, j);
             target_x = (((client_data->x + offset.x) % width) + width) % width;
             target_y = (((client_data->y + offset.y) %
