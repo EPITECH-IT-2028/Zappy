@@ -20,10 +20,10 @@
     #include "inventory.h"
 
 typedef enum direction_s {
-    LEFT,
-    RIGHT,
     UP,
-    DOWN
+    RIGHT,
+    DOWN,
+    LEFT
 } direction_t;
 
 typedef struct {
@@ -173,7 +173,7 @@ int game_loop(server_t *server);
 void connection_command(server_t *server, int index, char *buffer);
 
 /* Player commands */
-void player_command(server_t *server, int index, const char *buffer);
+void check_player_command(server_t *server, int index, const char *buffer);
 
 /* Gui commands */
 void map_commands(server_t *server, int index, char *buffer);

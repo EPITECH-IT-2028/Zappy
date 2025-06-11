@@ -9,9 +9,9 @@ ZAPPY_CLIENT = zappy_gui
 all: $(ZAPPY_IA) $(ZAPPY_SERVER) $(ZAPPY_CLIENT)
 
 $(ZAPPY_IA):
-	@echo "Compiling $(ZAPPY_IA)..."
-	@make -C $(ZAPPY_IA_DIR)
-	@cp $(ZAPPY_IA_DIR)/$(ZAPPY_IA) .
+	@echo "Setting up $(ZAPPY_IA)..."
+	@chmod +x $(ZAPPY_IA_DIR)/zappy_ia.sh
+	@cp $(ZAPPY_IA_DIR)/zappy_ia.sh ./$(ZAPPY_IA)
 
 $(ZAPPY_SERVER):
 	@echo "Compiling $(ZAPPY_SERVER)..."
@@ -24,15 +24,15 @@ $(ZAPPY_CLIENT):
 	@cp $(ZAPPY_CLIENT_DIR)/$(ZAPPY_CLIENT) .
 
 clean:
-	@make -C $(ZAPPY_IA_DIR) clean
 	@make -C $(ZAPPY_SERVER_DIR) clean
 	@make -C $(ZAPPY_CLIENT_DIR) clean
 	@find . -name "*~" -delete
+	@find . -name "*.pyc" -delete
+	@find . -name "__pycache__" -type d -exec rm -rf {} + 2>/dev/null || true
 	@rm -f *.gcno
 	@rm -f *.gcda
 
 fclean: clean
-	@make -C $(ZAPPY_IA_DIR) fclean
 	@make -C $(ZAPPY_SERVER_DIR) fclean
 	@make -C $(ZAPPY_CLIENT_DIR) fclean
 	@rm -f $(ZAPPY_IA)

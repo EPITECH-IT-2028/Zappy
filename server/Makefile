@@ -10,7 +10,7 @@ SRC = ./src/main.c \
 			./src/communications/init_struct.c \
 			./src/communications/events_server.c \
 			./src/communications/connection_commands.c \
-			./src/communications/player_commands.c \
+			./src/communications/check_player_commands.c \
 			./src/communications/gui_commands/map_commands.c \
 			./src/communications/gui_commands/time_commands.c \
 			./src/communications/gui_commands/player_commands.c \
@@ -32,6 +32,7 @@ SRC += ./src/queue.c
 SRC += ./src/egg.c
 SRC += ./src/game/inventory.c
 SRC += ./src/game/look.c
+SRC += ./src/game/movement.c
 SRC += ./src/game/food.c
 SRC += ./src/game/timer_handling.c
 
