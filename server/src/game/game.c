@@ -46,6 +46,7 @@ void handle_request(server_t *server, response_t *response, request_t *request)
 {
     response->client = request->client;
     if (is_client_on_cd(&response->client->data) == SUCCESS) {
+        queue_add_request(server, request);
         return;
     }
     request->client->data.is_busy = false;

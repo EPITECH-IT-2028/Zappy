@@ -24,6 +24,7 @@ void accept_client(server_t *server, int client_fd)
     init_client_struct(server->clients[server->nfds], client_fd);
     server->fds[server->nfds].fd = client_fd;
     server->fds[server->nfds].events = POLLIN;
+    server->fds[server->nfds].revents = 0;
     server->nfds++;
 }
 

@@ -126,7 +126,7 @@ int init_server_struct(server_t *server, params_t *params)
     server->addr.sin_addr.s_addr = htonl(INADDR_ANY);
     server->addr_len = sizeof(server->addr);
     server->fds = malloc(sizeof(struct pollfd));
-    server->clients = malloc(sizeof(client_t));
+    server->clients = malloc(sizeof(client_t *));
     server->teams = malloc(sizeof(teams_t) * params->teams_count);
     if (server->fds == NULL || server->clients == NULL ||
         server->teams == NULL || init_queues(server) == ERROR ||
@@ -138,6 +138,7 @@ int init_server_struct(server_t *server, params_t *params)
     server->nfds = 1;
     server->fds[SERVER_INDEX].fd = server->fd;
     server->fds[SERVER_INDEX].events = POLLIN;
+    server->fds[SERVER_INDEX].revents = 0;
     server->running = true;
     return SUCCESS;
 }
