@@ -35,7 +35,7 @@ int is_client_on_cd(client_data_t *client_data)
     clock_gettime(CLOCK_MONOTONIC, &current_time);
     if (client_data->action_end_time.tv_sec > current_time.tv_sec ||
         (client_data->action_end_time.tv_sec == current_time.tv_sec &&
-         client_data->action_end_time.tv_nsec > current_time.tv_nsec)) {
+        client_data->action_end_time.tv_nsec > current_time.tv_nsec)) {
         return SUCCESS;
     }
     return ERROR;

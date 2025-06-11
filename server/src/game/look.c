@@ -13,6 +13,8 @@
 static
 void add_to_look(char *response, map_t current_case)
 {
+    if (current_case.players > 0)
+        strcat(response, " player");
     if (current_case.deraumere > 0)
         strcat(response, " deraumere");
     if (current_case.eggs != NULL)
@@ -25,8 +27,6 @@ void add_to_look(char *response, map_t current_case)
         strcat(response, " mendiane");
     if (current_case.phiras > 0)
         strcat(response, " phiras");
-    if (current_case.players > 0)
-        strcat(response, " player");
     if (current_case.sibur > 0)
         strcat(response, " sibur");
     if (current_case.thystame > 0)
