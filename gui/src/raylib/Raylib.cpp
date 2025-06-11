@@ -14,25 +14,18 @@ void gui::Raylib::run() {
 
   while (!WindowShouldClose()) {
     switch (_currentScreen) {
-      case GameScreen::LOGO: {
-        _framesCounter++;
-        if (_framesCounter > LOGO_DURATION_FRAMES) {
-          _currentScreen = GameScreen::TITLE;
-          _framesCounter = 0;
-        }
-      } break;
-      case GameScreen::TITLE: {
-        if (IsKeyPressed(KEY_ENTER))
-          _currentScreen = GameScreen::GAMEPLAY;
-      } break;
-      case GameScreen::GAMEPLAY: {
-        if (IsKeyPressed(KEY_ENTER))
-          _currentScreen = GameScreen::ENDING;
-      } break;
-      case GameScreen::ENDING: {
-        if (IsKeyPressed(KEY_ENTER))
-          _currentScreen = GameScreen::TITLE;
-      } break;
+      case GameScreen::LOGO:
+        updateLogoScreen();
+        break;
+      case GameScreen::TITLE:
+        updateTitleScreen();
+        break;
+      case GameScreen::GAMEPLAY:
+        updateGameplayScreen();
+        break;
+      case GameScreen::ENDING:
+        updateEndingScreen();
+        break;
       default:
         break;
     }
@@ -59,6 +52,29 @@ void gui::Raylib::run() {
 
     _window.EndDrawing();
   }
+}
+
+void gui::Raylib::updateLogoScreen() {
+  _framesCounter++;
+  if (_framesCounter > LOGO_DURATION_FRAMES) {
+    _currentScreen = GameScreen::TITLE;
+    _framesCounter = 0;
+  }
+}
+
+void gui::Raylib::updateTitleScreen() {
+  if (IsKeyPressed(KEY_ENTER))
+    _currentScreen = GameScreen::GAMEPLAY;
+}
+
+void gui::Raylib::updateGameplayScreen() {
+  if (IsKeyPressed(KEY_ENTER))
+    _currentScreen = GameScreen::ENDING;
+}
+
+void gui::Raylib::updateEndingScreen() {
+  if (IsKeyPressed(KEY_ENTER))
+    _currentScreen = GameScreen::TITLE;
 }
 
 void gui::Raylib::renderLogoScreen() {

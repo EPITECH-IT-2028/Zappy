@@ -18,7 +18,7 @@ namespace gui {
 
   class Raylib {
     public:
-      Raylib(network::ServerCommunication& serverCommunication);
+      Raylib(network::ServerCommunication &serverCommunication);
       ~Raylib() = default;
 
       void run();
@@ -29,6 +29,11 @@ namespace gui {
 
       GameScreen _currentScreen;
       network::ServerCommunication &_serverCommunication;
+
+      void updateLogoScreen();
+      void updateTitleScreen();
+      void updateGameplayScreen();
+      void updateEndingScreen();
 
       void renderLogoScreen();
       void renderTitleScreen();
