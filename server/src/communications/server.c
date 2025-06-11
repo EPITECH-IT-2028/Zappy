@@ -75,7 +75,7 @@ int server(int ac, char **av)
     if (server == NULL)
         return ERROR;
     if (check_params(&server->params, ac, av) == ERROR) {
-        free_server(server);
+        free_params(&server->params);
         return ERROR;
     }
     if (bind_server(server, &server->params) == ERROR) {
