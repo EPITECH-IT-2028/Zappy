@@ -57,14 +57,16 @@ TEST_CFLAGS = -W -Wall -Wextra -I./include -g --coverage -lcriterion
 TEST_SRC_FILE_NAME = %.test.o
 
 CC = gcc
-CFLAGS = -W -Wall -Wextra -I./include -lpthread -lm
+BASE_FLAGS = -W -Wall -Wextra -I./include
+CFLAGS = $(BASE_FLAGS) -lpthread
+LDFLAGS = -lm
 
 NAME = zappy_server
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ)
+	@$(CC) $(BASE_FLAGS) -o $(NAME) $(OBJ) $(LDFLAGS)
 	@echo "$(NAME) compiled successfully."
 
 %.o: %.c

@@ -144,7 +144,7 @@ typedef struct server_s {
 } server_t;
 
 typedef struct sound_result_s {
-    int direction_tile;
+    uint8_t direction_tile;
     bool received;
 } sound_result_t;
 
