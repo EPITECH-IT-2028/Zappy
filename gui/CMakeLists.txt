@@ -16,6 +16,7 @@ set(SOURCES
   src/engine/GameEngine.cpp
   src/server/ServerCommunication.cpp
   src/parser/ArgsParser.cpp
+  src/parser/CommandParser.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES})
