@@ -71,7 +71,7 @@ client_t *find_ai_by_id(server_t *server, unsigned int player_id)
 char *get_broadcast_text(const char *raw_broadcast)
 {
     char *broadcast_text = NULL;
-    const char *start = NULL; 
+    const char *start = NULL;
 
     if (!raw_broadcast)
         return NULL;
@@ -80,6 +80,8 @@ char *get_broadcast_text(const char *raw_broadcast)
     start = raw_broadcast + WORD_BROADCAST_LENGTH;
     while (*start == ' ')
         ++start;
+    if (*start == '\0')
+        return strdup("");
     broadcast_text = strdup(start);
     return broadcast_text;
 }

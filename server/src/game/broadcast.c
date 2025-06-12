@@ -50,7 +50,7 @@ int calcalute_direction_tile(server_t *server, const client_data_t *emitter,
     angle_deg = fmod(QUARTER_CIRCLE_DEG - angle_deg + FULL_CIRCLE_DEG,
         FULL_CIRCLE_DEG);
     tile = ((int)((angle_deg + DIRECTION_TOLERANCE)
-             / DEGREES_PER_DIRECTION) % NUM_DIRECTIONS) + 1;
+        / DEGREES_PER_DIRECTION) % NUM_DIRECTIONS) + 1;
     return tile;
 }
 
@@ -88,7 +88,6 @@ void send_broadcast_to_player(server_t *server,
     for (int i = 1; i < server->nfds; i++) {
         if (!results[i].received)
             continue;
-        memset(sound_message, 0, BUFFER_SIZE);
         receiver = server->clients[i];
         if (!receiver || receiver->data.is_graphic)
             continue;
