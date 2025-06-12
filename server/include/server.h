@@ -20,10 +20,10 @@
     #include "inventory.h"
 
 typedef enum direction_s {
-    LEFT,
-    RIGHT,
     UP,
-    DOWN
+    RIGHT,
+    DOWN,
+    LEFT
 } direction_t;
 
 typedef struct {
@@ -66,6 +66,13 @@ typedef struct teams_s {
     int clients_count;
 } teams_t;
 
+struct client_s;
+
+typedef struct response_s {
+    struct client_s *client;
+    char response[BUFFER_SIZE];
+} response_t;
+
 typedef struct client_data_s {
     char *team_name;
     bool is_graphic;
@@ -80,6 +87,7 @@ typedef struct client_data_s {
     bool has_egg;
     bool is_busy;
     struct timespec action_end_time;
+    struct response_s pending_response;
 } client_data_t;
 
 typedef struct client_s {
@@ -91,19 +99,14 @@ typedef struct client_s {
     client_data_t data;
 } client_t;
 
-typedef struct threads_s {
-    pthread_t game_thread;
-} threads_t;
-
 typedef struct request_s {
     client_t *client;
     char request[BUFFER_SIZE];
 } request_t;
 
-typedef struct response_s {
-    client_t *client;
-    char response[BUFFER_SIZE];
-} response_t;
+typedef struct threads_s {
+    pthread_t game_thread;
+} threads_t;
 
 typedef struct queue_response_s {
     response_t queue[QUEUE_MAX_SIZE];
@@ -179,7 +182,7 @@ int game_loop(server_t *server);
 void connection_command(server_t *server, int index, char *buffer);
 
 /* Player commands */
-void player_command(server_t *server, int index, const char *buffer);
+void check_player_command(server_t *server, int index, const char *buffer);
 
 /* Gui commands */
 void map_commands(server_t *server, int index, char *buffer);
@@ -208,9 +211,16 @@ int queue_pop_response(server_t *server, response_t *response);
 /* Map functions */
 int place_resources(server_t *server);
 
+/* Egg functions */
+int assign_random_egg_position(server_t *server, client_t *client);
+void remove_egg(map_t *tile, int index);
+
 /* Timer functions */
 struct timespec get_action_end_time(server_t *server, int action_duration);
 long long get_current_timer_units(server_t *server);
 bool has_time_passed(server_t *server, long long, int duration);
+
+/* Direction function */
+void init_direction(direction_t *direction);
 
 #endif /* SERVER_H_ */

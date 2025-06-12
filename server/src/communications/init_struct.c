@@ -7,7 +7,6 @@
 
 #include "macro.h"
 #include "server.h"
-#include <bits/time.h>
 #include <string.h>
 #include <pthread.h>
 #include <stdlib.h>
@@ -25,23 +24,12 @@ void init_client_inventory(client_data_t *cd)
     cd->inventory.thystame = 0;
 }
 
-static
-void init_direction(direction_t *direction)
-{
-    static const direction_t directions[MAX_DIRECTION] =
-        {LEFT, RIGHT, UP, DOWN};
-    int pos = 0;
-
-    pos = rand() % MAX_DIRECTION;
-    *direction = directions[pos];
-}
-
 void init_client_struct(client_t *clients, int fd)
 {
     clients->fd = fd;
     clients->addr_len = sizeof(clients->addr);
     clients->fd_open = 0;
-    clients->connected = false;
+    clients->connected = true;
     clients->data.team_name = NULL;
     clients->data.x = 0;
     clients->data.y = 0;
@@ -49,6 +37,8 @@ void init_client_struct(client_t *clients, int fd)
     clients->data.level = 1;
     clients->data.is_graphic = false;
     clients->data.pending_requests = 0;
+    clients->data.pending_response.client = NULL;
+    memset(clients->data.pending_response.response, 0, BUFFER_SIZE);
     clients->data.is_busy = false;
     init_direction(&clients->data.direction);
     pthread_mutex_init(&clients->data.pending_mutex, NULL);
@@ -119,6 +109,18 @@ int init_map_struct(server_t *server, params_t *params)
     return SUCCESS;
 }
 
+static
+int init_clients_and_fds(server_t *server)
+{
+    server->clients[SERVER_INDEX] = NULL;
+    server->nfds = 1;
+    server->fds[SERVER_INDEX].fd = server->fd;
+    server->fds[SERVER_INDEX].events = POLLIN;
+    server->fds[SERVER_INDEX].revents = 0;
+    server->running = true;
+    return SUCCESS;
+}
+
 int init_server_struct(server_t *server, params_t *params)
 {
     server->fd = socket(AF_INET, SOCK_STREAM, 0);
@@ -127,19 +129,15 @@ int init_server_struct(server_t *server, params_t *params)
     server->addr.sin_addr.s_addr = htonl(INADDR_ANY);
     server->addr_len = sizeof(server->addr);
     server->fds = malloc(sizeof(struct pollfd));
-    server->clients = malloc(sizeof(client_t));
+    server->clients = malloc(sizeof(client_t *));
     server->teams = malloc(sizeof(teams_t) * params->teams_count);
     if (server->fds == NULL || server->clients == NULL ||
         server->teams == NULL || init_queues(server) == ERROR ||
         init_teams_struct(server->teams, params) == ERROR ||
         clock_gettime(CLOCK_MONOTONIC, &server->server_timer) ||
-        init_map_struct(server, params) == ERROR || server->fd < 0)
+        init_map_struct(server, params) == ERROR || server->fd < 0
+        || init_clients_and_fds(server))
         return ERROR;
-    server->clients[SERVER_INDEX] = NULL;
-    server->nfds = 1;
-    server->fds[SERVER_INDEX].fd = server->fd;
-    server->fds[SERVER_INDEX].events = POLLIN;
-    server->running = true;
     return SUCCESS;
 }
 
