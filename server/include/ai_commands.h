@@ -24,6 +24,7 @@ int rotate_right(server_t *server, response_t *response, request_t *request);
 int rotate_left(server_t *server, response_t *response, request_t *request);
 int handle_connect_nbr(server_t *server, response_t *response,
     request_t *request);
+int fork_player(server_t *server, response_t *response, request_t *request);
 
 const ai_commands_t tab_ai_commands[] = {
     {"Inventory", &handle_inventory},
@@ -33,6 +34,7 @@ const ai_commands_t tab_ai_commands[] = {
     {"Right", &rotate_right},
     {"Left", &rotate_left},
     {"Connect_nbr", &handle_connect_nbr},
+    {"Fork", &fork_player},
     {NULL, NULL}
 };
 
