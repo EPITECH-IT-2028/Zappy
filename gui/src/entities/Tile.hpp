@@ -3,9 +3,9 @@
 #include <vector>
 
 namespace gui {
-
   struct Tile{
-    std::array<int, 7> resources = {0, 0, 0, 0, 0, 0, 0};
+    enum Resource { Food, Linemate, Deraumere, Sibur, Mendiane, Phiras, Thystame, ResourceCount };
+    std::array<int, ResourceCount> resources{};
 
     std::vector<int> playerIdsOnTile;
     std::vector<int> eggIdsOnTile;   
