@@ -9,10 +9,10 @@ namespace gui {
     std::size_t x;
     std::size_t y;
     enum Orientation {
-      NORTH = 0,
-      EAST = 1,
-      SOUTH = 2,
-      WEST = 3
+      NORTH = 1,
+      EAST = 2,
+      SOUTH = 3,
+      WEST = 4
     };
     Orientation orient;
     std::uint8_t level;
