@@ -102,7 +102,6 @@ def handle_client(client) -> None:
 
                 if (client["commandes"]):
                     command = client["commandes"].pop(0)
-                    print(f"Traitement réponse pour: {command} -> {message}")
                     handle_commande(client, command, message)
 
                     if command == "Look":
@@ -139,10 +138,12 @@ def connect_client(server_address, team_name) -> int:
     send_message(client, team_name)
 
     game_data = client["socket"].recv(1024).decode()
+    if game_data == "ko\n":
+        print("Unkown team name or team is full")
+        return 0
+  
     unused_slot = game_data.split()[0]
-
-    if unused_slot == "ko\n":
-        raise ConnectionError("Unknown team name or team is full")
+    print(f"Game data received: {game_data}")
     
     width, height = game_data.split()[1:3]
     client["mape_size"] = [int(width), int(height)]
