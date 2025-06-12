@@ -15,8 +15,9 @@ if __name__ == "__main__":
         sys.stderr.write("Invalid number of arguments (-help for more informations).\n")
         sys.exit(84)
 
-    args = process.iaProcess(sys.argv)
+    process.iaProcess(sys.argv)
+    # args = process.iaProcess(sys.argv)
 
-    game.game(args)
+    # game.game(args)
 
     sys.exit(0)

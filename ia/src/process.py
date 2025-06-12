@@ -2,6 +2,7 @@ import sys
 from models import iaParser
 from parser import ia_parser
 from utils import exit_error
+from data import open_csv
 # from message import *
 
 def iaProcess(argv: list[str]) -> None:
@@ -23,6 +24,8 @@ def iaProcess(argv: list[str]) -> None:
         # decrypted = get_decrypted_message(crypted)
         # print("sentence decrypted: ", decrypted)
         # Parser = ia_parser(argv)
-        Parser = ia_parser(argv)
-        return Parser
+        # Parser = ia_parser(argv)
+        # return Parser
+        open_csv(sys.argv[5])
+
         
