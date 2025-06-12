@@ -1,6 +1,7 @@
 import protocole
 import game
 import math
+import random
 
 def get_position(index, total_cells) -> tuple[int, int]:
   if index == 0:
@@ -120,6 +121,34 @@ def analyze_vision(client):
       analyzed_vision['resources'].append(cell_info)
 
   return analyzed_vision
+
+def strategy(client):
+  vision_data = analyze_vision(client)
+
+  if vision_data["food"]:
+      get_food(client)
+  else:
+      client["move"]["consecutive_turns"] += 1
+      if client["move"]["consecutive_turns"] >= 3:
+          client["move"]["consecutive_turns"] = 0
+          client["move"]["forward"] = True
+          protocole.execute_command(client, "Forward", None)
+      else:
+          if random.random() < 0.7:
+              protocole.execute_command(client, "Right", None)
+          else:
+              protocole.execute_command(client, "Forward", None)
+  
+  protocole.execute_command(client, "Inventory", None)
+  
+  # TO DO: Implement strategy
+
+  # if (client["inventory"].get("food", 0) < 5):
+  #   focus on getting food until the food count is >= 10
+  # if (client["inventory"].get("food", 0) < 10):
+  #   focus on getting food jusqu'a ce que le nombre de nourriture soit >= 20 and resources if encountered
+  # else:
+  #   focus on other resources and food if encountered
 
 # def get_cell_symbol(cell_content):
 #         if 'food' in cell_content.lower():
