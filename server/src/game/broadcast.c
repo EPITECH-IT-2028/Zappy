@@ -84,8 +84,6 @@ void send_broadcast_to_player(server_t *server,
 {
     client_t *receiver = NULL;
     char sound_message[BUFFER_SIZE] = {0};
-    char str[10];
-
 
     for (int i = 1; i < server->nfds; i++) {
         if (!results[i].received)
@@ -97,7 +95,6 @@ void send_broadcast_to_player(server_t *server,
         snprintf(sound_message, sizeof(sound_message),
                 "message %d, %s", results[i].direction_tile, message);
         send_code(receiver->fd, sound_message);
-        send_code(receiver->fd, str);
     }
 }
 
@@ -110,7 +107,7 @@ int client_broadcast_sound(server_t *server, request_t *request,
     if (!server || !server->clients || !request || !request->client ||
         request->client->data.is_graphic)
         return ERROR;
-    results = calloc(server->nfds, sizeof(sound_result_t));
+    results = malloc(sizeof(sound_result_t));
     if (!results)
         return ERROR;
     transmit_sound(server, request->client, results);
