@@ -33,6 +33,7 @@ SRC += ./src/game/inventory.c
 SRC += ./src/game/look.c
 SRC += ./src/game/food.c
 SRC += ./src/game/timer_handling.c
+SRC += ./src/game/broadcast.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -53,7 +54,7 @@ TEST_CFLAGS = -W -Wall -Wextra -I./include -g --coverage -lcriterion
 TEST_SRC_FILE_NAME = %.test.o
 
 CC = gcc
-CFLAGS = -W -Wall -Wextra -I./include -lpthread
+CFLAGS = -W -Wall -Wextra -I./include -lpthread -lm
 
 NAME = zappy_server
 

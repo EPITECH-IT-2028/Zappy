@@ -140,6 +140,12 @@ typedef struct server_s {
     map_t **map;
 } server_t;
 
+typedef struct sound_result_s {
+    int direction_tile;  // 0-8: 0=same tile, 1-8=surrounding tiles
+    double distance;     // Optional: actual distance for sound attenuation
+    bool received;       // Whether the client received the sound
+} sound_result_t;
+
 typedef struct command_s {
     char *name;
     void (*f)(server_t *server, int i, char *str);
