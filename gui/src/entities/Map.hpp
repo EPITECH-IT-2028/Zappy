@@ -13,12 +13,12 @@ namespace gui {
 
   Tile& getTile(std::size_t x, std::size_t y) {
     if (x >= width || y >= height)
-      throw std::out_of_range("Tile coordinates out of map\n");
-    return tiles[x][y];
+      throw std::out_of_range("Tile coordinates out of map");
+    return tiles[y][x];
     }
 
   const Tile& getTile(std::size_t x, std::size_t y) const {
-    return tiles[x][y];
+    return tiles[y][x];
     }
   };
 }
