@@ -11,16 +11,21 @@ namespace gui {
 
     Map(std::size_t w, std::size_t h) : width(w), height(h), tiles(h, std::vector<Tile>(w)) {}
 
-  Tile& getTile(std::size_t x, std::size_t y) {
-    if (x >= width || y >= height)
-      throw std::out_of_range("Tile coordinates out of map");
-    return tiles[y][x];
+  private:
+    void ensureInBounds(std::size_t x, std::size_t y) const {
+      if (x >= width || y >= height)
+        throw std::out_of_range("Tile coordinates out of map");
     }
 
-  const Tile& getTile(std::size_t x, std::size_t y) const {
-    if (x >= width || y >= height)
-      throw std::out_of_range("Tile coordinates out of map");
-    return tiles[y][x];
+  public:
+    Tile& getTile(std::size_t x, std::size_t y) {
+      ensureInBounds(x, y);
+      return tiles[y][x];
+    }
+
+    const Tile& getTile(std::size_t x, std::size_t y) const {
+      ensureInBounds(x, y);
+      return tiles[y][x];
     }
   };
 }
