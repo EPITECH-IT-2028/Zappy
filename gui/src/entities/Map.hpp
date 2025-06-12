@@ -23,7 +23,7 @@ namespace gui {
       return tiles[y][x];
     }
 
-    const Tile& getTile(std::size_t x, std::size_t y) const {
+    const Tile& getTile(int x, int y) const {
        ensureInBounds(x, y);
        return tiles[y][x];
      }
