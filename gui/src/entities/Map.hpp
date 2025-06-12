@@ -5,8 +5,8 @@
 
 namespace gui {
   struct Map {  
-    std::size_t width;
-    std::size_t height;
+    int width;
+    int height;
     std::vector<std::vector<Tile>> tiles;
 
     Map(std::size_t w, std::size_t h) : width(w), height(h), tiles(h, std::vector<Tile>(w)) {}
@@ -18,12 +18,7 @@ namespace gui {
     }
 
   public:
-    Tile& getTile(std::size_t x, std::size_t y) {
-      ensureInBounds(x, y);
-      return tiles[y][x];
-    }
-
-    const Tile& getTile(std::size_t x, std::size_t y) const {
+    const Tile& getTile(std::size_t x, std::size_t y) {
       ensureInBounds(x, y);
       return tiles[y][x];
     }
