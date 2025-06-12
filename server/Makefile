@@ -53,7 +53,9 @@ TEST_SRC += ./tests/test_error_params.c
 TEST_OBJ = $(TEST_SRC:.c=.test.o)
 
 TEST_NAME = unit_tests
-TEST_CFLAGS = -W -Wall -Wextra -I./include -g --coverage -lcriterion
+TEST_BASE_FLAGS = -W -Wall -Wextra -I./include
+TEST_CFLAGS = $(BASE_FLAGS) -lpthread -g --coverage -lcriterion
+TEST_LDFLAGS = -lm
 TEST_SRC_FILE_NAME = %.test.o
 
 CC = gcc
@@ -94,7 +96,7 @@ fclean: clean
 
 unit_tests: CFLAGS = $(TEST_CFLAGS)
 unit_tests: $(TEST_OBJ)
-	@$(CC) -o $(TEST_NAME) $(TEST_OBJ) $(TEST_CFLAGS)
+	@$(CC) -o $(TEST_NAME) $(TEST_OBJ) $(TEST_CFLAGS) $(TEST_LDFLAGS)
 
 tests_run: unit_tests
 	-./$(TEST_NAME) --verbose --full-stats -j8
