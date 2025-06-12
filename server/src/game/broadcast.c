@@ -13,6 +13,19 @@
 #include <stdlib.h>
 #include <string.h>
 
+/**
+ * @brief Calculates the shortest distance between two coordinates on a wrapped map
+ *
+ * This function determines the shortest path between two coordinates, taking into
+ * account the possibility of wrapping around the map edges (like a torus).
+ *
+ * @param coord1 First coordinate
+ * @param coord2 Second coordinate
+ * @param map_size Size of the map dimension (width or height)
+ * @return The shortest signed distance between the coordinates
+ *         - Positive indicates coord2 is ahead of coord1
+ *         - Negative indicates coord2 is behind coord1
+ */
 static
 int calculate_shortest_distance_component(int coord1, int coord2, int map_size)
 {
@@ -28,6 +41,20 @@ int calculate_shortest_distance_component(int coord1, int coord2, int map_size)
     }
 }
 
+/**
+ * @brief Calculates the direction tile (1-8) for a broadcast message
+ *
+ * This function determines which direction tile to send to a client
+ * receiving a broadcast message based on the relative positions of
+ * the emitter and receiver on the game map.
+ *
+ * @param server Server instance containing map dimensions
+ * @param emitter Client data of the message sender
+ * @param client Client data of the message receiver
+ * @return Direction tile value (0-8)
+ *         - 0: same tile as emitter
+ *         - 1-8: direction tiles around emitter
+ */
 static
 int calcalute_direction_tile(server_t *server, const client_data_t *emitter,
     const client_data_t *client)
@@ -54,6 +81,17 @@ int calcalute_direction_tile(server_t *server, const client_data_t *emitter,
     return tile;
 }
 
+/**
+ * @brief Determines which clients receive a broadcast and calculates their direction tiles
+ *
+ * This function iterates through all connected clients and marks which ones
+ * should receive the broadcast message. For each receiver, it calculates
+ * the appropriate direction tile representing where the sound came from.
+ *
+ * @param server Server instance containing client list
+ * @param emitter The client who sent the broadcast
+ * @param results Array to store results for each potential receiver
+ */
 static
 void transmit_sound(server_t *server, client_t *emitter,
     sound_result_t *results)
@@ -78,6 +116,17 @@ void transmit_sound(server_t *server, client_t *emitter,
     }
 }
 
+/**
+ * @brief Sends the broadcast message to all receiving players
+ *
+ * This function iterates through the results list and sends the message
+ * to all players marked as receivers, formatting the message with
+ * the appropriate direction tile.
+ *
+ * @param server Server instance containing client list
+ * @param results Array indicating which clients receive the message and their direction tiles
+ * @param message The text content to broadcast
+ */
 static
 void send_broadcast_to_player(server_t *server,
     sound_result_t *results, const char *message)
@@ -97,6 +146,17 @@ void send_broadcast_to_player(server_t *server,
     }
 }
 
+/**
+ * @brief Orchestrates the broadcasting of a message from one client to others
+ *
+ * This function handles the complete broadcast process from setting up
+ * the receiver list to sending the formatted messages to each recipient.
+ *
+ * @param server Server instance
+ * @param request The client request containing sender information
+ * @param message The message text to broadcast
+ * @return SUCCESS on successful broadcast, ERROR otherwise
+ */
 static
 int client_broadcast_sound(server_t *server, request_t *request,
     const char *message)
@@ -115,6 +175,18 @@ int client_broadcast_sound(server_t *server, request_t *request,
     return SUCCESS;
 }
 
+/**
+ * @brief Handles a broadcast command from a client
+ *
+ * This function processes a broadcast request, extracts the message content,
+ * sends it to all appropriate receivers, and prepares the response
+ * for the sending client.
+ *
+ * @param server Server instance
+ * @param response Response structure to fill with result
+ * @param request The client's broadcast request
+ * @return SUCCESS if broadcast was processed successfully, ERROR otherwise
+ */
 int handle_broadcast(server_t *server, response_t *response,
     request_t *request)
 {
