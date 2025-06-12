@@ -13,7 +13,7 @@ add_compile_options(-W -Wall -Wextra -std=c++20)
 
 set(SOURCES
   src/main.cpp
-  src/raylib/Raylib.cpp
+  src/engine/GameEngine.cpp
   src/server/ServerCommunication.cpp
   src/parser/ArgsParser.cpp
 )
