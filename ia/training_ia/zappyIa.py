@@ -4,7 +4,7 @@ import process
 import game
 
 if __name__ == "__main__":
-    if len(sys.argv) == 2:
+    if len(sys.argv) != 2:
         sys.stderr.write("Only 1 argument are accept\n")
         sys.exit(84)
 
