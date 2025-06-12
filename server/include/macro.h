@@ -24,7 +24,7 @@
     #define ADDITIONAL_VISION 1
     #define UNASSIGNED_PLAYER_ID -1
     #define NANOSECONDS_PER_SECOND 1000000000L
-    #define WORD_BROADCAST_LENGTH 9
+    #define WORD_BROADCAST_LENGTH 10
     #define ABS(x) (x < 0 ? - x : x)
 
     #define FOOD 0.5f

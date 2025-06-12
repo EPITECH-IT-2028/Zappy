@@ -9,6 +9,7 @@
 #include "server.h"
 #include "utils.h"
 #include <math.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -18,8 +19,13 @@ int calculate_shortest_distance_component(int coord1, int coord2, int map_size)
     int direct = ABS(coord2 - coord1);
     int wrapped = map_size - direct;
 
-    return (direct < wrapped) ? (coord2 - coord1) : 
-           (coord2 > coord1) ? -(wrapped) : wrapped;
+    if (direct < wrapped) {
+        return (coord2 - coord1);
+    } else if (coord2 > coord1) {
+        return -(wrapped);
+    } else {
+        return wrapped;
+    }
 }
 
 static
@@ -34,6 +40,7 @@ double calculate_shortest_distance(server_t *server, client_data_t *emitter,
     return sqrt(dx * dx + dy * dy);
 }
 
+static
 int calcalute_direction_tile(server_t *server, client_data_t *emitter,
     client_data_t *client)
 {
@@ -57,6 +64,7 @@ int calcalute_direction_tile(server_t *server, client_data_t *emitter,
     return tile;
 }
 
+static
 void transmit_sound(server_t *server, client_data_t *emitter,
     sound_result_t *results)
 {
@@ -78,36 +86,46 @@ void transmit_sound(server_t *server, client_data_t *emitter,
     }
 }
 
+static
+void send_broadcast_to_player(server_t *server, request_t *request,
+    sound_result_t *results, const char *message)
+{
+    client_t *receiver = NULL;
+    char sound_message[BUFFER_SIZE] = {0};
+
+    for (int i = 1; i < server->nfds; i++) {
+        if (!results[i].received ||
+            server->clients[i]->fd == request->client->fd)
+            continue;
+        memset(sound_message, 0, BUFFER_SIZE);
+        receiver = server->clients[i];
+        if (!receiver || receiver->data.is_graphic)
+            continue;
+        snprintf(sound_message, sizeof(sound_message),
+                "message %d, %s", results[i].direction_tile, message);
+        send_code(receiver->fd, sound_message);
+    }
+}
+
+static
 void client_broadcast_sound(server_t *server, request_t *request,
     const char *message)
 {
     sound_result_t *results = NULL;
-    client_data_t *receiver = NULL;
-    char sound_message[BUFFER_SIZE] = {0};
 
     if (!server || !server->clients || !request || !request->client ||
-        request->client->data.is_graphic) 
+        request->client->data.is_graphic)
         return;
     results = calloc(server->nfds, sizeof(sound_result_t));
     if (!results)
         return;
     transmit_sound(server, &request->client->data, results);
-    for (int i = 1; i < server->nfds; i++) {
-        if (!results[i].received ||
-            server->clients[i]->fd == request->client->fd) 
-            continue;
-        receiver = &server->clients[i]->data;
-        if (!receiver || receiver->is_graphic)
-            continue;
-        pthread_mutex_lock(&receiver->pending_mutex);
-        snprintf(sound_message, sizeof(sound_message), 
-                "message %d, %s\n", results[i].direction_tile, message);
-        pthread_mutex_unlock(&receiver->pending_mutex);
-    }
+    send_broadcast_to_player(server, request, results, message);
     free(results);
 }
 
-int handle_broadcast(server_t *server, response_t *response, request_t *request)
+int handle_broadcast(server_t *server, response_t *response,
+    request_t *request)
 {
     client_t *client = request->client;
     char *broadcast_text = NULL;
@@ -119,5 +137,6 @@ int handle_broadcast(server_t *server, response_t *response, request_t *request)
     broadcast_text = get_broadcast_text(request->request);
     client_broadcast_sound(server, request, broadcast_text);
     free(broadcast_text);
+    sprintf(response->response, "ok");
     return SUCCESS;
 }
