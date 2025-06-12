@@ -10,8 +10,8 @@ all: $(ZAPPY_IA) $(ZAPPY_SERVER) $(ZAPPY_CLIENT)
 
 $(ZAPPY_IA):
 	@echo "Setting up $(ZAPPY_IA)..."
-	@chmod +x $(ZAPPY_IA_DIR)/zappy_ia.sh
-	@cp $(ZAPPY_IA_DIR)/zappy_ia.sh ./$(ZAPPY_IA)
+	@make -C $(ZAPPY_IA_DIR)
+	@cp $(ZAPPY_IA_DIR)/$(ZAPPY_IA) ./
 
 $(ZAPPY_SERVER):
 	@echo "Compiling $(ZAPPY_SERVER)..."
