@@ -18,7 +18,9 @@ namespace gui {
     }
 
   const Tile& getTile(std::size_t x, std::size_t y) const {
-    return const_cast<Map&>(*this).getTile(x, y);
+    if (x >= width || y >= height)
+      throw std::out_of_range("Tile coordinates out of map");
+    return tiles[y][x];
     }
   };
 }
