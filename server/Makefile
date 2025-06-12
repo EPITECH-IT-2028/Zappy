@@ -29,12 +29,14 @@ SRC += ./src/error/check_freq.c
 SRC += ./src/error/check_port.c
 SRC += ./src/error/help_flag.c
 SRC += ./src/queue.c
+SRC += ./src/egg.c
 SRC += ./src/game/inventory.c
 SRC += ./src/game/look.c
 SRC += ./src/game/movement.c
 SRC += ./src/game/food.c
 SRC += ./src/game/timer_handling.c
 SRC += ./src/communications/init_direction.c
+SRC += ./src/game/connect_nbr.c
 
 OBJ = $(SRC:.c=.o)
 
