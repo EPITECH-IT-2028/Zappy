@@ -139,7 +139,7 @@ def connect_client(server_address, team_name) -> int:
 
     game_data = client["socket"].recv(1024).decode()
     if game_data == "ko\n":
-        print("Unkown team name or team is full")
+        print("Unknown team name or team is full")
         return 0
   
     unused_slot = game_data.split()[0]
