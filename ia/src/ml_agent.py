@@ -123,23 +123,23 @@ def analyze_vision(client):
   return analyzed_vision
 
 def strategy(client):
-  vision_data = analyze_vision(client)
+    vision_data = analyze_vision(client)
 
-  if vision_data["food"]:
-      get_food(client)
-  else:
-      client["move"]["consecutive_turns"] += 1
-      if client["move"]["consecutive_turns"] >= 3:
-          client["move"]["consecutive_turns"] = 0
-          client["move"]["forward"] = True
-          protocole.execute_command(client, "Forward", None)
-      else:
-          if random.random() < 0.7:
-              protocole.execute_command(client, "Right", None)
-          else:
-              protocole.execute_command(client, "Forward", None)
-  
-  protocole.execute_command(client, "Inventory", None)
+    if vision_data["food"]:
+        get_food(client)
+    else:
+        client["move"]["consecutive_turns"] += 1
+        if client["move"]["consecutive_turns"] >= 3:
+            client["move"]["consecutive_turns"] = 0
+            client["move"]["forward"] = True
+            protocole.execute_command(client, "Forward", None)
+        else:
+            if random.random() < 0.7:
+                protocole.execute_command(client, "Right", None)
+            else:
+                protocole.execute_command(client, "Forward", None)
+    
+    protocole.execute_command(client, "Inventory", None)
   
   # TO DO: Implement strategy
 

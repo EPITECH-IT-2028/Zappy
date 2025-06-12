@@ -96,7 +96,7 @@ def handle_client(client) -> None:
             message, buffer = buffer.split("\n", 1)
 
             if message:
-                if (message == "dead\n"):
+                if (message == "dead"):
                     print("Client dead, closing connection")
                     handle_Dead(client, message)
 
