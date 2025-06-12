@@ -49,8 +49,8 @@ int calcalute_direction_tile(server_t *server, const client_data_t *emitter,
         angle_deg += FULL_CIRCLE_DEG;
     angle_deg = fmod(QUARTER_CIRCLE_DEG - angle_deg + FULL_CIRCLE_DEG,
         FULL_CIRCLE_DEG);
-    tile = ((int)(angle_deg + DIRECTION_TOLERANCE) / DEGREES_PER_DIRECTION)
-        + 1;
+    tile = ((int)((angle_deg + DIRECTION_TOLERANCE)
+             / DEGREES_PER_DIRECTION) % NUM_DIRECTIONS) + 1;
     return tile;
 }
 
@@ -107,7 +107,7 @@ int client_broadcast_sound(server_t *server, request_t *request,
     if (!server || !server->clients || !request || !request->client ||
         request->client->data.is_graphic)
         return ERROR;
-    results = malloc(sizeof(sound_result_t));
+    results = calloc(server->nfds, sizeof(sound_result_t));
     if (!results)
         return ERROR;
     transmit_sound(server, request->client, results);

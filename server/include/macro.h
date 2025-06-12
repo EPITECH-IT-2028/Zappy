@@ -27,7 +27,7 @@
     #define WORD_BROADCAST_LENGTH 10
     #define ABS(x) (((x) < 0) ? - (x) : (x))
     #define FULL_CIRCLE_DEG 360.0
-    #define HALF_CIRCLE_DEG 360.0
+    #define HALF_CIRCLE_DEG 180.0
     #define QUARTER_CIRCLE_DEG 90.0
     #define NUM_DIRECTIONS 8
     #define DEGREES_PER_DIRECTION (FULL_CIRCLE_DEG / NUM_DIRECTIONS)
