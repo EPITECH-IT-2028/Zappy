@@ -29,18 +29,6 @@ int calculate_shortest_distance_component(int coord1, int coord2, int map_size)
 }
 
 static
-double calculate_shortest_distance(server_t *server, client_data_t *emitter,
-    client_data_t *client)
-{
-    int dx = calculate_shortest_distance_component(emitter->x, client->x,
-        server->params.width);
-    int dy = calculate_shortest_distance_component(emitter->y, client->y,
-        server->params.height);
-
-    return sqrt(dx * dx + dy * dy);
-}
-
-static
 int calcalute_direction_tile(server_t *server, client_data_t *emitter,
     client_data_t *client)
 {
@@ -78,8 +66,6 @@ void transmit_sound(server_t *server, client_data_t *emitter,
             results[i].received = false;
             continue;
         }
-        results[i].distance = calculate_shortest_distance(server, emitter,
-            client);
         results[i].direction_tile = calcalute_direction_tile(server, emitter,
             client);
         results[i].received = true;
