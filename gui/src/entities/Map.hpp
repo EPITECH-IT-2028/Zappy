@@ -18,7 +18,7 @@ namespace gui {
     }
 
   const Tile& getTile(std::size_t x, std::size_t y) const {
-    return tiles[y][x];
+    return const_cast<Map&>(*this).getTile(x, y);
     }
   };
 }
