@@ -143,6 +143,11 @@ typedef struct server_s {
     map_t **map;
 } server_t;
 
+typedef struct sound_result_s {
+    uint8_t direction_tile;
+    bool received;
+} sound_result_t;
+
 typedef struct command_s {
     char *name;
     void (*f)(server_t *server, int i, char *str);

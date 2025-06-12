@@ -35,6 +35,7 @@ SRC += ./src/game/look.c
 SRC += ./src/game/movement.c
 SRC += ./src/game/food.c
 SRC += ./src/game/timer_handling.c
+SRC += ./src/game/broadcast.c
 SRC += ./src/communications/init_direction.c
 SRC += ./src/game/connect_nbr.c
 
@@ -53,18 +54,22 @@ TEST_SRC += ./tests/test_error_params.c
 TEST_OBJ = $(TEST_SRC:.c=.test.o)
 
 TEST_NAME = unit_tests
-TEST_CFLAGS = -W -Wall -Wextra -I./include -g --coverage -lcriterion
+TEST_BASE_FLAGS = -W -Wall -Wextra -I./include
+TEST_CFLAGS = $(TEST_BASE_FLAGS) -lpthread -g --coverage -lcriterion
+TEST_LDFLAGS = -lm
 TEST_SRC_FILE_NAME = %.test.o
 
 CC = gcc
-CFLAGS = -W -Wall -Wextra -I./include -lpthread
+BASE_FLAGS = -W -Wall -Wextra -I./include
+CFLAGS = $(BASE_FLAGS) -lpthread
+LDFLAGS = -lm
 
 NAME = zappy_server
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) $(CFLAGS) -o $(NAME) $(OBJ)
+	@$(CC) $(BASE_FLAGS) -o $(NAME) $(OBJ) $(LDFLAGS)
 	@echo "$(NAME) compiled successfully."
 
 %.o: %.c
@@ -92,7 +97,7 @@ fclean: clean
 
 unit_tests: CFLAGS = $(TEST_CFLAGS)
 unit_tests: $(TEST_OBJ)
-	@$(CC) -o $(TEST_NAME) $(TEST_OBJ) $(TEST_CFLAGS)
+	@$(CC) -o $(TEST_NAME) $(TEST_OBJ) $(TEST_CFLAGS) $(TEST_LDFLAGS)
 
 tests_run: unit_tests
 	-./$(TEST_NAME) --verbose --full-stats -j8

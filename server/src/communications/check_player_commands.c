@@ -20,7 +20,7 @@ bool check_commands(const char *buffer)
     };
 
     for (int i = 0; commands[i] != NULL; i++) {
-        if (strcmp(buffer, commands[i]) == 0)
+        if (strncmp(buffer, commands[i], strlen(commands[i])) == 0)
             return true;
     }
     return false;

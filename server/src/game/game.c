@@ -17,9 +17,12 @@ static
 int check_request(server_t *server, response_t *response, request_t *request)
 {
     int result = 0;
+    size_t len = 0;
 
     for (int i = 0; tab_ai_commands[i].request != NULL; i++) {
-        if (strcmp(tab_ai_commands[i].request, request->request) == 0) {
+        len = strlen(tab_ai_commands[i].request);
+        if (strncmp(tab_ai_commands[i].request, request->request, len) == 0 &&
+            (request->request[len] == '\0' || request->request[len] == ' ')) {
             result = tab_ai_commands[i].func(server, response, request);
             break;
         }
