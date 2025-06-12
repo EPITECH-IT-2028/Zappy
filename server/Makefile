@@ -54,7 +54,7 @@ TEST_OBJ = $(TEST_SRC:.c=.test.o)
 
 TEST_NAME = unit_tests
 TEST_BASE_FLAGS = -W -Wall -Wextra -I./include
-TEST_CFLAGS = $(BASE_FLAGS) -lpthread -g --coverage -lcriterion
+TEST_CFLAGS = $(TEST_BASE_FLAGS) -lpthread -g --coverage -lcriterion
 TEST_LDFLAGS = -lm
 TEST_SRC_FILE_NAME = %.test.o
 
