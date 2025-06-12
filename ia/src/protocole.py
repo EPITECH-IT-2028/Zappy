@@ -64,30 +64,12 @@ def handle_Look(client, response) -> None:
     cleaned_response = response.strip().lstrip('[').rstrip(']')
     client["last_look"] = [item.strip() for item in cleaned_response.split(',')]
 
-    vision_data = ml_agent.analyze_vision(client)
-    if vision_data["food"]:
-        ml_agent.get_food(client)
-    else:
-        client["move"]["consecutive_turns"] += 1
-        if client["move"]["consecutive_turns"] >= 3:
-            client["move"]["consecutive_turns"] = 0
-            client["move"]["forward"] = True
-            execute_command(client, "Forward", None)
-        else:
-            if random.random() < 0.7:
-                execute_command(client, "Right", None)
-            else:
-                execute_command(client, "Forward", None)
-    execute_command(client, "Inventory", None)
-    execute_command(client, "Look", None)
-
 def handle_commande(client, commande, response):
     func_name = f"handle_{commande}"
 
     if func_name in globals():
         handler = globals()[func_name]
         handler(client, response)
-        client["commandes"].pop(0)
 
 def execute_command(client, commande, args) -> None:
     global allowed_commands
@@ -105,7 +87,6 @@ def handle_client(client) -> None:
     buffer = ""
 
     execute_command(client, "Look", None)
-
     while client["is_alive"]:
         response = client["socket"].recv(1024).decode()
 
@@ -115,11 +96,20 @@ def handle_client(client) -> None:
             message, buffer = buffer.split("\n", 1)
 
             if message:
-                if (message == "dead\n"):
+                if (message == "dead"):
                     print("Client dead, closing connection")
                     handle_Dead(client, message)
-                if (message and client["commandes"]):
-                    handle_commande(client, client["commandes"][0], message)
+
+                if (client["commandes"]):
+                    command = client["commandes"].pop(0)
+                    print(f"Traitement réponse pour: {command} -> {message}")
+                    handle_commande(client, command, message)
+
+                    if command == "Look":
+                        ml_agent.strategy(client)
+                    
+                    if command == "Inventory":
+                        execute_command(client, "Look", None)
 
 def connect_client(server_address, team_name) -> int:
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
