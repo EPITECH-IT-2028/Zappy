@@ -5,8 +5,8 @@
 namespace gui {
   struct Egg {
     int id;
-    std::size_t x;
-    std::size_t y;
+    int x;
+    int y;
     int layingPlayerId;
     std::string teamName;
 
