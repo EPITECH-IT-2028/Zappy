@@ -3,6 +3,7 @@
 #include "Map.hpp"
 #include "Player.hpp"
 #include "Egg.hpp"
+#include <cstddef>
 
 namespace gui {
   struct GameState {
@@ -13,7 +14,7 @@ namespace gui {
     GameState(std::size_t width, std::size_t height)
       : map(width, height) {}
 
-    const Player &getPlayerById(int id);
-    const Egg &getEggById(int id);
+    const Player &getPlayerById(int id) const;
+    const Egg &getEggById(int id) const;
   };
 }
