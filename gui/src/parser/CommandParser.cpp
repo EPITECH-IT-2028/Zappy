@@ -30,3 +30,16 @@ parser::TeamNames parser::CommandParser::parseTna(const std::string& command) {
     names.push_back(token);
   return TeamNames(names);
 }
+
+parser::TileUpdate parser::CommandParser::parseBct(const std::string& command) {
+  int x, y;
+  std::array<int, RESOURCE_COUNT> quantities = {0};
+
+  int result = sscanf(command.c_str(), "bct %d %d %d %d %d %d %d %d",
+                &x, &y, &quantities[0], &quantities[1],
+                &quantities[2], &quantities[3],
+                &quantities[4], &quantities[5]);
+  if (result != 8)
+    return TileUpdate(0, 0, quantities);
+  return TileUpdate(x, y, quantities);
+}
