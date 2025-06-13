@@ -26,10 +26,10 @@ namespace parser {
   struct TileUpdate {
     int x;
     int y;
-    std::array<int, RESOURCE_COUNT> quantities;
+    std::array<int, RESOURCE_COUNT> resources;
 
     TileUpdate(int x, int y, const std::array<int, RESOURCE_COUNT>& q)
-      : x(x), y(y), quantities(q) {}
+      : x(x), y(y), resources(q) {}
   };
 
 
