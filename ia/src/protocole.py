@@ -1,6 +1,8 @@
 import socket
 import threading
 import game
+import ml_agent
+import random
 
 allowed_commands = [
     "Forward",
@@ -31,13 +33,17 @@ def handle_Left(client, response) -> None:
     print("Rotation à gauche réussie")
 
 def handle_Take(client, response) -> None:
-    send_message(client, "Inventory")
+    print(f"Taking food")
 
 def handle_Set(client, response) -> None:
     send_message(client, "Inventory")
 
 def handle_Inventory(client, response) -> None:
-    client["inventory"] = response
+    cleaned_response = response.strip().lstrip('[').rstrip(']')
+    for item in cleaned_response.split(', '):
+        if item:
+            resource, quantity = item.split()
+            client["inventory"][resource] = int(quantity)
 
 def handle_Dead(client, response) -> None:
     client["socket"].close()
@@ -53,6 +59,10 @@ def handle_Broadcast(client, response) -> None:
     if (response == "ok"):
         return
     print(f"Message broadcast reçu: {response}")
+
+def handle_Look(client, response) -> None:
+    cleaned_response = response.strip().lstrip('[').rstrip(']')
+    client["last_look"] = [item.strip() for item in cleaned_response.split(',')]
 
 def handle_commande(client, commande, response):
     func_name = f"handle_{commande}"
@@ -76,8 +86,8 @@ def execute_command(client, commande, args) -> None:
 def handle_client(client) -> None:
     buffer = ""
 
+    execute_command(client, "Look", None)
     while client["is_alive"]:
-        execute_command(client, "Broadcast", "Hello")
         response = client["socket"].recv(1024).decode()
 
         buffer += response
@@ -86,11 +96,19 @@ def handle_client(client) -> None:
             message, buffer = buffer.split("\n", 1)
 
             if message:
-                if (message == "dead\n"):
+                if (message == "dead"):
                     print("Client dead, closing connection")
                     handle_Dead(client, message)
-                if (message and client["commandes"]):
-                    handle_commande(client, client["commandes"][0], message)
+
+                if (client["commandes"]):
+                    command = client["commandes"].pop(0)
+                    handle_commande(client, command, message)
+
+                    if command == "Look":
+                        ml_agent.strategy(client)
+                    
+                    if command == "Inventory":
+                        execute_command(client, "Look", None)
 
 def connect_client(server_address, team_name) -> int:
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -101,9 +119,16 @@ def connect_client(server_address, team_name) -> int:
         "team_name": team_name,
         "mape_size": [0, 0],
         "commandes": [],
-        "inventory": [],
+        "inventory": {},
+        "last_look": [],
         "level": 1,
         "is_alive": True,
+        "move": {
+            "consecutive_turns": 0,
+            "forward": False,
+            "distance_to_food": -1,
+            "last_food": None,
+        }
     }
 
     welcome_msg = client["socket"].recv(1024).decode()
@@ -113,10 +138,12 @@ def connect_client(server_address, team_name) -> int:
     send_message(client, team_name)
 
     game_data = client["socket"].recv(1024).decode()
+    if game_data == "ko\n":
+        print("Unknown team name or team is full")
+        return 0
+  
     unused_slot = game_data.split()[0]
-
-    if unused_slot == "ko\n":
-        raise ConnectionError("Unknown team name or team is full")
+    print(f"Game data received: {game_data}")
     
     width, height = game_data.split()[1:3]
     client["mape_size"] = [int(width), int(height)]

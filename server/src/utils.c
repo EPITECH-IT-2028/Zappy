@@ -67,3 +67,34 @@ client_t *find_ai_by_id(server_t *server, unsigned int player_id)
     }
     return NULL;
 }
+
+/**
+ * @brief Extracts the actual message content from a raw broadcast command
+ *
+ * This function takes a raw broadcast command string (format: "Broadcast [message]")
+ * and extracts only the message part, removing the command prefix and any
+ * leading spaces.
+ *
+ * @param raw_broadcast The raw broadcast command string to process
+ * @return A newly allocated string containing only the message content
+ *         - Returns NULL if input is NULL
+ *         - Returns empty string if input has no message content
+ *         - The caller is responsible for freeing the returned string
+ */
+char *get_broadcast_text(const char *raw_broadcast)
+{
+    char *broadcast_text = NULL;
+    const char *start = NULL;
+
+    if (!raw_broadcast)
+        return NULL;
+    if (strlen(raw_broadcast) <= WORD_BROADCAST_LENGTH)
+        return strdup("");
+    start = raw_broadcast + WORD_BROADCAST_LENGTH;
+    while (*start == ' ')
+        ++start;
+    if (*start == '\0')
+        return strdup("");
+    broadcast_text = strdup(start);
+    return broadcast_text;
+}

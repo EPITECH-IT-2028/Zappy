@@ -1,8 +1,9 @@
 #include <exception>
 #include <iostream>
 #include <string>
-#include "Error.hpp"
-#include "ParsingArgs.hpp"
+#include "parser/ArgsParser.hpp"
+#include "raylib/Raylib.hpp"
+#include "server/ServerCommunication.hpp"
 
 #define OK 0
 #define KO 84
@@ -13,18 +14,25 @@ bool isHelpRequested(int argc, char** argv) {
 
 int main(int argc, char* argv[]) {
   try {
-    gui::Config config;
+    parser::Config config;
     if (isHelpRequested(argc, argv)) {
       config.displayHelp();
       return OK;
     }
     config.parse(argc, argv);
 
-    std::cout << "Parsed options: port: " << config.getOptionP()
-              << " / host: " << config.getOptionH() << std::endl;
+    network::ServerCommunication serverCommunication(
+        std::stoi(config.getOptionP()), config.getOptionH());
+    if (!serverCommunication.connectToServer()) {
+      std::cerr << "Error while connecting to server at " << config.getOptionH()
+                << ":" << config.getOptionP() << std::endl;
+      return KO;
+    }
+    gui::Raylib app{serverCommunication};
+    app.run();
     std::cout << "GUI application started successfully." << std::endl;
     return OK;
-  } catch (const gui::Error& e) {
+  } catch (const std::invalid_argument& e) {
     std::cerr << "Error: " << e.what() << std::endl;
     std::cerr << "Use --help for help." << std::endl;
     return KO;
