@@ -36,6 +36,37 @@ void remove_egg(map_t *tile, int index)
     }
 }
 
+egg_t *create_egg(int id, int x, int y, int player_id)
+{
+    egg_t *egg = malloc(sizeof(egg_t));
+
+    if (!egg) {
+        perror("malloc failed");
+        return NULL;
+    }
+    egg->id = id;
+    egg->x = x;
+    egg->y = y;
+    egg->player_id = player_id;
+    return egg;
+}
+
+int place_egg(map_t *tile, egg_t *egg)
+{
+    egg_t *new_eggs = realloc(tile->eggs, sizeof(egg_t) *
+                        (tile->eggs_count + 1));
+
+    if (!new_eggs) {
+        perror("realloc failed");
+        return ERROR;
+    }
+    tile->eggs = new_eggs;
+    tile->eggs[tile->eggs_count] = *egg;
+    tile->eggs_count++;
+    free(egg);
+    return SUCCESS;
+}
+
 static
 int assign_egg_position(map_t *tile, client_t *client, int target)
 {

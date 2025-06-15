@@ -76,6 +76,7 @@ typedef struct response_s {
 typedef struct client_data_s {
     char *team_name;
     bool is_graphic;
+    int id;
     int x;
     int y;
     int orientation;
@@ -141,6 +142,8 @@ typedef struct server_s {
     long long server_timer_count;
     threads_t threads;
     map_t **map;
+    int ids;
+    int egg_ids;
 } server_t;
 
 typedef struct sound_result_s {
@@ -152,11 +155,6 @@ typedef struct command_s {
     char *name;
     void (*f)(server_t *server, int i, char *str);
 } command_t;
-
-typedef struct event_s {
-    char *name;
-    void (*f)(server_t *server, int index);
-} event_t;
 
 int server(int ac, char **av);
 int check_params(params_t *params, int ac, char **av);
@@ -189,8 +187,9 @@ void time_commands(server_t *server, int index, char *buffer);
 void player_commands(server_t *server, int index, char *buffer);
 
 /* Game Events */
-void game_events(server_t *server, int index, char *buffer);
 void remove_food(server_t *server);
+void send_enw(server_t *server, int index, egg_t *egg);
+void send_all_eggs_to_gui(server_t *server, int index);
 
 /* Parameters checks */
 int help_flag(void);
@@ -213,6 +212,9 @@ int place_resources(server_t *server);
 /* Egg functions */
 int assign_random_egg_position(server_t *server, client_t *client);
 void remove_egg(map_t *tile, int index);
+int count_total_eggs(server_t *server);
+egg_t *create_egg(int id, int x, int y, int player_id);
+int place_egg(map_t *tile, egg_t *egg);
 
 /* Timer functions */
 struct timespec get_action_end_time(server_t *server, int action_duration);

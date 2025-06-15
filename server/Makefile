@@ -36,6 +36,7 @@ SRC += ./src/game/movement.c
 SRC += ./src/game/food.c
 SRC += ./src/game/timer_handling.c
 SRC += ./src/game/broadcast.c
+SRC += ./src/game/fork.c
 SRC += ./src/communications/init_direction.c
 SRC += ./src/game/connect_nbr.c
 
