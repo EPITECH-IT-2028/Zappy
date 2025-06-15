@@ -22,7 +22,12 @@ int set_data(server_t *server, int index, const char *name, bool is_graphic)
     server->clients[index]->data.is_graphic = is_graphic;
     server->clients[index]->data.team_name = strdup(name);
     server->clients[index]->data.id = server->ids;
-    server->ids++;
+    if (is_graphic) {
+        server->clients[index]->data.id = -1;
+    } else {
+        server->clients[index]->data.id = server->ids;
+        server->ids++;
+    }
     if (server->clients[index]->data.team_name == NULL)
         perror("strdup failed");
     return SUCCESS;
