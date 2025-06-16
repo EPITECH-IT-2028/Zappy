@@ -1,4 +1,5 @@
 #include "GameState.hpp"
+#include <string>
 #include <stdexcept>
 
 const gui::Player &gui::GameState::getPlayerById(int id) const {
