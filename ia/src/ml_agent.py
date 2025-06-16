@@ -123,6 +123,7 @@ def analyze_vision(client):
   return analyzed_vision
 
 def strategy(client):
+    print("execute")
     vision_data = analyze_vision(client)
 
     if vision_data["food"]:

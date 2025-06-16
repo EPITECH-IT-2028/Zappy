@@ -30,12 +30,12 @@ def ia_parser(argv: list[str]) -> iaParser:
 
         if not isinstance(machine, str) or machine.strip() == "":
             exit_error("Error: Invalid machine hostname (-h).")
-        Parser = iaParser(
+        parser = iaParser(
             port=port,
             name=name,
             machine=machine
         )
-        return Parser
+        return parser
     except ValueError as e:
         exit_error(f"Error parsing: {e}")
-        return None
+        sys.exit(84)
