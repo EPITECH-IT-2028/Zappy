@@ -43,3 +43,85 @@ parser::TileUpdate parser::CommandParser::parseBct(const std::string& command) {
     return TileUpdate(0, 0, quantities);
   return TileUpdate(x, y, quantities);
 }
+
+parser::PlayerInfo parser::CommandParser::parsePnw(const std::string& command) {
+    int id, x, y, orientation, level;
+    char teamName[256];
+
+    int result = std::sscanf(command.c_str(), "pnw %d %d %d %d %d %s",
+                 &id, &x, &y, &orientation, &level, teamName);
+    if (result != 6)
+        throw std::runtime_error("Invalid pnw command format");
+    return PlayerInfo(id, x, y, orientation, level, std::string(teamName));
+}
+
+parser::PlayerPositionUpdate parser::CommandParser::parsePpo(const std::string& command) {
+    int id, x, y, orientation;
+
+    int result = std::sscanf(command.c_str(), "ppo %d %d %d %d",
+                 &id, &x, &y, &orientation);
+    if (result != 4)
+        throw std::runtime_error("Invalid ppo command format");
+    return PlayerPositionUpdate(id, x, y, orientation);
+}
+
+parser::PlayerLevelUpdate parser::CommandParser::parsePlv(const std::string &command) {
+  int id, level;
+
+  int result = std::sscanf(command.c_str(), "plv %d %d", &id, &level);
+
+  if (result != 2)
+    throw std::runtime_error("Invalid plv command format");
+  return PlayerLevelUpdate(id, level);
+}
+
+parser::PlayerInventory parser::CommandParser::parsePin(const std::string &command) {
+  int id, x, y;
+  std::array<int, RESOURCE_COUNT> resources = {0};
+
+  int result = std::sscanf(command.c_str(), "pin %d %d %d %d %d %d %d %d %d",
+               &id, &x, &y, &resources[0], &resources[1],
+               &resources[2], &resources[3],
+               &resources[4], &resources[5]);
+
+  if (result != 9)
+    throw std::runtime_error("Invalid pin command format");
+  return PlayerInventory(id, x, y, resources);
+}
+
+parser::EggLaid parser::CommandParser::parseEnw(const std::string &command) {
+  int idEgg, idPlayer, x, y;
+
+  int result = std::sscanf(command.c_str(), "enw %d %d %d %d", &idEgg, &idPlayer, &x, &y);
+
+  if (result != 4)
+    throw std::runtime_error("Invalid enw command format");
+  return EggLaid(idEgg, idPlayer, x, y);
+}
+
+parser::EggHatch parser::CommandParser::parseEbo(const std::string &command) {
+  int id;
+  int result = std::sscanf(command.c_str(), "ebo %d", &id);
+
+  if (result != 1)
+    throw std::runtime_error("Invalid ebo command format");
+  return EggHatch(id);
+}
+
+parser::EggDeath parser::CommandParser::parseEdi(const std::string &command) {
+  int id;
+  int result = std::sscanf(command.c_str(), "edi %d", &id);
+
+  if (result != 1)
+    throw std::runtime_error("Invalid edi command format");
+  return EggDeath(id);
+}
+
+parser::PlayerDeath parser::CommandParser::parsePdi(const std::string &command) {
+  int id;
+  int result = std::sscanf(command.c_str(), "pdi %d", &id);
+
+  if (result != 1)
+    throw std::runtime_error("Invalid pdi command format");
+  return PlayerDeath(id);
+}
