@@ -71,7 +71,8 @@ client_t *find_ai_by_id(server_t *server, unsigned int player_id)
 /**
  * @brief Extracts the actual message content from a raw broadcast command
  *
- * This function takes a raw broadcast command string (format: "Broadcast [message]")
+ * This function takes a raw broadcast command string
+ * (format: "Broadcast [message]")
  * and extracts only the message part, removing the command prefix and any
  * leading spaces.
  *

@@ -33,7 +33,7 @@ void init_client_struct(client_t *clients, int fd)
     clients->data.team_name = NULL;
     clients->data.x = 0;
     clients->data.y = 0;
-    clients->data.id = -1; 
+    clients->data.id = -1;
     clients->data.orientation = 0;
     clients->data.level = 1;
     clients->data.is_graphic = false;
