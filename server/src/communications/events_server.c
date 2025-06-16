@@ -14,18 +14,34 @@
 #include <stdlib.h>
 
 static
+int define_index(server_t *server)
+{
+    int idx = 1;
+
+    for (; idx < server->nfds; idx++) {
+        if (server->fds[idx].fd == -1)
+            break;
+    }
+    return idx;
+}
+
+static
 void accept_client(server_t *server, int client_fd)
 {
-    server->clients[server->nfds] = malloc(sizeof(client_t));
-    if (server->clients[server->nfds] == NULL) {
-        perror("Error while allocating new clients");
+    int index = define_index(server);
+
+    server->fds[index].fd = client_fd;
+    server->fds[index].events = POLLIN;
+    server->fds[index].revents = 0;
+    server->clients[index] = malloc(sizeof(client_t));
+    if (server->clients[index] == NULL) {
+        perror("malloc failed");
+        close(client_fd);
         return;
     }
     init_client_struct(server->clients[server->nfds], client_fd);
-    server->fds[server->nfds].fd = client_fd;
-    server->fds[server->nfds].events = POLLIN;
-    server->fds[server->nfds].revents = 0;
-    server->nfds++;
+    if (index == server->nfds)
+        server->nfds++;
 }
 
 int get_new_connection(server_t *server)
@@ -63,9 +79,10 @@ void remove_player(server_t *server, int index)
         server->teams[team_index].clients_count--;
     }
     close(server->fds[index].fd);
-    free(server->clients[index]);
-    server->clients[index] = NULL;
     server->fds[index].fd = -1;
+    free(server->clients[index]);
+    if (index == server->nfds - 1)
+        server->nfds--;
     printf("Client %d disconnected\n", index);
 }
 

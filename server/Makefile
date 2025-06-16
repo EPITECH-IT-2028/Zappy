@@ -61,7 +61,7 @@ TEST_LDFLAGS = -lm
 TEST_SRC_FILE_NAME = %.test.o
 
 CC = gcc
-BASE_FLAGS = -W -Wall -Wextra -I./include
+BASE_FLAGS = -g -W -Wall -Wextra -I./include
 CFLAGS = $(BASE_FLAGS) -lpthread
 LDFLAGS = -lm
 

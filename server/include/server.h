@@ -189,6 +189,7 @@ void player_commands(server_t *server, int index, char *buffer);
 /* Game Events */
 void remove_food(server_t *server);
 void send_enw(server_t *server, int index, egg_t *egg);
+void send_pnw(server_t *server, int index, int gui);
 void send_all_eggs_to_gui(server_t *server, int index);
 
 /* Parameters checks */

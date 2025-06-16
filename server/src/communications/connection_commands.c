@@ -33,6 +33,15 @@ int set_data(server_t *server, int index, const char *name, bool is_graphic)
 }
 
 static
+void send_new_player_to_gui(server_t *server, int index)
+{
+    for (int i = 1; i < server->nfds; i++) {
+        if (server->clients[i]->data.is_graphic)
+            send_pnw(server, index, i);
+    }
+}
+
+static
 int send_ai(server_t *server, int index, char *buffer, char *response)
 {
     int team_index = find_team_index(server, buffer);
@@ -46,13 +55,13 @@ int send_ai(server_t *server, int index, char *buffer, char *response)
     server->teams[team_index].clients_count++;
     if (set_data(server, index, buffer, false) == ERROR)
         return ERROR;
-    if (assign_random_egg_position(server, server->clients[index]) == ERROR) {
+    if (assign_random_egg_position(server, server->clients[index]) == ERROR)
         return ERROR;
-    }
     remaining_slots = server->params.client_per_team -
         server->teams[team_index].clients_count;
     snprintf(response, BUFFER_SIZE, "%d\n%d %d", remaining_slots,
         server->params.width, server->params.height);
+    send_new_player_to_gui(server, index);
     return SUCCESS;
 }
 

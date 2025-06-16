@@ -35,3 +35,14 @@ void send_enw(server_t *server, int index, egg_t *egg)
         egg->id, egg->player_id, egg->x, egg->y);
     send_code(server->clients[index]->fd, response);
 }
+
+void send_pnw(server_t *server, int index, int gui)
+{
+    char response[BUFFER_SIZE];
+    client_t *client = server->clients[index];
+
+    snprintf(response, BUFFER_SIZE, "pnw #%d %d %d %d %d %s"
+        , client->data.id, client->data.x, client->data.y, client->data.orientation,
+        client->data.level, client->data.team_name);
+    send_code(server->clients[gui]->fd, response);
+}
