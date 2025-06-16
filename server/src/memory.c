@@ -6,6 +6,7 @@
 */
 
 #include "server.h"
+#include "utils.h"
 #include <stddef.h>
 #include <stdlib.h>
 #include <pthread.h>
@@ -30,10 +31,34 @@ void free_map(map_t **map, params_t *params)
     free(map);
 }
 
+void cleanup_client_data(server_t *server, int index)
+{
+    client_t *client;
+    int team_index;
+
+    if (server->clients[index] == NULL)
+        return;
+    client = server->clients[index];
+    if (client->data.team_name) {
+        team_index = find_team_index(server, client->data.team_name);
+        if (!client->data.is_graphic && team_index != ERROR &&
+            server->teams[team_index].clients_count > 0) {
+            server->teams[team_index].clients_count--;
+        }
+        free(client->data.team_name);
+        client->data.team_name = NULL;
+    }
+    pthread_mutex_destroy(&client->data.pending_mutex);
+    free(client);
+    server->clients[index] = NULL;
+}
+
 void free_server(server_t *server)
 {
     if (server == NULL)
         return;
+    server->running = false;
+    pthread_mutex_lock(&server->clients_mutex);
     pthread_join(server->threads.game_thread, NULL);
     for (int i = 0; i < server->nfds; i += 1) {
         if (server->clients[i] != NULL) {
@@ -41,6 +66,8 @@ void free_server(server_t *server)
             free(server->clients[i]);
         }
     }
+    pthread_mutex_unlock(&server->clients_mutex);
+    pthread_mutex_destroy(&server->clients_mutex);
     free(server->clients);
     free_map(server->map, &server->params);
     free_params(&server->params);

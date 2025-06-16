@@ -8,6 +8,7 @@
 #ifndef MACRO_H_
     #define MACRO_H_
 
+    #define NFDS_REALLOC_NUMBER 1
     #define ERROR 84
     #define SUCCESS 0
     #define MIN_PARAMS 14

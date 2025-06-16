@@ -76,6 +76,7 @@ void add_queue_to_response(server_t *server)
 {
     if (server->nfds <= 1)
         return;
+    pthread_mutex_lock(&server->clients_mutex);
     for (int i = 1; i < server->nfds; i++) {
         if (server->clients[i] == NULL || server->fds[i].fd == -1)
             continue;
@@ -87,6 +88,7 @@ void add_queue_to_response(server_t *server)
             server->clients[i]->data.is_busy = false;
         }
     }
+    pthread_mutex_unlock(&server->clients_mutex);
 }
 
 static
