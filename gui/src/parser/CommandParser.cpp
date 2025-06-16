@@ -33,25 +33,25 @@ parser::TeamNames parser::CommandParser::parseTna(const std::string& command) {
 
 parser::TileUpdate parser::CommandParser::parseBct(const std::string& command) {
   int x, y;
-  std::array<int, RESOURCE_COUNT> quantities = {0};
+  std::array<int, RESOURCE_COUNT> resources = {0};
 
-  int result = sscanf(command.c_str(), "bct %d %d %d %d %d %d %d %d",
-                &x, &y, &quantities[0], &quantities[1],
-                &quantities[2], &quantities[3],
-                &quantities[4], &quantities[5]);
-  if (result != 8)
-    return TileUpdate(0, 0, quantities);
-  return TileUpdate(x, y, quantities);
+  int result = sscanf(command.c_str(), "bct %d %d %d %d %d %d %d %d %d",
+                &x, &y, &resources[0], &resources[1],
+                &resources[2], &resources[3],
+                &resources[4], &resources[5], &resources[6]);
+  if (result != 9)
+    throw std::runtime_error("Invalid bct command format");
+  return TileUpdate(x, y, resources);
 }
 
 parser::PlayerInfo parser::CommandParser::parsePnw(const std::string& command) {
     int id, x, y, orientation, level;
     char teamName[256];
 
-    int result = std::sscanf(command.c_str(), "pnw %d %d %d %d %d %s",
+    int result = std::sscanf(command.c_str(), "pnw %d %d %d %d %d %255s",
                  &id, &x, &y, &orientation, &level, teamName);
     if (result != 6)
-        throw std::runtime_error("Invalid pnw command format");
+      throw std::runtime_error("Invalid pnw command format");
     return PlayerInfo(id, x, y, orientation, level, std::string(teamName));
 }
 
@@ -61,7 +61,7 @@ parser::PlayerPositionUpdate parser::CommandParser::parsePpo(const std::string& 
     int result = std::sscanf(command.c_str(), "ppo %d %d %d %d",
                  &id, &x, &y, &orientation);
     if (result != 4)
-        throw std::runtime_error("Invalid ppo command format");
+      throw std::runtime_error("Invalid ppo command format");
     return PlayerPositionUpdate(id, x, y, orientation);
 }
 
@@ -79,12 +79,12 @@ parser::PlayerInventory parser::CommandParser::parsePin(const std::string &comma
   int id, x, y;
   std::array<int, RESOURCE_COUNT> resources = {0};
 
-  int result = std::sscanf(command.c_str(), "pin %d %d %d %d %d %d %d %d %d",
+  int result = std::sscanf(command.c_str(), "pin %d %d %d %d %d %d %d %d %d %d",
                &id, &x, &y, &resources[0], &resources[1],
                &resources[2], &resources[3],
-               &resources[4], &resources[5]);
+               &resources[4], &resources[5], &resources[6]);
 
-  if (result != 9)
+  if (result != 10)
     throw std::runtime_error("Invalid pin command format");
   return PlayerInventory(id, x, y, resources);
 }
