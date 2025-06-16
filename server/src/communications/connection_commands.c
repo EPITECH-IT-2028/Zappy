@@ -21,6 +21,12 @@ int set_data(server_t *server, int index, const char *name, bool is_graphic)
 {
     server->clients[index]->data.is_graphic = is_graphic;
     server->clients[index]->data.team_name = strdup(name);
+    if (is_graphic) {
+        server->clients[index]->data.id = -1;
+    } else {
+        server->clients[index]->data.id = server->ids;
+        server->ids++;
+    }
     if (server->clients[index]->data.team_name == NULL)
         perror("strdup failed");
     return SUCCESS;
@@ -59,7 +65,7 @@ int send_gui(server_t *server, int index, char *buffer)
     time_commands(server, index, "sgt");
     map_commands(server, index, "mct");
     player_commands(server, index, "tna");
-    game_events(server, index, "enw");
+    send_all_eggs_to_gui(server, index);
     return SUCCESS;
 }
 

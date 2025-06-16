@@ -14,9 +14,11 @@
 #include <string.h>
 
 /**
- * @brief Calculates the shortest distance between two coordinates on a wrapped map
+ * @brief Calculates the shortest distance between two coordinates
+ * on a wrapped map
  *
- * This function determines the shortest path between two coordinates, taking into
+ * This function determines the shortest path between two coordinates,
+ * taking into
  * account the possibility of wrapping around the map edges (like a torus).
  *
  * @param coord1 First coordinate
@@ -82,7 +84,8 @@ int calcalute_direction_tile(server_t *server, const client_data_t *emitter,
 }
 
 /**
- * @brief Determines which clients receive a broadcast and calculates their direction tiles
+ * @brief Determines which clients receive a broadcast and calculates their
+ * direction tiles
  *
  * This function iterates through all connected clients and marks which ones
  * should receive the broadcast message. For each receiver, it calculates
@@ -124,7 +127,8 @@ void transmit_sound(server_t *server, client_t *emitter,
  * the appropriate direction tile.
  *
  * @param server Server instance containing client list
- * @param results Array indicating which clients receive the message and their direction tiles
+ * @param results Array indicating which clients receive the message and
+ * their direction tiles
  * @param message The text content to broadcast
  */
 static

@@ -13,8 +13,6 @@ static
 void check_death(client_t *client)
 {
     if (client->data.inventory.food == -1) {
-        // TO DO: handle death of a client
-        // TEMPORARY CODE: send dead to client
         send_code(client->fd, "dead");
     }
 }
