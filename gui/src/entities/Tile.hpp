@@ -4,9 +4,11 @@
 
 namespace gui {
   struct Tile{
-    enum Resource { Food, Linemate, Deraumere, Sibur, Mendiane, Phiras, Thystame, ResourceCount };
-    std::array<int, ResourceCount> resources{};
-
+    static constexpr int RESOURCE_COUNT = 7;
+    
+    enum class Resource { Food, Linemate, Deraumere, Sibur, Mendiane, Phiras, Thystame };
+    
+    std::array<int, RESOURCE_COUNT> resources{};
     std::vector<int> playerIdsOnTile;
     std::vector<int> eggIdsOnTile;   
 

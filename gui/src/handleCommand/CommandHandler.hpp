@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include "../entities/Map.hpp"
+#include "entities/Map.hpp"
 
 namespace handlecommand {
   class CommandHandler {

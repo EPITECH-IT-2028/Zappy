@@ -1,16 +1,17 @@
 #pragma once
-#include <vector>
 #include "Map.hpp"
 #include "Player.hpp"
 #include "Egg.hpp"
+#include <cstddef>
+#include <unordered_map>
 
 namespace gui {
   struct GameState {
     Map map;
-    std::vector<Player> players;
-    std::vector<Egg> eggs;
+    std::unordered_map<int, Player>players;
+    std::unordered_map<int, Egg> eggs;
 
-    GameState(int width, int height)
+    GameState(std::size_t width, std::size_t height)
       : map(width, height) {}
 
     const Player &getPlayerById(int id) const;

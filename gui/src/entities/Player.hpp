@@ -1,25 +1,24 @@
 #pragma once
 #include <cstdint>
 #include <string>
-#include <cstddef>
 
 namespace gui {
   struct Player {
     int id;
-    std::size_t x;
-    std::size_t y;
+    int x;
+    int y;
     enum Orientation {
       NORTH = 1,
       EAST = 2,
       SOUTH = 3,
       WEST = 4
     };
-    Orientation orient;
+    Orientation orientation;
     std::uint8_t level;
     std::string teamName;
 
-    Player(int id, std::size_t x, std::size_t y, Orientation orientation,
+    Player(int id, int x, int y, Orientation orientation,
       std::uint8_t level, const std::string& teamName) noexcept
-      : id(id), x(x), y(y), orient(orientation), level(level), teamName(teamName) {}
+      : id(id), x(x), y(y), orientation(orientation), level(level), teamName(teamName) {}
   };
-};
+}

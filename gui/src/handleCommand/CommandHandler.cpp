@@ -1,5 +1,5 @@
 #include "CommandHandler.hpp"
-#include "../parser/CommandParser.hpp"
+#include "parser/CommandParser.hpp"
 #include <iostream>
 
 handlecommand::CommandHandler::CommandHandler(gui::Map& map) : _map(map) {}
@@ -7,6 +7,9 @@ handlecommand::CommandHandler::CommandHandler(gui::Map& map) : _map(map) {}
 void handlecommand::CommandHandler::handleBct(const std::string& command) {
   try {
     parser::TileUpdate update = parser::CommandParser::parseBct(command);
+    if (!_map.isInside(update.x, update.y)) {
+      throw std::out_of_range("Coordinates outside map");
+    }
     _map.getTile(update.x, update.y).resources = update.resources;
   } catch (const std::exception& e) {
     std::cerr << "Error while handling bct: " << e.what() << "\n";
