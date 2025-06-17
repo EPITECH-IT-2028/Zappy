@@ -207,6 +207,7 @@ void send_pnw(server_t *server, int index, int gui);
 void send_pdi(server_t *server, int index, int gui);
 void send_pdi_all(server_t *server, int index);
 void send_all_eggs_to_gui(server_t *server, int index);
+void send_pic_all(server_t *server, client_t **incantators);
 
 /* Parameters checks */
 int help_flag(void);
@@ -247,5 +248,6 @@ int check_if_incantation_failed(
     client_t **clients,
     map_t *unit_space
 );
+void free_incantators(client_t **incantators);
 
 #endif /* SERVER_H_ */

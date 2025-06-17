@@ -24,6 +24,15 @@ void init_client_inventory(client_data_t *cd)
     cd->inventory.thystame = 0;
 }
 
+static
+void init_incantation_state(incantation_t *inc)
+{
+    inc->is_incantating = false;
+    inc->x = 0;
+    inc->y = 0;
+    inc->id_incantator = 0;
+}
+
 void init_client_struct(client_t *clients, int fd)
 {
     clients->fd = fd;
@@ -39,8 +48,8 @@ void init_client_struct(client_t *clients, int fd)
     clients->data.is_graphic = false;
     clients->data.pending_requests = 0;
     clients->data.pending_response.client = NULL;
-    memset(&clients->data.incantation, 0, sizeof(incantation_t));
     memset(clients->data.pending_response.response, 0, BUFFER_SIZE);
+    init_incantation_state(&clients->data.incantation);
     clients->data.is_busy = false;
     init_direction(&clients->data.direction);
     pthread_mutex_init(&clients->data.pending_mutex, NULL);

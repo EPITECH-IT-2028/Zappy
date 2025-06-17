@@ -6,9 +6,11 @@
 */
 
 #include "incantation_condition.h"
-#include "macro.h"
-#include "server.h"
+#include "macro.h" 
+#include "utils.h"
 #include <stdio.h>
+#include "server.h"
+#include <stdlib.h>
 #include <string.h>
 
 int check_if_incantation_failed(
@@ -78,42 +80,56 @@ int check_incantation_condition(server_t *server, request_t *request)
  * @return SUCCESS always (function cannot fail)
  */
 static
-int freeze_every_player(server_t *server, request_t *request)
+int freeze_every_player(server_t *server, request_t *request, client_t **clients_frozen)
 {
     client_data_t *client = &request->client->data;
     map_t *unit_space = &server->map[client->x][client->y];
-    client_t *clients_frozen[tab_incantation[client->level - 1].player];
     uint8_t nbr_clients_frozen = 1;
     uint8_t lvl_needed = client->level;
-    int i = 0;
+    int i = 1;
 
-    clients_frozen[0] = request->client;
-    for (; nbr_clients_frozen < unit_space->nbr_of_players;) 
-        if (unit_space->players[i]->data.level == lvl_needed) {
-            clients_frozen[i] = unit_space->players[i]; 
+    clients_frozen[INDEX_INCANTATOR] = malloc(sizeof(client_t));
+    if (!clients_frozen[INDEX_INCANTATOR])
+        return ERROR;
+    memcpy(clients_frozen[INDEX_INCANTATOR], client, sizeof(client_t));
+    for (int j = 0; j < unit_space->nbr_of_players; j++) {
+        if (unit_space->players[j]->data.level == lvl_needed && 
+            unit_space->players[j] != request->client) {
+            clients_frozen[i] = malloc(sizeof(client_t));
+            if (!clients_frozen[i])
+                return ERROR;
+            memcpy(clients_frozen[i], unit_space->players[j], sizeof(client_t));
             i++;
+            nbr_clients_frozen++;
+            if (nbr_clients_frozen >= tab_incantation[client->level - 1].player)
+                break;
         }
-    for (; i >= 0; i--) {
-        clients_frozen[i]->data.incantation.is_incantating = true;
-        clients_frozen[i]->data.incantation.x = client->x;
-        clients_frozen[i]->data.incantation.y = client->x;
-        clients_frozen[i]->data.incantation.id_incantator = clients_frozen[INDEX_INCANTATOR]->data.id;
-        clients_frozen[i]->data.is_busy = true;
-        clients_frozen[i]->data.action_end_time = get_action_end_time(server,
+    }
+    for (int j = 0; j < i; j++) {
+        clients_frozen[j]->data.incantation.is_incantating = true;
+        clients_frozen[j]->data.incantation.x = client->x;
+        clients_frozen[j]->data.incantation.y = client->y;
+        clients_frozen[j]->data.incantation.id_incantator = clients_frozen[INDEX_INCANTATOR]->data.id;
+        clients_frozen[j]->data.is_busy = true;
+        clients_frozen[j]->data.action_end_time = get_action_end_time(server,
             INCANTATION_TIME);
     }
     return SUCCESS;
 }
 
 static
-void add_new_incantation_request(server_t *server, request_t *request)
+void add_new_incantation_request(server_t *server, request_t *request, client_t **incantators)
 {
     request_t new_request;
 
     new_request.client = request->client;
     memcpy(new_request.request, request->request, BUFFER_SIZE);
     queue_add_request(server, &new_request);
+    for (int i = 0; incantators[i] != NULL; i++) {
+        send_code(incantators[i]->fd, "Elevation underway");
+    }
 }
+
 static
 void level_up_all_client(server_t *server, client_t *incantator, response_t *response)
 {
@@ -140,25 +156,28 @@ void level_up_all_client(server_t *server, client_t *incantator, response_t *res
 int handle_incantation(server_t *server, response_t *response,
     request_t *request)
 {
+    client_t **incantators = NULL;;
+
     if (!server || !response || !request)
         return ERROR;
     if (request->client->data.incantation.is_incantating == true) {
         if (check_if_incantation_failed(&request->client->data,
             server->clients, &server->map[response->client->data.x]
-            [response->client->data.y]) == ERROR) {
+            [response->client->data.y]) == ERROR)
             return ERROR;
-        }
         level_up_all_client(server, response->client, response);
         return SUCCESS;
     }
-    if (check_incantation_condition(server, request) == ERROR) {
+    incantators = malloc(sizeof(client_t *) * (tab_incantation[response->client->data.level - 1].player + 1));
+    if (!incantators)
         return ERROR;
-    }
-    send_pic_to_gui(request->client);
-    if (freeze_every_player(server, request) == ERROR) {
+    for (int i = 0; i <= tab_incantation[response->client->data.level - 1].player; i++)
+        incantators[i] = NULL;
+    if (check_incantation_condition(server, request) == ERROR)
         return ERROR;
-    }
-    add_new_incantation_request(server, request);
-    sprintf(response->response, "Elevation underway"); 
+    if (freeze_every_player(server, request, incantators) == ERROR)
+        return ERROR;
+    send_pic_all(server, incantators);
+    add_new_incantation_request(server, request, incantators);
     return SUCCESS;
 }

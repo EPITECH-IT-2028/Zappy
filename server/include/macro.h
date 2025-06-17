@@ -60,6 +60,7 @@
     #define FOOD_DURATION 126
 
     #define TAB_LVL_INCANTATION_SIZE 6
+    #define INCANTATION_ID_LEN 4
     #define INDEX_INCANTATOR 0
 
 #endif /* MACRO_H_ */
