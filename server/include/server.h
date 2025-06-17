@@ -190,11 +190,15 @@ void player_commands(server_t *server, int index, char *buffer);
 
 /* Game Events */
 void remove_food(server_t *server);
-void send_enw(server_t *server, int index, egg_t *egg);
-void send_pnw(server_t *server, int index, int gui);
-void send_pdi(server_t *server, int index, int gui);
-void send_pdi_all(server_t *server, int index);
-void send_all_eggs_to_gui(server_t *server, int index);
+void send_enw(server_t *server, egg_t *egg);
+void send_pfk(server_t *server, client_t *client);
+void send_ebo(server_t *server, egg_t *egg);
+void send_edi(server_t *server, egg_t *egg);
+void send_pnw(server_t *server, int index);
+void send_pdi(server_t *server, int index);
+void send_pin(server_t *server, int index);
+void send_pbc(server_t *server, client_t *client, const char *message);
+void send_all_eggs_to_gui(server_t *server);
 
 /* Parameters checks */
 int help_flag(void);

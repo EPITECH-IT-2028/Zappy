@@ -10,28 +10,26 @@
 #include "utils.h"
 #include <string.h>
 
-static
-void loop_eggs(server_t *server, int index, map_t *tile)
-{
-    for (int i = 0; i < tile->eggs_count; i++) {
-        send_enw(server, index, &tile->eggs[i]);
-    }
-}
-
-void send_all_eggs_to_gui(server_t *server, int index)
-{
-    for (int x = 0; x < server->params.width; x++) {
-        for (int y = 0; y < server->params.height; y++) {
-            loop_eggs(server, index, &server->map[x][y]);
-        }
-    }
-}
-
-void send_enw(server_t *server, int index, egg_t *egg)
+/**
+ * @brief Sends a PBC (Player Broadcast) message to all graphic clients
+ *
+ * This function formats a broadcast message with the client's ID and the
+ * provided message, then sends it to all clients that are marked as graphic.
+ *
+ * @param server Server instance containing client list
+ * @param client The client who sent the broadcast
+ * @param message The text content of the broadcast
+ */
+void send_pbc(server_t *server, client_t *client, const char *message)
 {
     char response[BUFFER_SIZE];
 
-    snprintf(response, BUFFER_SIZE, "enw #%d #%d %d %d",
-        egg->id, egg->player_id, egg->x, egg->y);
-    send_code(server->clients[index]->fd, response);
+    snprintf(response, BUFFER_SIZE, "pbc #%d %s",
+        client->data.id, message);
+    for (int i = 1; i < server->nfds; i++) {
+        if (server->clients[i] != NULL &&
+            server->clients[i]->data.is_graphic) {
+            send_code(server->clients[i]->fd, response);
+        }
+    }
 }

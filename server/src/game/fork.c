@@ -16,14 +16,12 @@ int fork_player(server_t *server, response_t *response, request_t *request)
     map_t *tile = &server->map[x][y];
     egg_t *egg = create_egg(server->egg_ids, x, y, player_id);
 
+    send_pfk(server, request->client);
     if (!egg)
         return ERROR;
     if (place_egg(tile, egg) == ERROR)
         return ERROR;
-    for (int i = 1; i < server->nfds; i++) {
-        if (server->clients[i] && server->clients[i]->data.is_graphic)
-            send_enw(server, i, &tile->eggs[tile->eggs_count - 1]);
-    }
+    send_enw(server, &tile->eggs[tile->eggs_count - 1]);
     server->egg_ids++;
     sprintf(response->response, "ok");
     response->client->data.is_busy = true;
