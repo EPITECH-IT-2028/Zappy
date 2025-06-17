@@ -7,10 +7,10 @@
 
 #include "macro.h"
 #include "server.h"
+#include <stdlib.h>
 
 static
-void set_offset(direction_offset_t *offset, client_t *client)
-{
+void set_offset(direction_offset_t *offset, client_t *client) {
     switch (client->data.direction) {
         case UP:
             offset->x = 0;
@@ -44,6 +44,49 @@ void check_map_bounds(server_t *server, client_t *client)
         client->data.y = 0;
 }
 
+static
+int remove_player(map_t *map, client_t *client)
+{
+    int player_index = -1;
+
+    for (int i = 0; i < map->nbr_of_players; i++)
+        if (map->players[i]->data.id == client->data.id) {
+            player_index = i;
+            break;
+        }
+    for (int i = player_index; i < map->nbr_of_players - 1; i++)
+        map->players[i] = map->players[i + 1];
+    map->nbr_of_players--;
+    if (map->nbr_of_players > 0) {
+        map->players = realloc(map->players, 
+            sizeof(client_t *) * map->nbr_of_players);
+        if (!map->players)
+            return ERROR;
+    } else {
+        free(map->players);
+        map->players = NULL;
+    }
+    return SUCCESS;
+}
+
+static
+int add_player(server_t *server, map_t **map, client_t *client)
+{
+    map_t *tile = NULL; 
+    client_t **temp = NULL;
+
+    check_map_bounds(server, client);
+    tile = &map[client->data.x][client->data.y];
+    temp = realloc(tile->players,
+        sizeof(client_t *) * (tile->nbr_of_players + 1));
+    if (!temp)
+        return ERROR;
+    tile->players = temp;
+    tile->players[tile->nbr_of_players] = client;
+    tile->nbr_of_players++;
+    return SUCCESS;
+}
+
 int move_forward(server_t *server, response_t *response, request_t *request)
 {
     client_t *client = request->client;
@@ -57,10 +100,9 @@ int move_forward(server_t *server, response_t *response, request_t *request)
     set_offset(&offset, client);
     client->data.x += offset.x;
     client->data.y += offset.y;
-    if (map[last_x][last_y].players > 0)
-        map[last_x][last_y].players--;
-    check_map_bounds(server, client);
-    map[client->data.x][client->data.y].players++;
+    if (map[last_x][last_y].nbr_of_players > 0)
+        remove_player(&map[last_x][last_y], client);
+    add_player(server, map, client);
     sprintf(response->response, "ok");
     response->client->data.is_busy = true;
     response->client->data.action_end_time =

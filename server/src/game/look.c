@@ -13,7 +13,7 @@
 static
 void add_to_look(char *response, map_t current_case)
 {
-    if (current_case.players > 0)
+    if (current_case.nbr_of_players > 0)
         strcat(response, " player");
     if (current_case.deraumere > 0)
         strcat(response, " deraumere");

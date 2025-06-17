@@ -39,6 +39,7 @@ SRC += ./src/game/broadcast.c
 SRC += ./src/game/fork.c
 SRC += ./src/communications/init_direction.c
 SRC += ./src/game/connect_nbr.c
+SRC += ./src/game/incantation.c
 
 OBJ = $(SRC:.c=.o)
 

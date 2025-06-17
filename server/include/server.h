@@ -48,18 +48,6 @@ typedef struct egg_s {
     int player_id;
 } egg_t;
 
-typedef struct map_s {
-    int food;
-    int linemate;
-    int deraumere;
-    int sibur;
-    int mendiane;
-    int phiras;
-    int thystame;
-    int players;
-    egg_t *eggs;
-    int eggs_count;
-} map_t;
 
 typedef struct teams_s {
     char *name;
@@ -124,6 +112,20 @@ typedef struct queue_request_s {
     int len;
     pthread_mutex_t mutex;
 } queue_request_t;
+
+typedef struct map_s {
+    int food;
+    int linemate;
+    int deraumere;
+    int sibur;
+    int mendiane;
+    int phiras;
+    int thystame;
+    int nbr_of_players;
+    client_t **players;
+    egg_t *eggs;
+    int eggs_count;
+} map_t;
 
 typedef struct server_s {
     int fd;
