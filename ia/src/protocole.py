@@ -3,6 +3,7 @@ import threading
 import game
 import ml_agent
 import random
+import utils
 
 allowed_commands = [
     "Forward",
@@ -33,10 +34,10 @@ def handle_Left(client, response) -> None:
     print("Rotation à gauche réussie")
 
 def handle_Take(client, response) -> None:
-    print(f"Taking food")
+    print(f"Taking resources")
 
 def handle_Set(client, response) -> None:
-    send_message(client, "Inventory")
+    print(f"Seting resources")
 
 def handle_Inventory(client, response) -> None:
     cleaned_response = response.strip().lstrip('[').rstrip(']')
@@ -44,6 +45,7 @@ def handle_Inventory(client, response) -> None:
         if item:
             resource, quantity = item.split()
             client["inventory"][resource] = int(quantity)
+    print(f"Inventory updated: {client['inventory']}")
 
 def handle_Dead(client, response) -> None:
     client["socket"].close()
@@ -64,6 +66,35 @@ def handle_Look(client, response) -> None:
     cleaned_response = response.strip().lstrip('[').rstrip(']')
     client["last_look"] = [item.strip() for item in cleaned_response.split(',')]
 
+def get_requirements_for_level(level):
+    requirements_map = {
+        1: utils.LEVEL_1_TO_2,
+        2: utils.LEVEL_2_TO_3,
+        3: utils.LEVEL_3_TO_4,
+        4: utils.LEVEL_4_TO_5,
+        5: utils.LEVEL_5_TO_6,
+        6: utils.LEVEL_6_TO_7,
+        7: utils.LEVEL_7_TO_8
+    }
+    return requirements_map.get(level, {})
+
+def handle_Incantation(client, response) -> None:
+    if response == "ko":
+        print("Incantation échouée")
+        return
+    
+    new_response = client["socket"].recv(1024).decode().strip()
+
+    if new_response == "ko":
+        print("Incantation échouée")
+        return
+    
+    new_level = int(new_response.split("Current level:")[1])
+    client["level"] = new_level
+    client["needed_resources"] = get_requirements_for_level(new_level)
+    client["incantation"] = False
+    print(f"Incantation réussie, nouveau niveau: {new_level}")
+
 def handle_commande(client, commande, response):
     func_name = f"handle_{commande}"
 
@@ -76,7 +107,7 @@ def execute_command(client, commande, args) -> None:
 
     if commande not in allowed_commands:
         raise ValueError(f"Commande '{commande}' non autorisée")
-    if commande == "Broadcast" or commande == "Set" or commande == "Take":
+    if commande == utils.BROADCAST or commande == utils.SET or commande == utils.TAKE:
         send_message(client, f"{commande} {args}")
     else:
         send_message(client, commande)
@@ -86,7 +117,7 @@ def execute_command(client, commande, args) -> None:
 def handle_client(client) -> None:
     buffer = ""
 
-    execute_command(client, "Look", None)
+    execute_command(client, utils.LOOK, None)
     while client["is_alive"]:
         response = client["socket"].recv(1024).decode()
 
@@ -104,11 +135,11 @@ def handle_client(client) -> None:
                     command = client["commandes"].pop(0)
                     handle_commande(client, command, message)
 
-                    if command == "Look":
+                    if command == utils.LOOK:
                         ml_agent.strategy(client)
                     
-                    if command == "Inventory":
-                        execute_command(client, "Look", None)
+                    if command == utils.INVENTORY:
+                        execute_command(client, utils.LOOK, None)
 
 def connect_client(server_address, team_name) -> int:
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -122,13 +153,15 @@ def connect_client(server_address, team_name) -> int:
         "inventory": {},
         "last_look": [],
         "level": 1,
+        "needed_resources": utils.LEVEL_1_TO_2,
         "is_alive": True,
         "move": {
             "consecutive_turns": 0,
             "forward": False,
-            "distance_to_food": -1,
-            "last_food": None,
-        }
+            "distance_to_target": -1,
+            "last_target": None,
+        },
+        "incantation": False,
     }
 
     welcome_msg = client["socket"].recv(1024).decode()

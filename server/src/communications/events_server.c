@@ -14,18 +14,64 @@
 #include <stdlib.h>
 
 static
+int define_index(server_t *server)
+{
+    int idx = 1;
+
+    for (; idx < server->nfds; idx++) {
+        if (server->fds[idx].fd == -1)
+            break;
+    }
+    return idx;
+}
+
+static
+int resize_fds(server_t *server, int new_size)
+{
+    struct pollfd *new_fds = realloc(server->fds,
+            sizeof(struct pollfd) * new_size);
+    client_t **new_clients = realloc(server->clients,
+            sizeof(client_t *) * new_size);
+
+    if (new_fds == NULL || new_clients == NULL) {
+        perror("realloc failed");
+        return ERROR;
+    }
+    server->fds = new_fds;
+    server->clients = new_clients;
+    return SUCCESS;
+}
+
+static
+void init_fds(server_t *server, int index, int client_fd)
+{
+    server->fds[index].fd = client_fd;
+    server->fds[index].events = POLLIN;
+    server->fds[index].revents = 0;
+    if (index == server->nfds)
+        server->nfds++;
+}
+
+static
 void accept_client(server_t *server, int client_fd)
 {
-    server->clients[server->nfds] = malloc(sizeof(client_t));
-    if (server->clients[server->nfds] == NULL) {
-        perror("Error while allocating new clients");
+    int index = define_index(server);
+
+    if (index == server->nfds) {
+        if (resize_fds(server, server->nfds + NFDS_REALLOC_NUMBER) == ERROR) {
+            close(client_fd);
+            return;
+        }
+        server->clients[index] = NULL;
+    }
+    server->clients[index] = malloc(sizeof(client_t));
+    if (server->clients[index] == NULL) {
+        perror("malloc failed");
+        close(client_fd);
         return;
     }
-    init_client_struct(server->clients[server->nfds], client_fd);
-    server->fds[server->nfds].fd = client_fd;
-    server->fds[server->nfds].events = POLLIN;
-    server->fds[server->nfds].revents = 0;
-    server->nfds++;
+    init_client_struct(server->clients[index], client_fd);
+    init_fds(server, index, client_fd);
 }
 
 int get_new_connection(server_t *server)
@@ -39,12 +85,6 @@ int get_new_connection(server_t *server)
             &addr_len);
         if (client_fd == -1)
             return ERROR;
-        server->fds = realloc(server->fds,
-                sizeof(struct pollfd) * (server->nfds + 1));
-        server->clients = realloc(server->clients,
-                sizeof(client_t *) * (server->nfds + 1));
-        if (server->fds == NULL || server->clients == NULL)
-            return ERROR;
         accept_client(server, client_fd);
         send_code(client_fd, "WELCOME");
         printf("New connection\n");
@@ -55,17 +95,20 @@ int get_new_connection(server_t *server)
 static
 void remove_player(server_t *server, int index)
 {
-    int team_index = find_team_index(server,
-        server->clients[index]->data.team_name);
-
-    if (!server->clients[index]->data.is_graphic &&
-        team_index != ERROR && server->teams[team_index].clients_count > 0) {
-        server->teams[team_index].clients_count--;
+    pthread_mutex_lock(&server->clients_mutex);
+    if (server->clients[index] == NULL) {
+        pthread_mutex_unlock(&server->clients_mutex);
+        return;
     }
-    close(server->fds[index].fd);
-    free(server->clients[index]);
-    server->clients[index] = NULL;
-    server->fds[index].fd = -1;
+    send_pdi_all(server, index);
+    if (server->fds[index].fd != -1) {
+        close(server->fds[index].fd);
+        server->fds[index].fd = -1;
+    }
+    cleanup_client_data(server, index);
+    while (server->nfds > 1 && server->fds[server->nfds - 1].fd == -1)
+        server->nfds--;
+    pthread_mutex_unlock(&server->clients_mutex);
     printf("Client %d disconnected\n", index);
 }
 
@@ -74,10 +117,10 @@ void handle_client(server_t *server, int index, char *buffer, int bytes)
 {
     const char *buffer_end = NULL;
 
-    if (bytes <= 0) {
-        remove_player(server, index);
+    if (bytes <= 0)
+        return remove_player(server, index);
+    if (server->clients[index] == NULL)
         return;
-    }
     buffer[bytes] = '\0';
     printf("Received from client %d: %s\n", index, buffer);
     buffer_end = strchr(buffer, '\n');

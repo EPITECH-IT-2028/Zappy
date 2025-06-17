@@ -135,6 +135,8 @@ int init_server_struct(server_t *server, params_t *params)
     server->egg_ids = 0;
     server->clients = malloc(sizeof(client_t *));
     server->teams = malloc(sizeof(teams_t) * params->teams_count);
+    if (pthread_mutex_init(&server->clients_mutex, NULL) != 0)
+        return ERROR;
     if (server->fds == NULL || server->clients == NULL ||
         server->teams == NULL || init_queues(server) == ERROR ||
         init_teams_struct(server->teams, params) == ERROR ||
