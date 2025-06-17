@@ -130,6 +130,7 @@ typedef struct server_s {
     struct sockaddr_in addr;
     socklen_t addr_len;
     client_t **clients;
+    pthread_mutex_t clients_mutex;
     char *path;
     struct pollfd *fds;
     int nfds;
@@ -171,6 +172,7 @@ void handle_all_client(server_t *server);
 /* Resource management functions */
 void free_params(params_t *params);
 void free_server(server_t *server);
+void cleanup_client_data(server_t *server, int index);
 
 /* Function for multi-thread */
 int game_loop(server_t *server);
@@ -189,6 +191,9 @@ void player_commands(server_t *server, int index, char *buffer);
 /* Game Events */
 void remove_food(server_t *server);
 void send_enw(server_t *server, int index, egg_t *egg);
+void send_pnw(server_t *server, int index, int gui);
+void send_pdi(server_t *server, int index, int gui);
+void send_pdi_all(server_t *server, int index);
 void send_all_eggs_to_gui(server_t *server, int index);
 
 /* Parameters checks */

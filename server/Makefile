@@ -15,6 +15,7 @@ SRC = ./src/main.c \
 			./src/communications/gui_commands/time_commands.c \
 			./src/communications/gui_commands/player_commands.c \
 			./src/events/game_events.c \
+			./src/events/connection_events.c \
 			./src/utils.c \
 			./src/memory.c \
 			./src/game/game.c \
@@ -61,7 +62,7 @@ TEST_LDFLAGS = -lm
 TEST_SRC_FILE_NAME = %.test.o
 
 CC = gcc
-BASE_FLAGS = -W -Wall -Wextra -I./include
+BASE_FLAGS = -g -W -Wall -Wextra -I./include
 CFLAGS = $(BASE_FLAGS) -lpthread
 LDFLAGS = -lm
 
