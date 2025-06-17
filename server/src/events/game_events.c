@@ -11,50 +11,27 @@
 #include <string.h>
 
 static
-void loop_eggs(server_t *server, int index, map_t map)
+void loop_eggs(server_t *server, int index, map_t *tile)
 {
-    char response[BUFFER_SIZE];
-
-    if (map.eggs_count == 0)
-        return;
-    for (int i = 0; i < map.eggs_count; i++) {
-        snprintf(response, BUFFER_SIZE, "enw #%d #%d %d %d",
-            map.eggs[i].id, map.eggs[i].player_id, map.eggs[i].x,
-                map.eggs[i].y);
-        send_code(server->clients[index]->fd, response);
+    for (int i = 0; i < tile->eggs_count; i++) {
+        send_enw(server, index, &tile->eggs[i]);
     }
 }
 
-static
-void egg_laid(server_t *server, int index)
+void send_all_eggs_to_gui(server_t *server, int index)
 {
     for (int x = 0; x < server->params.width; x++) {
         for (int y = 0; y < server->params.height; y++) {
-            loop_eggs(server, index, server->map[x][y]);
+            loop_eggs(server, index, &server->map[x][y]);
         }
     }
 }
 
-static
-event_t *init_event(void)
+void send_enw(server_t *server, int index, egg_t *egg)
 {
-    static event_t events[] = {
-        {"enw", egg_laid},
-        {NULL, NULL}
-    };
+    char response[BUFFER_SIZE];
 
-    return events;
-}
-
-void game_events(server_t *server, int index, char *buffer)
-{
-    event_t *event = init_event();
-
-    for (int j = 0; event[j].name != NULL; j++) {
-        if (strcmp(buffer, event[j].name) == 0) {
-            event[j].f(server, index);
-            return;
-        }
-    }
-    send_code(server->clients[index]->fd, "suc");
+    snprintf(response, BUFFER_SIZE, "enw #%d #%d %d %d",
+        egg->id, egg->player_id, egg->x, egg->y);
+    send_code(server->clients[index]->fd, response);
 }
