@@ -8,6 +8,7 @@
 #ifndef INCANTATION_CONDITION_H_
     #define INCANTATION_CONDITION_H_
 
+    #include <stdbool.h>
     #include <stdint.h>
 
 typedef struct incantation_condition_s {

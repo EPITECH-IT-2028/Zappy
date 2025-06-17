@@ -8,6 +8,7 @@
 #ifndef SERVER_H_
     #define SERVER_H_
 
+    #include <stdint.h>
     #include <stdio.h>
     #include <stdatomic.h>
     #include <sys/socket.h>
@@ -25,6 +26,14 @@ typedef enum direction_s {
     DOWN,
     LEFT
 } direction_t;
+
+
+typedef struct incantation_s {
+    bool is_incantating;
+    uint8_t x;
+    uint8_t y;
+    uint8_t id_incantator;
+} incantation_t;
 
 typedef struct {
     int x;
@@ -75,6 +84,7 @@ typedef struct client_data_s {
     direction_t direction;
     bool has_egg;
     bool is_busy;
+    incantation_t incantation;
     struct timespec action_end_time;
     struct response_s pending_response;
 } client_data_t;
@@ -225,5 +235,12 @@ bool has_time_passed(server_t *server, long long, int duration);
 
 /* Direction function */
 void init_direction(direction_t *direction);
+
+/* Incantation functions */
+int check_if_incantation_failed(
+    client_data_t *incantator,
+    client_t **clients,
+    map_t *unit_space
+);
 
 #endif /* SERVER_H_ */

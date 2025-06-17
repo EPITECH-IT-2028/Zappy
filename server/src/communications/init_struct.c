@@ -16,7 +16,7 @@ static
 void init_client_inventory(client_data_t *cd)
 {
     cd->inventory.food = 10;
-    cd->inventory.linemate = 0;
+    cd->inventory.linemate = 1;
     cd->inventory.deraumere = 0;
     cd->inventory.sibur = 0;
     cd->inventory.mendiane = 0;
@@ -39,6 +39,7 @@ void init_client_struct(client_t *clients, int fd)
     clients->data.is_graphic = false;
     clients->data.pending_requests = 0;
     clients->data.pending_response.client = NULL;
+    memset(&clients->data.incantation, 0, sizeof(incantation_t));
     memset(clients->data.pending_response.response, 0, BUFFER_SIZE);
     clients->data.is_busy = false;
     init_direction(&clients->data.direction);
