@@ -147,8 +147,6 @@ def verify_incantation(client, current_cell, needed_resources):
     required_players = client["needed_resources"].get("nb_players", 0)
     count_players = current_cell.count("player")
 
-    print(f"Required players: {required_players}, Current players: {count_players}")
-
     if needed_resources or not current_cell or count_players < required_players:
         client["incantation"] = False
         return
