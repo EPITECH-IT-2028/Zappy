@@ -1,27 +1,25 @@
-##
-## EPITECH PROJECT, 2025
-## ia
-## File description:
-## Makefile
-##
+# Makefile for Zappy AI client
+# Creates a wrapper script to run the Python AI client
 
-NAME = zappy_ai
+NAME = zappy_ia
 
 all: $(NAME)
 
 $(NAME):
-	@echo "Creating $(NAME) binary..."
+	@echo "Creating $(NAME) binary wrapper..."
 	@echo '#!/bin/bash' > $(NAME)
-	@echo 'python3 zappyIa.py "$@"' >> $(NAME)
+	@echo 'python3 ia/src/zappyIa.py "$$@"' >> $(NAME)
 	@chmod +x $(NAME)
-	@echo "$(NAME) created successfully."
+	@echo "$(NAME) wrapper created successfully."
 
 clean:
-	@echo "Nothing to clean."
+	@echo "Cleaning temporary files..."
+	@rm -f *.pyc __pycache__/*
+	@rm -f $(NAME)
 
 fclean: clean
+	@echo "Removing $(NAME)..."
 	@rm -f $(NAME)
-	@echo "$(NAME) removed."
 
 re: fclean all
 

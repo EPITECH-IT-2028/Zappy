@@ -2,7 +2,7 @@ ZAPPY_IA_DIR = ia
 ZAPPY_SERVER_DIR = server
 ZAPPY_CLIENT_DIR = client
 
-ZAPPY_IA = zappy_ai
+ZAPPY_IA = zappy_ia
 ZAPPY_SERVER = zappy_server
 ZAPPY_CLIENT = zappy_gui
 
