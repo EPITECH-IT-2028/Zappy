@@ -38,7 +38,21 @@ def handle_Left(client, response) -> None:
 
 
 def handle_Take(client, response) -> None:
-    print(f"Taking food")
+    if response == "ko":
+        print("Take failed - no resource available")
+        # Update last look to reflect taken resource
+        if client["last_look"] and client["last_command"] == "Take":
+            resource = client["last_command_args"]
+            current_tile = client["last_look"][0].split()
+            if resource in current_tile:
+                current_tile.remove(resource)
+                client["last_look"][0] = " ".join(current_tile)
+        # Move to new tile
+        execute_command(client, random.choice(["Forward", "Left", "Right"]), None)
+    else:
+        print("Take succeeded")
+        # Update inventory immediately
+        execute_command(client, "Inventory", None)
 
 
 def handle_Set(client, response) -> None:
@@ -46,11 +60,21 @@ def handle_Set(client, response) -> None:
 
 
 def handle_Inventory(client, response) -> None:
-    cleaned_response = response.strip().lstrip('[').rstrip(']')
-    for item in cleaned_response.split(', '):
-        if item:
-            resource, quantity = item.split()
-            client["inventory"][resource] = int(quantity)
+    try:
+        cleaned = response.strip().lstrip('[').rstrip(']')
+        items = [item.strip() for item in cleaned.split(',') if item.strip()]
+
+        # Reset inventory
+        client["inventory"] = {}
+
+        for item in items:
+            parts = item.split()
+            if len(parts) >= 2:
+                resource = parts[0]
+                quantity = int(parts[1])
+                client["inventory"][resource] = quantity
+    except Exception as e:
+        print(f"Inventory parsing error: {e}")
 
 
 def handle_Dead(client, response) -> None:
@@ -84,6 +108,20 @@ def handle_commande(client, commande, response):
         handler(client, response)
 
 
+def handle_message(client, message):
+    if message == "dead":
+        handle_Dead(client, message)
+        return
+
+    if client["commandes"]:
+        command = client["commandes"].pop(0)
+        handle_commande(client, command, message)
+
+        # Always schedule next action
+        if command != "Dead":
+            ml_agent.strategy(client)
+
+
 def execute_command(client, commande, args) -> None:
     global allowed_commands
 
@@ -99,30 +137,36 @@ def execute_command(client, commande, args) -> None:
 
 def handle_client(client) -> None:
     buffer = ""
-
-    execute_command(client, "Look", None)
+    execute_command(client, "Look", None)  # First look command
     while client["is_alive"]:
-        response = client["socket"].recv(1024).decode()
-
-        buffer += response
-
-        while "\n" in buffer:
-            message, buffer = buffer.split("\n", 1)
-
-            if message:
-                if (message == "dead"):
-                    print("Client dead, closing connection")
+        try:
+            data = client["socket"].recv(1024).decode()
+            if not data:
+                print("Server closed connection")
+                handle_Dead(client, "dead")
+                break
+            buffer += data
+            while "\n" in buffer:
+                message, buffer = buffer.split("\n", 1)
+                message = message.strip()
+                if not message:
+                    continue
+                if message == "dead":
                     handle_Dead(client, message)
-
-                if (client["commandes"]):
+                    break
+                if client["commandes"]:
                     command = client["commandes"].pop(0)
                     handle_commande(client, command, message)
-
-                    if command == "Look":
+                    if command in ["Look", "Inventory"]:
                         ml_agent.strategy(client)
-
-                    if command == "Inventory":
-                        execute_command(client, "Look", None)
+        except ConnectionResetError:
+            print("Connection reset by server")
+            handle_Dead(client, "dead")
+            break
+        except Exception as e:
+            print(f"Unexpected error: {e}")
+            handle_Dead(client, "dead")
+            break
 
 
 def connect_client(server_address, team_name) -> int:
@@ -155,6 +199,7 @@ def connect_client(server_address, team_name) -> int:
     game_data = client["socket"].recv(1024).decode()
     if game_data == "ko\n":
         print("Unknown team name or team is full")
+        client["socket"].close()
         return 0
 
     unused_slot = game_data.split()[0]

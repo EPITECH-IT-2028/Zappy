@@ -14,6 +14,8 @@ model = None
 
 def load_dataset():
     if os.path.exists(DATASET_PATH):
+        # print("Loading dataset...")
+        # print(pd.read_csv(DATASET_PATH))
         return pd.read_csv(DATASET_PATH)
     return pd.DataFrame(columns=FEATURES + ["action"])
 
@@ -41,16 +43,20 @@ def train_model():
 
 def load_model():
     global model
+    print("-----------------------------------------------------------------",MODEL_PATH)
     if os.path.exists(MODEL_PATH):
         model = joblib.load(MODEL_PATH)
+        result = model.predict(load_dataset())
     else:
+        print("ca va train model\n")
         train_model()
 
 def predict_action(state):
     global model
     if model is None:
+        print("premiere condition\n")
         load_model()
-    if model is None:
-        return "Look"
+    # if model is None:
+    #     return "Look"
     X = pd.DataFrame([state])[FEATURES]
     return model.predict(X)[0]

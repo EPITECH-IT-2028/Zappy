@@ -6,11 +6,11 @@ import threading
 threads = []
 clients = []
 
-def add_ia_client(client) -> None :
+def add_client(client) -> None :
   global threads, clients
 
   client_thread = threading.Thread(
-    target=protocole.handle_ia_client,
+    target=protocole.handle_client,
     args=(client,)
   )
   client_thread.daemon = True
