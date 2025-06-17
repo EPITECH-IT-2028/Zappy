@@ -44,10 +44,10 @@ void send_pdi(server_t *server, int index, int gui)
 }
 
 /**
- * @brief Sends the pnw event to all GUI clients when a new player connects.
+ * @brief Sends the pdi (player disconnect) event to all GUI clients.
  *
  * @param server The server instance.
- * @param index The index of the new player in the server's client list.
+ * @param index The index of the player in the server's client list.
  */
 void send_pdi_all(server_t *server, int index)
 {

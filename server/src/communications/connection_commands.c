@@ -35,10 +35,12 @@ int set_data(server_t *server, int index, const char *name, bool is_graphic)
 static
 void send_new_player_to_gui(server_t *server, int index)
 {
+    pthread_mutex_lock(&server->clients_mutex);
     for (int i = 1; i < server->nfds; i++) {
         if (server->clients[i]->data.is_graphic)
             send_pnw(server, index, i);
     }
+    pthread_mutex_unlock(&server->clients_mutex);
 }
 
 static
