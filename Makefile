@@ -2,7 +2,7 @@ ZAPPY_IA_DIR = ia
 ZAPPY_SERVER_DIR = server
 ZAPPY_CLIENT_DIR = client
 
-ZAPPY_IA = zappy_ai
+ZAPPY_IA = zappy_ia
 ZAPPY_SERVER = zappy_server
 ZAPPY_CLIENT = zappy_gui
 
@@ -10,8 +10,8 @@ all: $(ZAPPY_IA) $(ZAPPY_SERVER) $(ZAPPY_CLIENT)
 
 $(ZAPPY_IA):
 	@echo "Setting up $(ZAPPY_IA)..."
-	@chmod +x $(ZAPPY_IA_DIR)/zappy_ia.sh
-	@cp $(ZAPPY_IA_DIR)/zappy_ia.sh ./$(ZAPPY_IA)
+	@make -C $(ZAPPY_IA_DIR)
+	@cp $(ZAPPY_IA_DIR)/$(ZAPPY_IA) ./
 
 $(ZAPPY_SERVER):
 	@echo "Compiling $(ZAPPY_SERVER)..."
