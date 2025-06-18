@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <array>
+#include "entities/Orientation.hpp"
 
 namespace parser {
   inline constexpr std::size_t RESOURCE_COUNT = 7;
@@ -35,20 +36,20 @@ namespace parser {
     int id;
     int x;
     int y;
-    int orientation;
+    gui::Orientation orientation;
     int level;
     std::string teamName;
 
-    PlayerInfo(int id, int x, int y, int orientation, int level, const std::string& team)
+    PlayerInfo(int id, int x, int y, gui::Orientation orientation, int level, const std::string& team)
         : id(id), x(x), y(y), orientation(orientation), level(level), teamName(team) {}
   };
   struct PlayerPositionUpdate {
     int id;
     int x;
     int y;
-    int orientation;
+    gui::Orientation orientation;
 
-    PlayerPositionUpdate(int id, int x, int y, int orientation)
+    PlayerPositionUpdate(int id, int x, int y, gui::Orientation orientation)
         : id(id), x(x), y(y), orientation(orientation) {}
   };
   struct PlayerLevelUpdate {

@@ -45,24 +45,30 @@ parser::TileUpdate parser::CommandParser::parseBct(const std::string& command) {
 }
 
 parser::PlayerInfo parser::CommandParser::parsePnw(const std::string& command) {
-    int id, x, y, orientation, level;
-    char teamName[256];
+  int id, x, y, level;
+  int orientationInt;
+  char teamName[256] = {0};
 
-    int result = std::sscanf(command.c_str(), "pnw %d %d %d %d %d %255s",
-                 &id, &x, &y, &orientation, &level, teamName);
-    if (result != 6)
-      throw std::runtime_error("Invalid pnw command format");
-    return PlayerInfo(id, x, y, orientation, level, std::string(teamName));
+  int result = std::sscanf(command.c_str(), "pnw %d %d %d %d %d %255s",
+                          &id, &x, &y, &orientationInt, &level, teamName);
+
+  if (result != 6) {
+      throw std::runtime_error("Failed to parse pnw command");
+  }
+  gui::Orientation orientation = static_cast<gui::Orientation>(orientationInt);
+  return PlayerInfo(id, x, y, orientation, level, std::string(teamName));
 }
 
 parser::PlayerPositionUpdate parser::CommandParser::parsePpo(const std::string& command) {
-    int id, x, y, orientation;
+  int id, x, y;
+  int orientationInt;
 
-    int result = std::sscanf(command.c_str(), "ppo %d %d %d %d",
-                 &id, &x, &y, &orientation);
-    if (result != 4)
-      throw std::runtime_error("Invalid ppo command format");
-    return PlayerPositionUpdate(id, x, y, orientation);
+  int result = std::sscanf(command.c_str(), "ppo %d %d %d %d",
+                &id, &x, &y, &orientationInt);
+  if (result != 4)
+    throw std::runtime_error("Invalid ppo command format");
+  gui::Orientation orientation = static_cast<gui::Orientation>(orientationInt);
+  return PlayerPositionUpdate(id, x, y, orientation);
 }
 
 parser::PlayerLevelUpdate parser::CommandParser::parsePlv(const std::string &command) {
