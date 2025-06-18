@@ -258,5 +258,6 @@ void setup_group_members(server_t *server, client_data_t *client,
     uint8_t nbr_of_incantators);
 void init_incantation_state(incantation_t *inc);
 void send_pie_all(server_t *server, client_t **incantators);
+int remove_needed_ressources(map_t *tile, uint8_t level);
 
 #endif /* SERVER_H_ */

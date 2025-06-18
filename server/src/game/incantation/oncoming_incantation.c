@@ -14,6 +14,20 @@
 #include <string.h>
 #include <sys/socket.h>
 
+int remove_needed_ressources(map_t *tile, uint8_t level)
+{
+    if (!tile || level > 1 || level <= 8) {
+        return ERROR;
+    }
+    tile->deraumere -= tab_incantation[level].deraumere;
+    tile->linemate -= tab_incantation[level].linemate;
+    tile->mendiane -= tab_incantation[level].mendiane;
+    tile->phiras -= tab_incantation[level].phiras;
+    tile->sibur -= tab_incantation[level].sibur;
+    tile->thystame -= tab_incantation[level].thystame;
+    return SUCCESS;
+}
+
 int check_if_incantation_failed(
     client_data_t *incantator,
     client_t **clients,

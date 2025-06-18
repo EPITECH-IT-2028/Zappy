@@ -5,26 +5,10 @@
 ** end_incantation.c
 */
 
-#include "incantation_condition.h"
 #include "macro.h"
 #include "server.h"
 #include "utils.h"
 #include <stdlib.h>
-
-static
-int remove_needed_ressources(map_t *tile, uint8_t level)
-{
-    if (!tile || level > 1 || level <= 8) {
-        return ERROR;
-    }
-    tile->deraumere -= tab_incantation[level].deraumere;
-    tile->linemate -= tab_incantation[level].linemate;
-    tile->mendiane -= tab_incantation[level].mendiane;
-    tile->phiras -= tab_incantation[level].phiras;
-    tile->sibur -= tab_incantation[level].sibur;
-    tile->thystame -= tab_incantation[level].thystame;
-    return SUCCESS;
-}
 
 static
 void notify_incantators_end(client_t **incantators)
