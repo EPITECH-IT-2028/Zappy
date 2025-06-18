@@ -73,7 +73,10 @@ int assign_egg_position(map_t *tile, client_t *client, int target)
     if (target < tile->eggs_count) {
         client->data.x = tile->eggs[target].x;
         client->data.y = tile->eggs[target].y;
-        tile->players++;
+        tile->players = realloc(tile->players, sizeof(client_t *) *
+            (tile->nbr_of_players + 1));
+        tile->players[tile->nbr_of_players] = client;
+        tile->nbr_of_players++;
         remove_egg(tile, target);
         return true;
     }

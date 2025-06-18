@@ -78,7 +78,9 @@ void free_server(server_t *server)
 
 void free_incantators(client_t **incantators)
 {
-    for (int i = 0; incantators[i]; i++)
+    if (!incantators)
+        return;
+    for (int i = 0; incantators[i] != NULL; i++)
         free(incantators[i]);
     free(incantators);
 }

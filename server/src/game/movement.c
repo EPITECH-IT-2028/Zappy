@@ -10,23 +10,24 @@
 #include <stdlib.h>
 
 static
-void set_offset(direction_offset_t *offset, client_t *client) {
+void set_offset(direction_offset_t *offset, client_t *client)
+{
     switch (client->data.direction) {
+        case LEFT:
+            offset->x = 1;
+            offset->y = 0;
+            break;
+        case RIGHT:
+            offset->x = -1;
+            offset->y = -0;
+            break;
         case UP:
             offset->x = 0;
             offset->y = -1;
             break;
         case DOWN:
-            offset->x = 0;
+            offset->x = -0;
             offset->y = 1;
-            break;
-        case LEFT:
-            offset->x = -1;
-            offset->y = 0;
-            break;
-        case RIGHT:
-            offset->x = 1;
-            offset->y = 0;
             break;
     }
 }
@@ -58,7 +59,7 @@ int remove_player(map_t *map, client_t *client)
         map->players[i] = map->players[i + 1];
     map->nbr_of_players--;
     if (map->nbr_of_players > 0) {
-        map->players = realloc(map->players, 
+        map->players = realloc(map->players,
             sizeof(client_t *) * map->nbr_of_players);
         if (!map->players)
             return ERROR;
@@ -72,7 +73,7 @@ int remove_player(map_t *map, client_t *client)
 static
 int add_player(server_t *server, map_t **map, client_t *client)
 {
-    map_t *tile = NULL; 
+    map_t *tile = NULL;
     client_t **temp = NULL;
 
     check_map_bounds(server, client);

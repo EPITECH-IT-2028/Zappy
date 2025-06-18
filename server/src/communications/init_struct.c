@@ -24,15 +24,6 @@ void init_client_inventory(client_data_t *cd)
     cd->inventory.thystame = 0;
 }
 
-static
-void init_incantation_state(incantation_t *inc)
-{
-    inc->is_incantating = false;
-    inc->x = 0;
-    inc->y = 0;
-    inc->id_incantator = 0;
-}
-
 void init_client_struct(client_t *clients, int fd)
 {
     clients->fd = fd;

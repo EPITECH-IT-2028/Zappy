@@ -27,12 +27,12 @@ typedef enum direction_s {
     LEFT
 } direction_t;
 
-
 typedef struct incantation_s {
     bool is_incantating;
     uint8_t x;
     uint8_t y;
     uint8_t id_incantator;
+    struct client_s **client_group;
 } incantation_t;
 
 typedef struct {
@@ -249,5 +249,12 @@ int check_if_incantation_failed(
     map_t *unit_space
 );
 void free_incantators(client_t **incantators);
+int handle_ending_incantation(server_t *server, response_t *response,
+    request_t *request);
+uint8_t build_incantation_group(client_t *main_client, map_t *unit_space);
+void setup_main_incantator(server_t *server, client_data_t *client);
+void setup_group_members(server_t *server, client_data_t *client,
+    uint8_t nbr_of_incantators);
+void init_incantation_state(incantation_t *inc);
 
 #endif /* SERVER_H_ */
