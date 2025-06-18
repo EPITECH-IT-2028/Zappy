@@ -14,8 +14,9 @@ namespace gui {
 
   private:
     void ensureInBounds(std::size_t x, std::size_t y) const {
-      if (x < 0 || y < 0 || x >= width || y >= height)
-        throw std::out_of_range("Tile coordinates out of map");
+      if (x >= width || y >= height)
+        throw std::out_of_range("Tile coordinates out of map (" +
+          std::to_string(x) + ", " + std::to_string(y) + ")");
     }
 
   public:

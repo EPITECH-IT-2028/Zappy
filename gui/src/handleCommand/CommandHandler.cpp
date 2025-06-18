@@ -46,9 +46,16 @@ void handlecommand::CommandHandler::handlePpo(const std::string& command) {
     if (!_gameState.map.isInside(update.x, update.y)) {
       throw std::out_of_range("Coordinates outside map");
     }
+    gui::Tile& oldTile = _gameState.map.getTile(player->second.x, player->second.y);
+    auto& oldPlayerList = oldTile.playerIdsOnTile;
+    oldPlayerList.erase(std::remove(oldPlayerList.begin(), oldPlayerList.end(), player->second.id), oldPlayerList.end());
+   
     player->second.x = update.x;
     player->second.y = update.y;
     player->second.orientation = update.orientation;
+
+    gui::Tile& newTile = _gameState.map.getTile(update.x, update.y);
+    newTile.playerIdsOnTile.push_back(player->second.id);
   } catch (const std::exception& e) {
     std::cerr << "Error while handling ppo: " << e.what() << "\n";
   }

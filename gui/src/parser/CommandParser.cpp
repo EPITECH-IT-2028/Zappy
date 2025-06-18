@@ -67,6 +67,8 @@ parser::PlayerPositionUpdate parser::CommandParser::parsePpo(const std::string& 
                 &id, &x, &y, &orientationInt);
   if (result != 4)
     throw std::runtime_error("Invalid ppo command format");
+  if (orientationInt < 1 || orientationInt > 4)
+    throw std::runtime_error("Invalid orientation value in ppo command");
   gui::Orientation orientation = static_cast<gui::Orientation>(orientationInt);
   return PlayerPositionUpdate(id, x, y, orientation);
 }

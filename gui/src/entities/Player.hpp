@@ -16,6 +16,10 @@ namespace gui {
 
     Player(int id, int x, int y, Orientation orientation,
       int level, const std::string& teamName) noexcept
-      : id(id), x(x), y(y), orientation(orientation), level(level), teamName(teamName) {}
+      : id(id), x(x), y(y),
+        orientation(orientation),
+        level(level),
+        teamName(teamName),
+        inventoryPlayer{} {}
   };
 }
