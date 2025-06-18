@@ -16,7 +16,7 @@ static
 void init_client_inventory(client_data_t *cd)
 {
     cd->inventory.food = 10;
-    cd->inventory.linemate = 1;
+    cd->inventory.linemate = 0;
     cd->inventory.deraumere = 0;
     cd->inventory.sibur = 0;
     cd->inventory.mendiane = 0;
