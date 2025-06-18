@@ -17,9 +17,9 @@ void notify_incantators_end(client_t **incantators)
     if (!incantators)
         return;
     for (int i = 0; incantators[i] != NULL; i++) {
-        printf("%d\n", i);
         if (incantators[i]->connected && incantators[i]->fd > 0) {
-            snprintf(current_level, BUFFER_SIZE, "Current level: %d", incantators[i]->data.level);
+            snprintf(current_level, BUFFER_SIZE, "Current level: %d",
+                incantators[i]->data.level);
             send_code(incantators[i]->fd, current_level);
         }
     }
