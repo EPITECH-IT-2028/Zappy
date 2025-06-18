@@ -5,9 +5,26 @@
 ** end_incantation.c
 */
 
+#include "incantation_condition.h"
 #include "macro.h"
 #include "server.h"
 #include "utils.h"
+#include <stdlib.h>
+
+static
+int remove_needed_ressources(map_t *tile, uint8_t level)
+{
+    if (!tile || level > 1 || level <= 8) {
+        return ERROR;
+    }
+    tile->deraumere -= tab_incantation[level].deraumere;
+    tile->linemate -= tab_incantation[level].linemate;
+    tile->mendiane -= tab_incantation[level].mendiane;
+    tile->phiras -= tab_incantation[level].phiras;
+    tile->sibur -= tab_incantation[level].sibur;
+    tile->thystame -= tab_incantation[level].thystame;
+    return SUCCESS;
+}
 
 static
 void notify_incantators_end(client_t **incantators)
@@ -32,17 +49,38 @@ void level_up_all_client(client_t *incantator)
         i++) {
         incantator->data.incantation.client_group[i]->data.level++;
     }
+    incantator->data.incantation.is_incantating = true;
+}
+
+static
+void clear_incantation_data(incantation_t *client_incantation_data)
+{
+    for (int i = 0; client_incantation_data->client_group[i] != NULL; i++) {
+        client_incantation_data->client_group[i]->data.incantation.
+            incantation_success = false;
+        client_incantation_data->client_group[i]->data.incantation.
+            is_incantating = false;
+        client_incantation_data->client_group[i]->data.incantation.x = 0;
+        client_incantation_data->client_group[i]->data.incantation.y = 0;
+    }
+    free(client_incantation_data->client_group);
+    client_incantation_data->client_group = NULL;
 }
 
 int handle_ending_incantation(server_t *server, response_t *response,
     request_t *request)
 {
+    client_data_t *client_data = &request->client->data;
+
     if (check_if_incantation_failed(&request->client->data,
         server->clients, &server->map[response->client->data.x]
         [response->client->data.y]) == ERROR)
         return ERROR;
+    remove_needed_ressources(&server->map[client_data->incantation.x]
+        [client_data->incantation.x], client_data->level - 1);
     level_up_all_client(response->client);
     notify_incantators_end(response->client->data.incantation.client_group);
-    // send_pie_all(server, response->client->data.incantation.client_group);
+    send_pie_all(server, response->client->data.incantation.client_group);
+    clear_incantation_data(&response->client->data.incantation);
     return SUCCESS;
 }

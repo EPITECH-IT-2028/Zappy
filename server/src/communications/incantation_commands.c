@@ -5,9 +5,29 @@
 ** incantation_commands.c
 */
 
+#include "macro.h"
 #include "server.h"
 #include "utils.h"
 #include <string.h>
+
+void send_pie_all(server_t *server, client_t **incantators)
+{
+    char response[BUFFER_SIZE];
+
+    if (!incantators || !incantators[INDEX_INCANTATOR])
+        return;
+    snprintf(response, BUFFER_SIZE, "pie %d %d %d",
+        incantators[INDEX_INCANTATOR]->data.x,
+        incantators[INDEX_INCANTATOR]->data.y,
+        !incantators[INDEX_INCANTATOR]->data.incantation.incantation_success);
+    for (int i = MIN_CLIENT; i < server->nfds; i++) {
+        if (server->clients[i] && server->clients[i]->fd > 0 &&
+            server->clients[i]->data.is_graphic &&
+            server->clients[i]->connected) {
+            send_code(server->clients[i]->fd, response);
+        }
+    }
+}
 
 static
 void send_pic(int fd, client_t **incantators, char *response)
@@ -32,7 +52,7 @@ void send_pic_all(server_t *server, client_t **incantators)
     snprintf(response, BUFFER_SIZE, "pic %d %d ",
         incantators[INDEX_INCANTATOR]->data.x,
         incantators[INDEX_INCANTATOR]->data.y);
-    for (int i = 1; i < server->nfds; i++) {
+    for (int i = MIN_CLIENT; i < server->nfds; i++) {
         if (server->clients[i] && server->clients[i]->fd > 0 &&
             server->clients[i]->data.is_graphic &&
             server->clients[i]->connected) {

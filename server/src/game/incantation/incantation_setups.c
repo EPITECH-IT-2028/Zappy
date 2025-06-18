@@ -94,4 +94,6 @@ void init_incantation_state(incantation_t *inc)
     inc->x = 0;
     inc->y = 0;
     inc->id_incantator = 0;
+    inc->client_group = NULL;
+    inc->incantation_success = false;
 }

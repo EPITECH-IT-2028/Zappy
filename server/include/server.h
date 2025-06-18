@@ -33,6 +33,7 @@ typedef struct incantation_s {
     uint8_t y;
     uint8_t id_incantator;
     struct client_s **client_group;
+    bool incantation_success;
 } incantation_t;
 
 typedef struct {
@@ -256,5 +257,6 @@ void setup_main_incantator(server_t *server, client_data_t *client);
 void setup_group_members(server_t *server, client_data_t *client,
     uint8_t nbr_of_incantators);
 void init_incantation_state(incantation_t *inc);
+void send_pie_all(server_t *server, client_t **incantators);
 
 #endif /* SERVER_H_ */
