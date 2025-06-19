@@ -72,26 +72,12 @@ void handle_vision_direction(server_t *server, response_t *response,
     int target_x = 0;
     int target_y = 0;
 
-    switch (direction) {
-        case LEFT:
-            printf("LEFT\n");
-            break;
-        case RIGHT:
-            printf("RIGHT\n");
-            break;
-        case UP:
-            printf("UP\n");
-            break;
-        case DOWN:
-            printf("DOWN\n");
-    }
     for (int i = 0; i < vision_depth; i++) {
         for (int j = vision_width; j >= - vision_width; j--) {
             offset = get_direction_offset(direction, i, j);
             target_x = (((client_data->x + offset.x) % width) + width) % width;
             target_y = (((client_data->y + offset.y) %
                 height) + height) % height;
-            printf("%d %d\n", target_x, target_y);
             add_to_look(response->response, server->map[target_x][target_y]);
         }
         if (2 * (vision_width + 1) + 1 <= width)
