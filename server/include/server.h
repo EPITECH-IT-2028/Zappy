@@ -275,5 +275,7 @@ int remove_needed_ressources(map_t *tile, uint8_t level);
 /* Set/Take function */
 int check_if_ressources_exists(client_data_t *client, const char *ressource,
     map_t *unit_space, bool from_inv_to_map);
+int check_ressource_update(request_t *request, client_data_t *client,
+    map_t *unit_space, bool from_inv_to_map);
 
 #endif /* SERVER_H_ */
