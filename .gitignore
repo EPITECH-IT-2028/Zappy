@@ -2,6 +2,7 @@ zappy_gui
 zappy_gui_debug
 zappy_server
 zappy_client
+zappy_ia
 
 *.o
 *.gcda
