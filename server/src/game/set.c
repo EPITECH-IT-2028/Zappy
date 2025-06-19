@@ -18,12 +18,12 @@ int remove_or_add_ressource(ressources_t *resources, const char *resource,
     for (int i = 0; i < TOTAL_RESOURCES; i++) {
         if (strcmp(resource, resources[i].name) != 0)
             continue;
-        if (from_inv_to_map && *resources[i].inv > 0) {
+        if (!from_inv_to_map && *resources[i].inv > 0) {
             (*resources[i].inv)--;
             (*resources[i].space)++;
             return SUCCESS;
         }
-        if (!from_inv_to_map && *resources[i].space > 0) {
+        if (from_inv_to_map && *resources[i].space > 0) {
             (*resources[i].inv)++;
             (*resources[i].space)--;
             return SUCCESS;
