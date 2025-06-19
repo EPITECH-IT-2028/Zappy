@@ -20,7 +20,7 @@ set(SOURCES
   src/entities/GameState.cpp
   src/entities/Map.cpp
   src/entities/Tile.cpp
-  src/CommandHandler/CommandHandler.cpp
+  src/commandHandler/CommandHandler.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES})
