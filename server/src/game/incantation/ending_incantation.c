@@ -64,7 +64,7 @@ int handle_ending_incantation(server_t *server, response_t *response,
         return ERROR;
     }
     remove_needed_ressources(&server->map[client_data->incantation.x]
-        [client_data->incantation.x], client_data->level - 1);
+        [client_data->incantation.y], client_data->level - 1);
     level_up_all_client(response->client);
     notify_incantators_end(response->client->data.incantation.client_group);
     send_pie_all(server, response->client->data.incantation.client_group);

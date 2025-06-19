@@ -10,24 +10,44 @@
 #include <stdlib.h>
 
 static
+int add_player_to_group(client_data_t *client, client_t *player,
+    uint8_t *nbr_of_incantators)
+{
+    client_t **new_group = NULL;
+
+    new_group = realloc(client->incantation.client_group,
+        sizeof(client_t *) * (*nbr_of_incantators + 1));
+    if (!new_group)
+        return ERROR;
+    client->incantation.client_group = new_group;
+    client->incantation.client_group[*nbr_of_incantators] = player;
+    *nbr_of_incantators += 1;
+    return SUCCESS;
+}
+
+static
+int check_add_player_to_group(client_t *main_client, map_t *unit_space,
+    uint8_t *nbr_of_incantators, int i)
+{
+    client_data_t *client = &main_client->data;
+    if (unit_space->players[i] != main_client &&
+        unit_space->players[i]->data.level == client->level) {
+        if (add_player_to_group(client, unit_space->players[i],
+            nbr_of_incantators) == ERROR) {
+            return ERROR;
+        }
+    }
+    return SUCCESS;
+}
+
+static
 int init_client_group(client_t *main_client, map_t *unit_space,
     uint8_t *nbr_of_incantators)
 {
-    client_data_t *client = &main_client->data;
-
     for (int i = 0; i < unit_space->nbr_of_players; i++) {
-        if (unit_space->players[i] != main_client &&
-            unit_space->players[i]->data.level == client->level) {
-            client->incantation.client_group =
-                realloc(client->incantation.client_group,
-                sizeof(client_t *) * (*nbr_of_incantators + 1));
-            client->incantation.client_group[*nbr_of_incantators] =
-                unit_space->players[i];
-            *nbr_of_incantators += 1;
-        }
-        if (!client->incantation.client_group) {
+        if (check_add_player_to_group(main_client, unit_space,
+            nbr_of_incantators, i) == ERROR)
             return ERROR;
-        }
     }
     return SUCCESS;
 }
@@ -81,7 +101,7 @@ void setup_group_members(server_t *server, client_data_t *client,
         client->incantation.client_group[i]->data.incantation.is_incantating =
             true;
         client->incantation.client_group[i]->data.incantation.id_incantator =
-            client->incantation.client_group[i]->data.id;
+            client->id;
         client->incantation.client_group[i]->data.is_busy = true;
         client->incantation.client_group[i]->data.action_end_time =
             get_action_end_time(server, INCANTATION_TIME);

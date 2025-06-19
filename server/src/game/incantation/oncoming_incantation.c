@@ -16,7 +16,7 @@
 
 int remove_needed_ressources(map_t *tile, uint8_t level)
 {
-    if (!tile || level > 1 || level <= 8) {
+    if (!tile || level < 1 || level > 8) {
         return ERROR;
     }
     tile->deraumere -= tab_incantation[level].deraumere;

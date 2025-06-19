@@ -14,19 +14,19 @@ void set_offset(direction_offset_t *offset, client_t *client)
 {
     switch (client->data.direction) {
         case LEFT:
-            offset->x = 1;
+            offset->x = -1;
             offset->y = 0;
             break;
         case RIGHT:
-            offset->x = -1;
-            offset->y = -0;
+            offset->x = 1;
+            offset->y = 0;
             break;
         case UP:
             offset->x = 0;
             offset->y = -1;
             break;
         case DOWN:
-            offset->x = -0;
+            offset->x = 0;
             offset->y = 1;
             break;
     }
@@ -46,23 +46,43 @@ void check_map_bounds(server_t *server, client_t *client)
 }
 
 static
+int find_player_index(map_t *map, client_t *client)
+{
+    for (int i = 0; i < map->nbr_of_players; i++) {
+        if (map->players[i]->data.id == client->data.id) {
+            return i;
+        }
+    }
+    return -1;
+}
+
+static
+void shift_players_array(map_t *map, int player_index)
+{
+    for (int i = player_index; i < map->nbr_of_players - 1; i++) {
+        map->players[i] = map->players[i + 1];
+    }
+    map->nbr_of_players--;
+}
+
+static
 int remove_player(map_t *map, client_t *client)
 {
-    int player_index = -1;
+    int player_index;
+    client_t **temp = NULL;
 
-    for (int i = 0; i < map->nbr_of_players; i++)
-        if (map->players[i]->data.id == client->data.id) {
-            player_index = i;
-            break;
-        }
-    for (int i = player_index; i < map->nbr_of_players - 1; i++)
-        map->players[i] = map->players[i + 1];
-    map->nbr_of_players--;
+    if (!map || !client || !map->players)
+        return ERROR;
+    player_index = find_player_index(map, client);
+    if (player_index == -1)
+        return ERROR;
+    shift_players_array(map, player_index);
     if (map->nbr_of_players > 0) {
-        map->players = realloc(map->players,
+        temp = realloc(map->players,
             sizeof(client_t *) * map->nbr_of_players);
-        if (!map->players)
+        if (!temp)
             return ERROR;
+        map->players = temp;
     } else {
         free(map->players);
         map->players = NULL;
@@ -117,7 +137,7 @@ int rotate_right(server_t *server, response_t *response, request_t *request)
 
     if (!server || !response || !request || !client)
         return ERROR;
-    client->data.direction = (client->data.direction + 1) % MAX_DIRECTION;
+    client->data.direction = (client->data.direction + 1 + MAX_DIRECTION) % MAX_DIRECTION;
     sprintf(response->response, "ok");
     response->client->data.is_busy = true;
     response->client->data.action_end_time =
