@@ -1,8 +1,8 @@
 #pragma once
 
+#include <array>
 #include <string>
 #include <vector>
-#include <array>
 #include "entities/Orientation.hpp"
 
 namespace parser {
@@ -25,69 +25,86 @@ namespace parser {
       }
   };
   struct TileUpdate {
-    int x;
-    int y;
-    std::array<int, RESOURCE_COUNT> resources;
+      int x;
+      int y;
+      std::array<int, RESOURCE_COUNT> resources;
 
-    TileUpdate(int x, int y, const std::array<int, RESOURCE_COUNT>& q)
-      : x(x), y(y), resources(q) {}
+      TileUpdate(int x, int y, const std::array<int, RESOURCE_COUNT>& q)
+          : x(x), y(y), resources(q) {
+      }
   };
   struct PlayerInfo {
-    int id;
-    int x;
-    int y;
-    gui::Orientation orientation;
-    int level;
-    std::string teamName;
+      int id;
+      int x;
+      int y;
+      gui::Orientation orientation;
+      int level;
+      std::string teamName;
 
-    PlayerInfo(int id, int x, int y, gui::Orientation orientation, int level, const std::string& team)
-        : id(id), x(x), y(y), orientation(orientation), level(level), teamName(team) {}
+      PlayerInfo(int id, int x, int y, gui::Orientation orientation, int level,
+                 const std::string& team)
+          : id(id),
+            x(x),
+            y(y),
+            orientation(orientation),
+            level(level),
+            teamName(team) {
+      }
   };
   struct PlayerPositionUpdate {
-    int id;
-    int x;
-    int y;
-    gui::Orientation orientation;
+      int id;
+      int x;
+      int y;
+      gui::Orientation orientation;
 
-    PlayerPositionUpdate(int id, int x, int y, gui::Orientation orientation)
-        : id(id), x(x), y(y), orientation(orientation) {}
+      PlayerPositionUpdate(int id, int x, int y, gui::Orientation orientation)
+          : id(id), x(x), y(y), orientation(orientation) {
+      }
   };
   struct PlayerLevelUpdate {
-    int id;
-    int level;
+      int id;
+      int level;
 
-    PlayerLevelUpdate(int id, int level) : id(id), level(level) {}
+      PlayerLevelUpdate(int id, int level) : id(id), level(level) {
+      }
   };
   struct PlayerInventory {
-    int id;
-    int x;
-    int y;
-    std::array<int, RESOURCE_COUNT> resources;
+      int id;
+      int x;
+      int y;
+      std::array<int, RESOURCE_COUNT> resources;
 
-    PlayerInventory(int id, int x, int y, const std::array<int, RESOURCE_COUNT>& res)
-        : id(id), x(x), y(y), resources(res) {}
+      PlayerInventory(int id, int x, int y,
+                      const std::array<int, RESOURCE_COUNT>& res)
+          : id(id), x(x), y(y), resources(res) {
+      }
   };
   struct EggLaid {
-    int idEgg;
-    int idPlayer;
-    int x;
-    int y;
+      int idEgg;
+      int idPlayer;
+      int x;
+      int y;
 
-    EggLaid(int idEgg, int idPlayer, int x, int y) : idEgg(idEgg), idPlayer(idPlayer), x(x), y(y) {}
+      EggLaid(int idEgg, int idPlayer, int x, int y)
+          : idEgg(idEgg), idPlayer(idPlayer), x(x), y(y) {
+      }
   };
   struct EggHatch {
-    int eggId;
-    EggHatch(int id) : eggId(id) {}
+      int eggId;
+      EggHatch(int id) : eggId(id) {
+      }
   };
   struct EggDeath {
-    int eggId;
-    EggDeath(int id) : eggId(id) {}
+      int eggId;
+      EggDeath(int id) : eggId(id) {
+      }
   };
   struct PlayerDeath {
-    int id;
-    PlayerDeath(int id) : id(id) {}
+      int id;
+      PlayerDeath(int id) : id(id) {
+      }
   };
-  
+
   class CommandParser {
     public:
       CommandParser() = default;

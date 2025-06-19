@@ -1,9 +1,9 @@
 #include "CommandHandler.hpp"
-#include "parser/CommandParser.hpp"
-#include "entities/Player.hpp"
-#include "entities/Egg.hpp"
 #include <algorithm>
 #include <iostream>
+#include "entities/Egg.hpp"
+#include "entities/Player.hpp"
+#include "parser/CommandParser.hpp"
 
 void handlecommand::CommandHandler::handleBct(const std::string& command) {
   try {
@@ -25,7 +25,8 @@ void handlecommand::CommandHandler::handlePnw(const std::string& command) {
     }
 
     gui::Player player(playerInfo.id, playerInfo.x, playerInfo.y,
-                   playerInfo.orientation, playerInfo.level, playerInfo.teamName);
+                       playerInfo.orientation, playerInfo.level,
+                       playerInfo.teamName);
     _gameState.players[player.id] = player;
 
     gui::Tile& tile = _gameState.map.getTile(playerInfo.x, playerInfo.y);
@@ -37,19 +38,24 @@ void handlecommand::CommandHandler::handlePnw(const std::string& command) {
 
 void handlecommand::CommandHandler::handlePpo(const std::string& command) {
   try {
-    parser::PlayerPositionUpdate update = parser::CommandParser::parsePpo(command);
+    parser::PlayerPositionUpdate update =
+        parser::CommandParser::parsePpo(command);
     auto player = _gameState.players.find(update.id);
 
     if (player == _gameState.players.end()) {
-      throw std::runtime_error("Player not found with ID " + std::to_string(update.id));
+      throw std::runtime_error("Player not found with ID " +
+                               std::to_string(update.id));
     }
     if (!_gameState.map.isInside(update.x, update.y)) {
       throw std::out_of_range("Coordinates outside map");
     }
-    gui::Tile& oldTile = _gameState.map.getTile(player->second.x, player->second.y);
+    gui::Tile& oldTile =
+        _gameState.map.getTile(player->second.x, player->second.y);
     auto& oldPlayerList = oldTile.playerIdsOnTile;
-    oldPlayerList.erase(std::remove(oldPlayerList.begin(), oldPlayerList.end(), player->second.id), oldPlayerList.end());
-   
+    oldPlayerList.erase(std::remove(oldPlayerList.begin(), oldPlayerList.end(),
+                                    player->second.id),
+                        oldPlayerList.end());
+
     player->second.x = update.x;
     player->second.y = update.y;
     player->second.orientation = update.orientation;
@@ -67,7 +73,8 @@ void handlecommand::CommandHandler::handlePlv(const std::string& command) {
     auto player = _gameState.players.find(update.id);
 
     if (player == _gameState.players.end()) {
-      throw std::runtime_error("Player not found with ID " + std::to_string(update.id));
+      throw std::runtime_error("Player not found with ID " +
+                               std::to_string(update.id));
     }
     player->second.level = update.level;
   } catch (const std::exception& e) {
@@ -77,11 +84,13 @@ void handlecommand::CommandHandler::handlePlv(const std::string& command) {
 
 void handlecommand::CommandHandler::handlePin(const std::string& command) {
   try {
-    parser::PlayerInventory inventory = parser::CommandParser::parsePin(command);
+    parser::PlayerInventory inventory =
+        parser::CommandParser::parsePin(command);
     auto player = _gameState.players.find(inventory.id);
 
     if (player == _gameState.players.end()) {
-      throw std::runtime_error("Player not found with ID " + std::to_string(inventory.id));
+      throw std::runtime_error("Player not found with ID " +
+                               std::to_string(inventory.id));
     }
     if (!_gameState.map.isInside(inventory.x, inventory.y)) {
       throw std::out_of_range("Coordinates outside map");
@@ -103,14 +112,16 @@ void handlecommand::CommandHandler::handleEnw(const std::string& command) {
     }
 
     auto playerIt = _gameState.players.find(eggLaid.idPlayer);
-    
+
     if (playerIt == _gameState.players.end()) {
-      throw std::runtime_error("Player not found with ID " + std::to_string(eggLaid.idPlayer));
+      throw std::runtime_error("Player not found with ID " +
+                               std::to_string(eggLaid.idPlayer));
     }
 
     const std::string& teamName = playerIt->second.teamName;
 
-    gui::Egg egg(eggLaid.idEgg, eggLaid.x, eggLaid.y, eggLaid.idPlayer, teamName);
+    gui::Egg egg(eggLaid.idEgg, eggLaid.x, eggLaid.y, eggLaid.idPlayer,
+                 teamName);
     _gameState.eggs[egg.id] = egg;
 
     gui::Tile& tile = _gameState.map.getTile(eggLaid.x, eggLaid.y);
@@ -128,7 +139,8 @@ void handlecommand::CommandHandler::removeEgg(int eggId) {
   const gui::Egg& egg = eggIt->second;
   gui::Tile& tile = _gameState.map.getTile(egg.x, egg.y);
   auto& eggList = tile.eggIdsOnTile;
-  eggList.erase(std::remove(eggList.begin(), eggList.end(), egg.id), eggList.end());
+  eggList.erase(std::remove(eggList.begin(), eggList.end(), egg.id),
+                eggList.end());
   _gameState.eggs.erase(eggIt);
 }
 
@@ -156,12 +168,16 @@ void handlecommand::CommandHandler::handlePdi(const std::string& command) {
     auto playerIt = _gameState.players.find(playerDeath.id);
 
     if (playerIt == _gameState.players.end()) {
-      throw std::runtime_error("Player not found with ID " + std::to_string(playerDeath.id));
+      throw std::runtime_error("Player not found with ID " +
+                               std::to_string(playerDeath.id));
     }
 
-    gui::Tile& tile = _gameState.map.getTile(playerIt->second.x, playerIt->second.y);
+    gui::Tile& tile =
+        _gameState.map.getTile(playerIt->second.x, playerIt->second.y);
     auto& playerList = tile.playerIdsOnTile;
-    playerList.erase(std::remove(playerList.begin(), playerList.end(), playerIt->second.id), playerList.end());
+    playerList.erase(
+        std::remove(playerList.begin(), playerList.end(), playerIt->second.id),
+        playerList.end());
 
     _gameState.players.erase(playerIt);
   } catch (const std::exception& e) {

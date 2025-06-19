@@ -1,6 +1,6 @@
 #include "GameState.hpp"
-#include <string>
 #include <stdexcept>
+#include <string>
 
 const gui::Player &gui::GameState::getPlayerById(int id) const {
   if (auto it = players.find(id); it != players.end())
