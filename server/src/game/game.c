@@ -110,6 +110,11 @@ void *game(void *arg)
             remove_food(server);
             server->server_timer_count = get_current_timer_units(server);
         }
+        if (has_time_passed(server, server->server_timer_count,
+            RESPAWN_RESSOURCES_DURATION)) {
+            respawn_ressources(server);
+            server->server_timer_count = get_current_timer_units(server);
+        }
     }
     return NULL;
 }

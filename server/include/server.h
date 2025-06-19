@@ -155,6 +155,7 @@ typedef struct server_s {
     struct timespec server_timer;
     long long server_timer_count;
     threads_t threads;
+    inventory_t density_ressources;
     map_t **map;
     int ids;
     int egg_ids;
@@ -200,6 +201,7 @@ void check_player_command(server_t *server, int index, const char *buffer);
 void map_commands(server_t *server, int index, char *buffer);
 void time_commands(server_t *server, int index, char *buffer);
 void player_commands(server_t *server, int index, char *buffer);
+void add_resources(server_t *server, int total, int type, int current);
 
 /* Game Events */
 void remove_food(server_t *server);

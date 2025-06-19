@@ -50,13 +50,12 @@ void increment_resources(map_t *map, int type)
         map->thystame++;
 }
 
-static
-void add_resources(server_t *server, int total, int type)
+void add_resources(server_t *server, int total, int type, int current)
 {
     int x = 0;
     int y = 0;
 
-    for (int i = 0; i < total; i++) {
+    for (int current = 0; current < total; current++) {
         x = rand() % server->params.width;
         y = rand() % server->params.height;
         increment_resources(&server->map[x][y], type);
@@ -71,7 +70,7 @@ int place_resources(server_t *server)
     const int map_size = server->params.width * server->params.height;
 
     for (int i = 0; i < TOTAL_RESOURCES; i++) {
-        add_resources(server, map_size * table[i], i);
+        add_resources(server, map_size * table[i], i, 0);
     }
     add_eggs(server);
     return SUCCESS;
