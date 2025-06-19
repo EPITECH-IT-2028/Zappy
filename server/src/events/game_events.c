@@ -8,7 +8,6 @@
 #include "macro.h"
 #include "server.h"
 #include "utils.h"
-#include <string.h>
 
 static
 void loop_eggs(server_t *server, int index, map_t *tile)

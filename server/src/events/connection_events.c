@@ -8,6 +8,7 @@
 #include "macro.h"
 #include "server.h"
 #include "utils.h"
+#include <stdio.h>
 
 /**
  * @brief Sends the pnw (player new) event to the GUI client.

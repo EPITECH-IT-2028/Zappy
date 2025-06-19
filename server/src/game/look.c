@@ -13,7 +13,7 @@
 static
 void add_to_look(char *response, map_t current_case)
 {
-    if (current_case.players > 0)
+    if (current_case.nbr_of_players > 0)
         strcat(response, " player");
     if (current_case.deraumere > 0)
         strcat(response, " deraumere");
@@ -41,19 +41,19 @@ direction_offset_t get_direction_offset(direction_t direction, int i, int j)
 
     switch (direction) {
         case LEFT:
-            offset.x = i;
+            offset.x = -i;
             offset.y = j;
             break;
         case RIGHT:
-            offset.x = -i;
+            offset.x = i;
             offset.y = -j;
             break;
         case UP:
-            offset.x = j;
+            offset.x = -j;
             offset.y = -i;
             break;
         case DOWN:
-            offset.x = -j;
+            offset.x = j;
             offset.y = i;
     }
     return offset;
