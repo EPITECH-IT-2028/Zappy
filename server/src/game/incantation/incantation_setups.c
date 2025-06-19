@@ -30,6 +30,7 @@ int check_add_player_to_group(client_t *main_client, map_t *unit_space,
     uint8_t *nbr_of_incantators, int i)
 {
     client_data_t *client = &main_client->data;
+
     if (unit_space->players[i] != main_client &&
         unit_space->players[i]->data.level == client->level) {
         if (add_player_to_group(client, unit_space->players[i],

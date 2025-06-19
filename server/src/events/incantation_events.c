@@ -39,14 +39,15 @@ void send_pic(server_t *server, client_t **incantators)
     snprintf(response, BUFFER_SIZE, "pic %d %d ",
         incantators[INDEX_INCANTATOR]->data.x,
         incantators[INDEX_INCANTATOR]->data.y);
-    for (int i = 0; incantators[i]; i++) {
+    for (int i = 0; incantators[i]; i++)
         if (incantators[i] && incantators[i]->connected) {
             sprintf(id_incantator, "#%d ", incantators[i]->data.id);
             strcat(response, id_incantator);
         }
-    }
-    for (int i = MIN_CLIENT; i < server->nfds; i++) {
-        if (server->clients[i] != NULL && server->clients[i]->data.is_graphic)
-        send_code(server->clients[i]->fd, response);
-    }
+    for (int i = MIN_CLIENT; i < server->nfds; i++)
+        if (server->clients[i] &&
+            server->clients[i]->fd > 0 &&
+            server->clients[i]->data.is_graphic &&
+            server->clients[i]->connected)
+            send_code(server->clients[i]->fd, response);
 }
