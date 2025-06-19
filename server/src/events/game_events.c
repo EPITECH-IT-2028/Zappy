@@ -8,7 +8,6 @@
 #include "macro.h"
 #include "server.h"
 #include "utils.h"
-#include <string.h>
 
 /**
  * @brief Sends a PBC (Player Broadcast) message to all graphic clients
