@@ -27,7 +27,7 @@ void handlecommand::CommandHandler::handlePnw(const std::string& command) {
     gui::Player player(playerInfo.id, playerInfo.x, playerInfo.y,
                        playerInfo.orientation, playerInfo.level,
                        playerInfo.teamName);
-    _gameState.players[player.id] = player;
+    _gameState.players.insert_or_assign(player.id, player);
 
     gui::Tile& tile = _gameState.map.getTile(playerInfo.x, playerInfo.y);
     tile.playerIdsOnTile.push_back(player.id);
@@ -122,7 +122,7 @@ void handlecommand::CommandHandler::handleEnw(const std::string& command) {
 
     gui::Egg egg(eggLaid.idEgg, eggLaid.x, eggLaid.y, eggLaid.idPlayer,
                  teamName);
-    _gameState.eggs[egg.id] = egg;
+    _gameState.eggs.insert_or_assign(egg.id, egg);
 
     gui::Tile& tile = _gameState.map.getTile(eggLaid.x, eggLaid.y);
     tile.eggIdsOnTile.push_back(egg.id);

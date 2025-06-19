@@ -16,6 +16,11 @@ set(SOURCES
   src/raylib/Raylib.cpp
   src/server/ServerCommunication.cpp
   src/parser/ArgsParser.cpp
+  src/parser/CommandParser.cpp
+  src/entities/GameState.cpp
+  src/entities/Map.cpp
+  src/entities/Tile.cpp
+  src/CommandHandler/CommandHandler.cpp
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES})
