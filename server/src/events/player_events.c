@@ -22,7 +22,8 @@ void send_pin(server_t *server, int index)
             client->data.inventory.mendiane, client->data.inventory.phiras,
             client->data.inventory.thystame);
     for (int i = 1; i < server->nfds; i++) {
-        if (server->clients[i]->data.is_graphic) {
+        if (server->clients[i] != NULL &&
+            server->clients[i]->data.is_graphic) {
             send_code(server->clients[i]->fd, response);
         }
     }
