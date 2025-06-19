@@ -1,4 +1,6 @@
 #include "Map.hpp"
+#include <stdexcept>
+#include <string>
 
 gui::Tile& gui::Map::getTile(std::size_t x, std::size_t y) {
   ensureInBounds(x, y);
