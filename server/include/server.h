@@ -20,6 +20,12 @@
     #include "macro.h"
     #include "inventory.h"
 
+typedef struct ressources_s {
+    const char *name;
+    int *inv;
+    int *space;
+} ressources_t;
+
 typedef enum direction_s {
     UP,
     RIGHT,
@@ -259,5 +265,9 @@ void setup_group_members(server_t *server, client_data_t *client,
 void init_incantation_state(incantation_t *inc);
 void send_pie(server_t *server, client_t **incantators);
 int remove_needed_ressources(map_t *tile, uint8_t level);
+
+/* Set/Take function */
+int check_if_ressources_exists(client_data_t *client, const char *ressource,
+    map_t *unit_space, bool from_inv_to_map);
 
 #endif /* SERVER_H_ */

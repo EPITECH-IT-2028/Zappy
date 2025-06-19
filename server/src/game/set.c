@@ -8,13 +8,34 @@
 #include "macro.h"
 #include "server.h"
 #include "utils.h"
+#include <stdlib.h>
 #include <string.h>
 
 static
-int check_if_ressources_exists(client_data_t *client, const char *ressource,
-    map_t *unit_space)
+int remove_or_add_ressource(ressources_t *resources, const char *resource,
+    bool from_inv_to_map)
 {
-    struct { const char *name; int *inv; int *space; } resources[] = {
+    for (int i = 0; i < TOTAL_RESOURCES; i++) {
+        if (strcmp(resource, resources[i].name) != 0)
+            continue;
+        if (from_inv_to_map && *resources[i].inv > 0) {
+            (*resources[i].inv)--;
+            (*resources[i].space)++;
+            return SUCCESS;
+        }
+        if (!from_inv_to_map && *resources[i].space > 0) {
+            (*resources[i].inv)++;
+            (*resources[i].space)--;
+            return SUCCESS;
+        }
+    }
+    return ERROR;
+}
+
+int check_if_ressources_exists(client_data_t *client, const char *resource,
+    map_t *unit_space, bool from_inv_to_map)
+{
+    ressources_t resources[] = {
         {"food", &client->inventory.food, &unit_space->food},
         {"linemate", &client->inventory.linemate, &unit_space->linemate},
         {"deraumere", &client->inventory.deraumere, &unit_space->deraumere},
@@ -24,12 +45,9 @@ int check_if_ressources_exists(client_data_t *client, const char *ressource,
         {"thystame", &client->inventory.thystame, &unit_space->thystame}
     };
 
-    for (int i = 0; i < TOTAL_RESOURCES; i++) {
-        if (!strcmp(ressource, resources[i].name) && *resources[i].inv > 0) {
-            (*resources[i].inv)--;
-            (*resources[i].space)++;
-            return SUCCESS;
-        }
+    if (remove_or_add_ressource(resources, resource,
+        from_inv_to_map) == SUCCESS) {
+        return SUCCESS;
     }
     return ERROR;
 }
@@ -42,12 +60,18 @@ int handle_set(server_t *server, response_t *response, request_t *request)
 
     if (!server || !response || !request)
         return ERROR;
-    ressource = get_text_in_commands(request->request, WORD_SET_LENGTH);    
-    if (check_if_ressources_exists(client, ressource, unit_space) == ERROR)
+    ressource = get_text_in_commands(request->request, WORD_SET_LENGTH);
+    if (!ressource)
         return ERROR;
-    sprintf(response->response, "ok");
+    if (check_if_ressources_exists(client, ressource, unit_space, false)
+        == ERROR) {
+        free(ressource);
+        return ERROR;
+    }
+    snprintf(response->response, BUFFER_SIZE, "ok");
     response->client->data.is_busy = true;
     response->client->data.action_end_time = get_action_end_time(server,
         SET_TIME);
+    free(ressource);
     return SUCCESS;
 }
