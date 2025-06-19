@@ -137,7 +137,8 @@ int rotate_right(server_t *server, response_t *response, request_t *request)
 
     if (!server || !response || !request || !client)
         return ERROR;
-    client->data.direction = (client->data.direction + 1 + MAX_DIRECTION) % MAX_DIRECTION;
+    client->data.direction = (client->data.direction + 1 + MAX_DIRECTION)
+        % MAX_DIRECTION;
     sprintf(response->response, "ok");
     response->client->data.is_busy = true;
     response->client->data.action_end_time =
