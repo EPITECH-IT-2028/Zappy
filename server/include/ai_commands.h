@@ -25,6 +25,8 @@ int rotate_left(server_t *server, response_t *response, request_t *request);
 int handle_connect_nbr(server_t *server, response_t *response,
     request_t *request);
 int fork_player(server_t *server, response_t *response, request_t *request);
+int handle_set(server_t *server, response_t *response, request_t *request);
+int handle_take(server_t *server, response_t *response, request_t *request);
 int handle_oncoming_incantation(server_t *server, response_t *response,
     request_t *request);
 
@@ -38,6 +40,8 @@ const ai_commands_t tab_ai_commands[] = {
     {"Connect_nbr", &handle_connect_nbr},
     {"Fork", &fork_player},
     {"Incantation", &handle_oncoming_incantation},
+    {"Take", &handle_take},
+    {"Set", &handle_set},
     {NULL, NULL}
 };
 

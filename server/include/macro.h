@@ -26,6 +26,8 @@
     #define UNASSIGNED_PLAYER_ID -1
     #define NANOSECONDS_PER_SECOND 1000000000L
     #define WORD_BROADCAST_LENGTH (sizeof("Broadcast ") - 1)
+    #define WORD_TAKE_LENGTH (sizeof("Take ") - 1)
+    #define WORD_SET_LENGTH (sizeof("Set ") - 1)
     #define ABS(x) (((x) < 0) ? - (x) : (x))
     #define FULL_CIRCLE_DEG 360.0
     #define HALF_CIRCLE_DEG 180.0

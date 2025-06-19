@@ -82,20 +82,20 @@ client_t *find_ai_by_id(server_t *server, unsigned int player_id)
  *         - Returns empty string if input has no message content
  *         - The caller is responsible for freeing the returned string
  */
-char *get_broadcast_text(const char *raw_broadcast)
+char *get_text_in_commands(const char *raw_message, unsigned long length)
 {
-    char *broadcast_text = NULL;
+    char *text = NULL;
     const char *start = NULL;
 
-    if (!raw_broadcast)
+    if (!raw_message)
         return NULL;
-    if (strlen(raw_broadcast) <= WORD_BROADCAST_LENGTH)
+    if (strlen(raw_message) <= length)
         return strdup("");
-    start = raw_broadcast + WORD_BROADCAST_LENGTH;
+    start = raw_message + length;
     while (*start == ' ')
         ++start;
     if (*start == '\0')
         return strdup("");
-    broadcast_text = strdup(start);
-    return broadcast_text;
+    text = strdup(start);
+    return text;
 }
