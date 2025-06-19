@@ -46,6 +46,8 @@ SRC += ./src/game/incantation/oncoming_incantation.c
 SRC += ./src/game/incantation/ending_incantation.c
 SRC += ./src/game/incantation/incantation_setups.c
 SRC += ./src/events/incantation_events.c
+SRC += ./src/game/take.c
+SRC += ./src/game/set.c
 
 OBJ = $(SRC:.c=.o)
 

@@ -195,20 +195,20 @@ int handle_broadcast(server_t *server, response_t *response,
     request_t *request)
 {
     client_t *client = request->client;
-    char *broadcast_text = NULL;
+    char *broadcast = NULL;
 
     if (!client || client->data.is_graphic || client->data.is_busy ||
         !server || !response || !request)
         return ERROR;
-    broadcast_text = get_broadcast_text(request->request);
-    if (!broadcast_text)
+    broadcast = get_text_in_commands(request->request, WORD_BROADCAST_LENGTH);
+    if (!broadcast)
         return ERROR;
-    if (client_broadcast_sound(server, request, broadcast_text) == ERROR) {
-        free(broadcast_text);
+    if (client_broadcast_sound(server, request, broadcast) == ERROR) {
+        free(broadcast);
         return ERROR;
     }
-    send_pbc(server, client, broadcast_text);
-    free(broadcast_text);
+    send_pbc(server, client, broadcast);
+    free(broadcast);
     sprintf(response->response, "ok");
     response->client->data.is_busy = true;
     response->client->data.action_end_time = get_action_end_time(server,
