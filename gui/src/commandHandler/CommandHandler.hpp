@@ -6,8 +6,8 @@
 namespace handlecommand {
   class CommandHandler {
     public:
-      CommandHandler(gui::GameState &gameState)
-          : _gameState(gameState) {};
+      CommandHandler(gui::GameState& gameState) : _gameState(gameState) {};
+
       void handleBct(const std::string& command);
       void handlePnw(const std::string& command);
       void handlePpo(const std::string& command);
@@ -20,6 +20,6 @@ namespace handlecommand {
 
     private:
       void removeEgg(int eggId);
-      gui::GameState &_gameState;
+      gui::GameState& _gameState;
   };
-}
+}  // namespace handlecommand

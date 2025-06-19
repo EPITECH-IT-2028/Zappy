@@ -2,7 +2,7 @@
 #include <cstdio>
 #include <sstream>
 
-parser::MapSize parser::CommandParser::parseMsz(const std::string& command) {
+parser::MapSize parser::CommandParser::parseMsz(const std::string &command) {
   int width, height;
   int result = sscanf(command.c_str(), "msz %d %d", &width, &height);
   if (result != 2)
@@ -10,7 +10,7 @@ parser::MapSize parser::CommandParser::parseMsz(const std::string& command) {
   return MapSize(width, height);
 }
 
-parser::TimeUnit parser::CommandParser::parseSgt(const std::string& command) {
+parser::TimeUnit parser::CommandParser::parseSgt(const std::string &command) {
   int time;
   int result = sscanf(command.c_str(), "sgt %d", &time);
   if (result != 1)
@@ -18,7 +18,7 @@ parser::TimeUnit parser::CommandParser::parseSgt(const std::string& command) {
   return TimeUnit(time);
 }
 
-parser::TeamNames parser::CommandParser::parseTna(const std::string& command) {
+parser::TeamNames parser::CommandParser::parseTna(const std::string &command) {
   std::vector<std::string> names;
   std::istringstream iss(command);
   std::string token;
@@ -31,40 +31,41 @@ parser::TeamNames parser::CommandParser::parseTna(const std::string& command) {
   return TeamNames(names);
 }
 
-parser::TileUpdate parser::CommandParser::parseBct(const std::string& command) {
+parser::TileUpdate parser::CommandParser::parseBct(const std::string &command) {
   int x, y;
   std::array<int, RESOURCE_COUNT> resources = {0};
 
-  int result = sscanf(command.c_str(), "bct %d %d %d %d %d %d %d %d %d",
-                &x, &y, &resources[0], &resources[1],
-                &resources[2], &resources[3],
-                &resources[4], &resources[5], &resources[6]);
+  int result =
+      sscanf(command.c_str(), "bct %d %d %d %d %d %d %d %d %d", &x, &y,
+             &resources[0], &resources[1], &resources[2], &resources[3],
+             &resources[4], &resources[5], &resources[6]);
   if (result != 9)
     throw std::runtime_error("Invalid bct command format");
   return TileUpdate(x, y, resources);
 }
 
-parser::PlayerInfo parser::CommandParser::parsePnw(const std::string& command) {
+parser::PlayerInfo parser::CommandParser::parsePnw(const std::string &command) {
   int id, x, y, level;
   int orientationInt;
   char teamName[256] = {0};
 
-  int result = std::sscanf(command.c_str(), "pnw %d %d %d %d %d %255s",
-                          &id, &x, &y, &orientationInt, &level, teamName);
+  int result = std::sscanf(command.c_str(), "pnw %d %d %d %d %d %255s", &id, &x,
+                           &y, &orientationInt, &level, teamName);
 
   if (result != 6) {
-      throw std::runtime_error("Failed to parse pnw command");
+    throw std::runtime_error("Failed to parse pnw command");
   }
   gui::Orientation orientation = static_cast<gui::Orientation>(orientationInt);
   return PlayerInfo(id, x, y, orientation, level, std::string(teamName));
 }
 
-parser::PlayerPositionUpdate parser::CommandParser::parsePpo(const std::string& command) {
+parser::PlayerPositionUpdate parser::CommandParser::parsePpo(
+    const std::string &command) {
   int id, x, y;
   int orientationInt;
 
-  int result = std::sscanf(command.c_str(), "ppo %d %d %d %d",
-                &id, &x, &y, &orientationInt);
+  int result = std::sscanf(command.c_str(), "ppo %d %d %d %d", &id, &x, &y,
+                           &orientationInt);
   if (result != 4)
     throw std::runtime_error("Invalid ppo command format");
   if (orientationInt < 1 || orientationInt > 4)
@@ -73,7 +74,8 @@ parser::PlayerPositionUpdate parser::CommandParser::parsePpo(const std::string& 
   return PlayerPositionUpdate(id, x, y, orientation);
 }
 
-parser::PlayerLevelUpdate parser::CommandParser::parsePlv(const std::string &command) {
+parser::PlayerLevelUpdate parser::CommandParser::parsePlv(
+    const std::string &command) {
   int id, level;
 
   int result = std::sscanf(command.c_str(), "plv %d %d", &id, &level);
@@ -83,14 +85,15 @@ parser::PlayerLevelUpdate parser::CommandParser::parsePlv(const std::string &com
   return PlayerLevelUpdate(id, level);
 }
 
-parser::PlayerInventory parser::CommandParser::parsePin(const std::string &command) {
+parser::PlayerInventory parser::CommandParser::parsePin(
+    const std::string &command) {
   int id, x, y;
   std::array<int, RESOURCE_COUNT> resources = {0};
 
-  int result = std::sscanf(command.c_str(), "pin %d %d %d %d %d %d %d %d %d %d",
-               &id, &x, &y, &resources[0], &resources[1],
-               &resources[2], &resources[3],
-               &resources[4], &resources[5], &resources[6]);
+  int result =
+      std::sscanf(command.c_str(), "pin %d %d %d %d %d %d %d %d %d %d", &id, &x,
+                  &y, &resources[0], &resources[1], &resources[2],
+                  &resources[3], &resources[4], &resources[5], &resources[6]);
 
   if (result != 10)
     throw std::runtime_error("Invalid pin command format");
@@ -100,7 +103,8 @@ parser::PlayerInventory parser::CommandParser::parsePin(const std::string &comma
 parser::EggLaid parser::CommandParser::parseEnw(const std::string &command) {
   int idEgg, idPlayer, x, y;
 
-  int result = std::sscanf(command.c_str(), "enw %d %d %d %d", &idEgg, &idPlayer, &x, &y);
+  int result = std::sscanf(command.c_str(), "enw %d %d %d %d", &idEgg,
+                           &idPlayer, &x, &y);
 
   if (result != 4)
     throw std::runtime_error("Invalid enw command format");
@@ -125,7 +129,8 @@ parser::EggDeath parser::CommandParser::parseEdi(const std::string &command) {
   return EggDeath(id);
 }
 
-parser::PlayerDeath parser::CommandParser::parsePdi(const std::string &command) {
+parser::PlayerDeath parser::CommandParser::parsePdi(
+    const std::string &command) {
   int id;
   int result = std::sscanf(command.c_str(), "pdi %d", &id);
 

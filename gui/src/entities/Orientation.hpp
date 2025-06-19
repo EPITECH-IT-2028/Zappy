@@ -7,4 +7,4 @@ namespace gui {
     SOUTH = 3,
     WEST = 4
   };
-}
+}  // namespace gui
