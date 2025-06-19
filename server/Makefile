@@ -43,7 +43,7 @@ SRC += ./src/game/connect_nbr.c
 SRC += ./src/game/incantation/oncoming_incantation.c
 SRC += ./src/game/incantation/ending_incantation.c
 SRC += ./src/game/incantation/incantation_setups.c
-SRC += ./src/communications/incantation_commands.c
+SRC += ./src/events/incantation_commands.c
 
 OBJ = $(SRC:.c=.o)
 

@@ -179,7 +179,7 @@ int start_new_incantation(server_t *server, response_t *response,
         return ERROR;
     if (freeze_every_player(server, request) == ERROR)
         return ERROR;
-    send_pic_all(server, request->client->data.incantation.client_group);
+    send_pic(server, request->client->data.incantation.client_group);
     add_new_incantation_request(server, request);
     return SUCCESS;
 }
