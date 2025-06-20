@@ -68,8 +68,12 @@ int place_resources(server_t *server)
     const float table[TOTAL_RESOURCES] = {
         FOOD, LINEMATE, DERAUMERE, SIBUR, MENDIANE, PHIRAS, THYSTAME
     };
-    const int map_size = server->params.width * server->params.height;
+    int map_size = 0;
 
+    if (!server || !server->map) {
+        return ERROR;
+    }
+    map_size = server->params.width * server->params.height;
     for (int i = 0; i < TOTAL_RESOURCES; i++) {
         add_resources(server, map_size * table[i], i);
     }
