@@ -8,6 +8,7 @@
 #ifndef SERVER_H_
     #define SERVER_H_
 
+    #include <stdint.h>
     #include <stdio.h>
     #include <stdatomic.h>
     #include <sys/socket.h>
@@ -19,12 +20,27 @@
     #include "macro.h"
     #include "inventory.h"
 
+typedef struct ressources_s {
+    const char *name;
+    int *inv;
+    int *space;
+} ressources_t;
+
 typedef enum direction_s {
     UP,
     RIGHT,
     DOWN,
     LEFT
 } direction_t;
+
+typedef struct incantation_s {
+    bool is_incantating;
+    uint8_t x;
+    uint8_t y;
+    uint8_t id_incantator;
+    struct client_s **client_group;
+    bool incantation_success;
+} incantation_t;
 
 typedef struct {
     int x;
@@ -47,19 +63,6 @@ typedef struct egg_s {
     int y;
     int player_id;
 } egg_t;
-
-typedef struct map_s {
-    int food;
-    int linemate;
-    int deraumere;
-    int sibur;
-    int mendiane;
-    int phiras;
-    int thystame;
-    int players;
-    egg_t *eggs;
-    int eggs_count;
-} map_t;
 
 typedef struct teams_s {
     char *name;
@@ -87,6 +90,7 @@ typedef struct client_data_s {
     direction_t direction;
     bool has_egg;
     bool is_busy;
+    incantation_t incantation;
     struct timespec action_end_time;
     struct response_s pending_response;
 } client_data_t;
@@ -124,6 +128,20 @@ typedef struct queue_request_s {
     int len;
     pthread_mutex_t mutex;
 } queue_request_t;
+
+typedef struct map_s {
+    int food;
+    int linemate;
+    int deraumere;
+    int sibur;
+    int mendiane;
+    int phiras;
+    int thystame;
+    int nbr_of_players;
+    client_t **players;
+    egg_t *eggs;
+    int eggs_count;
+} map_t;
 
 typedef struct server_s {
     int fd;
@@ -190,11 +208,20 @@ void player_commands(server_t *server, int index, char *buffer);
 
 /* Game Events */
 void remove_food(server_t *server);
-void send_enw(server_t *server, int index, egg_t *egg);
-void send_pnw(server_t *server, int index, int gui);
-void send_pdi(server_t *server, int index, int gui);
-void send_pdi_all(server_t *server, int index);
-void send_all_eggs_to_gui(server_t *server, int index);
+void send_enw(server_t *server, egg_t *egg);
+void send_pfk(server_t *server, client_t *client);
+void send_ebo(server_t *server, egg_t *egg);
+void send_edi(server_t *server, egg_t *egg);
+void send_pnw(server_t *server, int index);
+void send_pex(server_t *server, client_t *client);
+void send_pdr(server_t *server, client_t *client, int resource_id);
+void send_pgt(server_t *server, client_t *client, int resource_id);
+void send_pdi(server_t *server, int index);
+void send_pin(server_t *server, int index);
+void send_pbc(server_t *server, client_t *client, const char *message);
+void send_all_eggs_to_gui(server_t *server);
+void send_pic(server_t *server, client_t **incantators);
+void send_pie(server_t *server, client_t **incantators);
 
 /* Parameters checks */
 int help_flag(void);
@@ -228,5 +255,27 @@ bool has_time_passed(server_t *server, long long, int duration);
 
 /* Direction function */
 void init_direction(direction_t *direction);
+
+/* Incantation functions */
+int check_if_incantation_failed(
+    client_data_t *incantator,
+    client_t **clients,
+    map_t *unit_space
+);
+void free_incantators(client_t **incantators);
+int handle_ending_incantation(server_t *server, response_t *response,
+    request_t *request);
+uint8_t build_incantation_group(client_t *main_client, map_t *unit_space);
+void setup_main_incantator(server_t *server, client_data_t *client);
+void setup_group_members(server_t *server, client_data_t *client,
+    uint8_t nbr_of_incantators);
+void init_incantation_state(incantation_t *inc);
+int remove_needed_ressources(map_t *tile, uint8_t level);
+
+/* Set/Take function */
+int check_if_ressources_exists(client_data_t *client, const char *ressource,
+    map_t *unit_space, bool from_inv_to_map);
+int check_ressource_update(request_t *request, client_data_t *client,
+    map_t *unit_space, bool from_inv_to_map);
 
 #endif /* SERVER_H_ */

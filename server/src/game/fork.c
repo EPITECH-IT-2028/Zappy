@@ -20,10 +20,8 @@ int fork_player(server_t *server, response_t *response, request_t *request)
         return ERROR;
     if (place_egg(tile, egg) == ERROR)
         return ERROR;
-    for (int i = 1; i < server->nfds; i++) {
-        if (server->clients[i] && server->clients[i]->data.is_graphic)
-            send_enw(server, i, &tile->eggs[tile->eggs_count - 1]);
-    }
+    send_pfk(server, request->client);
+    send_enw(server, &tile->eggs[tile->eggs_count - 1]);
     server->egg_ids++;
     sprintf(response->response, "ok");
     response->client->data.is_busy = true;

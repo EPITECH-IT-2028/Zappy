@@ -16,6 +16,8 @@ SRC = ./src/main.c \
 			./src/communications/gui_commands/player_commands.c \
 			./src/events/game_events.c \
 			./src/events/connection_events.c \
+			./src/events/player_events.c \
+			./src/events/egg_events.c \
 			./src/utils.c \
 			./src/memory.c \
 			./src/game/game.c \
@@ -40,6 +42,12 @@ SRC += ./src/game/broadcast.c
 SRC += ./src/game/fork.c
 SRC += ./src/communications/init_direction.c
 SRC += ./src/game/connect_nbr.c
+SRC += ./src/game/incantation/oncoming_incantation.c
+SRC += ./src/game/incantation/ending_incantation.c
+SRC += ./src/game/incantation/incantation_setups.c
+SRC += ./src/events/incantation_events.c
+SRC += ./src/game/take.c
+SRC += ./src/game/set.c
 
 OBJ = $(SRC:.c=.o)
 

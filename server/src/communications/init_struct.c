@@ -40,6 +40,7 @@ void init_client_struct(client_t *clients, int fd)
     clients->data.pending_requests = 0;
     clients->data.pending_response.client = NULL;
     memset(clients->data.pending_response.response, 0, BUFFER_SIZE);
+    init_incantation_state(&clients->data.incantation);
     clients->data.is_busy = false;
     init_direction(&clients->data.direction);
     pthread_mutex_init(&clients->data.pending_mutex, NULL);
@@ -95,6 +96,7 @@ int init_queues(server_t *server)
 static
 int init_map_struct(server_t *server, params_t *params)
 {
+    server->params = *params;
     server->map = malloc(sizeof(map_t *) * params->width);
     if (server->map == NULL)
         return ERROR;
