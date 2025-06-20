@@ -32,18 +32,6 @@ bool network::ServerCommunication::isConnected() const noexcept {
   return _connected;
 }
 
-bool network::ServerCommunication::connectToServer() {
-  try {
-    createSocket();
-    establishConnection();
-    sendMessage("GRAPHIC\n");
-    return true;
-  } catch (const std::exception &e) {
-    std::cerr << "Connection failed: " << e.what() << std::endl;
-    return false;
-  }
-}
-
 void network::ServerCommunication::createSocket() {
   _clientFd = socket(AF_INET, SOCK_STREAM, 0);
   if (_clientFd == -1)
@@ -63,6 +51,19 @@ void network::ServerCommunication::establishConnection() {
     throw std::runtime_error(std::string(strerror(errno)));
   }
   _connected = true;
+}
+
+bool network::ServerCommunication::connectToServer() {
+  try {
+    createSocket();
+    establishConnection();
+    setNonBlocking();
+    sendMessage("GRAPHIC\n");
+    return true;
+  } catch (const std::exception &e) {
+    std::cerr << "Connection failed: " << e.what() << std::endl;
+    return false;
+  }
 }
 
 void network::ServerCommunication::sendMessage(const std::string &message) {
