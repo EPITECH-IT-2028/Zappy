@@ -100,37 +100,40 @@ std::string network::ServerCommunication::receiveMessage() {
     }
   }
 
-  std::string message = _pendingData;
   const size_t BUFFER_SIZE = 1024;
   const size_t MAX_MESSAGE_SIZE = 65536;
   char buffer[BUFFER_SIZE];
+  ssize_t bytesReceived = recv(_clientFd, buffer, BUFFER_SIZE - 1, 0);
 
-  while (true) {
-    if (message.size() > MAX_MESSAGE_SIZE)
-      throw std::runtime_error("Message too large");
-
-    ssize_t bytesReceived = recv(_clientFd, buffer, BUFFER_SIZE - 1, 0);
-
-    if (bytesReceived == -1) {
-      if (errno == EINTR)
-        continue;
-      throw std::runtime_error("Failed to receive message: " +
-                               std::string(strerror(errno)));
-    }
-
-    if (bytesReceived == 0) {
-      _connected = false;
-      throw std::runtime_error("Server disconnected");
-    }
-
-    buffer[bytesReceived] = '\0';
-    message += std::string(buffer, bytesReceived);
-
-    size_t newlinePos = message.find('\n');
-    if (newlinePos != std::string::npos) {
-      std::string result = message.substr(0, newlinePos + 1);
-      _pendingData = message.substr(newlinePos + 1);
-      return result;
-    }
+  if (bytesReceived == -1) {
+    if (errno == EAGAIN || errno == EWOULDBLOCK)
+      return "";
+    if (errno == EINTR)
+      return "";
+    throw std::runtime_error("Failed to receive message: " +
+                             std::string(strerror(errno)));
   }
+  if (bytesReceived == 0) {
+    _connected = false;
+    throw std::runtime_error("Server disconnected");
+  }
+
+  buffer[bytesReceived] = '\0';
+  _pendingData += std::string(buffer, bytesReceived);
+  if (_pendingData.size() > MAX_MESSAGE_SIZE)
+    throw std::runtime_error("Message too large");
+
+  size_t newlinePos = _pendingData.find('\n');
+  if (newlinePos != std::string::npos) {
+    std::string result = _pendingData.substr(0, newlinePos + 1);
+    _pendingData = _pendingData.substr(newlinePos + 1);
+    return result;
+  }
+  return "";
+}
+
+bool network::ServerCommunication::hasIncomingData() {
+
+
+
 }
