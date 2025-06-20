@@ -6,14 +6,17 @@
 */
 
 #include "server.h"
-#include "utils.h"
 #include <unistd.h>
 
 static
-void check_death(client_t *client)
+void check_death(server_t *server, int i)
 {
+    client_t *client = server->clients[i];
+
     if (client->data.inventory.food == -1) {
-        send_code(client->fd, "dead");
+        shutdown(client->fd, SHUT_RDWR);
+    } else {
+        send_pin(server, i);
     }
 }
 
@@ -27,7 +30,7 @@ void remove_food(server_t *server)
             continue;
         if (server->clients[i]->data.team_name != NULL) {
             server->clients[i]->data.inventory.food--;
-            check_death(server->clients[i]);
+            check_death(server, i);
         }
     }
 }

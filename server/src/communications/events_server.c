@@ -100,7 +100,7 @@ void remove_player(server_t *server, int index)
         pthread_mutex_unlock(&server->clients_mutex);
         return;
     }
-    send_pdi_all(server, index);
+    send_pdi(server, index);
     if (server->fds[index].fd != -1) {
         close(server->fds[index].fd);
         server->fds[index].fd = -1;
