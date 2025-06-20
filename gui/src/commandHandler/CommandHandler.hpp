@@ -8,6 +8,9 @@ namespace handlecommand {
     public:
       CommandHandler(gui::GameState& gameState) : _gameState(gameState) {};
 
+      void handleMsz(const std::string& command);
+      void handleSgt(const std::string& command);
+      void handleTna(const std::string& command);
       void handleBct(const std::string& command);
       void handlePnw(const std::string& command);
       void handlePpo(const std::string& command);

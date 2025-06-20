@@ -9,6 +9,7 @@ namespace gui {
       std::size_t height;
       std::vector<std::vector<Tile>> tiles;
 
+      void resize(std::size_t w, std::size_t h);
       Tile& getTile(std::size_t x, std::size_t y);
       const Tile& getTile(std::size_t x, std::size_t y) const;
       bool isInside(std::size_t x, std::size_t y) const;
