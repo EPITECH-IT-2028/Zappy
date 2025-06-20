@@ -13,6 +13,7 @@ namespace network {
       bool connectToServer();
       void sendMessage(const std::string &message);
       std::string receiveMessage();
+      bool hasIncomingData();
 
     private:
       void createSocket();

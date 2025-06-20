@@ -133,6 +133,24 @@ std::string network::ServerCommunication::receiveMessage() {
 }
 
 bool network::ServerCommunication::hasIncomingData() {
+  if (!_connected || _clientFd == -1)
+    return false;
+  if (!_pendingData.empty())
+    return _pendingData.find('\n') != std::string::npos;
+
+  struct pollfd pfd;
+  pfd.fd = _clientFd;
+  pfd.events = POLLIN;
+  pfd.revents = 0;
+
+  int result = poll(&pfd, 1, 0);
+  if (result == -1) {
+    if (errno != EINTR)
+      std::cerr << "Poll error: " << strerror(errno) << std::endl;
+    return false;
+  }
+  return result > 0 && (pfd.revents & POLLIN);
+}
 
 
 
