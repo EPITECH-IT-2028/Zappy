@@ -64,7 +64,6 @@ typedef struct egg_s {
     int player_id;
 } egg_t;
 
-
 typedef struct teams_s {
     char *name;
     int clients_count;
@@ -209,12 +208,20 @@ void player_commands(server_t *server, int index, char *buffer);
 
 /* Game Events */
 void remove_food(server_t *server);
-void send_enw(server_t *server, int index, egg_t *egg);
-void send_pnw(server_t *server, int index, int gui);
-void send_pdi(server_t *server, int index, int gui);
-void send_pdi_all(server_t *server, int index);
-void send_all_eggs_to_gui(server_t *server, int index);
+void send_enw(server_t *server, egg_t *egg);
+void send_pfk(server_t *server, client_t *client);
+void send_ebo(server_t *server, egg_t *egg);
+void send_edi(server_t *server, egg_t *egg);
+void send_pnw(server_t *server, int index);
+void send_pex(server_t *server, client_t *client);
+void send_pdr(server_t *server, client_t *client, int resource_id);
+void send_pgt(server_t *server, client_t *client, int resource_id);
+void send_pdi(server_t *server, int index);
+void send_pin(server_t *server, int index);
+void send_pbc(server_t *server, client_t *client, const char *message);
+void send_all_eggs_to_gui(server_t *server);
 void send_pic(server_t *server, client_t **incantators);
+void send_pie(server_t *server, client_t **incantators);
 
 /* Parameters checks */
 int help_flag(void);
@@ -263,11 +270,12 @@ void setup_main_incantator(server_t *server, client_data_t *client);
 void setup_group_members(server_t *server, client_data_t *client,
     uint8_t nbr_of_incantators);
 void init_incantation_state(incantation_t *inc);
-void send_pie(server_t *server, client_t **incantators);
 int remove_needed_ressources(map_t *tile, uint8_t level);
 
 /* Set/Take function */
 int check_if_ressources_exists(client_data_t *client, const char *ressource,
+    map_t *unit_space, bool from_inv_to_map);
+int check_ressource_update(request_t *request, client_data_t *client,
     map_t *unit_space, bool from_inv_to_map);
 
 #endif /* SERVER_H_ */

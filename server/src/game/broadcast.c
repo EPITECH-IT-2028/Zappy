@@ -197,9 +197,8 @@ int handle_broadcast(server_t *server, response_t *response,
     client_t *client = request->client;
     char *broadcast = NULL;
 
-    if (!server || !response || !request)
-        return ERROR;
-    if (!client || client->data.is_graphic || client->data.is_busy)
+    if (!client || client->data.is_graphic || client->data.is_busy ||
+        !server || !response || !request)
         return ERROR;
     broadcast = get_text_in_commands(request->request, WORD_BROADCAST_LENGTH);
     if (!broadcast)
@@ -208,6 +207,7 @@ int handle_broadcast(server_t *server, response_t *response,
         free(broadcast);
         return ERROR;
     }
+    send_pbc(server, client, broadcast);
     free(broadcast);
     sprintf(response->response, "ok");
     response->client->data.is_busy = true;

@@ -36,10 +36,7 @@ static
 void send_new_player_to_gui(server_t *server, int index)
 {
     pthread_mutex_lock(&server->clients_mutex);
-    for (int i = 1; i < server->nfds; i++) {
-        if (server->clients[i]->data.is_graphic)
-            send_pnw(server, index, i);
-    }
+    send_pnw(server, index);
     pthread_mutex_unlock(&server->clients_mutex);
 }
 
@@ -76,7 +73,7 @@ int send_gui(server_t *server, int index, char *buffer)
     time_commands(server, index, "sgt");
     map_commands(server, index, "mct");
     player_commands(server, index, "tna");
-    send_all_eggs_to_gui(server, index);
+    send_all_eggs_to_gui(server);
     return SUCCESS;
 }
 
