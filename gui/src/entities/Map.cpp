@@ -2,6 +2,17 @@
 #include <stdexcept>
 #include <string>
 
+void gui::Map::resize(std::size_t w, std::size_t h) {
+  if (w == width && h == height)
+    return;
+
+  width = w;
+  height = h;
+  tiles.resize(height);
+  for (auto& row : tiles)
+    row.resize(width);
+}
+
 gui::Tile& gui::Map::getTile(std::size_t x, std::size_t y) {
   ensureInBounds(x, y);
   return tiles[y][x];

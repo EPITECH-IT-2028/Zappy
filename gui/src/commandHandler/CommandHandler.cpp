@@ -5,6 +5,33 @@
 #include "entities/Player.hpp"
 #include "parser/CommandParser.hpp"
 
+void handlecommand::CommandHandler::handleMsz(const std::string& command) {
+  try {
+    parser::MapSize mapSize = parser::CommandParser::parseMsz(command);
+    _gameState.map.resize(mapSize.width, mapSize.height);
+  } catch (const std::exception& e) {
+    std::cerr << "Error while handling msz: " << e.what() << "\n";
+  }
+}
+
+void handlecommand::CommandHandler::handleSgt(const std::string& command) {
+  try {
+    parser::TimeUnit timeUnit = parser::CommandParser::parseSgt(command);
+    _gameState.timeUnit = timeUnit.time;
+  } catch (const std::exception& e) {
+    std::cerr << "Error while handling sgt: " << e.what() << "\n";
+  }
+}
+
+void handlecommand::CommandHandler::handleTna(const std::string& command) {
+  try {
+    parser::TeamNames teamNames = parser::CommandParser::parseTna(command);
+    _gameState.teamNames = teamNames.names;
+  } catch (const std::exception& e) {
+    std::cerr << "Error while handling tna: " << e.what() << "\n";
+  }
+}
+
 void handlecommand::CommandHandler::handleBct(const std::string& command) {
   try {
     parser::TileUpdate update = parser::CommandParser::parseBct(command);
