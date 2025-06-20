@@ -96,6 +96,7 @@ int init_queues(server_t *server)
 static
 int init_map_struct(server_t *server, params_t *params)
 {
+    server->params = *params;
     server->map = malloc(sizeof(map_t *) * params->width);
     if (server->map == NULL)
         return ERROR;
