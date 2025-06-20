@@ -29,6 +29,7 @@ int handle_set(server_t *server, response_t *response, request_t *request);
 int handle_take(server_t *server, response_t *response, request_t *request);
 int handle_oncoming_incantation(server_t *server, response_t *response,
     request_t *request);
+int handle_eject(server_t *server, response_t *response, request_t *request);
 
 const ai_commands_t tab_ai_commands[] = {
     {"Inventory", &handle_inventory},
@@ -42,6 +43,7 @@ const ai_commands_t tab_ai_commands[] = {
     {"Incantation", &handle_oncoming_incantation},
     {"Take", &handle_take},
     {"Set", &handle_set},
+    {"Eject", &handle_eject},
     {NULL, NULL}
 };
 
