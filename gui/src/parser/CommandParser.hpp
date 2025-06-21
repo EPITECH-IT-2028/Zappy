@@ -104,6 +104,12 @@ namespace parser {
       PlayerDeath(int id) : id(id) {
       }
   };
+  struct Incantation {
+    int x;
+    int y;
+    int level;
+    std::vector<int> playersNumber;
+  };
 
   class CommandParser {
     public:
@@ -122,6 +128,7 @@ namespace parser {
       static EggHatch parseEbo(const std::string& command);
       static EggDeath parseEdi(const std::string& command);
       static PlayerDeath parsePdi(const std::string& command);
+      static Incantation parsePic(const std::string& command);
 
     private:
   };
