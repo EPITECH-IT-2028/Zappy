@@ -26,16 +26,23 @@ void add_resource_random(server_t *server, int missing_resource, int type)
 static
 int check_resource_density(server_t *server, int type)
 {
-    switch (type) {
-        case 0: return server->density.food;
-        case 1: return server->density.linemate;
-        case 2: return server->density.deraumere;
-        case 3: return server->density.sibur;
-        case 4: return server->density.mendiane;
-        case 5: return server->density.phiras;
-        case 6: return server->density.thystame;
-        default: return 0;
-    }
+    if (!server)
+        return -1;
+    if (type == 0)
+        return server->density.food;
+    if (type == 1)
+        return server->density.linemate;
+    if (type == 2)
+        return server->density.deraumere;
+    if (type == 3)
+        return server->density.sibur;
+    if (type == 4)
+        return server->density.mendiane;
+    if (type == 5)
+        return server->density.phiras;
+    if (type == 6)
+        return server->density.thystame;
+    return -1;
 }
 
 int respawn_resources(server_t *server)
@@ -47,28 +54,12 @@ int respawn_resources(server_t *server)
 
     if (!server)
         return ERROR;
-    
-    printf("Current resource density:\n");
-    printf("  Food: %d\n", server->density.food);
-    printf("  Linemate: %d\n", server->density.linemate);
-    printf("  Deraumere: %d\n", server->density.deraumere);
-    printf("  Sibur: %d\n", server->density.sibur);
-    printf("  Mendiane: %d\n", server->density.mendiane);
-    printf("  Phiras: %d\n", server->density.phiras);
-    printf("  Thystame: %d\n", server->density.thystame);
     map_size = server->params.width * server->params.height;
     for (int i = 0; i < TOTAL_RESOURCES; i++) {
-        if (check_resource_density(server, i) < map_size * table[i]) {
-            add_resource_random(server, map_size * table[i] - check_resource_density(server, i), i);
+        if (check_resource_density(server, i) < (int)(map_size * table[i])) {
+            add_resource_random(server, map_size * table[i] -
+                check_resource_density(server, i), i);
         }
     }
-    printf("After resource density:\n");
-    printf("  Food: %d\n", server->density.food);
-    printf("  Linemate: %d\n", server->density.linemate);
-    printf("  Deraumere: %d\n", server->density.deraumere);
-    printf("  Sibur: %d\n", server->density.sibur);
-    printf("  Mendiane: %d\n", server->density.mendiane);
-    printf("  Phiras: %d\n", server->density.phiras);
-    printf("  Thystame: %d\n", server->density.thystame);
     return SUCCESS;
 }

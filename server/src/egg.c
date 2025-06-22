@@ -93,9 +93,7 @@ int assign_random_egg_position(server_t *server, client_t *client)
 {
     int total = count_total_eggs(server);
     int target = rand() % total;
-    int width = server->params.width;
-    int height = server->params.height;
-    int nb_tiles = width * height;
+    int nb_tiles = server->params.width * server->params.height;
     int x = 0;
     int y = 0;
     egg_t *target_egg = NULL;
@@ -103,8 +101,8 @@ int assign_random_egg_position(server_t *server, client_t *client)
     if (total == 0)
         return ERROR;
     for (int i = 0; i < nb_tiles; i++) {
-        x = i / height;
-        y = i % height;
+        x = i / server->params.width;
+        y = i % server->params.height;
         target_egg = &server->map[x][y].eggs[target];
         if (assign_egg_position(&server->map[x][y], client, target)) {
             send_ebo(server, target_egg);
