@@ -20,22 +20,16 @@
  */
 void increment_resource_density(server_t *server, int type)
 {
+    int *density_fields[] = {
+        &server->density.food, &server->density.linemate,
+        &server->density.deraumere, &server->density.sibur,
+        &server->density.mendiane, &server->density.phiras,
+        &server->density.thystame
+    };
+
     if (!server)
-        return;
-    if (type == 0)
-        server->density.food++;
-    if (type == 1)
-        server->density.linemate++;
-    if (type == 2)
-        server->density.deraumere++;
-    if (type == 3)
-        server->density.sibur++;
-    if (type == 4)
-        server->density.mendiane++;
-    if (type == 5)
-        server->density.phiras++;
-    if (type == 6)
-        server->density.thystame++;
+        return; 
+    (*density_fields[type])++;
 }
 
 /**
@@ -46,22 +40,16 @@ void increment_resource_density(server_t *server, int type)
  */
 void decrement_resource_density(server_t *server, int type)
 {
+    int *density_fields[] = {
+        &server->density.food, &server->density.linemate,
+        &server->density.deraumere, &server->density.sibur,
+        &server->density.mendiane, &server->density.phiras,
+        &server->density.thystame
+    };
+
     if (!server)
-        return;
-    if (type == 0 && server->density.food > 0)
-        server->density.food--;
-    if (type == 1 && server->density.linemate > 0)
-        server->density.linemate--;
-    if (type == 2 && server->density.deraumere > 0)
-        server->density.deraumere--;
-    if (type == 3 && server->density.sibur > 0)
-        server->density.sibur--;
-    if (type == 4 && server->density.mendiane > 0)
-        server->density.mendiane--;
-    if (type == 5 && server->density.phiras > 0)
-        server->density.phiras--;
-    if (type == 6 && server->density.thystame)
-        server->density.thystame--;
+        return; 
+    (*density_fields[type])--;
 }
 
 int remove_or_add_ressource(server_t *server, ressources_t *resources,

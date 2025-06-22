@@ -26,23 +26,16 @@ void add_resource_random(server_t *server, int missing_resource, int type)
 static
 int check_resource_density(server_t *server, int type)
 {
+    int density_fields[] = {
+        server->density.food, server->density.linemate,
+        server->density.deraumere, server->density.sibur,
+        server->density.mendiane, server->density.phiras,
+        server->density.thystame
+    };
+
     if (!server)
         return -1;
-    if (type == 0)
-        return server->density.food;
-    if (type == 1)
-        return server->density.linemate;
-    if (type == 2)
-        return server->density.deraumere;
-    if (type == 3)
-        return server->density.sibur;
-    if (type == 4)
-        return server->density.mendiane;
-    if (type == 5)
-        return server->density.phiras;
-    if (type == 6)
-        return server->density.thystame;
-    return -1;
+    return density_fields[type];
 }
 
 int respawn_resources(server_t *server)
