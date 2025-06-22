@@ -5,6 +5,7 @@
 ** init_struct.c
 */
 
+#include "inventory.h"
 #include "macro.h"
 #include "server.h"
 #include <string.h>
@@ -94,12 +95,28 @@ int init_queues(server_t *server)
 }
 
 static
+int init_density(server_t *server, inventory_t *density)
+{
+    if (!server || !density)
+        return ERROR;
+    density->food = server->params.width * server->params.height * FOOD;
+    density->linemate = server->params.width * server->params.height * LINEMATE;
+    density->deraumere = server->params.width * server->params.height * DERAUMERE;
+    density->sibur = server->params.width * server->params.height * SIBUR;
+    density->mendiane = server->params.width * server->params.height * MENDIANE;
+    density->phiras = server->params.width * server->params.height * PHIRAS;
+    density->thystame = server->params.width * server->params.height * THYSTAME;
+    return SUCCESS;
+}
+
+static
 int init_map_struct(server_t *server, params_t *params)
 {
     server->params = *params;
     server->map = malloc(sizeof(map_t *) * params->width);
     if (server->map == NULL)
         return ERROR;
+    init_density(server, &server->density);
     for (int x = 0; x < params->width; x++) {
         server->map[x] = malloc(sizeof(map_t) * params->height);
         if (server->map[x] == NULL)

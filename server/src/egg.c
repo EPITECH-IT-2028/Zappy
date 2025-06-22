@@ -58,6 +58,7 @@ int place_egg(map_t *tile, egg_t *egg)
 
     if (!new_eggs) {
         perror("realloc failed");
+        free(new_eggs);
         return ERROR;
     }
     tile->eggs = new_eggs;

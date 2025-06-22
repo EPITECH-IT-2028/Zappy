@@ -60,6 +60,7 @@
     #define INCANTATION_TIME 300
 
     #define FOOD_DURATION 126
+    #define DENSITY_DURATION 20 
 
     #define TAB_LVL_INCANTATION_SIZE 6
     #define INCANTATION_ID_LEN 4
