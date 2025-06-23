@@ -116,7 +116,7 @@ int check_ressource_update(
     resource = get_text_in_commands(request->request,
         from_inv_to_map == true ? WORD_SET_LENGTH : WORD_TAKE_LENGTH);
     if (!resource)
-        return -1;
+        return ERROR;
     id = check_if_ressources_exists(server, client, resource,
         from_inv_to_map);
     if (id == ERROR) {

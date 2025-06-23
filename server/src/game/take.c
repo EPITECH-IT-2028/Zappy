@@ -16,7 +16,7 @@ int handle_take(server_t *server, response_t *response, request_t *request)
     if (!server || !response || !request)
         return ERROR;
     id = check_ressource_update(server, request, client, false);
-    if (id == -1)
+    if (id == ERROR)
         return ERROR;
     send_pgt(server, request->client, id);
     sprintf(response->response, "ok");
