@@ -103,7 +103,7 @@ parser::PlayerInventory parser::CommandParser::parsePin(
 parser::EggLaid parser::CommandParser::parseEnw(const std::string &command) {
   int idEgg, idPlayer, x, y;
 
-  int result = std::sscanf(command.c_str(), "enw %d %d %d %d", &idEgg,
+  int result = std::sscanf(command.c_str(), "enw #%d #%d %d %d", &idEgg,
                            &idPlayer, &x, &y);
 
   if (result != 4)
