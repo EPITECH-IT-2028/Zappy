@@ -30,16 +30,14 @@ def search_closest_resource(client, needed_resources):
         for resource_name in needed_resources.keys():
             if resource_name in cell.lower():
                 x, y = get_position(index, len(vision_data))
-                real_distance = math.sqrt(x*x + y*y)
+                distance = math.sqrt(x*x + y*y)
                 
-                if real_distance < min_distance:
-                    min_distance = real_distance
+                if distance < min_distance:
+                    min_distance = distance
                     closest_resource = {
                         'x': x,
                         'y': y,
-                        'real_distance': real_distance,
                         'resource_name': resource_name,
-                        'content': cell
                     }
                 break
 
@@ -49,7 +47,16 @@ def get_action(client, needed_resources):
   closest_resources = search_closest_resource(client, needed_resources)
 
   if closest_resources is None:
-    return utils.RIGHT, None
+    client["move"]["consecutive_turns"] += 1
+    if client["move"]["consecutive_turns"] >= 3:
+            client["move"]["consecutive_turns"] = 0
+            client["move"]["forward"] = True
+            return utils.FORWARD, None
+    else:
+        if random.random() < 0.5:
+            return utils.RIGHT, None
+        else:
+            return utils.FORWARD, None
 
   x, y = closest_resources["x"], closest_resources["y"]
   resources_name = closest_resources["resource_name"]
@@ -144,18 +151,27 @@ def define_needed_resources(client):
   return missing_resources
 
 def verify_incantation(client, current_cell, needed_resources):
-    required_players = client["needed_resources"].get("nb_players", 0)
+    required_players = 6
     count_players = current_cell.count("player")
 
-    if needed_resources or not current_cell or count_players < required_players:
+    if client["level"] == 1:
+        required_players = 1
+
+    if needed_resources:
         client["incantation"] = False
         return
     
+    if count_players < required_players:
+        client["incantation"] = False
+        client["waiting_for_help"] = True
+        protocole.execute_command(client, utils.BROADCAST, "I_need_help_to_level_up_to_" + str(client["level"] + 1) + "_with_" + str(client["inventory"].get("food", 0)))
+        return
+    
+    client["waiting_for_help"] = False
     client["incantation"] = True
 
-def setting_up_incantation(client):
+def setting_up_incantation(client, current_cell):
     valid_resources = ["linemate", "deraumere", "sibur", "mendiane", "phiras", "thystame"]
-    dropped_resources = []
 
     for resource in valid_resources:
         quantity = client["inventory"].get(resource, 0)
@@ -163,13 +179,39 @@ def setting_up_incantation(client):
         if quantity > 0:
             protocole.execute_command(client, utils.SET, resource)
 
-        if quantity == 0:
-            dropped_resources.append(resource)
+        if current_cell.count(resource) < client["needed_resources"].get(resource, 0):
+            print(f"Resource {resource} is not present in the current cell.")
+            return False
+    return True
+    # for resource, quantity in client["needed_resources"].items():
+    #     print(f"Checking resource: {resource}, quantity needed: {quantity}, current cell: {current_cell}")
+    #     if current_cell.count(resource) < quantity:
+    #         return False
+    # return True
+    
+def get_action_from_broadcast(client, direction):
+    direction_actions = {
+        0: [],
+        1: [utils.FORWARD],
+        2: [utils.FORWARD, utils.LEFT],
+        3: [utils.LEFT, utils.FORWARD],
+        4: [utils.LEFT, utils.FORWARD, utils.LEFT],
+        5: [utils.LEFT, utils.LEFT, utils.FORWARD],
+        6: [utils.RIGHT, utils.FORWARD, utils.RIGHT],
+        7: [utils.RIGHT, utils.FORWARD],
+        8: [utils.FORWARD, utils.RIGHT],
+    }
 
-    if len(dropped_resources) == len(valid_resources):
-       return True
-    else:
-       return False  
+    actions = direction_actions.get(direction, [])
+
+    # print(f"total_actions: {client['total_actions']}, count_actions: {client['count_actions']}, actions: {actions}")
+    # if (client["total_actions"] - client["count_actions"]) == 0:
+    #     client["total_actions"] += len(actions)
+
+    for action in actions:
+        protocole.execute_command(client, action, None)
+    
+    client["help_direction"] = 0
 
 def strategy(client):
     vision_data = analyze_vision(client)
@@ -177,48 +219,127 @@ def strategy(client):
     food_count = client["inventory"].get("food", 0)
     current_cell = client["last_look"][0] if client["last_look"] else None
 
+    if not client["start_playing"]:
+        if client["player_in_game"] == 6:
+            client["start_playing"] = True
+            protocole.execute_command(client, utils.INVENTORY, None)
+            return
+
+        if not client["at_80_food"]:
+            if food_count >= 100:
+                client["at_80_food"] = True
+                client["player_in_game"] += 1
+                protocole.execute_command(client, utils.BROADCAST, "I_am_starting_to_play")
+    
+        if vision_data["food"]:
+            get_resources(client, {"food": 1})
+        else:
+            client["move"]["consecutive_turns"] += 1
+            if client["move"]["consecutive_turns"] >= 3:
+                client["move"]["consecutive_turns"] = 0
+                client["move"]["forward"] = True
+                protocole.execute_command(client, utils.FORWARD, None)
+            else:
+                if random.random() < 0.5:
+                    protocole.execute_command(client, utils.RIGHT, None)
+                else:
+                    protocole.execute_command(client, utils.FORWARD, None)
+        protocole.execute_command(client, utils.INVENTORY, None)
+        return
+
+    # if client["incantation"]:
+    #     print("Incantation is possible, setting up resources...")
+    #     if setting_up_incantation(client):
+    #         protocole.execute_command(client, utils.INCANTATION, None)
+    #     protocole.execute_command(client, utils.INVENTORY, None)
+    #     return
+    
+    if food_count < 10:
+       client["status"] = "critique"
+
+    if client["status"] == "critique":
+       if food_count > 50:
+          client["status"] = "good"
+    
+    if client["status"] == "critique":
+        if vision_data["food"]:
+            get_resources(client, {"food": 1})
+        else:
+            client["move"]["consecutive_turns"] += 1
+            if client["move"]["consecutive_turns"] >= 3:
+                client["move"]["consecutive_turns"] = 0
+                client["move"]["forward"] = True
+                protocole.execute_command(client, utils.FORWARD, None)
+            else:
+                if random.random() < 0.5:
+                    protocole.execute_command(client, utils.RIGHT, None)
+                else:
+                    protocole.execute_command(client, utils.FORWARD, None)
+        protocole.execute_command(client, utils.INVENTORY, None)
+        return
+    
+    if client["help_status"] == True:
+        get_action_from_broadcast(client, client["help_direction"])
+        if "food" in current_cell.lower():
+            protocole.execute_command(client, utils.TAKE, "food")
+        protocole.execute_command(client, utils.INVENTORY, None)
+        return
+    
     if not client["incantation"]:
+        print("Verifying incantation conditions...")
         verify_incantation(client, current_cell, needed)
 
     if client["incantation"]:
         print("Incantation is possible, setting up resources...")
-        if setting_up_incantation(client):
+        if setting_up_incantation(client, current_cell):
             protocole.execute_command(client, utils.INCANTATION, None)
         protocole.execute_command(client, utils.INVENTORY, None)
         return
+    
+    if client["waiting_for_help"]:
+        protocole.execute_command(client, utils.RIGHT, None)
+        protocole.execute_command(client, utils.RIGHT, None)
+        protocole.execute_command(client, utils.RIGHT, None)
+        protocole.execute_command(client, utils.RIGHT, None)
+        protocole.execute_command(client, utils.RIGHT, None)
+        protocole.execute_command(client, utils.BROADCAST, "I_need_help_to_level_up_to_" + str(client["level"] + 1) + "_with_" + str(client["inventory"].get("food", 0)))
+        protocole.execute_command(client, utils.INVENTORY, None)
+        return
+    
+    # if not client["incantation"]:
+    #     verify_incantation(client, current_cell, needed)
 
+    # if client["incantation"]:
+    #     print("Incantation is possible, setting up resources...")
+    #     if setting_up_incantation(client):
+    #         protocole.execute_command(client, utils.INCANTATION, None)
+    #     protocole.execute_command(client, utils.INVENTORY, None)
+    #     return
+    
     if needed and current_cell:
         action, arg = get_action(client, needed)
         if action == utils.TAKE and arg in current_cell.lower():
             protocole.execute_command(client, action, arg)
             protocole.execute_command(client, utils.INVENTORY, None)
             return
-      
-    if food_count < 10:
-        if vision_data["food"]:
-            get_resources(client, {"food": 1})
-        else:
-            client["move"]["consecutive_turns"] += 1
-            if client["move"]["consecutive_turns"] >= 3:
-                client["move"]["consecutive_turns"] = 0
-                client["move"]["forward"] = True
-                protocole.execute_command(client, utils.FORWARD, None)
-            else:
-                if random.random() < 0.7:
-                    protocole.execute_command(client, utils.RIGHT, None)
-                else:
-                    protocole.execute_command(client, utils.FORWARD, None)
+        
+    # if not needed and food_count >= 20:
+    #     if "food" in current_cell.lower():
+    #         protocole.execute_command(client, utils.TAKE, "food")
+    #     protocole.execute_command(client, utils.INVENTORY, None)
+    #     return
 
-    elif food_count < 20:
+    if food_count < 20 and client["status"] == "good":
         if "food" in current_cell.lower():
             protocole.execute_command(client, utils.TAKE, "food")
             protocole.execute_command(client, utils.INVENTORY, None)
             return
         
-        if needed:
-            get_resources(client, needed)
-            protocole.execute_command(client, utils.INVENTORY, None)
-            return
+        for resource, quantity in needed.items():
+          if resource in current_cell.lower():
+              get_resources(client, {resource: quantity})
+              protocole.execute_command(client, utils.INVENTORY, None)
+              return
         
         if vision_data["food"]:
             get_resources(client, {"food": 1})
@@ -229,7 +350,7 @@ def strategy(client):
                 client["move"]["forward"] = True
                 protocole.execute_command(client, utils.FORWARD, None)
             else:
-                if random.random() < 0.7:
+                if random.random() < 0.5:
                     protocole.execute_command(client, utils.RIGHT, None)
                 else:
                     protocole.execute_command(client, utils.FORWARD, None)
@@ -243,15 +364,18 @@ def strategy(client):
         if needed:
             get_resources(client, needed)
         else:
-            client["move"]["consecutive_turns"] += 1
-            if client["move"]["consecutive_turns"] >= 3:
-                client["move"]["consecutive_turns"] = 0
-                client["move"]["forward"] = True
-                protocole.execute_command(client, utils.FORWARD, None)
+            if vision_data["food"]:
+                get_resources(client, {"food": 1})
             else:
-                if random.random() < 0.7:
-                    protocole.execute_command(client, utils.RIGHT, None)
-                else:
+                if client["move"]["consecutive_turns"] >= 3:
+                    client["move"]["consecutive_turns"] = 0
+                    client["move"]["forward"] = True
                     protocole.execute_command(client, utils.FORWARD, None)
+                else:
+                    if random.random() < 0.5:
+                        client["move"]["consecutive_turns"] += 1
+                        protocole.execute_command(client, utils.RIGHT, None)
+                    else:
+                        protocole.execute_command(client, utils.FORWARD, None)
 
     protocole.execute_command(client, utils.INVENTORY, None)
