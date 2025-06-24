@@ -19,6 +19,7 @@ SRC = ./src/main.c \
 			./src/events/player_events.c \
 			./src/events/egg_events.c \
 			./src/utils.c \
+      ./src/utils_map.c \
 			./src/memory.c \
 			./src/game/game.c \
 			./src/game/init_map.c

@@ -223,6 +223,11 @@ void send_all_eggs_to_gui(server_t *server);
 void send_pic(server_t *server, client_t **incantators);
 void send_pie(server_t *server, client_t **incantators);
 
+/* Player Tile functions */
+
+int remove_player_map(map_t *map, client_t *client);
+int add_player_map(server_t *server, map_t **map, client_t *client);
+
 /* Parameters checks */
 int help_flag(void);
 int check_port(params_t *params, char **av, size_t *av_idx);
