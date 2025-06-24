@@ -134,19 +134,19 @@ void handlecommand::CommandHandler::handlePin(const std::string& command) {
 void handlecommand::CommandHandler::handleEnw(const std::string& command) {
   try {
     parser::EggLaid eggLaid = parser::CommandParser::parseEnw(command);
-
-    if (!_gameState.map.isInside(eggLaid.x, eggLaid.y)) {
+    if (!_gameState.map.isInside(eggLaid.x, eggLaid.y))
       throw std::out_of_range("Coordinates outside map");
+
+    std::string teamName;
+    if (eggLaid.idPlayer == -1) {
+      teamName = "server";
+    } else {
+      auto playerIt = _gameState.players.find(eggLaid.idPlayer);
+      if (playerIt == _gameState.players.end())
+        throw std::runtime_error("Player not found with ID " +
+                                 std::to_string(eggLaid.idPlayer));
+      teamName = playerIt->second.teamName;
     }
-
-    auto playerIt = _gameState.players.find(eggLaid.idPlayer);
-
-    if (playerIt == _gameState.players.end()) {
-      throw std::runtime_error("Player not found with ID " +
-                               std::to_string(eggLaid.idPlayer));
-    }
-
-    const std::string& teamName = playerIt->second.teamName;
 
     gui::Egg egg(eggLaid.idEgg, eggLaid.x, eggLaid.y, eggLaid.idPlayer,
                  teamName);
