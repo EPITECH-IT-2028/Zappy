@@ -8,7 +8,6 @@
 #include "macro.h"
 #include "server.h"
 #include <stdio.h>
-#include <stdio.h>
 #include <stdlib.h>
 
 static
@@ -41,9 +40,9 @@ int destroy_egg(server_t *server, int x, int y)
 {
     if (server->map[x][y].eggs_count <= 0)
         return ERROR;
-    for (int i = 0; i < server->map[x][y].eggs_count; i++) {
-        send_edi(server, &server->map[x][y].eggs[i]);
-        remove_egg(&server->map[x][y], i);
+    while (server->map[x][y].eggs_count > 0) {
+        send_edi(server, &server->map[x][y].eggs[0]);
+        remove_egg(&server->map[x][y], 0);
     }
     return SUCCESS;
 }
@@ -67,22 +66,21 @@ client_t **init_players_to_eject(map_t *tile, int *count_to_eject)
 static
 int knockback_players(server_t *server, client_t *ejector, int x, int y)
 {
-    map_t *current_tile = &server->map[x][y];
     direction_offset_t offset = get_eject_offset(ejector->data.direction);
     int count_to_eject = 0;
     client_t **players_to_eject =
-        init_players_to_eject(current_tile, &count_to_eject);
-    int new_x = 0;
-    int new_y = 0;
+        init_players_to_eject(&server->map[x][y], &count_to_eject);
 
+    if (!players_to_eject || count_to_eject <= 0) {
+        free(players_to_eject);
+        return ERROR;
+    }
     for (int i = 0; i < count_to_eject; i++) {
-        new_x = (players_to_eject[i]->data.x + offset.x + server->params.width)
-                % server->params.width;
-        new_y = (players_to_eject[i]->data.y + offset.y +
+        remove_player_map(&server->map[x][y], players_to_eject[i]);
+        players_to_eject[i]->data.x = (players_to_eject[i]->data.x + offset.x +
+            server->params.width) % server->params.width;
+        players_to_eject[i]->data.y = (players_to_eject[i]->data.y + offset.y +
             server->params.height) % server->params.height;
-        remove_player_map(current_tile, players_to_eject[i]);
-        players_to_eject[i]->data.x = new_x;
-        players_to_eject[i]->data.y = new_y;
         add_player_map(server, server->map,
             players_to_eject[i]);
     }
