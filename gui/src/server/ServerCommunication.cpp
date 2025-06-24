@@ -91,43 +91,49 @@ std::string network::ServerCommunication::receiveMessage() {
   if (!_connected || _clientFd == -1)
     throw std::runtime_error("Not connected to server");
 
-  if (!_pendingData.empty()) {
-    size_t newlinePos = _pendingData.find('\n');
-    if (newlinePos != std::string::npos) {
-      std::string result = _pendingData.substr(0, newlinePos + 1);
-      _pendingData = _pendingData.substr(newlinePos + 1);
-      return result;
-    }
-  }
-
-  const size_t BUFFER_SIZE = 1024;
-  const size_t MAX_MESSAGE_SIZE = 65536;
-  char buffer[BUFFER_SIZE];
-  ssize_t bytesReceived = recv(_clientFd, buffer, BUFFER_SIZE - 1, 0);
-
-  if (bytesReceived == -1) {
-    if (errno == EAGAIN || errno == EWOULDBLOCK)
-      return "";
-    if (errno == EINTR)
-      return "";
-    throw std::runtime_error("Failed to receive message: " +
-                             std::string(strerror(errno)));
-  }
-  if (bytesReceived == 0) {
-    _connected = false;
-    throw std::runtime_error("Server disconnected");
-  }
-
-  buffer[bytesReceived] = '\0';
-  _pendingData += std::string(buffer, bytesReceived);
-  if (_pendingData.size() > MAX_MESSAGE_SIZE)
-    throw std::runtime_error("Message too large");
-
   size_t newlinePos = _pendingData.find('\n');
   if (newlinePos != std::string::npos) {
-    std::string result = _pendingData.substr(0, newlinePos + 1);
-    _pendingData = _pendingData.substr(newlinePos + 1);
-    return result;
+    std::string message = _pendingData.substr(0, newlinePos + 1);
+    _pendingData.erase(0, newlinePos + 1);
+    return message;
+  }
+
+  char buffer[1024];
+  bool dataReceived = false;
+  while (true) {
+    ssize_t bytesReceived = recv(_clientFd, buffer, sizeof(buffer) - 1, 0);
+    if (bytesReceived == -1) {
+      if (errno == EAGAIN || errno == EWOULDBLOCK) {
+        if (dataReceived) {
+          newlinePos = _pendingData.find('\n');
+          if (newlinePos != std::string::npos) {
+            std::string message = _pendingData.substr(0, newlinePos + 1);
+            _pendingData.erase(0, newlinePos + 1);
+            return message;
+          }
+        }
+        return "";
+      }
+      if (errno == EINTR)
+        continue;
+      throw std::runtime_error("Failed to receive message: " +
+                               std::string(strerror(errno)));
+    }
+    if (bytesReceived == 0) {
+      _connected = false;
+      throw std::runtime_error("Connection closed by server");
+    }
+    buffer[bytesReceived] = '\0';
+    _pendingData.append(buffer, bytesReceived);
+    dataReceived = true;
+    if (bytesReceived < static_cast<ssize_t>(sizeof(buffer) - 1))
+      break;
+  }
+  newlinePos = _pendingData.find('\n');
+  if (newlinePos != std::string::npos) {
+    std::string message = _pendingData.substr(0, newlinePos + 1);
+    _pendingData.erase(0, newlinePos + 1);
+    return message;
   }
   return "";
 }
@@ -152,6 +158,3 @@ bool network::ServerCommunication::hasIncomingData() {
   return result > 0 && (pfd.revents & POLLIN);
 }
 
-
-
-}
