@@ -48,6 +48,8 @@ SRC += ./src/game/incantation/incantation_setups.c
 SRC += ./src/events/incantation_events.c
 SRC += ./src/game/take.c
 SRC += ./src/game/set.c
+SRC += ./src/game/respawn_resources.c
+SRC += ./src/communications/init_density.c
 
 OBJ = $(SRC:.c=.o)
 

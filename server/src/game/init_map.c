@@ -31,7 +31,6 @@ int add_eggs(server_t *server)
     return SUCCESS;
 }
 
-static
 void increment_resources(map_t *map, int type)
 {
     if (type == 0)
