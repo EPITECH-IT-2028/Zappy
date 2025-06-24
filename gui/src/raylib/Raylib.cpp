@@ -1,4 +1,6 @@
 #include "Raylib.hpp"
+#include <iostream>
+#include <ostream>
 
 gui::Raylib::Raylib(network::ServerCommunication& serverCommunication)
     : _window(SCREEN_WIDTH, SCREEN_HEIGHT, "Zappy"),
