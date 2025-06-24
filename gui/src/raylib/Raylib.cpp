@@ -129,8 +129,10 @@ void gui::Raylib::processNetworkMessages() {
   try {
     while (_serverCommunication.hasIncomingData()) {
       std::string message = _serverCommunication.receiveMessage();
-      if (message.empty())
+      if (message.empty()) {
+        std::cerr << "Received empty message from server" << std::endl;
         break;
+      }
       if (!message.empty() && message.back() == '\n')
         message.pop_back();
 
