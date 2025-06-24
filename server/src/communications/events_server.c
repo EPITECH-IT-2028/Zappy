@@ -126,11 +126,11 @@ void handle_client(server_t *server, int index, char *buffer, int bytes)
     printf("Received from client %d: %s\n", index, buffer);
     buffer_end = strchr(buffer, '\n');
     if (buffer_end == NULL) {
-        server->clients[index]->data.request = strdup(buffer);
+        server->clients[index]->buffer = strdup(buffer);
         return;
     }
-    if (server->clients[index]->data.request)
-        strcat(server->clients[index]->data.request, buffer);
+    if (server->clients[index]->buffer)
+        strcat(server->clients[index]->buffer, buffer);
     remove_newline(buffer);
     if (server->clients[index]->data.team_name == NULL)
         connection_command(server, index, buffer);
