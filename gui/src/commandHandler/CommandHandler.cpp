@@ -28,8 +28,14 @@ void handlecommand::CommandHandler::handleSgt(const std::string& command) {
 void handlecommand::CommandHandler::handleTna(const std::string& command) {
   try {
     parser::TeamNames teamNames = parser::CommandParser::parseTna(command);
-    _gameState.teamNames.insert(_gameState.teamNames.end(),
-                                teamNames.names.begin(), teamNames.names.end());
+    for (const auto& name : teamNames.names) {
+      if (std::find(_gameState.teamNames.begin(), _gameState.teamNames.end(),
+                    name) == _gameState.teamNames.end()) {
+        _gameState.teamNames.push_back(name);
+      } else {
+        std::cerr << "Duplicate team name found: " << name << "\n";
+      }
+    }
   } catch (const std::exception& e) {
     std::cerr << "Error while handling tna: " << e.what() << "\n";
   }
