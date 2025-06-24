@@ -57,7 +57,6 @@ bool network::ServerCommunication::connectToServer() {
   try {
     createSocket();
     establishConnection();
-    setNonBlocking();
     sendMessage("GRAPHIC\n");
     return true;
   } catch (const std::exception &e) {
