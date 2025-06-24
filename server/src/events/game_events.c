@@ -50,12 +50,8 @@ void send_pex(server_t *server, client_t *client)
  * @brief Sends a PDR (Player Drop Resource) message to all graphic clients
  *
  * This function formats a message indicating the player's ID and the resource
-<<<<<<< HEAD
- * ID that was dropped then sends it to all clients that are marked as graphic.
-=======
  * ID that was dropped, then sends it to all clients that
  * are marked as graphic.
->>>>>>> 5ed6f4f3ada0c4e599ebc38341904baee485a396
  *
  * @param server Server instance containing client list
  * @param client The client who dropped the resource

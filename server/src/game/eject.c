@@ -48,7 +48,7 @@ int destroy_egg(server_t *server, int x, int y)
 }
 
 static
-client_t **init_players_to_eject(map_t *tile, int *count_to_eject)
+client_t **init_players_to_eject(map_t *tile, int *count_to_eject, client_t *ejector)
 {
     client_t **players_to_eject = NULL;
 
@@ -57,8 +57,10 @@ client_t **init_players_to_eject(map_t *tile, int *count_to_eject)
     players_to_eject = malloc(sizeof(client_t *) * tile->nbr_of_players);
     if (!players_to_eject)
         return NULL;
-    for (int i = 0; i < tile->nbr_of_players; i++)
-        players_to_eject[i] = tile->players[i];
+    for (int i = 0; i < tile->nbr_of_players; i++) {
+        if (tile->players[i] != ejector)
+            players_to_eject[i] = tile->players[i];
+    }
     *count_to_eject = tile->nbr_of_players - ACTUAL_PLAYER;
     return players_to_eject;
 }
@@ -69,7 +71,7 @@ int knockback_players(server_t *server, client_t *ejector, int x, int y)
     direction_offset_t offset = get_eject_offset(ejector->data.direction);
     int count_to_eject = 0;
     client_t **players_to_eject =
-        init_players_to_eject(&server->map[x][y], &count_to_eject);
+        init_players_to_eject(&server->map[x][y], &count_to_eject, ejector);
 
     if (!players_to_eject || count_to_eject <= 0) {
         free(players_to_eject);
