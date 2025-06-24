@@ -26,7 +26,8 @@ void handlecommand::CommandHandler::handleSgt(const std::string& command) {
 void handlecommand::CommandHandler::handleTna(const std::string& command) {
   try {
     parser::TeamNames teamNames = parser::CommandParser::parseTna(command);
-    _gameState.teamNames = teamNames.names;
+    _gameState.teamNames.insert(_gameState.teamNames.end(),
+                                teamNames.names.begin(), teamNames.names.end());
   } catch (const std::exception& e) {
     std::cerr << "Error while handling tna: " << e.what() << "\n";
   }
