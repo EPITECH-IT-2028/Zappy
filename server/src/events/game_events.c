@@ -61,8 +61,8 @@ void send_pdr(server_t *server, client_t *client, int resource_id)
 {
     char response[BUFFER_SIZE];
 
-    snprintf(response, BUFFER_SIZE, "pdr #%d %d", client->data.id,
-        resource_id);
+    snprintf(response, BUFFER_SIZE, "pdr #%d %d",
+        client->data.id, resource_id);
     for (int i = 1; i < server->nfds; i++) {
         if (server->clients[i] != NULL &&
             server->clients[i]->data.is_graphic) {
@@ -75,8 +75,13 @@ void send_pdr(server_t *server, client_t *client, int resource_id)
  * @brief Sends a PGT (Player Get Resource) message to all graphic clients
  *
  * This function formats a message indicating the player's ID and the resource
+<<<<<<< HEAD
+ * ID that was obtained, then sends it to
+ * all clients that are marked as graphic.
+=======
  * ID that was obtained, then sends it to all clients that are marked as
  * graphic.
+>>>>>>> 5ed6f4f3ada0c4e599ebc38341904baee485a396
  *
  * @param server Server instance containing client list
  * @param client The client who obtained the resource
@@ -86,8 +91,8 @@ void send_pgt(server_t *server, client_t *client, int resource_id)
 {
     char response[BUFFER_SIZE];
 
-    snprintf(response, BUFFER_SIZE, "pgt #%d %d", client->data.id,
-        resource_id);
+    snprintf(response, BUFFER_SIZE, "pgt #%d %d",
+        client->data.id, resource_id);
     for (int i = 1; i < server->nfds; i++) {
         if (server->clients[i] != NULL &&
             server->clients[i]->data.is_graphic) {
