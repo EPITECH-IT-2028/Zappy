@@ -102,6 +102,7 @@ typedef struct client_s {
     int fd_open;
     bool connected;
     client_data_t data;
+    char *buffer;
 } client_t;
 
 typedef struct request_s {

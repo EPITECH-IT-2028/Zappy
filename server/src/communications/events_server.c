@@ -8,6 +8,7 @@
 #include "macro.h"
 #include "server.h"
 #include "utils.h"
+#include <strings.h>
 #include <sys/poll.h>
 #include <unistd.h>
 #include <string.h>
@@ -125,9 +126,11 @@ void handle_client(server_t *server, int index, char *buffer, int bytes)
     printf("Received from client %d: %s\n", index, buffer);
     buffer_end = strchr(buffer, '\n');
     if (buffer_end == NULL) {
-        send_code(server->clients[index]->fd, "ko");
+        server->clients[index]->data.request = strdup(buffer);
         return;
     }
+    if (server->clients[index]->data.request)
+        strcat(server->clients[index]->data.request, buffer);
     remove_newline(buffer);
     if (server->clients[index]->data.team_name == NULL)
         connection_command(server, index, buffer);
