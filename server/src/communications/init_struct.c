@@ -5,6 +5,7 @@
 ** init_struct.c
 */
 
+#include "inventory.h"
 #include "macro.h"
 #include "server.h"
 #include <string.h>
@@ -100,6 +101,7 @@ int init_map_struct(server_t *server, params_t *params)
     server->map = malloc(sizeof(map_t *) * params->width);
     if (server->map == NULL)
         return ERROR;
+    init_density(server, &server->density);
     for (int x = 0; x < params->width; x++) {
         server->map[x] = malloc(sizeof(map_t) * params->height);
         if (server->map[x] == NULL)
