@@ -3,6 +3,8 @@
 #include <string>
 
 void gui::Map::resize(std::size_t w, std::size_t h) {
+  if (w == 0 || h == 0)
+    throw std::invalid_argument("Map dimensions must be greater than zero");
   if (w == width && h == height)
     return;
 
