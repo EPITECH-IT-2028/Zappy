@@ -17,6 +17,8 @@ void handlecommand::CommandHandler::handleMsz(const std::string& command) {
 void handlecommand::CommandHandler::handleSgt(const std::string& command) {
   try {
     parser::TimeUnit timeUnit = parser::CommandParser::parseSgt(command);
+    if (timeUnit.time <= 0)
+      throw std::invalid_argument("Time unit must be positive");
     _gameState.timeUnit = timeUnit.time;
   } catch (const std::exception& e) {
     std::cerr << "Error while handling sgt: " << e.what() << "\n";
