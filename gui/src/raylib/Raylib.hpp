@@ -3,6 +3,8 @@
 #include <raylib.h>
 #include "raylib-cpp.hpp"
 #include "server/ServerCommunication.hpp"
+#include "commandHandler/CommandHandler.hpp"
+#include "entities/GameState.hpp"
 
 #define SCREEN_WIDTH 800
 #define SCREEN_HEIGHT 450
@@ -29,11 +31,14 @@ namespace gui {
 
       GameScreen _currentScreen;
       network::ServerCommunication &_serverCommunication;
+      GameState _gameState;
+      handlecommand::CommandHandler _commandHandler;
 
       void updateLogoScreen();
       void updateTitleScreen();
       void updateGameplayScreen();
       void updateEndingScreen();
+      void processNetworkMessages();
 
       void renderLogoScreen();
       void renderTitleScreen();
