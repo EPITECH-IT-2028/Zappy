@@ -11,17 +11,17 @@
 #define LOGO_DURATION_FRAMES 120
 
 namespace gui {
-  enum class GameScreen {
+  enum class Screen {
     LOGO,
     TITLE,
     GAMEPLAY,
     ENDING
   };
 
-  class Raylib {
+  class GameEngine {
     public:
-      Raylib(network::ServerCommunication &serverCommunication);
-      ~Raylib() = default;
+      GameEngine(network::ServerCommunication &serverCommunication);
+      ~GameEngine() = default;
 
       void run();
 
@@ -29,7 +29,7 @@ namespace gui {
       raylib::Window _window;
       int _framesCounter;
 
-      GameScreen _currentScreen;
+      Screen _currentScreen;
       network::ServerCommunication &_serverCommunication;
       GameState _gameState;
       handlecommand::CommandHandler _commandHandler;

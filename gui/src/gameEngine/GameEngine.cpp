@@ -1,13 +1,13 @@
-#include "Raylib.hpp"
+#include "GameEngine.hpp"
 #include <functional>
 #include <iostream>
 #include <ostream>
 #include <unordered_map>
 
-gui::Raylib::Raylib(network::ServerCommunication& serverCommunication)
+gui::GameEngine::GameEngine(network::ServerCommunication& serverCommunication)
     : _window(SCREEN_WIDTH, SCREEN_HEIGHT, "Zappy"),
       _framesCounter(0),
-      _currentScreen(GameScreen::LOGO),
+      _currentScreen(Screen::LOGO),
       _serverCommunication(serverCommunication),
       _gameState(0, 0),
       _commandHandler(_gameState) {
@@ -15,22 +15,22 @@ gui::Raylib::Raylib(network::ServerCommunication& serverCommunication)
     throw std::runtime_error("Failed to initialize Raylib window");
 }
 
-void gui::Raylib::run() {
+void gui::GameEngine::run() {
   _window.SetTargetFPS(60);
 
   while (!WindowShouldClose()) {
     processNetworkMessages();
     switch (_currentScreen) {
-      case GameScreen::LOGO:
+      case Screen::LOGO:
         updateLogoScreen();
         break;
-      case GameScreen::TITLE:
+      case Screen::TITLE:
         updateTitleScreen();
         break;
-      case GameScreen::GAMEPLAY:
+      case Screen::GAMEPLAY:
         updateGameplayScreen();
         break;
-      case GameScreen::ENDING:
+      case Screen::ENDING:
         updateEndingScreen();
         break;
       default:
@@ -41,16 +41,16 @@ void gui::Raylib::run() {
     _window.ClearBackground(RAYWHITE);
 
     switch (_currentScreen) {
-      case GameScreen::LOGO:
+      case Screen::LOGO:
         renderLogoScreen();
         break;
-      case GameScreen::TITLE:
+      case Screen::TITLE:
         renderTitleScreen();
         break;
-      case GameScreen::GAMEPLAY:
+      case Screen::GAMEPLAY:
         renderGameplayScreen();
         break;
-      case GameScreen::ENDING:
+      case Screen::ENDING:
         renderEndingScreen();
         break;
       default:
@@ -61,53 +61,53 @@ void gui::Raylib::run() {
   }
 }
 
-void gui::Raylib::updateLogoScreen() {
+void gui::GameEngine::updateLogoScreen() {
   _framesCounter++;
   if (_framesCounter > LOGO_DURATION_FRAMES) {
-    _currentScreen = GameScreen::TITLE;
+    _currentScreen = Screen::TITLE;
     _framesCounter = 0;
   }
 }
 
-void gui::Raylib::updateTitleScreen() {
+void gui::GameEngine::updateTitleScreen() {
   if (IsKeyPressed(KEY_ENTER))
-    _currentScreen = GameScreen::GAMEPLAY;
+    _currentScreen = Screen::GAMEPLAY;
 }
 
-void gui::Raylib::updateGameplayScreen() {
+void gui::GameEngine::updateGameplayScreen() {
   if (IsKeyPressed(KEY_ENTER))
-    _currentScreen = GameScreen::ENDING;
+    _currentScreen = Screen::ENDING;
 }
 
-void gui::Raylib::updateEndingScreen() {
+void gui::GameEngine::updateEndingScreen() {
   if (IsKeyPressed(KEY_ENTER))
-    _currentScreen = GameScreen::TITLE;
+    _currentScreen = Screen::TITLE;
 }
 
-void gui::Raylib::renderLogoScreen() {
+void gui::GameEngine::renderLogoScreen() {
   DrawText("LOGO SCREEN", 20, 20, 40, LIGHTGRAY);
   DrawText("Fake loading... Please wait 2 seconds.", 230, 220, 20, GRAY);
 }
 
-void gui::Raylib::renderTitleScreen() {
+void gui::GameEngine::renderTitleScreen() {
   DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, GREEN);
   DrawText("TITLE SCREEN", 20, 20, 40, DARKGREEN);
   DrawText("PRESS ENTER to JUMP to GAMEPLAY SCREEN", 120, 220, 20, DARKGREEN);
 }
 
-void gui::Raylib::renderGameplayScreen() {
+void gui::GameEngine::renderGameplayScreen() {
   DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, PURPLE);
   DrawText("GAMEPLAY SCREEN", 20, 20, 40, MAROON);
   DrawText("PRESS ENTER to JUMP to ENDING SCREEN", 130, 220, 20, MAROON);
 }
 
-void gui::Raylib::renderEndingScreen() {
+void gui::GameEngine::renderEndingScreen() {
   DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, BLUE);
   DrawText("ENDING SCREEN", 20, 20, 40, DARKBLUE);
   DrawText("PRESS ENTER to JUMP to TITLE SCREEN", 130, 220, 20, DARKBLUE);
 }
 
-void gui::Raylib::processNetworkMessages() {
+void gui::GameEngine::processNetworkMessages() {
   if (!_serverCommunication.isConnected())
     return;
 
