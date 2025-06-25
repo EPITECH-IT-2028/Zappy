@@ -57,11 +57,9 @@ def handle_Inventory(client, response) -> None:
             try:
                 resource, quantity = item.split()
                 client["inventory"][resource] = int(quantity)
-            except:
+            except ValueError:
                 print(f"response: {response}")
                 client["look_redirection"] = True
-    # print(f"Inventory updated: {client['inventory']}")
-    # print(f"food: {client["inventory"].get("food", 0)}")
 
 def handle_Dead(client, response) -> None:
     client["socket"].close()
@@ -81,10 +79,7 @@ def is_look_response(message):
     content = message.strip().lstrip('[').rstrip(']')
     items = [item.strip() for item in content.split(',')]
     
-    if len(items) != 7:
-        return True
-    
-    return False
+    return len(items) != 7
 
 def handle_Broadcast(client, response) -> None:
     if (response == "ok"):
@@ -220,23 +215,23 @@ def handle_client(client) -> None:
                         continue
                     
                     if (client["commandes"]):
-                            command = client["commandes"].pop(0)
+                        command = client["commandes"].pop(0)
 
-                            if client["inventory_redirection"]:
-                                client["inventory_redirection"] = False
-                                execute_command(client, utils.INVENTORY, message)
+                        if client["inventory_redirection"]:
+                            client["inventory_redirection"] = False
+                            execute_command(client, utils.INVENTORY, message)
 
-                            elif client["look_redirection"]:
-                                client["look_redirection"] = False
-                                execute_command(client, utils.LOOK, None)
-                            else:
-                                handle_commande(client, command, message)
+                        elif client["look_redirection"]:
+                            client["look_redirection"] = False
+                            execute_command(client, utils.LOOK, None)
+                        else:
+                            handle_commande(client, command, message)
 
-                            if command == utils.INVENTORY:
-                                execute_command(client, utils.LOOK, None)
+                        if command == utils.INVENTORY:
+                            execute_command(client, utils.LOOK, None)
 
-                            if command == utils.LOOK:
-                                ml_agent.strategy(client)
+                        if command == utils.LOOK:
+                            ml_agent.strategy(client)
 
             if client["waiting_for_help"]:
                 print(f"Client commandes: {client['commandes']}")

@@ -211,7 +211,6 @@ def get_action_from_broadcast(client, direction):
         8: [utils.FORWARD, utils.RIGHT],
     }
 
-    print(f"Direction: {direction}, Actions: {direction_actions.get(direction, [])}")
     actions = direction_actions.get(direction, [])
 
     for action in actions:
@@ -231,11 +230,10 @@ def strategy(client):
             protocole.execute_command(client, utils.INVENTORY, None)
             return
 
-        if not client["at_120_food"]:
-            if food_count >= 120:
-                client["at_120_food"] = True
-                client["player_in_game"] += 1
-                protocole.execute_command(client, utils.BROADCAST, "I_am_starting_to_play")
+        if not client["at_120_food"] and food_count >= 120:
+            client["at_120_food"] = True
+            client["player_in_game"] += 1
+            protocole.execute_command(client, utils.BROADCAST, "I_am_starting_to_play")
     
         if vision_data["food"]:
             get_resources(client, {"food": 1})
