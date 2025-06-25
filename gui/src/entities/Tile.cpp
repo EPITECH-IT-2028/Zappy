@@ -17,7 +17,7 @@ void gui::Tile::stopIncantationEffect() {
   incantationInProgress = false;
 }
 
-void gui::Tile::ResultEffect(bool success) {
+void gui::Tile::resultEffect(bool success) {
   stopIncantationEffect();
   showResultEffect = true;
   resultSuccess = success;
@@ -25,11 +25,11 @@ void gui::Tile::ResultEffect(bool success) {
 }
 
 void gui::Tile::showSuccessEffect() {
-  ResultEffect(true);
+  resultEffect(true);
 }
 
 void gui::Tile::showFailureEffect() {
-  ResultEffect(false);
+  resultEffect(false);
 }
 
 void gui::Tile::update(float deltaTime) {

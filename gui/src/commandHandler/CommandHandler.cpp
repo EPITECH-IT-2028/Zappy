@@ -222,10 +222,14 @@ void handlecommand::CommandHandler::handlePie(const std::string& command) {
     }
     gui::Tile& tile = _gameState.map.getTile(pie.x, pie.y);
     auto it = std::find_if(_gameState.activeIncantations.begin(), 
-            _gameState.activeIncantations.end(),
-            [&pie](const gui::IncantationEffect& effect) {
-              return effect.x == pie.x && effect.y == pie.y && !effect.finished;
-            });
+                          _gameState.activeIncantations.end(),
+                          [&pie](const gui::IncantationEffect& effect) {
+                            return effect.x == pie.x && effect.y == pie.y && !effect.finished;
+                          });
+
+    if (it != _gameState.activeIncantations.end()) {
+      it->finished = true;
+    }
 
     tile.stopIncantationEffect();
 
