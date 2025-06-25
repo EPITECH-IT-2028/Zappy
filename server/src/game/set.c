@@ -28,7 +28,7 @@ void increment_resource_density(server_t *server, int type)
     };
 
     if (!server)
-        return; 
+        return;
     (*density_fields[type])++;
 }
 
@@ -48,7 +48,7 @@ void decrement_resource_density(server_t *server, int type)
     };
 
     if (!server)
-        return; 
+        return;
     (*density_fields[type])--;
 }
 

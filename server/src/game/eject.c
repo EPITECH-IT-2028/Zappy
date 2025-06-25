@@ -48,7 +48,8 @@ int destroy_egg(server_t *server, int x, int y)
 }
 
 static
-client_t **init_players_to_eject(map_t *tile, int *count_to_eject, client_t *ejector)
+client_t **init_players_to_eject(map_t *tile, int *count_to_eject,
+    client_t *ejector)
 {
     client_t **players_to_eject = NULL;
 
