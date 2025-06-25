@@ -17,7 +17,7 @@ gui::GameEngine::GameEngine(network::ServerCommunication& serverCommunication)
   if (!IsWindowReady())
     throw std::runtime_error("Failed to initialize Raylib window");
   loadResources();
-  _camera.SetPosition({5.0f, 5.0f, 10.0f});
+  _camera.SetPosition({15.0f, 15.0f, 30.0f});
   _camera.SetTarget({0.0f, 0.0f, 0.0f});
   _camera.SetUp({0.0f, 1.0f, 0.0f});
   _camera.SetFovy(45.0f);
