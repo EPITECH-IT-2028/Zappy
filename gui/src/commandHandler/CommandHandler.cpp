@@ -184,3 +184,24 @@ void handlecommand::CommandHandler::handlePdi(const std::string& command) {
     std::cerr << "Error while handling pdi: " << e.what() << "\n";
   }
 }
+
+void handlecommand::CommandHandler::handlePic(const std::string& command) {
+  try {
+    parser::Incantation incantation = parser::CommandParser::parsePic(command);
+
+    gui::Tile& tile = _gameState.map.getTile(incantation.x, incantation.y);
+    if (tile.isEmpty()) {
+      throw std::runtime_error("Tile is empty for incantation at (" +
+                              std::to_string(incantation.x) + ", " +
+                              std::to_string(incantation.y) + ")");
+  }
+    tile.startIncantationEffect(); // surbrillance, particules, etc.
+
+    // Stocker l'incantation pour pouvoir la terminer plus tard avec "pie"
+    incantation.timeSinceStart = 0.f;
+    _gameState.activeIncantations.push_back(incantation);
+
+  } catch (const std::exception& e) {
+      std::cerr << "Error handling pic: " << e.what() << "\n";
+  }
+}
