@@ -1,6 +1,7 @@
 #pragma once
 
 #include <raylib.h>
+#include "Camera3D.hpp"
 #include "commandHandler/CommandHandler.hpp"
 #include "entities/GameState.hpp"
 #include "raylib-cpp.hpp"
@@ -46,6 +47,7 @@ namespace gui {
       void renderEndingScreen();
       void loadResources();
       raylib::Model _brick;
+      raylib::Camera3D _camera;
       bool _resourcesLoaded;
   };
 }  // namespace gui

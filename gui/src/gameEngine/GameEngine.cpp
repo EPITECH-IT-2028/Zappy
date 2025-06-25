@@ -1,4 +1,6 @@
 #include "GameEngine.hpp"
+#include <raylib.h>
+#include <cstddef>
 #include <functional>
 #include <iostream>
 #include <ostream>
@@ -15,6 +17,11 @@ gui::GameEngine::GameEngine(network::ServerCommunication& serverCommunication)
   if (!IsWindowReady())
     throw std::runtime_error("Failed to initialize Raylib window");
   loadResources();
+  _camera.SetPosition({5.0f, 5.0f, 10.0f});
+  _camera.SetTarget({0.0f, 0.0f, 0.0f});
+  _camera.SetUp({0.0f, 1.0f, 0.0f});
+  _camera.SetFovy(45.0f);
+  _camera.SetProjection(CAMERA_ORTHOGRAPHIC);
 }
 
 void gui::GameEngine::run() {
@@ -98,9 +105,28 @@ void gui::GameEngine::renderTitleScreen() {
 }
 
 void gui::GameEngine::renderGameplayScreen() {
-  DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, PURPLE);
+  DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, LIGHTGRAY);
+  float brickSpacing = 1.1f;
+  float mapWidth = static_cast<float>(_gameState.map.width);
+  float mapHeight = static_cast<float>(_gameState.map.height);
+  Vector3 gridOrigin = {-((mapWidth - 1) * brickSpacing) / 2.0f, 0.0f,
+                        -((mapHeight - 1) * brickSpacing) / 2.0f};
+  BeginMode3D(_camera);
+  for (std::size_t y = 0; y < _gameState.map.height; ++y) {
+    for (std::size_t x = 0; x < _gameState.map.width; ++x) {
+      Vector3 position = {gridOrigin.x + x * brickSpacing, gridOrigin.y,
+                          gridOrigin.z + y * brickSpacing};
+      DrawModel(_brick, position, 0.01f, GRAY);
+      Vector3 offset = {0.0f, 0.55f, 0.15f};
+      DrawCubeWires(
+          {position.x + offset.x, position.y + offset.y, position.z + offset.z},
+          1.1f, 1.1f, 1.1f, WHITE);
+    }
+  }
+  DrawGrid(10, 1.0f);
+  EndMode3D();
+
   DrawText("GAMEPLAY SCREEN", 20, 20, 40, MAROON);
-  DrawText("PRESS ENTER to JUMP to ENDING SCREEN", 130, 220, 20, MAROON);
 }
 
 void gui::GameEngine::renderEndingScreen() {
