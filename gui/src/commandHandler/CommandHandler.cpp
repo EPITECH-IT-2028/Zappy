@@ -253,9 +253,15 @@ void handlecommand::CommandHandler::handlePfk(const std::string& command) {
     }
 
     gui::Player& player = playerIt->second;
+    if (!_gameState.map.isInside(player.x, player.y)) {
+      throw std::out_of_range("Player coordinates outside map");
+    }
     gui::Tile& tile = _gameState.map.getTile(player.x, player.y);
 
-    tile.playerIdsOnTile.push_back(player.id);
+    auto& playerList = tile.playerIdsOnTile;
+    if (std::find(playerList.begin(), playerList.end(), player.id) == playerList.end()) {
+      playerList.push_back(player.id);
+    }
     tile.showForkEffect();
 
   } catch (const std::exception& e) {
