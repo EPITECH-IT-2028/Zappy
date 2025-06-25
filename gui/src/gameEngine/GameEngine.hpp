@@ -50,5 +50,7 @@ namespace gui {
       void loadResources();
       raylib::Model _brick;
       bool _resourcesLoaded;
+
+      void drawMap();
   };
 }  // namespace gui
