@@ -137,7 +137,7 @@ void notify_incantators(client_t **incantators)
         return;
     for (int i = 0; incantators && incantators[i] != NULL; i++) {
         if (incantators[i]->connected && incantators[i]->fd > 0)
-            send_code(incantators[i]->fd, "Elevation underway");
+            send_code(incantators[i]->fd, "Elevation underway\n");
     }
 }
 

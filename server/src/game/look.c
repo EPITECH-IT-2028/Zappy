@@ -7,7 +7,6 @@
 
 #include "macro.h"
 #include "server.h"
-#include <stdio.h>
 #include <string.h>
 
 static
@@ -71,6 +70,7 @@ void handle_vision_direction(server_t *server, response_t *response,
     direction_offset_t offset = {0};
     int target_x = 0;
     int target_y = 0;
+    char buffer[BUFFER_SIZE] = {0};
 
     for (int i = 0; i < vision_depth; i++) {
         for (int j = vision_width; j >= - vision_width; j--) {
@@ -78,11 +78,14 @@ void handle_vision_direction(server_t *server, response_t *response,
             target_x = (((client_data->x + offset.x) % width) + width) % width;
             target_y = (((client_data->y + offset.y) %
                 height) + height) % height;
-            add_to_look(response->response, server->map[target_x][target_y]);
+            add_to_look(buffer, server->map[target_x][target_y]);
         }
+        if (strlen(buffer) >= BUFFER_SIZE)
+            add_buffer_to_response(buffer, &response->response, &response->size);
         if (2 * (vision_width + 1) + 1 <= width)
             vision_width++;
     }
+    add_buffer_to_response(buffer, &response->response, &response->size);
 }
 
 static
@@ -110,11 +113,11 @@ int handle_look(server_t *server, response_t *response, request_t *request)
     if (!server || !response || !request) {
         return ERROR;
     }
-    sprintf(response->response, "[");
+    add_buffer_to_response("[", &response->response, &response->size);
     handle_direction(&request->client->data, server, response, request);
-    response->response[strlen(response->response) - REMOVE_USELESS_COMMA]
-        = ' ';
-    strcat(response->response, "]");
+    response->response[response->size - 2][strlen(response->response[
+        response->size - 2]) - REMOVE_USELESS_COMMA] = ' ';
+    add_buffer_to_response("]", &response->response, &response->size);
     response->client->data.is_busy = true;
     response->client->data.action_end_time = get_action_end_time(server,
         LOOK_TIME);

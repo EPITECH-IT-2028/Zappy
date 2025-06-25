@@ -48,7 +48,7 @@ int send_ai(server_t *server, int index, char *buffer, char *response)
 
     if (server->teams[team_index].clients_count >=
         server->params.client_per_team || team_index == ERROR) {
-        send_code(server->clients[index]->fd, "ko");
+        send_code(server->clients[index]->fd, "ko\n");
         return ERROR;
     }
     server->teams[team_index].clients_count++;
@@ -58,7 +58,7 @@ int send_ai(server_t *server, int index, char *buffer, char *response)
         return ERROR;
     remaining_slots = server->params.client_per_team -
         server->teams[team_index].clients_count;
-    snprintf(response, BUFFER_SIZE, "%d\n%d %d", remaining_slots,
+    snprintf(response, BUFFER_SIZE, "%d\n%d %d\n", remaining_slots,
         server->params.width, server->params.height);
     send_new_player_to_gui(server, index);
     return SUCCESS;
@@ -81,15 +81,17 @@ void connection_command(server_t *server, int index, char *buffer)
 {
     char response[BUFFER_SIZE];
 
+    printf("Connection command request\n");
     if (strcmp(buffer, GRAPHIC_NAME) == 0) {
         send_gui(server, index, buffer);
         return;
     } else if (has_team_name(server, buffer)) {
         return send_ai(server, index, buffer, response) == ERROR
-            ? send_code(server->clients[index]->fd, "ko")
+            ? send_code(server->clients[index]->fd, "ko\n")
             : send_code(server->clients[index]->fd, response);
     } else {
-        return send_code(server->clients[index]->fd, "ko");
+        return send_code(server->clients[index]->fd, "ko\n");
     }
     send_code(server->clients[index]->fd, response);
+    printf("Connection response sended\n");
 }

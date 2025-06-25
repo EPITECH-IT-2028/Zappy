@@ -16,7 +16,7 @@ void send_pie(server_t *server, client_t **incantators)
 
     if (!incantators || !incantators[INDEX_INCANTATOR])
         return;
-    snprintf(response, BUFFER_SIZE, "pie %d %d %d",
+    snprintf(response, BUFFER_SIZE, "pie %d %d %d\n",
         incantators[INDEX_INCANTATOR]->data.x,
         incantators[INDEX_INCANTATOR]->data.y,
         !incantators[INDEX_INCANTATOR]->data.incantation.incantation_success);
@@ -44,6 +44,7 @@ void send_pic(server_t *server, client_t **incantators)
             sprintf(id_incantator, "#%d ", incantators[i]->data.id);
             strcat(response, id_incantator);
         }
+    strcat(response, "\n");
     for (int i = MIN_CLIENT; i < server->nfds; i++)
         if (server->clients[i] &&
             server->clients[i]->fd > 0 &&

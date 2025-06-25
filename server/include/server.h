@@ -73,7 +73,8 @@ struct client_s;
 
 typedef struct response_s {
     struct client_s *client;
-    char response[BUFFER_SIZE];
+    int size;
+    char **response;
 } response_t;
 
 typedef struct client_data_s {
@@ -286,10 +287,14 @@ int remove_needed_ressources(map_t *tile, uint8_t level);
 int check_ressource_update(server_t *server, request_t *request,
     client_data_t *client, bool from_inv_to_map);
 
-
+/* Resource density functions */
 void increment_resources(map_t *map, int type);
 int respawn_resources(server_t *server);
 void increment_resource_density(server_t *server, int type);
 void decrement_resource_density(server_t *server, int type);
 int init_density(server_t *server, inventory_t *density);
+
+/* Buffer management function */
+int add_buffer_to_response(char *buffer, char ***response, int *index);
+
 #endif /* SERVER_H_ */

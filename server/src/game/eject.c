@@ -7,7 +7,6 @@
 
 #include "macro.h"
 #include "server.h"
-#include <stdio.h>
 #include <stdlib.h>
 
 static
@@ -105,9 +104,9 @@ int handle_eject(server_t *server, response_t *response, request_t *request)
         has_players = true;
     }
     if (has_eggs || has_players)
-        snprintf(response->response, BUFFER_SIZE, "ok");
+        add_buffer_to_response("ok", &response->response, &response->size);
     else
-        snprintf(response->response, BUFFER_SIZE, "ko");
+        add_buffer_to_response("ko", &response->response, &response->size);
     response->client->data.is_busy = true;
     response->client->data.action_end_time = get_action_end_time(server,
         EJECT_TIME);

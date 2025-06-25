@@ -38,7 +38,7 @@ void check_player_command(server_t *server, int index, const char *buffer)
     if (pending >= 10)
         return;
     if (!check_commands(buffer)) {
-        send_code(client->fd, "ko");
+        send_code(client->fd, "ko\n");
     } else {
         request.client = client;
         snprintf(request.request, BUFFER_SIZE, "%s", buffer);

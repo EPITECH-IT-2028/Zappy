@@ -52,6 +52,7 @@ SRC += ./src/game/set.c
 SRC += ./src/game/eject.c
 SRC += ./src/game/respawn_resources.c
 SRC += ./src/communications/init_density.c
+SRC += ./src/utils_buffer_management.c
 
 OBJ = $(SRC:.c=.o)
 

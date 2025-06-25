@@ -7,7 +7,6 @@
 
 #include "macro.h"
 #include "server.h"
-#include <stdlib.h>
 
 static
 void set_offset(direction_offset_t *offset, client_t *client)
@@ -48,7 +47,7 @@ int move_forward(server_t *server, response_t *response, request_t *request)
     if (map[last_x][last_y].nbr_of_players > 0)
         remove_player_map(&map[last_x][last_y], client);
     add_player_map(server, map, client);
-    sprintf(response->response, "ok");
+    add_buffer_to_response("ok", &response->response, &response->size);
     response->client->data.is_busy = true;
     response->client->data.action_end_time =
         get_action_end_time(server, FORWARD_TIME);
@@ -63,7 +62,7 @@ int rotate_right(server_t *server, response_t *response, request_t *request)
         return ERROR;
     client->data.direction = (client->data.direction + 1 + MAX_DIRECTION)
         % MAX_DIRECTION;
-    sprintf(response->response, "ok");
+    add_buffer_to_response("ok", &response->response, &response->size);
     response->client->data.is_busy = true;
     response->client->data.action_end_time =
         get_action_end_time(server, RIGHT_TIME);
@@ -78,7 +77,7 @@ int rotate_left(server_t *server, response_t *response, request_t *request)
         return ERROR;
     client->data.direction = (client->data.direction - 1 + MAX_DIRECTION)
         % MAX_DIRECTION;
-    sprintf(response->response, "ok");
+    add_buffer_to_response("ok", &response->response, &response->size);
     response->client->data.is_busy = true;
     response->client->data.action_end_time =
         get_action_end_time(server, LEFT_TIME);

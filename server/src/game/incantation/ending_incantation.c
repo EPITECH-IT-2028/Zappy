@@ -19,7 +19,7 @@ void notify_incantators_end(client_t **incantators)
         return;
     for (int i = 0; incantators[i] != NULL; i++) {
         if (incantators[i]->connected && incantators[i]->fd > 0) {
-            snprintf(current_level, BUFFER_SIZE, "Current level: %d",
+            snprintf(current_level, BUFFER_SIZE, "Current level: %d\n",
                 incantators[i]->data.level);
             send_code(incantators[i]->fd, current_level);
         }

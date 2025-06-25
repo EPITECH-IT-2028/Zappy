@@ -56,6 +56,7 @@ static
 void handle_request(server_t *server, response_t *response, request_t *request)
 {
     response->client = request->client;
+    response->size = 1;
     if (is_client_on_cd(&response->client->data) == SUCCESS) {
         queue_add_request(server, request);
         return;
@@ -63,7 +64,7 @@ void handle_request(server_t *server, response_t *response, request_t *request)
     request->client->data.is_busy = false;
     memset(&request->client->data.action_end_time, 0, sizeof(struct timespec));
     if (check_request(server, response, request) == ERROR) {
-        sprintf(response->response, "ko");
+        add_buffer_to_response("ok", &response->response, &response->size);
         check_if_queue_is_full(server, response);
         return;
     }

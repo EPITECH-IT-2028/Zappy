@@ -22,7 +22,7 @@ void send_pnw(server_t *server, int index)
     char response[BUFFER_SIZE];
     client_t *client = server->clients[index];
 
-    snprintf(response, BUFFER_SIZE, "pnw #%d %d %d %d %d %s",
+    snprintf(response, BUFFER_SIZE, "pnw #%d %d %d %d %d %s\n",
         client->data.id, client->data.x, client->data.y,
         client->data.orientation, client->data.level, client->data.team_name);
     for (int i = 1; i < server->nfds; i++) {
@@ -45,7 +45,7 @@ void send_pdi(server_t *server, int index)
     char response[BUFFER_SIZE];
     client_t *client = server->clients[index];
 
-    snprintf(response, BUFFER_SIZE, "pdi #%d", client->data.id);
+    snprintf(response, BUFFER_SIZE, "pdi #%d\n", client->data.id);
     for (int i = 1; i < server->nfds; i++) {
         if (server->clients[i] != NULL &&
             server->clients[i]->data.is_graphic) {

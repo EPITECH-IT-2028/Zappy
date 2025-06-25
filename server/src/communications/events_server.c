@@ -38,6 +38,12 @@ int resize_fds(server_t *server, int new_size)
         perror("realloc failed");
         return ERROR;
     }
+    for (int i = server->nfds; i < new_size; i++) {
+        new_fds[i].fd = -1;
+        new_fds[i].events = 0;
+        new_fds[i].revents = 0;
+        new_clients[i] = NULL;
+    }
     server->fds = new_fds;
     server->clients = new_clients;
     return SUCCESS;
@@ -63,7 +69,6 @@ void accept_client(server_t *server, int client_fd)
             close(client_fd);
             return;
         }
-        server->clients[index] = NULL;
     }
     server->clients[index] = malloc(sizeof(client_t));
     if (server->clients[index] == NULL) {
@@ -87,7 +92,7 @@ int get_new_connection(server_t *server)
         if (client_fd == -1)
             return ERROR;
         accept_client(server, client_fd);
-        send_code(client_fd, "WELCOME");
+        send_code(client_fd, "WELCOME\n");
         printf("New connection\n");
     }
     return 0;
@@ -117,13 +122,17 @@ static
 void append_to_client_buffer(client_t *client, char *buffer, int bytes)
 {
     char *client_buffer = client->buffer;
+    char *new_buffer = NULL;
 
     if (client_buffer == NULL) {
         client->buffer = strdup(buffer);
         return;
     }
-    client->buffer = realloc(client_buffer, sizeof(char)
+    new_buffer = realloc(client_buffer, sizeof(char)
         * (strlen(client_buffer) + bytes + 1));
+    if (new_buffer == NULL)
+        return;
+    client->buffer = new_buffer;
     strcat(client->buffer, buffer);
 }
 
@@ -136,7 +145,7 @@ void process_client_command(server_t *server, int index)
     if (client->data.team_name == NULL)
         connection_command(server, index, client->buffer);
     else if (client->data.is_graphic)
-        send_code(client->fd, "ko");
+        send_code(client->fd, "ko\n");
     else
         check_player_command(server, index, client->buffer);
 }
@@ -148,9 +157,13 @@ void handle_client(server_t *server, int index, char *buffer, int bytes)
         return;
     if (bytes <= 0)
         return remove_player(server, index);
+    buffer[bytes] = '\0';
+    printf("Received from client %d: %s\n", index, buffer);
     append_to_client_buffer(server->clients[index], buffer, bytes);
     if (strchr(buffer, '\n') != NULL)
         process_client_command(server, index);
+    free(server->clients[index]->buffer);
+    server->clients[index]->buffer = NULL;
 }
 
 void handle_all_client(server_t *server)
