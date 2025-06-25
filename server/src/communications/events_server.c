@@ -114,30 +114,43 @@ void remove_player(server_t *server, int index)
 }
 
 static
-void handle_client(server_t *server, int index, char *buffer, int bytes)
+void append_to_client_buffer(client_t *client, char *buffer, int bytes)
 {
-    const char *buffer_end = NULL;
+    char *client_buffer = client->buffer;
 
-    if (bytes <= 0)
-        return remove_player(server, index);
-    if (server->clients[index] == NULL)
-        return;
-    buffer[bytes] = '\0';
-    printf("Received from client %d: %s\n", index, buffer);
-    buffer_end = strchr(buffer, '\n');
-    if (buffer_end == NULL) {
-        server->clients[index]->buffer = strdup(buffer);
+    if (client_buffer == NULL) {
+        client->buffer = strdup(buffer);
         return;
     }
-    if (server->clients[index]->buffer)
-        strcat(server->clients[index]->buffer, buffer);
-    remove_newline(buffer);
-    if (server->clients[index]->data.team_name == NULL)
-        connection_command(server, index, buffer);
-    else if (server->clients[index]->data.is_graphic)
-        send_code(server->clients[index]->fd, "ko");
+    client->buffer = realloc(client_buffer, sizeof(char)
+        * (strlen(client_buffer) + bytes + 1));
+    strcat(client->buffer, buffer);
+}
+
+static
+void process_client_command(server_t *server, int index)
+{
+    client_t *client = server->clients[index];
+
+    remove_newline(client->buffer);
+    if (client->data.team_name == NULL)
+        connection_command(server, index, client->buffer);
+    else if (client->data.is_graphic)
+        send_code(client->fd, "ko");
     else
-        check_player_command(server, index, buffer);
+        check_player_command(server, index, client->buffer);
+}
+
+static
+void handle_client(server_t *server, int index, char *buffer, int bytes)
+{
+    if (!server || !buffer || !server->clients || !server->clients[index])
+        return;
+    if (bytes <= 0)
+        return remove_player(server, index);
+    append_to_client_buffer(server->clients[index], buffer, bytes);
+    if (strchr(buffer, '\n') != NULL)
+        process_client_command(server, index);
 }
 
 void handle_all_client(server_t *server)
