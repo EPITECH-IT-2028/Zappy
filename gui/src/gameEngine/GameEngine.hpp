@@ -29,6 +29,7 @@ namespace gui {
     private:
       raylib::Window _window;
       int _framesCounter;
+      raylib::Camera3D _camera;
 
       Screen _currentScreen;
       network::ServerCommunication &_serverCommunication;
@@ -45,9 +46,9 @@ namespace gui {
       void renderTitleScreen();
       void renderGameplayScreen();
       void renderEndingScreen();
+
       void loadResources();
       raylib::Model _brick;
-      raylib::Camera3D _camera;
       bool _resourcesLoaded;
   };
 }  // namespace gui
