@@ -51,3 +51,7 @@ void gui::Tile::draw(int x, int y) {
     DrawRectangleLinesEx({(float)x, (float)y, (float)TILE_SIZE, (float)TILE_SIZE}, BORDER_THICKNESS, color);
   }
 }
+
+void gui::Tile::showForkEffect() {
+  // A placer une sprite de noeunoeuf
+}

@@ -33,6 +33,8 @@ namespace gui {
     void showFailureEffect();
     void resultEffect(bool success);
 
+    void showForkEffect();
+
     void update(float deltaTime);
     void draw(int x, int y);
   };

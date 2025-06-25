@@ -119,6 +119,11 @@ namespace parser {
     IncantationEnd(int x, int y, bool success) : x(x), y(y), success(success) {
     };
   };
+  struct ForkEvent {
+    int playerID;
+    ForkEvent(int playerID) : playerID(playerID) {
+    };
+  };
 
   class CommandParser {
     public:
@@ -139,6 +144,7 @@ namespace parser {
       static PlayerDeath parsePdi(const std::string& command);
       static Incantation parsePic(const std::string& command);
       static IncantationEnd parsePie(const std::string& command);
+      static ForkEvent parsePfk(const std::string& command);
 
     private:
   };
