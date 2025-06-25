@@ -241,3 +241,25 @@ void handlecommand::CommandHandler::handlePie(const std::string& command) {
     std::cerr << "Error while handling pie: " << e.what() << "\n";
   }
 }
+
+void handlecommand::CommandHandler::handlePfk(const std::string& command) {
+  try {
+    parser::ForkEvent forkEvent = parser::CommandParser::parsePfk(command);
+    auto playerIt = _gameState.players.find(forkEvent.playerID);
+
+    if (playerIt == _gameState.players.end()) {
+      throw std::runtime_error("Player not found with ID " +
+                               std::to_string(forkEvent.playerID));
+    }
+
+    gui::Player& player = playerIt->second;
+    gui::Tile& tile = _gameState.map.getTile(player.x, player.y);
+
+    tile.playerIdsOnTile.push_back(player.id);
+    tile.showForkEffect();
+
+  } catch (const std::exception& e) {
+    std::cerr << "Error while handling pfk: " << e.what() << "\n";
+  }
+}
+

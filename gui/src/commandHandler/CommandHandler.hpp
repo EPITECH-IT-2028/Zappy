@@ -19,6 +19,7 @@ namespace handlecommand {
       void handlePdi(const std::string& command);
       void handlePic(const std::string& command);
       void handlePie(const std::string& command);
+      void handlePfk(const std::string& command);
 
     private:
       void removeEgg(int eggId);
