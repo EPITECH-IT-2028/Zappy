@@ -6,9 +6,9 @@
 #include "raylib-cpp.hpp"
 #include "server/ServerCommunication.hpp"
 
-#define SCREEN_WIDTH 800
-#define SCREEN_HEIGHT 450
 #define LOGO_DURATION_FRAMES 120
+#define SCREEN_WIDTH 1600
+#define SCREEN_HEIGHT 900
 
 namespace gui {
   enum class Screen {
