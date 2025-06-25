@@ -164,3 +164,12 @@ parser::Incantation parser::CommandParser::parsePic(
   }
   return Incantation(x, y, level, playersNumber);
 }
+
+parser::IncantationEnd parser::CommandParser::parsePie(const std::string& command) {
+    int x, y, result;
+    int parsed = std::sscanf(command.c_str(), "pie %d %d %d", &x, &y, &result);
+    if (parsed != 3)
+        throw std::runtime_error("Invalid pie command format");
+
+    return IncantationEnd{x, y, result == 1};
+}
