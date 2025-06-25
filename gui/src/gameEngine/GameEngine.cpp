@@ -102,29 +102,6 @@ void gui::GameEngine::updateEndingScreen() {
     _currentScreen = Screen::TITLE;
 }
 
-void gui::GameEngine::renderLogoScreen() {
-  DrawText("LOGO SCREEN", 20, 20, 40, LIGHTGRAY);
-  DrawText("Fake loading... Please wait 2 seconds.", 230, 220, 20, GRAY);
-}
-
-void gui::GameEngine::renderTitleScreen() {
-  DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, GREEN);
-  DrawText("TITLE SCREEN", 20, 20, 40, DARKGREEN);
-  DrawText("PRESS ENTER to JUMP to GAMEPLAY SCREEN", 120, 220, 20, DARKGREEN);
-}
-
-void gui::GameEngine::renderGameplayScreen() {
-  DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, LIGHTGRAY);
-  drawMap();
-  DrawText("GAMEPLAY SCREEN", 20, 20, 40, MAROON);
-}
-
-void gui::GameEngine::renderEndingScreen() {
-  DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, BLUE);
-  DrawText("ENDING SCREEN", 20, 20, 40, DARKBLUE);
-  DrawText("PRESS ENTER to JUMP to TITLE SCREEN", 130, 220, 20, DARKBLUE);
-}
-
 void gui::GameEngine::processNetworkMessages() {
   if (!_serverCommunication.isConnected())
     return;
@@ -167,6 +144,29 @@ void gui::GameEngine::processNetworkMessages() {
   } catch (const std::exception& e) {
     std::cerr << "Error processing network messages: " << e.what() << std::endl;
   }
+}
+
+void gui::GameEngine::renderLogoScreen() {
+  DrawText("LOGO SCREEN", 20, 20, 40, LIGHTGRAY);
+  DrawText("Fake loading... Please wait 2 seconds.", 230, 220, 20, GRAY);
+}
+
+void gui::GameEngine::renderTitleScreen() {
+  DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, GREEN);
+  DrawText("TITLE SCREEN", 20, 20, 40, DARKGREEN);
+  DrawText("PRESS ENTER to JUMP to GAMEPLAY SCREEN", 120, 220, 20, DARKGREEN);
+}
+
+void gui::GameEngine::renderGameplayScreen() {
+  DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, LIGHTGRAY);
+  drawMap();
+  DrawText("GAMEPLAY SCREEN", 20, 20, 40, MAROON);
+}
+
+void gui::GameEngine::renderEndingScreen() {
+  DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, BLUE);
+  DrawText("ENDING SCREEN", 20, 20, 40, DARKBLUE);
+  DrawText("PRESS ENTER to JUMP to TITLE SCREEN", 130, 220, 20, DARKBLUE);
 }
 
 void gui::GameEngine::loadResources() {
