@@ -64,7 +64,7 @@ void handle_request(server_t *server, response_t *response, request_t *request)
     request->client->data.is_busy = false;
     memset(&request->client->data.action_end_time, 0, sizeof(struct timespec));
     if (check_request(server, response, request) == ERROR) {
-        add_buffer_to_response("ok", &response->response, &response->size);
+        add_buffer_to_response("ko", &response->response, &response->size);
         check_if_queue_is_full(server, response);
         return;
     }
