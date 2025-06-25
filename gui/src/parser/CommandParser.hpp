@@ -109,11 +109,14 @@ namespace parser {
     int y;
     int level;
     std::vector<int> playersNumber;
+    Incantation(int x, int y, int level, const std::vector<int>& players)
+    : x(x), y(y), level(level), playersNumber(players) {}
   };
   struct IncantationEnd {
     int x;
     int y;
     bool success;
+    IncantationEnd(int x, int y, bool success);
   };
 
   class CommandParser {
