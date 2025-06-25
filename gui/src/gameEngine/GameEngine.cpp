@@ -10,9 +10,11 @@ gui::GameEngine::GameEngine(network::ServerCommunication& serverCommunication)
       _currentScreen(Screen::LOGO),
       _serverCommunication(serverCommunication),
       _gameState(0, 0),
-      _commandHandler(_gameState) {
+      _commandHandler(_gameState),
+      _resourcesLoaded(false) {
   if (!IsWindowReady())
     throw std::runtime_error("Failed to initialize Raylib window");
+  loadResources();
 }
 
 void gui::GameEngine::run() {
@@ -148,5 +150,29 @@ void gui::GameEngine::processNetworkMessages() {
     }
   } catch (const std::exception& e) {
     std::cerr << "Error processing network messages: " << e.what() << std::endl;
+  }
+}
+
+void gui::GameEngine::loadResources() {
+  if (_resourcesLoaded)
+    return;
+
+  try {
+    if (!FileExists("resources/mario_brick/scene.gltf"))
+      throw std::runtime_error(
+          "Model file not found: resources/mario_brick/scene.gltf");
+
+    _brick = LoadModel("resources/mario_brick/scene.gltf");
+
+    if (_brick.IsValid()) {
+      std::cout << "Brick model loaded successfully." << std::endl;
+      _resourcesLoaded = true;
+    } else {
+      std::cerr
+          << "Error: Failed to load model: resources/mario_brick/scene.gltf"
+          << std::endl;
+    }
+  } catch (const std::exception& e) {
+    std::cerr << "Exception while loading model: " << e.what() << std::endl;
   }
 }

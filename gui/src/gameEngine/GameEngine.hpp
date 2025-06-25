@@ -44,5 +44,8 @@ namespace gui {
       void renderTitleScreen();
       void renderGameplayScreen();
       void renderEndingScreen();
+      void loadResources();
+      raylib::Model _brick;
+      bool _resourcesLoaded;
   };
 }  // namespace gui
