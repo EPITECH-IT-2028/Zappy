@@ -47,22 +47,23 @@ struct timespec get_action_end_time(server_t *server, int action_duration)
     return timespec_add(&current_time, &duration);
 }
 
-long long get_current_timer_units(server_t *server)
+long long get_current_timer_units(server_t *server, struct timespec *timer)
 {
     struct timespec current_time;
     double elapsed_seconds = 0.;
 
-    clock_gettime(CLOCK_MONOTONIC, &current_time);
-    elapsed_seconds = (current_time.tv_sec - server->server_timer.tv_sec) +
-        (current_time.tv_nsec - server->server_timer.tv_nsec)
+    if (clock_gettime(CLOCK_MONOTONIC, &current_time) != 0)
+        return 0;
+    elapsed_seconds = (current_time.tv_sec - timer->tv_sec) +
+        (current_time.tv_nsec - timer->tv_nsec)
         / (double)NANOSECONDS_PER_SECOND;
     return (long long)(elapsed_seconds * server->params.frequence);
 }
 
 bool has_time_passed(server_t *server, long long start_timer_units,
-    int duration)
+    int duration, struct timespec *timer)
 {
-    long long current_units = get_current_timer_units(server);
+    long long current_units = get_current_timer_units(server, timer);
 
     return (current_units - start_timer_units) >= duration;
 }
