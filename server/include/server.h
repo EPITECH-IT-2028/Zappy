@@ -62,9 +62,11 @@ typedef struct egg_s {
     int x;
     int y;
     int player_id;
+    int team_id;
 } egg_t;
 
 typedef struct teams_s {
+    int id;
     char *name;
     int clients_count;
 } teams_t;
@@ -78,6 +80,7 @@ typedef struct response_s {
 
 typedef struct client_data_s {
     char *team_name;
+    int team_id;
     bool is_graphic;
     int id;
     int x;
@@ -253,7 +256,7 @@ int place_resources(server_t *server);
 int assign_random_egg_position(server_t *server, client_t *client);
 void remove_egg(map_t *tile, int index);
 int count_total_eggs(server_t *server);
-egg_t *create_egg(int id, int x, int y, int player_id);
+egg_t *create_egg(int id, int x, int y, int player_id, int team_id);
 int place_egg(map_t *tile, egg_t *egg);
 
 /* Timer functions */

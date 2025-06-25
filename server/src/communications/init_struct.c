@@ -32,6 +32,7 @@ void init_client_struct(client_t *clients, int fd)
     clients->fd_open = 0;
     clients->connected = true;
     clients->data.team_name = NULL;
+    clients->data.team_id = UNASSIGNED_PLAYER_ID;
     clients->data.x = 0;
     clients->data.y = 0;
     clients->data.id = -1;
@@ -52,6 +53,7 @@ static
 int init_teams_struct(teams_t *teams, params_t *params)
 {
     for (int i = 0; i < params->teams_count; i++) {
+        teams[i].id = i;
         teams[i].name = strdup(params->teams_names[i]);
         if (teams[i].name == NULL)
             return ERROR;

@@ -5,6 +5,7 @@
 ** egg.c
 */
 
+#include "macro.h"
 #include "server.h"
 #include <stdlib.h>
 
@@ -13,9 +14,8 @@ int count_total_eggs(server_t *server)
     int total_eggs = 0;
 
     for (int x = 0; x < server->params.width; x++) {
-        for (int y = 0; y < server->params.height; y++) {
+        for (int y = 0; y < server->params.height; y++)
             total_eggs += server->map[x][y].eggs_count;
-        }
     }
     return total_eggs;
 }
@@ -39,7 +39,7 @@ void remove_egg(map_t *tile, int index)
     }
 }
 
-egg_t *create_egg(int id, int x, int y, int player_id)
+egg_t *create_egg(int id, int x, int y, int player_id, int team_id)
 {
     egg_t *egg = malloc(sizeof(egg_t));
 
@@ -51,6 +51,7 @@ egg_t *create_egg(int id, int x, int y, int player_id)
     egg->x = x;
     egg->y = y;
     egg->player_id = player_id;
+    egg->team_id = team_id;
     return egg;
 }
 
@@ -104,26 +105,29 @@ int assign_and_send(server_t *server, client_t *client,
     return SUCCESS;
 }
 
+static
+int find_and_assign_team_egg(server_t *server, client_t *client, int team_id)
+{
+    int nb_tiles = server->params.width * server->params.height;
+    
+    for (int i = 0; i < nb_tiles; i++) {
+        int x = i / server->params.height;
+        int y = i % server->params.height;
+        for (int j = 0; j < server->map[x][y].eggs_count; j++) {
+            if (server->map[x][y].eggs[j].team_id == team_id)
+                return assign_and_send(server, client, &server->map[x][y], j);
+        }
+    }
+    return ERROR;
+}
+
 int assign_random_egg_position(server_t *server, client_t *client)
 {
-    int total = count_total_eggs(server);
-    int target = rand() % total;
-    int nb_tiles = server->params.width * server->params.height;
-    int x = 0;
-    int y = 0;
-
-    if (total == 0)
-        return ERROR;
-    for (int i = 0; i < nb_tiles; i++) {
-        x = i / server->params.height;
-        y = i % server->params.height;
-        if (server->map[x][y].eggs_count == 0)
-            continue;
-        if (target >= server->map[x][y].eggs_count) {
-            target -= server->map[x][y].eggs_count;
-            continue;
-        }
-        return assign_and_send(server, client, &server->map[x][y], target);
-    }
+    if (find_and_assign_team_egg(server, client,
+        client->data.team_id) == SUCCESS)
+        return SUCCESS;
+    if (find_and_assign_team_egg(server, client,
+        UNASSIGNED_PLAYER_ID) == SUCCESS)
+        return SUCCESS;
     return ERROR;
 }
