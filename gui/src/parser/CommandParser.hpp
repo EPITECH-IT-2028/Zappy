@@ -116,7 +116,8 @@ namespace parser {
     int x;
     int y;
     bool success;
-    IncantationEnd(int x, int y, bool success);
+    IncantationEnd(int x, int y, bool success) : x(x), y(y), success(success) {
+    };
   };
 
   class CommandParser {

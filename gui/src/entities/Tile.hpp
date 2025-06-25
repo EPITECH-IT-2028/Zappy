@@ -31,6 +31,7 @@ namespace gui {
     void stopIncantationEffect();
     void showSuccessEffect();
     void showFailureEffect();
+    void ResultEffect(bool success);
 
     void update(float deltaTime);
     void draw(int x, int y);

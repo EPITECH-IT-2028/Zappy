@@ -1,6 +1,9 @@
 #include "Tile.hpp"
 #include "raylib.h"
 
+static constexpr int TILE_SIZE = 64;
+static constexpr float BORDER_THICKNESS = 4.0f;
+
 bool gui::Tile::isEmpty() const {
   return playerIdsOnTile.empty() && eggIdsOnTile.empty();
 }
@@ -14,18 +17,19 @@ void gui::Tile::stopIncantationEffect() {
   incantationInProgress = false;
 }
 
-void gui::Tile::showSuccessEffect() {
+void gui::Tile::ResultEffect(bool success) {
   stopIncantationEffect();
   showResultEffect = true;
-  resultSuccess = true;
+  resultSuccess = success;
   effectTimer = 2.0f;
 }
 
+void gui::Tile::showSuccessEffect() {
+  ResultEffect(true);
+}
+
 void gui::Tile::showFailureEffect() {
-  stopIncantationEffect();
-  showResultEffect = true;
-  resultSuccess = false;
-  effectTimer = 2.0f;
+  ResultEffect(false);
 }
 
 void gui::Tile::update(float deltaTime) {
@@ -37,12 +41,13 @@ void gui::Tile::update(float deltaTime) {
   }
 }
 
+
 void gui::Tile::draw(int x, int y) {
   if (incantationInProgress) {
-    DrawRectangle(x, y, 64, 64, Fade(PURPLE, 0.3f));
+    DrawRectangle(x, y, TILE_SIZE, TILE_SIZE, Fade(PURPLE, 0.3f));
   }
   if (showResultEffect) {
     Color color = resultSuccess ? GREEN : RED;
-    DrawRectangleLinesEx({(float)x, (float)y, 64.0f, 64.0f}, 4.0f, color);
+    DrawRectangleLinesEx({(float)x, (float)y, (float)TILE_SIZE, (float)TILE_SIZE}, BORDER_THICKNESS, color);
   }
 }

@@ -188,6 +188,9 @@ void handlecommand::CommandHandler::handlePdi(const std::string& command) {
 void handlecommand::CommandHandler::handlePic(const std::string& command) {
   try {
     parser::Incantation incantation = parser::CommandParser::parsePic(command);
+    if (!_gameState.map.isInside(incantation.x, incantation.y)) {
+      throw std::out_of_range("Coordinates outside map");
+    }
     gui::Tile& tile = _gameState.map.getTile(incantation.x, incantation.y);
 
     if (tile.isEmpty()) {
@@ -197,14 +200,12 @@ void handlecommand::CommandHandler::handlePic(const std::string& command) {
     }
 
     tile.startIncantationEffect();
-    gui::IncantationEffect effect;
+    gui::IncantationEffect effect(incantation.x, incantation.y,
+                                  incantation.level, incantation.playersNumber);
     effect.x = incantation.x;
     effect.y = incantation.y;
     effect.level = incantation.level;
     effect.players = incantation.playersNumber;
-    effect.timeSinceStart = 0.f;
-    effect.success = false;
-    effect.finished = false;
 
     _gameState.activeIncantations.push_back(effect);
 
@@ -216,7 +217,15 @@ void handlecommand::CommandHandler::handlePic(const std::string& command) {
 void handlecommand::CommandHandler::handlePie(const std::string& command) {
   try {
     parser::IncantationEnd pie = parser::CommandParser::parsePie(command);
+    if (!_gameState.map.isInside(pie.x, pie.y)) {
+      throw std::out_of_range("Coordinates outside map");
+    }
     gui::Tile& tile = _gameState.map.getTile(pie.x, pie.y);
+    auto it = std::find_if(_gameState.activeIncantations.begin(), 
+            _gameState.activeIncantations.end(),
+            [&pie](const gui::IncantationEffect& effect) {
+              return effect.x == pie.x && effect.y == pie.y && !effect.finished;
+            });
 
     tile.stopIncantationEffect();
 
