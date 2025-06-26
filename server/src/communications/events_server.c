@@ -137,7 +137,8 @@ void append_to_client_buffer(client_t *client, char *buffer, int bytes)
     if (new_buffer == NULL)
         return;
     client->buffer = new_buffer;
-    strcat(client->buffer, buffer);
+    memcpy(client->buffer + strlen(client->buffer), buffer, bytes);
+    client->buffer[strlen(client->buffer) + bytes] = '\0';
 }
 
 static
@@ -164,10 +165,11 @@ void handle_client(server_t *server, int index, char *buffer, int bytes)
     buffer[bytes] = '\0';
     printf("Received from client %d: %s\n", index, buffer);
     append_to_client_buffer(server->clients[index], buffer, bytes);
-    if (strchr(buffer, '\n') != NULL)
+    if (strchr(server->clients[index]->buffer, '\n') != NULL) {
         process_client_command(server, index);
-    free(server->clients[index]->buffer);
-    server->clients[index]->buffer = NULL;
+        free(server->clients[index]->buffer);
+        server->clients[index]->buffer = NULL;
+    }
 }
 
 void handle_all_client(server_t *server)
