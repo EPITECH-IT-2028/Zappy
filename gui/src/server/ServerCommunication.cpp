@@ -32,18 +32,6 @@ bool network::ServerCommunication::isConnected() const noexcept {
   return _connected;
 }
 
-bool network::ServerCommunication::connectToServer() {
-  try {
-    createSocket();
-    establishConnection();
-    sendMessage("GRAPHIC\n");
-    return true;
-  } catch (const std::exception &e) {
-    std::cerr << "Connection failed: " << e.what() << std::endl;
-    return false;
-  }
-}
-
 void network::ServerCommunication::createSocket() {
   _clientFd = socket(AF_INET, SOCK_STREAM, 0);
   if (_clientFd == -1)
@@ -63,6 +51,18 @@ void network::ServerCommunication::establishConnection() {
     throw std::runtime_error(std::string(strerror(errno)));
   }
   _connected = true;
+}
+
+bool network::ServerCommunication::connectToServer() {
+  try {
+    createSocket();
+    establishConnection();
+    sendMessage("GRAPHIC\n");
+    return true;
+  } catch (const std::exception &e) {
+    std::cerr << "Connection failed: " << e.what() << std::endl;
+    return false;
+  }
 }
 
 void network::ServerCommunication::sendMessage(const std::string &message) {
@@ -90,46 +90,70 @@ std::string network::ServerCommunication::receiveMessage() {
   if (!_connected || _clientFd == -1)
     throw std::runtime_error("Not connected to server");
 
-  if (!_pendingData.empty()) {
-    size_t newlinePos = _pendingData.find('\n');
-    if (newlinePos != std::string::npos) {
-      std::string result = _pendingData.substr(0, newlinePos + 1);
-      _pendingData = _pendingData.substr(newlinePos + 1);
-      return result;
-    }
+  size_t newlinePos = _pendingData.find('\n');
+  if (newlinePos != std::string::npos) {
+    std::string message = _pendingData.substr(0, newlinePos + 1);
+    _pendingData.erase(0, newlinePos + 1);
+    return message;
   }
 
-  std::string message = _pendingData;
-  const size_t BUFFER_SIZE = 1024;
-  const size_t MAX_MESSAGE_SIZE = 65536;
-  char buffer[BUFFER_SIZE];
-
+  char buffer[1024];
+  bool dataReceived = false;
   while (true) {
-    if (message.size() > MAX_MESSAGE_SIZE)
-      throw std::runtime_error("Message too large");
-
-    ssize_t bytesReceived = recv(_clientFd, buffer, BUFFER_SIZE - 1, 0);
-
+    ssize_t bytesReceived = recv(_clientFd, buffer, sizeof(buffer) - 1, 0);
     if (bytesReceived == -1) {
+      if (errno == EAGAIN || errno == EWOULDBLOCK) {
+        if (dataReceived) {
+          newlinePos = _pendingData.find('\n');
+          if (newlinePos != std::string::npos) {
+            std::string message = _pendingData.substr(0, newlinePos + 1);
+            _pendingData.erase(0, newlinePos + 1);
+            return message;
+          }
+        }
+        return "";
+      }
       if (errno == EINTR)
         continue;
       throw std::runtime_error("Failed to receive message: " +
                                std::string(strerror(errno)));
     }
-
     if (bytesReceived == 0) {
       _connected = false;
-      throw std::runtime_error("Server disconnected");
+      throw std::runtime_error("Connection closed by server");
     }
-
     buffer[bytesReceived] = '\0';
-    message += std::string(buffer, bytesReceived);
-
-    size_t newlinePos = message.find('\n');
-    if (newlinePos != std::string::npos) {
-      std::string result = message.substr(0, newlinePos + 1);
-      _pendingData = message.substr(newlinePos + 1);
-      return result;
-    }
+    _pendingData.append(buffer, bytesReceived);
+    dataReceived = true;
+    if (bytesReceived < static_cast<ssize_t>(sizeof(buffer) - 1))
+      break;
   }
+  newlinePos = _pendingData.find('\n');
+  if (newlinePos != std::string::npos) {
+    std::string message = _pendingData.substr(0, newlinePos + 1);
+    _pendingData.erase(0, newlinePos + 1);
+    return message;
+  }
+  return "";
 }
+
+bool network::ServerCommunication::hasIncomingData() {
+  if (!_connected || _clientFd == -1)
+    return false;
+  if (!_pendingData.empty())
+    return _pendingData.find('\n') != std::string::npos;
+
+  struct pollfd pfd;
+  pfd.fd = _clientFd;
+  pfd.events = POLLIN;
+  pfd.revents = 0;
+
+  int result = poll(&pfd, 1, 0);
+  if (result == -1) {
+    if (errno != EINTR)
+      std::cerr << "Poll error: " << strerror(errno) << std::endl;
+    return false;
+  }
+  return result > 0 && (pfd.revents & POLLIN);
+}
+

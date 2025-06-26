@@ -1,6 +1,8 @@
 #pragma once
 
 #include <raylib.h>
+#include "commandHandler/CommandHandler.hpp"
+#include "entities/GameState.hpp"
 #include "raylib-cpp.hpp"
 #include "server/ServerCommunication.hpp"
 
@@ -29,11 +31,14 @@ namespace gui {
 
       GameScreen _currentScreen;
       network::ServerCommunication &_serverCommunication;
+      GameState _gameState;
+      handlecommand::CommandHandler _commandHandler;
 
       void updateLogoScreen();
       void updateTitleScreen();
       void updateGameplayScreen();
       void updateEndingScreen();
+      void processNetworkMessages();
 
       void renderLogoScreen();
       void renderTitleScreen();

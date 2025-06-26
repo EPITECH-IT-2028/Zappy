@@ -5,6 +5,42 @@
 #include "entities/Player.hpp"
 #include "parser/CommandParser.hpp"
 
+void handlecommand::CommandHandler::handleMsz(const std::string& command) {
+  try {
+    parser::MapSize mapSize = parser::CommandParser::parseMsz(command);
+    _gameState.map.resize(mapSize.width, mapSize.height);
+  } catch (const std::exception& e) {
+    std::cerr << "Error while handling msz: " << e.what() << "\n";
+  }
+}
+
+void handlecommand::CommandHandler::handleSgt(const std::string& command) {
+  try {
+    parser::TimeUnit timeUnit = parser::CommandParser::parseSgt(command);
+    if (timeUnit.time <= 0)
+      throw std::invalid_argument("Time unit must be positive");
+    _gameState.timeUnit = timeUnit.time;
+  } catch (const std::exception& e) {
+    std::cerr << "Error while handling sgt: " << e.what() << "\n";
+  }
+}
+
+void handlecommand::CommandHandler::handleTna(const std::string& command) {
+  try {
+    parser::TeamNames teamNames = parser::CommandParser::parseTna(command);
+    for (const auto& name : teamNames.names) {
+      if (std::find(_gameState.teamNames.begin(), _gameState.teamNames.end(),
+                    name) == _gameState.teamNames.end()) {
+        _gameState.teamNames.push_back(name);
+      } else {
+        std::cerr << "Duplicate team name found: " << name << "\n";
+      }
+    }
+  } catch (const std::exception& e) {
+    std::cerr << "Error while handling tna: " << e.what() << "\n";
+  }
+}
+
 void handlecommand::CommandHandler::handleBct(const std::string& command) {
   try {
     parser::TileUpdate update = parser::CommandParser::parseBct(command);
@@ -106,19 +142,19 @@ void handlecommand::CommandHandler::handlePin(const std::string& command) {
 void handlecommand::CommandHandler::handleEnw(const std::string& command) {
   try {
     parser::EggLaid eggLaid = parser::CommandParser::parseEnw(command);
-
-    if (!_gameState.map.isInside(eggLaid.x, eggLaid.y)) {
+    if (!_gameState.map.isInside(eggLaid.x, eggLaid.y))
       throw std::out_of_range("Coordinates outside map");
+
+    std::string teamName;
+    if (eggLaid.idPlayer == -1) {
+      teamName = "server";
+    } else {
+      auto playerIt = _gameState.players.find(eggLaid.idPlayer);
+      if (playerIt == _gameState.players.end())
+        throw std::runtime_error("Player not found with ID " +
+                                 std::to_string(eggLaid.idPlayer));
+      teamName = playerIt->second.teamName;
     }
-
-    auto playerIt = _gameState.players.find(eggLaid.idPlayer);
-
-    if (playerIt == _gameState.players.end()) {
-      throw std::runtime_error("Player not found with ID " +
-                               std::to_string(eggLaid.idPlayer));
-    }
-
-    const std::string& teamName = playerIt->second.teamName;
 
     gui::Egg egg(eggLaid.idEgg, eggLaid.x, eggLaid.y, eggLaid.idPlayer,
                  teamName);
@@ -221,11 +257,12 @@ void handlecommand::CommandHandler::handlePie(const std::string& command) {
       throw std::out_of_range("Coordinates outside map");
     }
     gui::Tile& tile = _gameState.map.getTile(pie.x, pie.y);
-    auto it = std::find_if(_gameState.activeIncantations.begin(), 
-                          _gameState.activeIncantations.end(),
-                          [&pie](const gui::IncantationEffect& effect) {
-                            return effect.x == pie.x && effect.y == pie.y && !effect.finished;
-                          });
+    auto it = std::find_if(_gameState.activeIncantations.begin(),
+                           _gameState.activeIncantations.end(),
+                           [&pie](const gui::IncantationEffect& effect) {
+                             return effect.x == pie.x && effect.y == pie.y &&
+                                    !effect.finished;
+                           });
 
     if (it != _gameState.activeIncantations.end()) {
       it->finished = true;
@@ -259,7 +296,8 @@ void handlecommand::CommandHandler::handlePfk(const std::string& command) {
     gui::Tile& tile = _gameState.map.getTile(player.x, player.y);
 
     auto& playerList = tile.playerIdsOnTile;
-    if (std::find(playerList.begin(), playerList.end(), player.id) == playerList.end()) {
+    if (std::find(playerList.begin(), playerList.end(), player.id) ==
+        playerList.end()) {
       playerList.push_back(player.id);
     }
     tile.showForkEffect();

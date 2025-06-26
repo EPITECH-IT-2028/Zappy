@@ -9,6 +9,8 @@
 namespace gui {
   struct GameState {
       Map map;
+      int timeUnit = 0;
+      std::vector<std::string> teamNames;
       std::unordered_map<int, Player> players;
       std::unordered_map<int, Egg> eggs;
 

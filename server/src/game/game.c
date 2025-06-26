@@ -92,6 +92,23 @@ void add_queue_to_response(server_t *server)
 }
 
 static
+void check_time_events(server_t *server)
+{
+    if (has_time_passed(server, server->server_timer_count,
+        FOOD_DURATION, &server->server_timer)) {
+        remove_food(server);
+        server->server_timer_count =
+            get_current_timer_units(server, &server->server_timer);
+    }
+    if (has_time_passed(server, server->density_timer_count,
+        DENSITY_DURATION, &server->density_timer)) {
+        respawn_resources(server);
+        server->density_timer_count =
+            get_current_timer_units(server, &server->density_timer);
+    }
+}
+
+static
 void *game(void *arg)
 {
     server_t *server = (server_t *)arg;
@@ -99,17 +116,16 @@ void *game(void *arg)
     response_t response;
 
     clock_gettime(CLOCK_MONOTONIC, &server->server_timer);
-    server->server_timer_count = get_current_timer_units(server);
+    clock_gettime(CLOCK_MONOTONIC, &server->density_timer);
+    server->server_timer_count =
+        get_current_timer_units(server, &server->server_timer);
+    server->density_timer_count =
+        get_current_timer_units(server, &server->density_timer);
     while (server->running) {
-        if (queue_pop_request(server, &request) == SUCCESS) {
+        if (queue_pop_request(server, &request) == SUCCESS)
             handle_request(server, &response, &request);
-        }
         add_queue_to_response(server);
-        if (has_time_passed(server, server->server_timer_count,
-            FOOD_DURATION)) {
-            remove_food(server);
-            server->server_timer_count = get_current_timer_units(server);
-        }
+        check_time_events(server);
     }
     return NULL;
 }

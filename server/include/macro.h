@@ -35,6 +35,7 @@
     #define NUM_DIRECTIONS 8
     #define DEGREES_PER_DIRECTION (FULL_CIRCLE_DEG / NUM_DIRECTIONS)
     #define DIRECTION_TOLERANCE (DEGREES_PER_DIRECTION / 2.0)
+    #define ACTUAL_PLAYER 1
 
     #define FOOD 0.5f
     #define LINEMATE 0.3f
@@ -60,6 +61,7 @@
     #define INCANTATION_TIME 300
 
     #define FOOD_DURATION 126
+    #define DENSITY_DURATION 20
 
     #define TAB_LVL_INCANTATION_SIZE 6
     #define INCANTATION_ID_LEN 4
