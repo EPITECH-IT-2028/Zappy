@@ -99,7 +99,7 @@ def handle_Broadcast(client, response) -> None:
             food = int(parts[1])
         else:
             return
-        if client.waiting_for_help and food > int(client["inventory"].get("food", 0)):
+        if client.waiting_for_help and food > int(client.inventory.get("food", 0)):
             client.waiting_for_help = False
         if target_level == client.level + 1:
             client.help_status = True

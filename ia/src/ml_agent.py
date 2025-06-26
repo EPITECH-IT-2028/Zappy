@@ -51,9 +51,9 @@ def get_action(client, needed_resources):
 
   if closest_resources is None:
     if client.move["consecutive_turns"] >= utils.MAX_CONSECUTIVE_TURNS:
-            client.move["consecutive_turns"] = 0
-            client.move["forward"] = True
-            return utils.FORWARD, None
+        client.move["consecutive_turns"] = 0
+        client.move["forward"] = True
+        return utils.FORWARD, None
     else:
         if random.random() < 0.5:
             client.move["consecutive_turns"] += 1
@@ -275,7 +275,7 @@ def strategy(client):
         protocole.execute_command(client, utils.INVENTORY, None)
         return
     
-    if client.help_status == True:
+    if client.help_status:
         get_action_from_broadcast(client, client.help_direction)
         if "food" in current_cell.lower():
             protocole.execute_command(client, utils.TAKE, "food")
