@@ -15,6 +15,12 @@
 
 #define BRICK_MODEL_PATH "resources/mario_brick/scene.gltf"
 
+#define BRICK_SPACING 1.1f
+#define BRICK_MODEL_SCALE 0.01f
+#define WIREFRAME_OFFSET_X 0.0f
+#define WIREFRAME_OFFSET_Y 0.55f
+#define WIREFRAME_OFFSET_Z 0.15f
+
 namespace gui {
   enum class Screen {
     LOGO,

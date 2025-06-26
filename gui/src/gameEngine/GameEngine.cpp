@@ -207,7 +207,7 @@ void gui::GameEngine::drawMap() {
     return;
   }
 
-  float brickSpacing = 1.1f;
+  float brickSpacing = BRICK_SPACING;
   float mapWidth = static_cast<float>(_gameState.map.width);
   float mapHeight = static_cast<float>(_gameState.map.height);
   Vector3 gridOrigin = {-((mapWidth - 1) * brickSpacing) / 2.0f, 0.0f,
@@ -218,11 +218,12 @@ void gui::GameEngine::drawMap() {
     for (std::size_t x = 0; x < _gameState.map.width; ++x) {
       Vector3 position = {gridOrigin.x + x * brickSpacing, gridOrigin.y,
                           gridOrigin.z + y * brickSpacing};
-      DrawModel(_brick, position, 0.01f, GRAY);
-      Vector3 offset = {0.0f, 0.55f, 0.15f};
+      DrawModel(_brick, position, BRICK_MODEL_SCALE, GRAY);
+      Vector3 offset = {WIREFRAME_OFFSET_X, WIREFRAME_OFFSET_Y,
+                        WIREFRAME_OFFSET_Z};
       DrawCubeWires(
           {position.x + offset.x, position.y + offset.y, position.z + offset.z},
-          1.1f, 1.1f, 1.1f, WHITE);
+          BRICK_SPACING, BRICK_SPACING, BRICK_SPACING, WHITE);
     }
   }
   EndMode3D();
