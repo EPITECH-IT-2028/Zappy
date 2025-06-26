@@ -21,8 +21,8 @@ int add_eggs(server_t *server)
     for (int i = 0; i < nbr_of_clients_max; i++) {
         x = rand() % server->params.width;
         y = rand() % server->params.height;
-        egg = create_egg(server->egg_ids, x, y, UNASSIGNED_PLAYER_ID, 
-            UNASSIGNED_PLAYER_ID);
+        egg = create_egg(server->egg_ids,
+            (egg_args_t){x, y, UNASSIGNED_PLAYER_ID, UNASSIGNED_PLAYER_ID});
         if (!egg)
             return ERROR;
         if (place_egg(&server->map[x][y], egg) == ERROR)

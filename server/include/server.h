@@ -256,7 +256,15 @@ int place_resources(server_t *server);
 int assign_random_egg_position(server_t *server, client_t *client);
 void remove_egg(map_t *tile, int index);
 int count_total_eggs(server_t *server);
-egg_t *create_egg(int id, int x, int y, int player_id, int team_id);
+
+typedef struct egg_args_s {
+    int x;
+    int y;
+    int player_id;
+    int team_id;
+} egg_args_t;
+
+egg_t *create_egg(int id, egg_args_t args);
 int place_egg(map_t *tile, egg_t *egg);
 
 /* Timer functions */

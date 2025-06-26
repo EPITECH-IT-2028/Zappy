@@ -39,7 +39,7 @@ void remove_egg(map_t *tile, int index)
     }
 }
 
-egg_t *create_egg(int id, int x, int y, int player_id, int team_id)
+egg_t *create_egg(int id, egg_args_t args)
 {
     egg_t *egg = malloc(sizeof(egg_t));
 
@@ -48,10 +48,10 @@ egg_t *create_egg(int id, int x, int y, int player_id, int team_id)
         return NULL;
     }
     egg->id = id;
-    egg->x = x;
-    egg->y = y;
-    egg->player_id = player_id;
-    egg->team_id = team_id;
+    egg->x = args.x;
+    egg->y = args.y;
+    egg->player_id = args.player_id;
+    egg->team_id = args.team_id;
     return egg;
 }
 
@@ -106,17 +106,27 @@ int assign_and_send(server_t *server, client_t *client,
 }
 
 static
+int loop_eggs(server_t *server, client_t *client, map_t *tile, int team_id)
+{
+    for (int j = 0; j < tile->eggs_count; j++) {
+        if (tile->eggs[j].team_id == team_id)
+            return assign_and_send(server, client, tile, j);
+    }
+    return ERROR;
+}
+
+static
 int find_and_assign_team_egg(server_t *server, client_t *client, int team_id)
 {
     int nb_tiles = server->params.width * server->params.height;
-    
+    int x;
+    int y;
+
     for (int i = 0; i < nb_tiles; i++) {
-        int x = i / server->params.height;
-        int y = i % server->params.height;
-        for (int j = 0; j < server->map[x][y].eggs_count; j++) {
-            if (server->map[x][y].eggs[j].team_id == team_id)
-                return assign_and_send(server, client, &server->map[x][y], j);
-        }
+        x = i / server->params.height;
+        y = i % server->params.height;
+        if (loop_eggs(server, client, &server->map[x][y], team_id) == SUCCESS)
+            return SUCCESS;
     }
     return ERROR;
 }
