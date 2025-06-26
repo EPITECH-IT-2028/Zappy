@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 #include "parser/ArgsParser.hpp"
-#include "raylib/Raylib.hpp"
+#include "gameEngine/GameEngine.hpp"
 #include "server/ServerCommunication.hpp"
 
 #define OK 0
@@ -28,9 +28,8 @@ int main(int argc, char* argv[]) {
                 << ":" << config.getOptionP() << std::endl;
       return KO;
     }
-    gui::Raylib app{serverCommunication};
+    gui::GameEngine app{serverCommunication};
     app.run();
-    std::cout << "GUI application started successfully." << std::endl;
     return OK;
   } catch (const std::invalid_argument& e) {
     std::cerr << "Error: " << e.what() << std::endl;

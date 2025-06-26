@@ -19,6 +19,7 @@ SRC = ./src/main.c \
 			./src/events/player_events.c \
 			./src/events/egg_events.c \
 			./src/utils.c \
+      ./src/utils_map.c \
 			./src/memory.c \
 			./src/game/game.c \
 			./src/game/init_map.c
@@ -48,6 +49,9 @@ SRC += ./src/game/incantation/incantation_setups.c
 SRC += ./src/events/incantation_events.c
 SRC += ./src/game/take.c
 SRC += ./src/game/set.c
+SRC += ./src/game/eject.c
+SRC += ./src/game/respawn_resources.c
+SRC += ./src/communications/init_density.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -85,11 +89,9 @@ $(NAME): $(OBJ)
 %.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
-# Rule for test object files (with coverage)
 $(TEST_SRC_FILE_NAME): %.c
 	@$(CC) $(TEST_CFLAGS) -c $< -o $@
 
-# Rule for test files in tests/ directory
 ./tests/%.o: ./tests/%.c
 	@$(CC) $(TEST_CFLAGS) -c $< -o $@
 

@@ -1,7 +1,5 @@
 import sys
 
-import sys
-
 elevation_table = [
     {
         "level_from": 1,
@@ -103,22 +101,50 @@ TAKE = "Take"
 SET = "Set"
 INCANTATION = "Incantation"
 
+NO_TARGET = -1
+BUFFER_SIZE = 1024
+MAX_COMMANDS = 10
+MAX_FOOD = 120
+CRITICAL_FOOD = 10
+GOOD_FOOD = 50
+INVENTORY_ITEMS_COUNT = 7
+MIN_REQUIRED_PLAYERS = 1
+MAX_REQUIRED_PLAYERS = 6
+PLAYER_CELL = 0
+CANT_MOVE = 3
+FIRST_COMMAND = 0
+MAX_CONSECUTIVE_TURNS = 3
+START_MESSAGE = "I_am_starting_to_play"
+
+class ZappyClient:
+    def __init__(self, client_socket, team_name):
+        self.socket = client_socket
+        self.team_name = team_name
+        self.map_size = [0, 0]
+        self.commands = []
+        self.inventory = {}
+        self.last_look = []
+        self.level = 1
+        self.needed_resources = LEVEL_1_TO_2
+        self.help_status = False
+        self.help_direction = None
+        self.is_alive = True
+        self.move = {
+            "consecutive_turns": 0,
+            "forward": False,
+            "distance_to_target": NO_TARGET,
+            "last_target": None,
+        }
+        self.incantation = False
+        self.waiting_incantation_response = False
+        self.start_playing = False
+        self.status = "good"
+        self.player_in_game = 0
+        self.at_max_food = False
+        self.waiting_for_help = False
+        self.look_redirection = False
+        self.inventory_redirection = False
+
 def exit_error(message) -> None:
-    """
-    Displays an error message and exits the program.
-
-    Args:
-        message (str): Error message to display.
-    """
-    sys.stderr.write(message + "\n")
-    sys.exit(84)
-
-def exit_error(message) -> None:
-    """
-    Displays an error message and exits the program.
-
-    Args:
-        message (str): Error message to display.
-    """
     sys.stderr.write(message + "\n")
     sys.exit(84)

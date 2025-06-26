@@ -103,7 +103,7 @@ parser::PlayerInventory parser::CommandParser::parsePin(
 parser::EggLaid parser::CommandParser::parseEnw(const std::string &command) {
   int idEgg, idPlayer, x, y;
 
-  int result = std::sscanf(command.c_str(), "enw %d %d %d %d", &idEgg,
+  int result = std::sscanf(command.c_str(), "enw #%d #%d %d %d", &idEgg,
                            &idPlayer, &x, &y);
 
   if (result != 4)
@@ -140,12 +140,12 @@ parser::PlayerDeath parser::CommandParser::parsePdi(
 }
 
 parser::Incantation parser::CommandParser::parsePic(
-  const std::string &command) {
+    const std::string &command) {
   int x, y, level;
   std::vector<int> playersNumber;
 
   int result = std::sscanf(command.c_str(), "pic %d %d %d", &x, &y, &level);
-  if (result < 3) {
+  if (result != 3) {
     throw std::runtime_error("Invalid pic command format");
   }
 
@@ -165,11 +165,12 @@ parser::Incantation parser::CommandParser::parsePic(
   return Incantation(x, y, level, playersNumber);
 }
 
-parser::IncantationEnd parser::CommandParser::parsePie(const std::string& command) {
+parser::IncantationEnd parser::CommandParser::parsePie(
+    const std::string &command) {
   int x, y, result;
   int parsed = std::sscanf(command.c_str(), "pie %d %d %d", &x, &y, &result);
   if (parsed != 3)
-      throw std::runtime_error("Invalid pie command format");
+    throw std::runtime_error("Invalid pie command format");
 
   return IncantationEnd(x, y, result == 1);
 }

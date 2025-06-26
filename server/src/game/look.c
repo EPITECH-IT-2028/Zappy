@@ -13,23 +13,23 @@
 static
 void add_to_look(char *response, map_t current_case)
 {
-    if (current_case.nbr_of_players > 0)
+    for (int i = 0; i < current_case.nbr_of_players; i++)
         strcat(response, " player");
-    if (current_case.deraumere > 0)
+    for (int i = 0; i < current_case.deraumere; i++)
         strcat(response, " deraumere");
-    if (current_case.eggs != NULL)
+    for (int i = 0; i < current_case.eggs_count; i++)
         strcat(response, " egg");
-    if (current_case.food > 0)
+    for (int i = 0; i < current_case.food; i++)
         strcat(response, " food");
-    if (current_case.linemate > 0)
+    for (int i = 0; i < current_case.linemate; i++)
         strcat(response, " linemate");
-    if (current_case.mendiane > 0)
+    for (int i = 0; i < current_case.mendiane; i++)
         strcat(response, " mendiane");
-    if (current_case.phiras > 0)
+    for (int i = 0; i < current_case.phiras; i++)
         strcat(response, " phiras");
-    if (current_case.sibur > 0)
+    for (int i = 0; i < current_case.sibur; i++)
         strcat(response, " sibur");
-    if (current_case.thystame > 0)
+    for (int i = 0; i < current_case.thystame; i++)
         strcat(response, " thystame");
     strcat(response, ",");
 }
