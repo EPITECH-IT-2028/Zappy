@@ -286,3 +286,21 @@ void handlecommand::CommandHandler::handlePdr(const std::string& command) {
     std::cerr << "Error while handling pdr: " << e.what() << "\n";
   }
 }
+
+void handlecommand::CommandHandler::handlePgt(const std::string& command) {
+  try {
+    parser::CollectResource collect = parser::CommandParser::parsePgt(command);
+
+    auto playerIt = _gameState.players.find(collect.playerID);
+    if (playerIt == _gameState.players.end()) {
+      throw std::runtime_error("Player not found with ID " + std::to_string(collect.playerID));
+    }
+
+    gui::Player& player = playerIt->second;
+    gui::Tile& tile = _gameState.map.getTile(player.x, player.y);
+    tile.showCollectEffect(collect.resourceNumber);
+
+  } catch (const std::exception& e) {
+    std::cerr << "Error while handling pgt: " << e.what() << "\n";
+  }
+}

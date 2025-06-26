@@ -132,6 +132,14 @@ namespace parser {
         : playerID(playerID), resourceNumber(resourceNumber) {
     };
   };
+  struct CollectResource {
+    int playerID;
+    int resourceNumber;
+
+    CollectResource(int playerID, int resourceNumber)
+        : playerID(playerID), resourceNumber(resourceNumber) {
+    };
+  };
 
   class CommandParser {
     public:
@@ -154,7 +162,7 @@ namespace parser {
       static IncantationEnd parsePie(const std::string& command);
       static ForkEvent parsePfk(const std::string& command);
       static DropResource parsePdr(const std::string& command);
-
+      static CollectResource parsePgt(const std::string& command);
 
     private:
   };

@@ -191,3 +191,12 @@ parser::DropResource parser::CommandParser::parsePdr(const std::string &command)
     throw std::runtime_error("Invalid pdr command format");
   return DropResource(playerId, resourceNumber);
 }
+
+parser::CollectResource parser::CommandParser::parsePgt(const std::string &command) {
+  int playerId, resourceNumber;
+  int result = std::sscanf(command.c_str(), "pgt %d %d", &playerId, &resourceNumber);
+
+  if (result != 2)
+    throw std::runtime_error("Invalid pgt command format");
+  return CollectResource(playerId, resourceNumber);
+}

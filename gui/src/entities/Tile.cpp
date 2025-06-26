@@ -61,3 +61,8 @@ void gui::Tile::showDropEffect(int resourceId) {
   std::cout << "Drop effect for resource ID: " << resourceId << std::endl;
   // DOit ajouter un effet
 }
+
+void gui::Tile::showCollectEffect(int resourceId) {
+  std::cout << "Collect effect for resource ID: " << resourceId << std::endl;
+  // DOit ajouter un effet
+}
