@@ -27,9 +27,6 @@ gui::GameEngine::GameEngine(network::ServerCommunication& serverCommunication)
 gui::GameEngine::~GameEngine() {
   if (_resourcesLoaded) {
     UnloadModel(_brick);
-    std::cout << "Resources unloaded successfully." << std::endl;
-  } else {
-    std::cerr << "No resources to unload." << std::endl;
   }
 }
 
