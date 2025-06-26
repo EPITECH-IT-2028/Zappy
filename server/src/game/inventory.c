@@ -12,7 +12,8 @@
 int handle_inventory(server_t *server, response_t *response,
     request_t *request)
 {
-    char buffer[BUFFER_SIZE];
+    char buffer[BUFFER_SIZE] = {0};
+
     if (!request || !response || !server)
         return ERROR;
     sprintf(buffer,

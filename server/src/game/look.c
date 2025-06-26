@@ -59,32 +59,38 @@ direction_offset_t get_direction_offset(direction_t direction, int i, int j)
 }
 
 static
-void handle_vision_direction(server_t *server, response_t *response,
-    request_t *request, direction_t direction)
+void process_vision(server_t *server, client_data_t *client_data,
+    direction_t direction, char *buffer)
 {
-    client_data_t *client_data = &request->client->data;
-    int vision_depth = DEFAULT_VISION_DEPTH + (client_data->level - 1);
-    int vision_width = 0;
     int width = server->params.width;
     int height = server->params.height;
-    direction_offset_t offset = {0};
+    int vision_depth = DEFAULT_VISION_DEPTH + (client_data->level - 1);
+    int vision_width = 0;
+    direction_offset_t offset;
     int target_x = 0;
     int target_y = 0;
-    char buffer[BUFFER_SIZE] = {0};
 
     for (int i = 0; i < vision_depth; i++) {
         for (int j = vision_width; j >= - vision_width; j--) {
             offset = get_direction_offset(direction, i, j);
             target_x = (((client_data->x + offset.x) % width) + width) % width;
-            target_y = (((client_data->y + offset.y) %
-                height) + height) % height;
+            target_y = (((client_data->y + offset.y) % height) + height)
+                % height;
             add_to_look(buffer, server->map[target_x][target_y]);
         }
-        if (strlen(buffer) >= BUFFER_SIZE)
-            add_buffer_to_response(buffer, &response->response, &response->size);
         if (2 * (vision_width + 1) + 1 <= width)
             vision_width++;
     }
+}
+
+static
+void handle_vision_direction(server_t *server, response_t *response,
+    request_t *request, direction_t direction)
+{
+    client_data_t *client_data = &request->client->data;
+    char buffer[BUFFER_SIZE] = {0};
+
+    process_vision(server, client_data, direction, buffer);
     add_buffer_to_response(buffer, &response->response, &response->size);
 }
 

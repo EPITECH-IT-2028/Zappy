@@ -10,6 +10,7 @@
 #include "server.h"
 #include <pthread.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 
@@ -53,6 +54,31 @@ void check_if_queue_is_full(server_t *server, response_t *response)
 }
 
 static
+int add_pending_response_to_client(response_t *response, request_t *request)
+{
+    response_t *copy = NULL;
+
+    if (!response || !request || !response->response)
+        return ERROR;
+    copy = malloc(sizeof(response_t));
+    if (!copy)
+        return ERROR;
+    memcpy(copy, response, sizeof(response_t));
+    copy->response = malloc(sizeof(char *) * (response->size + 1));
+    if (!copy->response) {
+        free(copy);
+        return ERROR;
+    }
+    for (int i = 0; i < response->size && response->response[i] != NULL; i++) {
+        copy->response[i] = strdup(response->response[i]);
+    }
+    copy->response[response->size] = NULL;
+    memcpy(&request->client->data.pending_response, copy, sizeof(response_t));
+    free(copy);
+    return SUCCESS;
+}
+
+static
 void handle_request(server_t *server, response_t *response, request_t *request)
 {
     response->client = request->client;
@@ -68,8 +94,7 @@ void handle_request(server_t *server, response_t *response, request_t *request)
         check_if_queue_is_full(server, response);
         return;
     }
-    memcpy(&request->client->data.pending_response, response,
-        sizeof(response_t));
+    add_pending_response_to_client(response, request);
 }
 
 static
@@ -81,7 +106,7 @@ void add_queue_to_response(server_t *server)
     for (int i = 1; i < server->nfds; i++) {
         if (server->clients[i] == NULL || server->fds[i].fd == -1)
             continue;
-        if (!server->clients[i]->data.is_busy)
+        if (server->clients[i] == NULL || !server->clients[i]->data.is_busy)
             continue;
         if (is_client_on_cd(&server->clients[i]->data) == ERROR) {
             check_if_queue_is_full(server,

@@ -47,7 +47,6 @@ void init_client_struct(client_t *clients, int fd)
     pthread_mutex_init(&clients->data.pending_mutex, NULL);
     init_client_inventory(&clients->data);
     clients->buffer = NULL;
-    printf("Init client ended\n");
 }
 
 static

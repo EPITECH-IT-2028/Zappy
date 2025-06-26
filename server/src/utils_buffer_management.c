@@ -12,7 +12,7 @@
 int add_buffer_to_response(char *buffer, char ***response, int *index)
 {
     char **new_response = NULL;
-    
+
     if (!buffer || !response || !index)
         return ERROR;
     new_response = realloc(*response, sizeof(char *) * (*index + 1));
