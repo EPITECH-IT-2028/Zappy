@@ -8,7 +8,6 @@ bool gui::Tile::isEmpty() const {
   return playerIdsOnTile.empty() && eggIdsOnTile.empty();
 }
 
-
 void gui::Tile::startIncantationEffect() {
   incantationInProgress = true;
 }
@@ -41,14 +40,15 @@ void gui::Tile::update(float deltaTime) {
   }
 }
 
-
 void gui::Tile::draw(int x, int y) {
   if (incantationInProgress) {
     DrawRectangle(x, y, TILE_SIZE, TILE_SIZE, Fade(PURPLE, 0.3f));
   }
   if (showResultEffect) {
     Color color = resultSuccess ? GREEN : RED;
-    DrawRectangleLinesEx({(float)x, (float)y, (float)TILE_SIZE, (float)TILE_SIZE}, BORDER_THICKNESS, color);
+    DrawRectangleLinesEx(
+        {(float)x, (float)y, (float)TILE_SIZE, (float)TILE_SIZE},
+        BORDER_THICKNESS, color);
   }
 }
 

@@ -105,24 +105,24 @@ namespace parser {
       }
   };
   struct Incantation {
-    int x;
-    int y;
-    int level;
-    std::vector<int> playersNumber;
-    Incantation(int x, int y, int level, const std::vector<int>& players)
-    : x(x), y(y), level(level), playersNumber(players) {}
+      int x;
+      int y;
+      int level;
+      std::vector<int> playersNumber;
+      Incantation(int x, int y, int level, const std::vector<int>& players)
+          : x(x), y(y), level(level), playersNumber(players) {
+      }
   };
   struct IncantationEnd {
-    int x;
-    int y;
-    bool success;
-    IncantationEnd(int x, int y, bool success) : x(x), y(y), success(success) {
-    };
+      int x;
+      int y;
+      bool success;
+      IncantationEnd(int x, int y, bool success)
+          : x(x), y(y), success(success) {};
   };
   struct ForkEvent {
-    int playerID;
-    ForkEvent(int playerID) : playerID(playerID) {
-    };
+      int playerID;
+      ForkEvent(int playerID) : playerID(playerID) {};
   };
 
   class CommandParser {
