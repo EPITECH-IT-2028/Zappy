@@ -1,7 +1,7 @@
 #pragma once
 
-#define TILE_SIZE 64
-#define BORDER_THICKNESS 4.0f
+constexpr int TILE_SIZE = 64;
+constexpr float BORDER_THICKNESS = 4.0f;
 
 namespace gui {
   struct TileEffects {
