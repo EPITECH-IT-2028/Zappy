@@ -183,3 +183,14 @@ parser::ForkEvent parser::CommandParser::parsePfk(const std::string &command) {
     throw std::runtime_error("Invalid pfk command format");
   return ForkEvent(playerId);
 }
+
+parser::DropResource parser::CommandParser::parsePdr(
+    const std::string &command) {
+  int playerId, resourceNumber;
+  int result =
+      std::sscanf(command.c_str(), "pdr %d %d", &playerId, &resourceNumber);
+
+  if (result != 2)
+    throw std::runtime_error("Invalid pdr command format");
+  return DropResource(playerId, resourceNumber);
+}

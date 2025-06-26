@@ -238,10 +238,6 @@ void handlecommand::CommandHandler::handlePic(const std::string& command) {
     tile.startIncantationEffect();
     gui::IncantationEffect effect(incantation.x, incantation.y,
                                   incantation.level, incantation.playersNumber);
-    effect.x = incantation.x;
-    effect.y = incantation.y;
-    effect.level = incantation.level;
-    effect.players = incantation.playersNumber;
 
     _gameState.activeIncantations.push_back(effect);
 
@@ -304,5 +300,24 @@ void handlecommand::CommandHandler::handlePfk(const std::string& command) {
 
   } catch (const std::exception& e) {
     std::cerr << "Error while handling pfk: " << e.what() << "\n";
+  }
+}
+
+void handlecommand::CommandHandler::handlePdr(const std::string& command) {
+  try {
+    parser::DropResource drop = parser::CommandParser::parsePdr(command);
+
+    auto playerIt = _gameState.players.find(drop.playerID);
+    if (playerIt == _gameState.players.end()) {
+      throw std::runtime_error("Player not found with ID " +
+                               std::to_string(drop.playerID));
+    }
+
+    gui::Player& player = playerIt->second;
+    gui::Tile& tile = _gameState.map.getTile(player.x, player.y);
+    tile.showDropEffect(drop.resourceNumber);
+
+  } catch (const std::exception& e) {
+    std::cerr << "Error while handling pdr: " << e.what() << "\n";
   }
 }

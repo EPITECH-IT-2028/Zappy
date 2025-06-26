@@ -1,4 +1,5 @@
 #include "Tile.hpp"
+#include <iostream>
 #include "raylib.h"
 
 static constexpr int TILE_SIZE = 64;
@@ -17,7 +18,9 @@ void gui::Tile::stopIncantationEffect() {
 }
 
 void gui::Tile::resultEffect(bool success) {
-  stopIncantationEffect();
+  if (!incantationInProgress) {
+    std::cerr << "Warning: Result effect triggered without active incantation\n";
+  }
   showResultEffect = true;
   resultSuccess = success;
   effectTimer = 2.0f;
@@ -54,4 +57,9 @@ void gui::Tile::draw(int x, int y) {
 
 void gui::Tile::showForkEffect() {
   // A placer une sprite de noeunoeuf
+}
+
+void gui::Tile::showDropEffect(int resourceId) {
+  std::cout << "Drop effect for resource ID: " << resourceId << std::endl;
+  // DOit ajouter un effet
 }

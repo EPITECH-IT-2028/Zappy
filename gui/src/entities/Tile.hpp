@@ -34,6 +34,7 @@ namespace gui {
       void resultEffect(bool success);
 
       void showForkEffect();
+      void showDropEffect(int resourceId);
 
       void update(float deltaTime);
       void draw(int x, int y);
