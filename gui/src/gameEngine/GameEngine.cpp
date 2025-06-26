@@ -24,12 +24,23 @@ gui::GameEngine::GameEngine(network::ServerCommunication& serverCommunication)
   _camera.SetProjection(CAMERA_ORTHOGRAPHIC);
 }
 
+gui::GameEngine::~GameEngine() {
+  if (_resourcesLoaded) {
+    UnloadModel(_brick);
+    std::cout << "Resources unloaded successfully." << std::endl;
+  } else {
+    std::cerr << "No resources to unload." << std::endl;
+  }
+}
+
 void gui::GameEngine::initialize() {
   try {
     loadResources();
   } catch (const std::exception& e) {
     std::cerr << "Resource initialization failed: " << e.what() << std::endl;
     _resourcesLoaded = false;
+    _currentScreen = Screen::ERROR;
+    _errorMessage = std::string("Resource loading failed: ") + e.what();
   }
 }
 
@@ -70,6 +81,9 @@ void gui::GameEngine::run() {
         break;
       case Screen::ENDING:
         renderEndingScreen();
+        break;
+      case Screen::ERROR:
+        renderErrorScreen();
         break;
       default:
         break;
@@ -176,26 +190,28 @@ void gui::GameEngine::renderEndingScreen() {
   DrawText("PRESS ENTER to JUMP to TITLE SCREEN", 130, 220, 20, DARKBLUE);
 }
 
+void gui::GameEngine::renderErrorScreen() {
+  DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, RED);
+  DrawText("ERROR", 20, 20, 40, BLACK);
+  DrawText(_errorMessage.c_str(), 60, 120, 20, BLACK);
+}
+
 void gui::GameEngine::loadResources() {
   if (_resourcesLoaded)
     return;
 
-  try {
-    if (!FileExists(BRICK_MODEL_PATH))
-      throw std::runtime_error("Model file not found: " +
-                               std::string(BRICK_MODEL_PATH));
+  if (!FileExists(BRICK_MODEL_PATH))
+    throw std::runtime_error("Model file not found: " +
+                             std::string(BRICK_MODEL_PATH));
 
-    _brick = LoadModel(BRICK_MODEL_PATH);
+  _brick = LoadModel(BRICK_MODEL_PATH);
 
-    if (_brick.IsValid()) {
-      std::cout << "Brick model loaded successfully." << std::endl;
-      _resourcesLoaded = true;
-    } else {
-      std::cerr << "Error: Failed to load model: " << BRICK_MODEL_PATH
-                << std::endl;
-    }
-  } catch (const std::exception& e) {
-    std::cerr << "Exception while loading model: " << e.what() << std::endl;
+  if (_brick.meshCount > 0) {
+    std::cout << "Brick model loaded successfully." << std::endl;
+    _resourcesLoaded = true;
+  } else {
+    std::cerr << "Error: Failed to load model: " << BRICK_MODEL_PATH
+              << std::endl;
   }
 }
 

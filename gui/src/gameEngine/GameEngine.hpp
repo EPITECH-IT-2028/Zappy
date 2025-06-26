@@ -27,13 +27,14 @@ namespace gui {
     LOGO,
     TITLE,
     GAMEPLAY,
-    ENDING
+    ENDING,
+    ERROR
   };
 
   class GameEngine {
     public:
       GameEngine(network::ServerCommunication &serverCommunication);
-      ~GameEngine() = default;
+      ~GameEngine();
 
       void run();
       void initialize();
@@ -58,10 +59,12 @@ namespace gui {
       void renderTitleScreen();
       void renderGameplayScreen();
       void renderEndingScreen();
+      void renderErrorScreen();
 
       void loadResources();
-      raylib::Model _brick;
+      Model _brick;
       bool _resourcesLoaded;
+      std::string _errorMessage;
 
       void drawMap();
   };
