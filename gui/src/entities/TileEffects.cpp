@@ -29,6 +29,10 @@ void gui::TileEffects::showFailureEffect() {
 }
 
 void gui::TileEffects::update(float deltaTime) {
+  if (deltaTime < 0.0f) {
+    std::cerr << "Warning: Negative deltaTime in TileEffects update\n";
+    return;
+  }
   if (showResultEffect) {
     effectTimer -= deltaTime;
     if (effectTimer <= 0.0f) {
