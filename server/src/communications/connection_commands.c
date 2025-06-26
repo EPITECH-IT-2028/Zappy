@@ -81,7 +81,6 @@ void connection_command(server_t *server, int index, char *buffer)
 {
     char response[BUFFER_SIZE];
 
-    printf("Connection command request\n");
     if (strcmp(buffer, GRAPHIC_NAME) == 0) {
         send_gui(server, index, buffer);
         return;

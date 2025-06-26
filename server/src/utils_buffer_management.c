@@ -20,8 +20,10 @@ int add_buffer_to_response(char *buffer, char ***response, int *index)
         return ERROR;
     *response = new_response;
     (*response)[*index - 1] = strdup(buffer);
-    if (!(*response)[*index - 1])
+    if (!(*response)[*index - 1]) {
+        free(*response);
         return ERROR;
+    }
     (*response)[*index] = NULL;
     *index += 1;
     return SUCCESS;

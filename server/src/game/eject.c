@@ -90,6 +90,20 @@ int knockback_players(server_t *server, client_t *ejector, int x, int y)
     return SUCCESS;
 }
 
+static
+int send_correct_response(response_t *response, bool has_eggs, bool has_players)
+{
+    if (has_eggs || has_players) {
+        if (add_buffer_to_response("ok", &response->response, &response->size)
+            == ERROR)
+            return ERROR;
+    } else
+        if (add_buffer_to_response("ko", &response->response, &response->size)
+            == ERROR)
+            return ERROR;
+    return SUCCESS;
+}
+
 int handle_eject(server_t *server, response_t *response, request_t *request)
 {
     int x = request->client->data.x;
@@ -103,10 +117,8 @@ int handle_eject(server_t *server, response_t *response, request_t *request)
         knockback_players(server, request->client, x, y);
         has_players = true;
     }
-    if (has_eggs || has_players)
-        add_buffer_to_response("ok", &response->response, &response->size);
-    else
-        add_buffer_to_response("ko", &response->response, &response->size);
+    if (send_correct_response(response, has_eggs, has_players) == ERROR)
+        return ERROR;
     response->client->data.is_busy = true;
     response->client->data.action_end_time = get_action_end_time(server,
         EJECT_TIME);

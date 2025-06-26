@@ -125,7 +125,11 @@ void append_to_client_buffer(client_t *client, char *buffer, int bytes)
     char *new_buffer = NULL;
 
     if (client_buffer == NULL) {
-        client->buffer = strdup(buffer);
+        client->buffer = malloc(bytes + 1);
+        if (client->buffer == NULL)
+            return;
+        memcpy(client->buffer, buffer, bytes);
+        client->buffer[bytes] = '\0';
         return;
     }
     new_buffer = realloc(client_buffer, sizeof(char)

@@ -15,7 +15,7 @@ int handle_connect_nbr(server_t *server, response_t *response,
 {
     int remaining_slots = 0;
     int team_index = 0;
-    char buffer[BUFFER_SIZE];
+    char buffer[BUFFER_SIZE] = {0};
 
     if (!server || !response || !request)
         return ERROR;
@@ -23,7 +23,9 @@ int handle_connect_nbr(server_t *server, response_t *response,
     remaining_slots = server->params.client_per_team -
         server->teams[team_index].clients_count;
     sprintf(buffer, "%d", remaining_slots);
-    add_buffer_to_response(buffer, &response->response, &response->size);
+    if (add_buffer_to_response(buffer, &response->response, &response->size)
+        == ERROR)
+        return ERROR;
     response->client->data.is_busy = true;
     response->client->data.action_end_time = get_action_end_time(server,
         INVENTORY_TIME);
