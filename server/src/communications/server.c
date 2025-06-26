@@ -25,10 +25,12 @@ void handle_request(server_t *server)
             if (response.response[i]) {
                 send_code(response.client->fd, response.response[i]);
                 free(response.response[i]);
+                response.response[i] = NULL;
             }
         }
         send_code(response.client->fd, "\n");
         free(response.response);
+        response.response = NULL;
     }
 }
 

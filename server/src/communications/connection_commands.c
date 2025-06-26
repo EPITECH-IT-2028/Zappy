@@ -92,6 +92,4 @@ void connection_command(server_t *server, int index, char *buffer)
     } else {
         return send_code(server->clients[index]->fd, "ko\n");
     }
-    send_code(server->clients[index]->fd, response);
-    printf("Connection response sended\n");
 }
