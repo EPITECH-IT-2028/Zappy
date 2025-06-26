@@ -16,12 +16,21 @@ gui::GameEngine::GameEngine(network::ServerCommunication& serverCommunication)
       _resourcesLoaded(false) {
   if (!IsWindowReady())
     throw std::runtime_error("Failed to initialize Raylib window");
-  loadResources();
+  initialize();
   _camera.SetPosition({15.0f, 15.0f, 30.0f});
   _camera.SetTarget({0.0f, 0.0f, 0.0f});
   _camera.SetUp({0.0f, 1.0f, 0.0f});
   _camera.SetFovy(45.0f);
   _camera.SetProjection(CAMERA_ORTHOGRAPHIC);
+}
+
+void gui::GameEngine::initialize() {
+  try {
+    loadResources();
+  } catch (const std::exception& e) {
+    std::cerr << "Resource initialization failed: " << e.what() << std::endl;
+    _resourcesLoaded = false;
+  }
 }
 
 void gui::GameEngine::run() {

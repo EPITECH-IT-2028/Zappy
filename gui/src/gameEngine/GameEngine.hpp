@@ -1,7 +1,6 @@
 #pragma once
 
 #include <raylib.h>
-#include "Camera3D.hpp"
 #include "commandHandler/CommandHandler.hpp"
 #include "entities/GameState.hpp"
 #include "raylib-cpp.hpp"
@@ -25,6 +24,7 @@ namespace gui {
       ~GameEngine() = default;
 
       void run();
+      void initialize();
 
     private:
       raylib::Window _window;
