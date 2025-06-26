@@ -149,7 +149,7 @@ void gui::GameEngine::processNetworkMessages() {
         std::cerr << "Received empty message from server" << std::endl;
         break;
       }
-      if (!message.empty() && message.back() == '\n')
+      if (message.back() == '\n')
         message.pop_back();
 
       std::string commandPrefix = message.substr(0, 3);
