@@ -10,6 +10,7 @@
 #define SCREEN_WIDTH 1600
 #define SCREEN_HEIGHT 900
 
+#define CAMERA_ZOOM_STEP 0.5f
 #define MIN_CAMERA_FOVY 6.0f
 #define MAX_CAMERA_FOVY 45.0f
 
