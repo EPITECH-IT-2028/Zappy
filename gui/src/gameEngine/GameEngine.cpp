@@ -98,11 +98,9 @@ void gui::GameEngine::updateGameplayScreen() {
   if (_camera.projection == CAMERA_ORTHOGRAPHIC && GetMouseWheelMove() > 0 &&
       _camera.fovy > MIN_CAMERA_FOVY) {
     _camera.fovy -= CAMERA_ZOOM_STEP;
-    std::cout << "Camera fovy: " << _camera.fovy << std::endl;
   } else if (_camera.projection == CAMERA_ORTHOGRAPHIC &&
              GetMouseWheelMove() < 0 && _camera.fovy < MAX_CAMERA_FOVY) {
     _camera.fovy += CAMERA_ZOOM_STEP;
-    std::cout << "Camera fovy: " << _camera.fovy << std::endl;
   }
 }
 
