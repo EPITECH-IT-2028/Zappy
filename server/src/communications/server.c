@@ -20,7 +20,9 @@ void handle_request(server_t *server)
 {
     response_t response;
 
-    if (queue_pop_response(server, &response) == SUCCESS) {
+    if (queue_pop_response(server, &response) == ERROR)
+        return;
+    if (response.response != NULL && response.client != NULL) {
         for (int i = 0; response.response[i] != NULL; i++) {
             send_code(response.client->fd, response.response[i]);
             free(response.response[i]);
