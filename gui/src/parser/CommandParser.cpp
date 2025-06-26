@@ -145,7 +145,7 @@ parser::Incantation parser::CommandParser::parsePic(
   std::vector<int> playersNumber;
 
   int result = std::sscanf(command.c_str(), "pic %d %d %d", &x, &y, &level);
-  if (result < 3) {
+  if (result != 3) {
     throw std::runtime_error("Invalid pic command format");
   }
 
