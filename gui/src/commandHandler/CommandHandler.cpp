@@ -271,7 +271,7 @@ void handlecommand::CommandHandler::handlePfk(const std::string& command) {
 
 void handlecommand::CommandHandler::handlePdr(const std::string& command) {
   try {
-    parser::DropRessource drop = parser::CommandParser::parsePdr(command);
+    parser::DropResource drop = parser::CommandParser::parsePdr(command);
 
     auto playerIt = _gameState.players.find(drop.playerID);
     if (playerIt == _gameState.players.end()) {
@@ -280,7 +280,7 @@ void handlecommand::CommandHandler::handlePdr(const std::string& command) {
 
     gui::Player& player = playerIt->second;
     gui::Tile& tile = _gameState.map.getTile(player.x, player.y);
-    tile.showDropEffect(drop.ressourceNumber);
+    tile.showDropEffect(drop.resourceNumber);
 
   } catch (const std::exception& e) {
     std::cerr << "Error while handling pdr: " << e.what() << "\n";

@@ -124,12 +124,12 @@ namespace parser {
     ForkEvent(int playerID) : playerID(playerID) {
     };
   };
-  struct DropRessource {
+  struct DropResource {
     int playerID;
-    int ressourceNumber;
+    int resourceNumber;
 
-    DropRessource(int playerID, int ressourceNumber)
-        : playerID(playerID), ressourceNumber(ressourceNumber) {
+    DropResource(int playerID, int resourceNumber)
+        : playerID(playerID), resourceNumber(resourceNumber) {
     };
   };
 
@@ -153,7 +153,7 @@ namespace parser {
       static Incantation parsePic(const std::string& command);
       static IncantationEnd parsePie(const std::string& command);
       static ForkEvent parsePfk(const std::string& command);
-      static DropRessource parsePdr(const std::string& command);
+      static DropResource parsePdr(const std::string& command);
 
 
     private:
