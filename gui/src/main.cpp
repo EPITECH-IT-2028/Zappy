@@ -30,7 +30,6 @@ int main(int argc, char* argv[]) {
     }
     gui::GameEngine app{serverCommunication};
     app.run();
-    std::cout << "GUI application started successfully." << std::endl;
     return OK;
   } catch (const std::invalid_argument& e) {
     std::cerr << "Error: " << e.what() << std::endl;
