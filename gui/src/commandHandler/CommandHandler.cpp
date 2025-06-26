@@ -4,6 +4,7 @@
 #include "entities/Egg.hpp"
 #include "entities/Player.hpp"
 #include "parser/CommandParser.hpp"
+#include <algorithm>
 
 void handlecommand::CommandHandler::handleBct(const std::string& command) {
   try {

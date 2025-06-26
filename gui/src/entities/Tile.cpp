@@ -66,3 +66,8 @@ void gui::Tile::showCollectEffect(int resourceId) {
   std::cout << "Collect effect for resource ID: " << resourceId << std::endl;
   // DOit ajouter un effet
 }
+
+void gui::Tile::showPushEffect(int resourceId) {
+  std::cout << "Push effect for resource ID: " << resourceId << std::endl;
+  // DOit ajouter un effet
+}

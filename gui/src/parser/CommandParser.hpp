@@ -140,6 +140,11 @@ namespace parser {
         : playerID(playerID), resourceNumber(resourceNumber) {
     };
   };
+  struct PlayerExpulsion {
+    int playerID;
+    PlayerExpulsion(int playerID) : playerID(playerID) {
+    };
+  };
 
   class CommandParser {
     public:
@@ -163,6 +168,7 @@ namespace parser {
       static ForkEvent parsePfk(const std::string& command);
       static DropResource parsePdr(const std::string& command);
       static CollectResource parsePgt(const std::string& command);
+      static PlayerExpulsion parsePex(const std::string& command);
 
     private:
   };
