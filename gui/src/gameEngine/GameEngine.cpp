@@ -206,12 +206,16 @@ void gui::GameEngine::loadResources() {
 
   _brick = LoadModel(BRICK_MODEL_PATH);
 
-  if (_brick.meshCount > 0) {
+  if (_brick.meshCount > 0 && _brick.materialCount > 0 &&
+      _brick.meshes != nullptr) {
     std::cout << "Brick model loaded successfully." << std::endl;
     _resourcesLoaded = true;
   } else {
     std::cerr << "Error: Failed to load model: " << BRICK_MODEL_PATH
               << std::endl;
+    UnloadModel(_brick);
+    throw std::runtime_error(std::string("Failed to load model: ") +
+                             BRICK_MODEL_PATH);
   }
 }
 
