@@ -20,6 +20,7 @@ set(SOURCES
   src/entities/GameState.cpp
   src/entities/Map.cpp
   src/entities/Tile.cpp
+  src/entities/TileEffects.cpp
   src/commandHandler/CommandHandler.cpp
 )
 
