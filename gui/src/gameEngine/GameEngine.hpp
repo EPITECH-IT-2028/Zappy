@@ -13,6 +13,8 @@
 #define MIN_CAMERA_FOVY 6.0f
 #define MAX_CAMERA_FOVY 45.0f
 
+#define BRICK_MODEL_PATH "resources/mario_brick/scene.gltf"
+
 namespace gui {
   enum class Screen {
     LOGO,

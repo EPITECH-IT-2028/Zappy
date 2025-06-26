@@ -183,19 +183,18 @@ void gui::GameEngine::loadResources() {
     return;
 
   try {
-    if (!FileExists("resources/mario_brick/scene.gltf"))
-      throw std::runtime_error(
-          "Model file not found: resources/mario_brick/scene.gltf");
+    if (!FileExists(BRICK_MODEL_PATH))
+      throw std::runtime_error("Model file not found: " +
+                               std::string(BRICK_MODEL_PATH));
 
-    _brick = LoadModel("resources/mario_brick/scene.gltf");
+    _brick = LoadModel(BRICK_MODEL_PATH);
 
     if (_brick.IsValid()) {
       std::cout << "Brick model loaded successfully." << std::endl;
       _resourcesLoaded = true;
     } else {
-      std::cerr
-          << "Error: Failed to load model: resources/mario_brick/scene.gltf"
-          << std::endl;
+      std::cerr << "Error: Failed to load model: " << BRICK_MODEL_PATH
+                << std::endl;
     }
   } catch (const std::exception& e) {
     std::cerr << "Exception while loading model: " << e.what() << std::endl;
