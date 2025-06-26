@@ -22,26 +22,21 @@ allowed_commands = [
 
 def send_message(client, message) -> None:
     formatted_message = message + "\n"
-    client["socket"].send((formatted_message).encode())
+    client.socket.send((formatted_message).encode())
 
 def handle_Forward(client, response) -> None:
-    # print("Avance réussie")
     return
 
 def handle_Right(client, response) -> None:
-    # print("Rotation à droite réussie")
     return
 
 def handle_Left(client, response) -> None:
-    # print("Rotation à gauche réussie")
     return
 
 def handle_Take(client, response) -> None:
-    # print(f"Taking resources")
     return
 
 def handle_Set(client, response) -> None:
-    # print(f"Seting resources")
     return
 
 def handle_Inventory(client, response) -> None:
@@ -52,34 +47,33 @@ def handle_Inventory(client, response) -> None:
             return
     cleaned_response = response.strip().lstrip('[').rstrip(']')
     for item in cleaned_response.split(', '):
-        # print(f"Item in inventory: {item}")
         if item:
             try:
                 resource, quantity = item.split()
-                client["inventory"][resource] = int(quantity)
+                client.inventory[resource] = int(quantity)
             except ValueError:
                 print(f"response: {response}")
-                client["look_redirection"] = True
+                client.look_redirection = True
 
 def handle_Dead(client, response) -> None:
-    client["socket"].close()
-    client["is_alive"] = False
+    client.socket.close()
+    client.is_alive = False
     game.remove_client(client)
 
 def handle_fork(client, response) -> None:
-    server_address = client["socket"].getpeername()
-    team_name = client["team_name"]
+    server_address = client.socket.getpeername()
+    team_name = client.team_name
     connect_client(server_address, team_name)
 
 def handle_Look(client, response) -> None:
     cleaned_response = response.strip().lstrip('[').rstrip(']')
-    client["last_look"] = [item.strip() for item in cleaned_response.split(',')]
+    client.last_look = [item.strip() for item in cleaned_response.split(',')]
 
 def is_look_response(message):
     content = message.strip().lstrip('[').rstrip(']')
     items = [item.strip() for item in content.split(',')]
     
-    return len(items) != 7
+    return len(items) != utils.INVENTORY_ITEMS_COUNT
 
 def handle_Broadcast(client, response) -> None:
     if (response == "ok"):
@@ -89,9 +83,9 @@ def handle_Broadcast(client, response) -> None:
         if not (response.startswith("[") and response.endswith("]")):
             return
         if is_look_response(response):
-            client["look_redirection"] = True
+            client.look_redirection = True
         else:
-            client["inventory_redirection"] = True
+            client.inventory_redirection = True
         return
 
     direction, message = response.split(", ")
@@ -105,18 +99,15 @@ def handle_Broadcast(client, response) -> None:
             food = int(parts[1])
         else:
             return
-        print(f"my food: {client['inventory'].get('food', 0)}")
-        if client["waiting_for_help"] and food > int(client["inventory"].get("food", 0)):
-            client["waiting_for_help"] = False
-        if target_level == client["level"] + 1:
-            client["help_status"] = True
-            client["help_direction"] = direction
-            client["total_actions"] = 0
-            client["count_actions"] = 0
+        if client.waiting_for_help and food > int(client["inventory"].get("food", 0)):
+            client.waiting_for_help = False
+        if target_level == client.level + 1:
+            client.help_status = True
+            client.help_direction = direction
             return
     
     if message == "I_am_starting_to_play":
-        client["player_in_game"] += 1
+        client.player_in_game += 1
         return
 
 def get_requirements_for_level(level):
@@ -133,60 +124,56 @@ def get_requirements_for_level(level):
 
 def handle_Incantation(client, response) -> None:
     if response == "ko":
-        print("Incantation échouée")
-        client["incantation"] = False
+        client.incantation = False
         return
     
-    client["waiting_incantation_response"] = True
-    print("Incantation en cours")
+    client.waiting_incantation_response = True
     
 def handle_Incantation_Response(client, response) -> None:
     if response == "ko":
-        print("Incantation échouée")
-        client["incantation"] = False
+        client.incantation = False
         return
 
     new_level = int(response.split("Current level:")[1])
-    client["level"] = new_level
-    client["needed_resources"] = get_requirements_for_level(new_level)
-    client["incantation"] = False
-    if client["help_status"]:
-        client["help_status"] = False
-        client["help_direction"] = None
-    client["waiting_for_help"] = False
-    print(f"Incantation réussie, nouveau niveau: {new_level}")
+    client.level = new_level
+    client.needed_resources = get_requirements_for_level(new_level)
+    client.incantation = False
+    if client.help_status:
+        client.help_status = False
+        client.help_direction = None
+    client.waiting_for_help = False
     execute_command(client, utils.LOOK, None)
 
-def handle_commande(client, commande, response):
-    func_name = f"handle_{commande}"
+def handle_command(client, command, response):
+    func_name = f"handle_{command}"
 
     if func_name in globals():
         handler = globals()[func_name]
         handler(client, response)
 
-def execute_command(client, commande, args) -> None:
+def execute_command(client, command, args) -> None:
     global allowed_commands
 
-    if commande not in allowed_commands:
-        raise ValueError(f"Commande '{commande}' non autorisée")
-    if commande == utils.BROADCAST or commande == utils.SET or commande == utils.TAKE:
-        send_message(client, f"{commande} {args}")
-    elif commande == utils.FORWARD:
-        if client["last_look"][0].count("player") > 3 and client["help_status"]:
+    if command not in allowed_commands:
+        raise ValueError(f"Command '{command}' non autorisée")
+    if command == utils.BROADCAST or command == utils.SET or command == utils.TAKE:
+        send_message(client, f"{command} {args}")
+    elif command == utils.FORWARD:
+        if client.last_look[utils.PLAYER_CELL].count("player") > utils.CANT_MOVE and client.help_status:
             return
-        send_message(client, commande)
+        send_message(client, command)
     else:
-        send_message(client, commande)
-    if len(client["commandes"]) < 10:
-        client["commandes"].append(commande)
+        send_message(client, command)
+    if len(client.commands) < utils.MAX_COMMANDS:
+        client.commands.append(command)
 
 def handle_client(client) -> None:
     buffer = ""
 
     execute_command(client, utils.LOOK, None)
-    while client["is_alive"]:
+    while client.is_alive:
 
-        response = client["socket"].recv(1024).decode()
+        response = client.socket.recv(utils.BUFFER_SIZE).decode()
 
         buffer += response
 
@@ -195,10 +182,10 @@ def handle_client(client) -> None:
                 message, buffer = buffer.split("\n", 1)
 
                 if message:
-                    if client["waiting_incantation_response"]:
+                    if client.waiting_incantation_response:
                         if message.startswith("Current level:") or message == "ko":
                             handle_Incantation_Response(client, message)
-                            client["waiting_incantation_response"] = False
+                            client.waiting_incantation_response = False
                         continue
 
                     if (message == "dead"):
@@ -206,7 +193,7 @@ def handle_client(client) -> None:
                         handle_Dead(client, message)
                         break
 
-                    if (message == "Elevation underway" and client["commandes"][0] != utils.INCANTATION):
+                    if (message == "Elevation underway" and client.commands[utils.FIRST_COMMAND] != utils.INCANTATION):
                         handle_Incantation(client, "ok")
                         continue
 
@@ -214,27 +201,24 @@ def handle_client(client) -> None:
                         handle_Broadcast(client, message)
                         continue
                     
-                    if (client["commandes"]):
-                        command = client["commandes"].pop(0)
+                    if (client.commands):
+                        command = client.commands.pop(utils.FIRST_COMMAND)
 
-                        if client["inventory_redirection"]:
-                            client["inventory_redirection"] = False
+                        if client.inventory_redirection:
+                            client.inventory_redirection = False
                             execute_command(client, utils.INVENTORY, message)
 
-                        elif client["look_redirection"]:
-                            client["look_redirection"] = False
+                        elif client.look_redirection:
+                            client.look_redirection = False
                             execute_command(client, utils.LOOK, None)
                         else:
-                            handle_commande(client, command, message)
+                            handle_command(client, command, message)
 
                         if command == utils.INVENTORY:
                             execute_command(client, utils.LOOK, None)
 
                         if command == utils.LOOK:
                             ml_agent.strategy(client)
-
-            if client["waiting_for_help"]:
-                print(f"Client commandes: {client['commandes']}")
                             
         else:
             execute_command(client, utils.LOOK, None)
@@ -243,43 +227,15 @@ def connect_client(server_address, team_name) -> int:
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client_socket.connect(server_address)
 
-    client = {
-        "socket": client_socket,
-        "team_name": team_name,
-        "mape_size": [0, 0],
-        "commandes": [],
-        "broadcast_commandes": [],
-        "inventory": {},
-        "last_look": [],
-        "level": 1,
-        "needed_resources": utils.LEVEL_1_TO_2,
-        "help_status": False,
-        "help_direction": None,
-        "is_alive": True,
-        "move": {
-            "consecutive_turns": 0,
-            "forward": False,
-            "distance_to_target": -1,
-            "last_target": None,
-        },
-        "incantation": False,
-        "waiting_incantation_response": False,
-        "start_playing": False,
-        "status": "good",
-        "player_in_game": 0,
-        "at_120_food": False,
-        "waiting_for_help": False,
-        "look_redirection": False,
-        "inventory_redirection": False,
-    }
+    client = utils.ZappyClient(client_socket, team_name)
 
-    welcome_msg = client["socket"].recv(1024).decode()
+    welcome_msg = client.socket.recv(utils.BUFFER_SIZE).decode()
     if (welcome_msg != "WELCOME\n"):
         raise ConnectionError("Erreur de connexion au serveur")
 
     send_message(client, team_name)
 
-    game_data = client["socket"].recv(1024).decode()
+    game_data = client.socket.recv(utils.BUFFER_SIZE).decode()
     if game_data == "ko\n":
         print("Unknown team name or team is full")
         return 0
@@ -287,7 +243,7 @@ def connect_client(server_address, team_name) -> int:
     unused_slot = game_data.split()[0]
     
     width, height = game_data.split()[1:3]
-    client["mape_size"] = [int(width), int(height)]
+    client.map_size = [int(width), int(height)]
 
     game.add_client(client)
 
