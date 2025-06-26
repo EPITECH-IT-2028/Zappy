@@ -336,6 +336,9 @@ void handlecommand::CommandHandler::handlePgt(const std::string& command) {
     }
 
     gui::Player& player = playerIt->second;
+    if (!_gameState.map.isInside(player.x, player.y)) {
+      throw std::out_of_range("Player coordinates outside map for pgt event");
+    }
     gui::Tile& tile = _gameState.map.getTile(player.x, player.y);
     tile.effects.showCollectEffect(collect.resourceNumber);
 
