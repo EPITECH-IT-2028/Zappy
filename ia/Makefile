@@ -1,7 +1,7 @@
 # Makefile for Zappy AI client
 # Creates a wrapper script to run the Python AI client
 
-NAME = zappy_ia
+NAME = zappy_ai
 
 all: $(NAME)
 
