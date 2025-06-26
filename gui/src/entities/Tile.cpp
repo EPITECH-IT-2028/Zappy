@@ -1,6 +1,6 @@
 #include "Tile.hpp"
-#include "raylib.h"
 #include <iostream>
+#include "raylib.h"
 
 static constexpr int TILE_SIZE = 64;
 static constexpr float BORDER_THICKNESS = 4.0f;

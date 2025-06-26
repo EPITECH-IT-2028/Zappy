@@ -313,7 +313,8 @@ void handlecommand::CommandHandler::handlePdr(const std::string& command) {
 
     auto playerIt = _gameState.players.find(drop.playerID);
     if (playerIt == _gameState.players.end()) {
-      throw std::runtime_error("Player not found with ID " + std::to_string(drop.playerID));
+      throw std::runtime_error("Player not found with ID " +
+                               std::to_string(drop.playerID));
     }
 
     gui::Player& player = playerIt->second;
@@ -331,7 +332,8 @@ void handlecommand::CommandHandler::handlePgt(const std::string& command) {
 
     auto playerIt = _gameState.players.find(collect.playerID);
     if (playerIt == _gameState.players.end()) {
-      throw std::runtime_error("Player not found with ID " + std::to_string(collect.playerID));
+      throw std::runtime_error("Player not found with ID " +
+                               std::to_string(collect.playerID));
     }
 
     gui::Player& player = playerIt->second;
