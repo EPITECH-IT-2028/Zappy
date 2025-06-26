@@ -96,11 +96,11 @@ void gui::GameEngine::updateGameplayScreen() {
   if (IsKeyPressed(KEY_ENTER))
     _currentScreen = Screen::ENDING;
   if (_camera.projection == CAMERA_ORTHOGRAPHIC && GetMouseWheelMove() > 0 &&
-      _camera.fovy > 6.0f) {
+      _camera.fovy > MIN_CAMERA_FOVY) {
     _camera.fovy -= 0.5f;
     std::cout << "Camera fovy: " << _camera.fovy << std::endl;
   } else if (_camera.projection == CAMERA_ORTHOGRAPHIC &&
-             GetMouseWheelMove() < 0 && _camera.fovy < 45.0f) {
+             GetMouseWheelMove() < 0 && _camera.fovy < MAX_CAMERA_FOVY) {
     _camera.fovy += 0.5f;
     std::cout << "Camera fovy: " << _camera.fovy << std::endl;
   }
