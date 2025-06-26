@@ -18,7 +18,9 @@ void gui::Tile::stopIncantationEffect() {
 }
 
 void gui::Tile::resultEffect(bool success) {
-  stopIncantationEffect();
+  if (!incantationInProgress) {
+    std::cerr << "Warning: Result effect triggered without active incantation\n";
+  }
   showResultEffect = true;
   resultSuccess = success;
   effectTimer = 2.0f;

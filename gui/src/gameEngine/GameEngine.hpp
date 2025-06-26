@@ -6,30 +6,45 @@
 #include "raylib-cpp.hpp"
 #include "server/ServerCommunication.hpp"
 
-#define SCREEN_WIDTH 800
-#define SCREEN_HEIGHT 450
 #define LOGO_DURATION_FRAMES 120
+#define SCREEN_WIDTH 1600
+#define SCREEN_HEIGHT 900
+
+#define CAMERA_ZOOM_STEP 0.5f
+#define MIN_CAMERA_FOVY 6.0f
+#define MAX_CAMERA_FOVY 45.0f
+
+#define BRICK_MODEL_PATH "resources/mario_brick/scene.gltf"
+
+#define BRICK_SPACING 1.1f
+#define BRICK_MODEL_SCALE 0.01f
+#define WIREFRAME_OFFSET_X 0.0f
+#define WIREFRAME_OFFSET_Y 0.55f
+#define WIREFRAME_OFFSET_Z 0.15f
 
 namespace gui {
-  enum class GameScreen {
+  enum class Screen {
     LOGO,
     TITLE,
     GAMEPLAY,
-    ENDING
+    ENDING,
+    ERROR
   };
 
-  class Raylib {
+  class GameEngine {
     public:
-      Raylib(network::ServerCommunication &serverCommunication);
-      ~Raylib() = default;
+      GameEngine(network::ServerCommunication &serverCommunication);
+      ~GameEngine();
 
       void run();
+      void initialize();
 
     private:
       raylib::Window _window;
       int _framesCounter;
+      raylib::Camera3D _camera;
 
-      GameScreen _currentScreen;
+      Screen _currentScreen;
       network::ServerCommunication &_serverCommunication;
       GameState _gameState;
       handlecommand::CommandHandler _commandHandler;
@@ -44,5 +59,13 @@ namespace gui {
       void renderTitleScreen();
       void renderGameplayScreen();
       void renderEndingScreen();
+      void renderErrorScreen();
+
+      void loadResources();
+      Model _brick;
+      bool _resourcesLoaded;
+      std::string _errorMessage;
+
+      void drawMap();
   };
 }  // namespace gui
