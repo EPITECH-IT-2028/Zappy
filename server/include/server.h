@@ -157,8 +157,11 @@ typedef struct server_s {
     atomic_bool running;
     queue_response_t queue_response;
     queue_request_t queue_request;
+    inventory_t density;
     struct timespec server_timer;
     long long server_timer_count;
+    struct timespec density_timer;
+    long long density_timer_count;
     threads_t threads;
     map_t **map;
     int ids;
@@ -223,6 +226,11 @@ void send_all_eggs_to_gui(server_t *server);
 void send_pic(server_t *server, client_t **incantators);
 void send_pie(server_t *server, client_t **incantators);
 
+/* Player Tile functions */
+
+int remove_player_map(map_t *map, client_t *client);
+int add_player_map(server_t *server, map_t **map, client_t *client);
+
 /* Parameters checks */
 int help_flag(void);
 int check_port(params_t *params, char **av, size_t *av_idx);
@@ -250,8 +258,9 @@ int place_egg(map_t *tile, egg_t *egg);
 
 /* Timer functions */
 struct timespec get_action_end_time(server_t *server, int action_duration);
-long long get_current_timer_units(server_t *server);
-bool has_time_passed(server_t *server, long long, int duration);
+long long get_current_timer_units(server_t *server, struct timespec *timer);
+bool has_time_passed(server_t *server, long long start_timer_units,
+    int duration, struct timespec *timer);
 
 /* Direction function */
 void init_direction(direction_t *direction);
@@ -273,9 +282,13 @@ void init_incantation_state(incantation_t *inc);
 int remove_needed_ressources(map_t *tile, uint8_t level);
 
 /* Set/Take function */
-int check_if_ressources_exists(client_data_t *client, const char *ressource,
-    map_t *unit_space, bool from_inv_to_map);
-int check_ressource_update(request_t *request, client_data_t *client,
-    map_t *unit_space, bool from_inv_to_map);
+int check_ressource_update(server_t *server, request_t *request,
+    client_data_t *client, bool from_inv_to_map);
 
+
+void increment_resources(map_t *map, int type);
+int respawn_resources(server_t *server);
+void increment_resource_density(server_t *server, int type);
+void decrement_resource_density(server_t *server, int type);
+int init_density(server_t *server, inventory_t *density);
 #endif /* SERVER_H_ */

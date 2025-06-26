@@ -30,14 +30,15 @@ void send_map_content(server_t *server, int index)
 
     for (x = 0; x < server->params.width; x++) {
         for (y = 0; y < server->params.height; y++) {
-            snprintf(response, BUFFER_SIZE, "bct %d %d %d %d %d %d %d %d",
+            snprintf(response, BUFFER_SIZE, "bct %d %d %d %d %d %d %d %d %d",
                 x, y,
                 server->map[x][y].food,
                 server->map[x][y].linemate,
                 server->map[x][y].deraumere,
                 server->map[x][y].sibur,
                 server->map[x][y].mendiane,
-                server->map[x][y].phiras);
+                server->map[x][y].phiras,
+                server->map[x][y].thystame);
             send_code(server->clients[index]->fd, response);
         }
     }
@@ -48,14 +49,15 @@ void send_index_content(server_t *server, int index, int x, int y)
 {
     char response[BUFFER_SIZE];
 
-    snprintf(response, BUFFER_SIZE, "bct %d %d %d %d %d %d %d %d",
+    snprintf(response, BUFFER_SIZE, "bct %d %d %d %d %d %d %d %d %d",
         x, y,
         server->map[x][y].food,
         server->map[x][y].linemate,
         server->map[x][y].deraumere,
         server->map[x][y].sibur,
         server->map[x][y].mendiane,
-        server->map[x][y].phiras);
+        server->map[x][y].phiras,
+        server->map[x][y].thystame);
     send_code(server->clients[index]->fd, response);
 }
 
