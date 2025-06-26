@@ -104,6 +104,33 @@ namespace parser {
       PlayerDeath(int id) : id(id) {
       }
   };
+  struct Incantation {
+      int x;
+      int y;
+      int level;
+      std::vector<int> playersNumber;
+      Incantation(int x, int y, int level, const std::vector<int>& players)
+          : x(x), y(y), level(level), playersNumber(players) {
+      }
+  };
+  struct IncantationEnd {
+      int x;
+      int y;
+      bool success;
+      IncantationEnd(int x, int y, bool success)
+          : x(x), y(y), success(success) {};
+  };
+  struct ForkEvent {
+      int playerID;
+      ForkEvent(int playerID) : playerID(playerID) {};
+  };
+  struct DropResource {
+      int playerID;
+      int resourceNumber;
+
+      DropResource(int playerID, int resourceNumber)
+          : playerID(playerID), resourceNumber(resourceNumber) {};
+  };
 
   class CommandParser {
     public:
@@ -122,6 +149,10 @@ namespace parser {
       static EggHatch parseEbo(const std::string& command);
       static EggDeath parseEdi(const std::string& command);
       static PlayerDeath parsePdi(const std::string& command);
+      static Incantation parsePic(const std::string& command);
+      static IncantationEnd parsePie(const std::string& command);
+      static ForkEvent parsePfk(const std::string& command);
+      static DropResource parsePdr(const std::string& command);
 
     private:
   };

@@ -5,6 +5,42 @@
 #include "entities/Player.hpp"
 #include "parser/CommandParser.hpp"
 
+void handlecommand::CommandHandler::handleMsz(const std::string& command) {
+  try {
+    parser::MapSize mapSize = parser::CommandParser::parseMsz(command);
+    _gameState.map.resize(mapSize.width, mapSize.height);
+  } catch (const std::exception& e) {
+    std::cerr << "Error while handling msz: " << e.what() << "\n";
+  }
+}
+
+void handlecommand::CommandHandler::handleSgt(const std::string& command) {
+  try {
+    parser::TimeUnit timeUnit = parser::CommandParser::parseSgt(command);
+    if (timeUnit.time <= 0)
+      throw std::invalid_argument("Time unit must be positive");
+    _gameState.timeUnit = timeUnit.time;
+  } catch (const std::exception& e) {
+    std::cerr << "Error while handling sgt: " << e.what() << "\n";
+  }
+}
+
+void handlecommand::CommandHandler::handleTna(const std::string& command) {
+  try {
+    parser::TeamNames teamNames = parser::CommandParser::parseTna(command);
+    for (const auto& name : teamNames.names) {
+      if (std::find(_gameState.teamNames.begin(), _gameState.teamNames.end(),
+                    name) == _gameState.teamNames.end()) {
+        _gameState.teamNames.push_back(name);
+      } else {
+        std::cerr << "Duplicate team name found: " << name << "\n";
+      }
+    }
+  } catch (const std::exception& e) {
+    std::cerr << "Error while handling tna: " << e.what() << "\n";
+  }
+}
+
 void handlecommand::CommandHandler::handleBct(const std::string& command) {
   try {
     parser::TileUpdate update = parser::CommandParser::parseBct(command);
@@ -106,19 +142,19 @@ void handlecommand::CommandHandler::handlePin(const std::string& command) {
 void handlecommand::CommandHandler::handleEnw(const std::string& command) {
   try {
     parser::EggLaid eggLaid = parser::CommandParser::parseEnw(command);
-
-    if (!_gameState.map.isInside(eggLaid.x, eggLaid.y)) {
+    if (!_gameState.map.isInside(eggLaid.x, eggLaid.y))
       throw std::out_of_range("Coordinates outside map");
+
+    std::string teamName;
+    if (eggLaid.idPlayer == -1) {
+      teamName = "server";
+    } else {
+      auto playerIt = _gameState.players.find(eggLaid.idPlayer);
+      if (playerIt == _gameState.players.end())
+        throw std::runtime_error("Player not found with ID " +
+                                 std::to_string(eggLaid.idPlayer));
+      teamName = playerIt->second.teamName;
     }
-
-    auto playerIt = _gameState.players.find(eggLaid.idPlayer);
-
-    if (playerIt == _gameState.players.end()) {
-      throw std::runtime_error("Player not found with ID " +
-                               std::to_string(eggLaid.idPlayer));
-    }
-
-    const std::string& teamName = playerIt->second.teamName;
 
     gui::Egg egg(eggLaid.idEgg, eggLaid.x, eggLaid.y, eggLaid.idPlayer,
                  teamName);
@@ -182,5 +218,106 @@ void handlecommand::CommandHandler::handlePdi(const std::string& command) {
     _gameState.players.erase(playerIt);
   } catch (const std::exception& e) {
     std::cerr << "Error while handling pdi: " << e.what() << "\n";
+  }
+}
+
+void handlecommand::CommandHandler::handlePic(const std::string& command) {
+  try {
+    parser::Incantation incantation = parser::CommandParser::parsePic(command);
+    if (!_gameState.map.isInside(incantation.x, incantation.y)) {
+      throw std::out_of_range("Coordinates outside map");
+    }
+    gui::Tile& tile = _gameState.map.getTile(incantation.x, incantation.y);
+
+    if (tile.isEmpty()) {
+      throw std::runtime_error("Tile is empty for incantation at (" +
+                               std::to_string(incantation.x) + ", " +
+                               std::to_string(incantation.y) + ")");
+    }
+
+    tile.startIncantationEffect();
+    gui::IncantationEffect effect(incantation.x, incantation.y,
+                                  incantation.level, incantation.playersNumber);
+
+    _gameState.activeIncantations.push_back(effect);
+
+  } catch (const std::exception& e) {
+    std::cerr << "Error handling pic: " << e.what() << "\n";
+  }
+}
+
+void handlecommand::CommandHandler::handlePie(const std::string& command) {
+  try {
+    parser::IncantationEnd pie = parser::CommandParser::parsePie(command);
+    if (!_gameState.map.isInside(pie.x, pie.y)) {
+      throw std::out_of_range("Coordinates outside map");
+    }
+    gui::Tile& tile = _gameState.map.getTile(pie.x, pie.y);
+    auto it = std::find_if(_gameState.activeIncantations.begin(),
+                           _gameState.activeIncantations.end(),
+                           [&pie](const gui::IncantationEffect& effect) {
+                             return effect.x == pie.x && effect.y == pie.y &&
+                                    !effect.finished;
+                           });
+
+    if (it != _gameState.activeIncantations.end()) {
+      it->finished = true;
+    }
+
+    tile.stopIncantationEffect();
+
+    if (pie.success)
+      tile.showSuccessEffect();
+    else
+      tile.showFailureEffect();
+  } catch (const std::exception& e) {
+    std::cerr << "Error while handling pie: " << e.what() << "\n";
+  }
+}
+
+void handlecommand::CommandHandler::handlePfk(const std::string& command) {
+  try {
+    parser::ForkEvent forkEvent = parser::CommandParser::parsePfk(command);
+    auto playerIt = _gameState.players.find(forkEvent.playerID);
+
+    if (playerIt == _gameState.players.end()) {
+      throw std::runtime_error("Player not found with ID " +
+                               std::to_string(forkEvent.playerID));
+    }
+
+    gui::Player& player = playerIt->second;
+    if (!_gameState.map.isInside(player.x, player.y)) {
+      throw std::out_of_range("Player coordinates outside map");
+    }
+    gui::Tile& tile = _gameState.map.getTile(player.x, player.y);
+
+    auto& playerList = tile.playerIdsOnTile;
+    if (std::find(playerList.begin(), playerList.end(), player.id) ==
+        playerList.end()) {
+      playerList.push_back(player.id);
+    }
+    tile.showForkEffect();
+
+  } catch (const std::exception& e) {
+    std::cerr << "Error while handling pfk: " << e.what() << "\n";
+  }
+}
+
+void handlecommand::CommandHandler::handlePdr(const std::string& command) {
+  try {
+    parser::DropResource drop = parser::CommandParser::parsePdr(command);
+
+    auto playerIt = _gameState.players.find(drop.playerID);
+    if (playerIt == _gameState.players.end()) {
+      throw std::runtime_error("Player not found with ID " +
+                               std::to_string(drop.playerID));
+    }
+
+    gui::Player& player = playerIt->second;
+    gui::Tile& tile = _gameState.map.getTile(player.x, player.y);
+    tile.showDropEffect(drop.resourceNumber);
+
+  } catch (const std::exception& e) {
+    std::cerr << "Error while handling pdr: " << e.what() << "\n";
   }
 }
