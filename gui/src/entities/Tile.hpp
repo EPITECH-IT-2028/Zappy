@@ -20,6 +20,22 @@ namespace gui {
       std::vector<int> playerIdsOnTile;
       std::vector<int> eggIdsOnTile;
 
+      bool incantationInProgress = false;
+      bool showResultEffect = false;
+      bool resultSuccess = false;
+      float effectTimer = 0.0f;
+
       bool isEmpty() const;
+
+      void startIncantationEffect();
+      void stopIncantationEffect();
+      void showSuccessEffect();
+      void showFailureEffect();
+      void resultEffect(bool success);
+
+      void showForkEffect();
+
+      void update(float deltaTime);
+      void draw(int x, int y);
   };
-};  // namespace gui
+}  // namespace gui

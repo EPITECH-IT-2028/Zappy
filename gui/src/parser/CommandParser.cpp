@@ -138,3 +138,48 @@ parser::PlayerDeath parser::CommandParser::parsePdi(
     throw std::runtime_error("Invalid pdi command format");
   return PlayerDeath(id);
 }
+
+parser::Incantation parser::CommandParser::parsePic(
+    const std::string &command) {
+  int x, y, level;
+  std::vector<int> playersNumber;
+
+  int result = std::sscanf(command.c_str(), "pic %d %d %d", &x, &y, &level);
+  if (result != 3) {
+    throw std::runtime_error("Invalid pic command format");
+  }
+
+  std::istringstream iss(command);
+  std::string token;
+  iss >> token;
+
+  iss >> token;
+  iss >> token;
+  iss >> token;
+  while (iss >> token) {
+    if (token[0] == '#') {
+      int playerId = std::stoi(token.substr(1));
+      playersNumber.push_back(playerId);
+    }
+  }
+  return Incantation(x, y, level, playersNumber);
+}
+
+parser::IncantationEnd parser::CommandParser::parsePie(
+    const std::string &command) {
+  int x, y, result;
+  int parsed = std::sscanf(command.c_str(), "pie %d %d %d", &x, &y, &result);
+  if (parsed != 3)
+    throw std::runtime_error("Invalid pie command format");
+
+  return IncantationEnd(x, y, result == 1);
+}
+
+parser::ForkEvent parser::CommandParser::parsePfk(const std::string &command) {
+  int playerId;
+  int result = std::sscanf(command.c_str(), "pfk %d", &playerId);
+
+  if (result != 1)
+    throw std::runtime_error("Invalid pfk command format");
+  return ForkEvent(playerId);
+}
