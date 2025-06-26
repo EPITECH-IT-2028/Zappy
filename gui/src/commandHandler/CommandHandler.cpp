@@ -221,11 +221,12 @@ void handlecommand::CommandHandler::handlePie(const std::string& command) {
       throw std::out_of_range("Coordinates outside map");
     }
     gui::Tile& tile = _gameState.map.getTile(pie.x, pie.y);
-    auto it = std::find_if(_gameState.activeIncantations.begin(), 
-                          _gameState.activeIncantations.end(),
-                          [&pie](const gui::IncantationEffect& effect) {
-                            return effect.x == pie.x && effect.y == pie.y && !effect.finished;
-                          });
+    auto it = std::find_if(_gameState.activeIncantations.begin(),
+                           _gameState.activeIncantations.end(),
+                           [&pie](const gui::IncantationEffect& effect) {
+                             return effect.x == pie.x && effect.y == pie.y &&
+                                    !effect.finished;
+                           });
 
     if (it != _gameState.activeIncantations.end()) {
       it->finished = true;
@@ -259,7 +260,8 @@ void handlecommand::CommandHandler::handlePfk(const std::string& command) {
     gui::Tile& tile = _gameState.map.getTile(player.x, player.y);
 
     auto& playerList = tile.playerIdsOnTile;
-    if (std::find(playerList.begin(), playerList.end(), player.id) == playerList.end()) {
+    if (std::find(playerList.begin(), playerList.end(), player.id) ==
+        playerList.end()) {
       playerList.push_back(player.id);
     }
     tile.showForkEffect();
@@ -268,4 +270,3 @@ void handlecommand::CommandHandler::handlePfk(const std::string& command) {
     std::cerr << "Error while handling pfk: " << e.what() << "\n";
   }
 }
-
