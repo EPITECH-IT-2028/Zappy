@@ -1,5 +1,6 @@
 #include "Tile.hpp"
 #include "raylib.h"
+#include <iostream>
 
 static constexpr int TILE_SIZE = 64;
 static constexpr float BORDER_THICKNESS = 4.0f;
@@ -54,4 +55,9 @@ void gui::Tile::draw(int x, int y) {
 
 void gui::Tile::showForkEffect() {
   // A placer une sprite de noeunoeuf
+}
+
+void gui::Tile::showDropEffect(int resourceId) {
+  std::cout << "Drop effect for resource ID: " << resourceId << std::endl;
+  // DOit ajouter un effet
 }

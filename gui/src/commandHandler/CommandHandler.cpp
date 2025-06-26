@@ -269,3 +269,20 @@ void handlecommand::CommandHandler::handlePfk(const std::string& command) {
   }
 }
 
+void handlecommand::CommandHandler::handlePdr(const std::string& command) {
+  try {
+    parser::DropRessource drop = parser::CommandParser::parsePdr(command);
+
+    auto playerIt = _gameState.players.find(drop.playerID);
+    if (playerIt == _gameState.players.end()) {
+      throw std::runtime_error("Player not found with ID " + std::to_string(drop.playerID));
+    }
+
+    gui::Player& player = playerIt->second;
+    gui::Tile& tile = _gameState.map.getTile(player.x, player.y);
+    tile.showDropEffect(drop.ressourceNumber);
+
+  } catch (const std::exception& e) {
+    std::cerr << "Error while handling pdr: " << e.what() << "\n";
+  }
+}
