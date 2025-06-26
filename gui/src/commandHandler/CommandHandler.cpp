@@ -202,10 +202,6 @@ void handlecommand::CommandHandler::handlePic(const std::string& command) {
     tile.startIncantationEffect();
     gui::IncantationEffect effect(incantation.x, incantation.y,
                                   incantation.level, incantation.playersNumber);
-    effect.x = incantation.x;
-    effect.y = incantation.y;
-    effect.level = incantation.level;
-    effect.players = incantation.playersNumber;
 
     _gameState.activeIncantations.push_back(effect);
 
