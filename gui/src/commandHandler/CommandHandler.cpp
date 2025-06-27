@@ -417,3 +417,20 @@ void handlecommand::CommandHandler::handlePex(const std::string& command) {
     std::cerr << "Error while handling pex: " << e.what() << "\n";
   }
 }
+
+void handlecommand::CommandHandler::handlePbc(const std::string& command) {
+  try {
+    parser::BroadcastEvent event = parser::CommandParser::parsePbc(command);
+
+    auto it = _gameState.players.find(event.playerID);
+    if (it == _gameState.players.end())
+      throw std::runtime_error("Player not found: ID = " + std::to_string(event.playerID));
+
+    gui::Player& player = it->second;
+
+    // ADD an event to the player's broadcast messages
+
+  } catch (const std::exception& e) {
+    std::cerr << "Error while handling pbc: " << e.what() << "\n";
+  }
+}
