@@ -1,6 +1,5 @@
 import sys
 
-import info
 import process
 import game
 

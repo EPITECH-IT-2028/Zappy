@@ -40,18 +40,15 @@ def handle_Left(client, response) -> None:
 def handle_Take(client, response) -> None:
     if response == "ko":
         print("Take failed - no resource available")
-        # Update last look to reflect taken resource
         if client["last_look"] and client["last_command"] == "Take":
             resource = client["last_command_args"]
             current_tile = client["last_look"][0].split()
             if resource in current_tile:
                 current_tile.remove(resource)
                 client["last_look"][0] = " ".join(current_tile)
-        # Move to new tile
         execute_command(client, random.choice(["Forward", "Left", "Right"]), None)
     else:
         print("Take succeeded")
-        # Update inventory immediately
         execute_command(client, "Inventory", None)
 
 
@@ -64,7 +61,6 @@ def handle_Inventory(client, response) -> None:
         cleaned = response.strip().lstrip('[').rstrip(']')
         items = [item.strip() for item in cleaned.split(',') if item.strip()]
 
-        # Reset inventory
         client["inventory"] = {}
 
         for item in items:
@@ -117,7 +113,6 @@ def handle_message(client, message):
         command = client["commandes"].pop(0)
         handle_commande(client, command, message)
 
-        # Always schedule next action
         if command != "Dead":
             ml_agent.strategy(client)
 
