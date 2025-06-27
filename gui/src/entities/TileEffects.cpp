@@ -41,6 +41,18 @@ void gui::TileEffects::update(float deltaTime) {
   }
 }
 
+void gui::TileEffects::draw(int x, int y) {
+  if (incantationInProgress) {
+    DrawRectangle(x, y, TILE_SIZE, TILE_SIZE, Fade(PURPLE, 0.3f));
+  }
+  if (showResultEffect) {
+    Color color = resultSuccess ? GREEN : RED;
+    DrawRectangleLinesEx(
+        {(float)x, (float)y, (float)TILE_SIZE, (float)TILE_SIZE},
+        BORDER_THICKNESS, color);
+  }
+}
+
 void gui::TileEffects::showForkEffect() {
   // TODO: Add fork effect (e.g., show an egg sprite)
 }
