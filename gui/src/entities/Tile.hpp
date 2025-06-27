@@ -1,4 +1,5 @@
 #pragma once
+#include <raylib.h>
 #include <array>
 #include <vector>
 #include "TileEffects.hpp"
@@ -23,5 +24,6 @@ namespace gui {
       TileEffects effects;
 
       bool isEmpty() const;
+      Color getResourceColor(Resource type) const;
   };
 }  // namespace gui

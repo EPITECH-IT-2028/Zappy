@@ -67,5 +67,7 @@ namespace gui {
       std::string _errorMessage;
 
       void drawMap();
+      void drawResource(const Vector3 position, int x, int y,
+                        std::vector<std::pair<Vector2, int>> &resourceTexts);
   };
 }  // namespace gui

@@ -227,6 +227,7 @@ void gui::GameEngine::drawMap() {
   float mapHeight = static_cast<float>(_gameState.map.height);
   Vector3 gridOrigin = {-((mapWidth - 1) * brickSpacing) / 2.0f, 0.0f,
                         -((mapHeight - 1) * brickSpacing) / 2.0f};
+  std::vector<std::pair<Vector2, int>> resourceCount;
 
   BeginMode3D(_camera);
   for (std::size_t y = 0; y < _gameState.map.height; ++y) {
@@ -239,7 +240,38 @@ void gui::GameEngine::drawMap() {
       DrawCubeWires(
           {position.x + offset.x, position.y + offset.y, position.z + offset.z},
           BRICK_SPACING, BRICK_SPACING, BRICK_SPACING, WHITE);
+      drawResource(position, x, y, resourceCount);
     }
   }
   EndMode3D();
+
+  for (const auto &info : resourceCount) {
+    Vector2 screenPos = info.first;
+    int count = info.second;
+    DrawText(TextFormat("%d", count), static_cast<int>(screenPos.x),
+             static_cast<int>(screenPos.y), 15, WHITE);
+  }
+}
+
+void gui::GameEngine::drawResource(
+    const Vector3 position, int x, int y,
+    std::vector<std::pair<Vector2, int>> &resourceTexts) {
+  const gui::Tile &tile = _gameState.map.tiles[x][y];
+  constexpr float SPHERE_HORIZONTAL_SPACING = 0.15f;
+  constexpr float SPHERE_BASE_X = -0.4f;
+  constexpr float SPHERE_BASE_Y = 1.15f;
+  constexpr float SPHERE_BASE_Z = 0.6f;
+
+  for (int i = 0; i < static_cast<int>(gui::Tile::RESOURCE_COUNT); i++) {
+    int resourceCount = tile.resources[i];
+    if (resourceCount > 0) {
+      Color color = tile.getResourceColor(static_cast<gui::Tile::Resource>(i));
+      Vector3 resourcePosition = {
+          position.x + SPHERE_BASE_X, position.y + SPHERE_BASE_Y,
+          position.z + SPHERE_BASE_Z - i * SPHERE_HORIZONTAL_SPACING};
+      DrawSphere(resourcePosition, 0.035f, color);
+      Vector2 screenPos = GetWorldToScreen(resourcePosition, _camera);
+      resourceTexts.push_back(std::make_pair(screenPos, resourceCount));
+    }
+  }
 }
