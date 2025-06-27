@@ -308,5 +308,6 @@ int copy_response_data(response_t *dest, response_t *src, int count);
 int cleanup_pending_response(response_t *pending);
 void check_if_queue_is_full(server_t *server, response_t *response);
 int is_client_on_cd(client_data_t *client_data);
+void sleep_time(server_t *server);
 
 #endif /* SERVER_H_ */

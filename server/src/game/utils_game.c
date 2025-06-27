@@ -9,6 +9,15 @@
 #include <stdlib.h>
 #include <string.h>
 
+void sleep_time(server_t *server)
+{
+    struct timespec sleep_time = {0, 1000000};
+
+    if (server->queue_request.len == 0) {
+        nanosleep(&sleep_time, NULL);
+    }
+}
+
 int is_client_on_cd(client_data_t *client_data)
 {
     struct timespec current_time;

@@ -88,8 +88,31 @@ void handle_request(server_t *server, response_t *response,
 }
 
 static
+void handle_incantation(server_t *server, client_t *client)
+{
+    response_t completion_response;
+    request_t completion_request;
+
+    if (client->data.incantation.is_incantating) {
+        init_response(&completion_response);
+        completion_response.client = client;
+        completion_request.client = client;
+        strcpy(completion_request.request, "Incantation");
+        if (handle_ending_incantation(server, &completion_response,
+                &completion_request) == ERROR)
+            add_buffer_to_response("ko", &completion_response.response,
+                &completion_response.size);
+        if (completion_response.response && completion_response.size > 0)
+            check_if_queue_is_full(server, &completion_response);
+    }
+}
+
+static
 void process_client_response(server_t *server, client_t *client)
 {
+    if (!client || !client->connected) {
+        return;
+    }
     pthread_mutex_lock(&client->data.pending_mutex);
     if (client->data.pending_response.response) {
         check_if_queue_is_full(server, &client->data.pending_response);
@@ -97,6 +120,7 @@ void process_client_response(server_t *server, client_t *client)
         client->data.pending_response.size = 0;
     }
     pthread_mutex_unlock(&client->data.pending_mutex);
+    handle_incantation(server, client);
     client->data.is_busy = false;
     memset(&client->data.action_end_time, 0, sizeof(struct timespec));
 }
@@ -132,16 +156,6 @@ void check_time_events(server_t *server)
         respawn_resources(server);
         server->density_timer_count =
             get_current_timer_units(server, &server->density_timer);
-    }
-}
-
-static
-void sleep_time(server_t *server)
-{
-    struct timespec sleep_time = {0, 1000000};
-
-    if (server->queue_request.len == 0) {
-        nanosleep(&sleep_time, NULL);
     }
 }
 

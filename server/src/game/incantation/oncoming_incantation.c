@@ -141,20 +141,6 @@ void notify_incantators(client_t **incantators)
     }
 }
 
-static
-void add_new_incantation_request(server_t *server, request_t *request)
-{
-    request_t new_request;
-
-    if (!request->client || !request->client->data.incantation.client_group)
-        return;
-    request->client->data.incantation.is_incantating = true;
-    new_request.client = request->client;
-    memcpy(new_request.request, request->request, BUFFER_SIZE);
-    notify_incantators(request->client->data.incantation.client_group);
-    queue_add_request(server, &new_request);
-}
-
 /**
  * Initialize and start new incantation
  */
@@ -164,9 +150,8 @@ int start_new_incantation(server_t *server, response_t *response,
 {
     uint8_t nbr = 0;
 
-    if (check_incantation_condition(server, request) == ERROR) {
+    if (check_incantation_condition(server, request) == ERROR)
         return ERROR;
-    }
     if (request->client->data.incantation.client_group) {
         free(request->client->data.incantation.client_group);
         request->client->data.incantation.client_group = NULL;
@@ -180,7 +165,7 @@ int start_new_incantation(server_t *server, response_t *response,
     if (freeze_every_player(server, request) == ERROR)
         return ERROR;
     send_pic(server, request->client->data.incantation.client_group);
-    add_new_incantation_request(server, request);
+    notify_incantators(request->client->data.incantation.client_group);
     return SUCCESS;
 }
 
