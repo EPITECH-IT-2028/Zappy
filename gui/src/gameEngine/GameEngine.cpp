@@ -262,16 +262,7 @@ void gui::GameEngine::drawResource(
     const Vector3 position, int x, int y,
     std::vector<std::pair<Vector2, int>> &resourceTexts) {
   const gui::Tile &tile = _gameState.map.tiles[x][y];
-  bool hasAnyResource = false;
 
-  for (int i = 0; i < static_cast<int>(gui::Tile::RESOURCE_COUNT); i++) {
-    if (tile.resources[i] > 0) {
-      hasAnyResource = true;
-      break;
-    }
-  }
-  if (!hasAnyResource)
-    return;
   for (int i = 0; i < static_cast<int>(gui::Tile::RESOURCE_COUNT); i++) {
     int resourceCount = tile.resources[i];
     if (resourceCount > 0) {
