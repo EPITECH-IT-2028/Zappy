@@ -192,5 +192,20 @@ parser::DropResource parser::CommandParser::parsePdr(
 
   if (result != 2)
     throw std::runtime_error("Invalid pdr command format");
+  if (resourceNumber < 0 || resourceNumber >= static_cast<int>(RESOURCE_COUNT))
+    throw std::runtime_error("Invalid resource number in pdr command");
   return DropResource(playerId, resourceNumber);
+}
+
+parser::CollectResource parser::CommandParser::parsePgt(
+    const std::string &command) {
+  int playerId, resourceNumber;
+  int result =
+      std::sscanf(command.c_str(), "pgt %d %d", &playerId, &resourceNumber);
+
+  if (result != 2)
+    throw std::runtime_error("Invalid pgt command format");
+  if (resourceNumber < 0 || resourceNumber >= static_cast<int>(RESOURCE_COUNT))
+    throw std::runtime_error("Invalid resource number in pgt command");
+  return CollectResource(playerId, resourceNumber);
 }
