@@ -33,9 +33,11 @@ namespace gui {
 
   class GameEngine {
     public:
-      float worldScale = 1.0f;
       GameEngine(network::ServerCommunication &serverCommunication);
       ~GameEngine();
+
+      float getWorldScale() const;
+      void setWorldScale(float value);
 
       void run();
       void initialize();
@@ -61,6 +63,7 @@ namespace gui {
       network::ServerCommunication &_serverCommunication;
       GameState _gameState;
       handlecommand::CommandHandler _commandHandler;
+      float worldScale = 1.0f;
 
       void updateLogoScreen();
       void updateTitleScreen();

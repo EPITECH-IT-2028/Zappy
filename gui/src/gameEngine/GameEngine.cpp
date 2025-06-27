@@ -30,6 +30,14 @@ gui::GameEngine::~GameEngine() {
   }
 }
 
+float gui::GameEngine::getWorldScale() const {
+  return worldScale;
+}
+
+void gui::GameEngine::setWorldScale(float value) {
+  worldScale = std::clamp(value, MIN_SCALE, MAX_SCALE);
+}
+
 void gui::GameEngine::initialize() {
   try {
     loadResources();
