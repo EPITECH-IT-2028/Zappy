@@ -376,6 +376,8 @@ void handlecommand::CommandHandler::handlePex(const std::string& command) {
         continue;
 
       gui::Player& pushed = pushedIt->second;
+      int oldX = pushed.x;
+      int oldY = pushed.y;
 
       auto& oldTilePlayers = tile.playerIdsOnTile;
       oldTilePlayers.erase(
@@ -400,9 +402,16 @@ void handlecommand::CommandHandler::handlePex(const std::string& command) {
           break;
       }
 
-      gui::Tile& newTile = _gameState.map.getTile(pushed.x, pushed.y);
-      newTile.playerIdsOnTile.push_back(pushed.id);
-      newTile.effects.showPushEffect(pushed.id);
+      if (pushed.x != oldX || pushed.y != oldY) {
+        auto& oldTilePlayers = tile.playerIdsOnTile;
+        oldTilePlayers.erase(
+          std::remove(oldTilePlayers.begin(), oldTilePlayers.end(), pushed.id),
+          oldTilePlayers.end()
+        );
+        gui::Tile& newTile = _gameState.map.getTile(pushed.x, pushed.y);
+        newTile.playerIdsOnTile.push_back(pushed.id);
+        newTile.effects.showPushEffect(pushed.id);
+      }
     }
 
   } catch (const std::exception& e) {
