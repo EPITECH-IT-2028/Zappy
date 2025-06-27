@@ -49,7 +49,7 @@ namespace gui {
       static constexpr float SPHERE_BASE_Z = 0.6f;
       static constexpr Color GAMEPLAY_BACKGROUND_COLOR = {11, 94, 158, 255};
 
-      static constexpr float movementBaseSpeed = 0.2f;
+      static constexpr float MOVEMENT_BASE_SPEED = 0.2f;
       static constexpr float ROTATE_SPEED = 0.7f;
       static constexpr float MIN_SCALE = 0.2f;
       static constexpr float MAX_SCALE = 5.0f;

@@ -298,7 +298,7 @@ void gui::GameEngine::moveCamera() {
 }
 
 void gui::GameEngine::handleCameraMovement() {
-  float MOVE_SPEED = movementBaseSpeed / worldScale;
+  float MOVE_SPEED = MOVEMENT_BASE_SPEED / worldScale;
 
   Vector3 forward =
       Vector3Normalize(Vector3Subtract(_camera.target, _camera.position));
