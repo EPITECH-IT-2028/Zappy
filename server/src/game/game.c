@@ -9,7 +9,6 @@
 #include "macro.h"
 #include "server.h"
 #include <pthread.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
@@ -32,67 +31,17 @@ int check_request(server_t *server, response_t *response, request_t *request)
 }
 
 static
-int is_client_on_cd(client_data_t *client_data)
+int prepare_pending_response(response_t *response, response_t *pending)
 {
-    struct timespec current_time;
+    int count = 0;
 
-    clock_gettime(CLOCK_MONOTONIC, &current_time);
-    if (client_data->action_end_time.tv_sec > current_time.tv_sec ||
-        (client_data->action_end_time.tv_sec == current_time.tv_sec &&
-        client_data->action_end_time.tv_nsec > current_time.tv_nsec)) {
-        return SUCCESS;
-    }
-    return ERROR;
-}
-
-static
-void check_if_queue_is_full(server_t *server, response_t *response)
-{
-    if (queue_add_response(server, response) == ERROR) {
-        fprintf(stderr, "Error: Queue was full response will not be sent.\n");
-    }
-}
-
-static
-int cleanup_pending_response(response_t *pending)
-{
-    if (!pending->response || pending->size < 0 ||
-        pending->size > MAX_REQUEST_PER_CLIENT) {
-        free(pending->response);
-        pending->response = NULL;
-        pending->size = 0;
-        return SUCCESS;
-    }
-    for (int i = 0; i < pending->size; i++) {
-        if (pending->response[i]) {
-            free(pending->response[i]);
-            pending->response[i] = NULL;
-        }
-    }
-    free(pending->response);
-    pending->response = NULL;
-    pending->size = 0;
-    return SUCCESS;
-}
-
-static
-int copy_response_data(response_t *dest, response_t *src, int count)
-{
-    dest->response = malloc(sizeof(char *) * (count + 1));
-    if (!dest->response)
+    while (response->response[count] != NULL)
+        count++;
+    cleanup_pending_response(pending);
+    pending->client = response->client;
+    pending->size = count;
+    if (copy_response_data(pending, response, count) == ERROR)
         return ERROR;
-    for (int i = 0; i < count; i++) {
-        dest->response[i] = strdup(src->response[i]);
-        if (dest->response[i])
-            continue;
-        for (int j = 0; j < i; j++)
-            free(dest->response[j]);
-        free(dest->response);
-        dest->response = NULL;
-        dest->size = 0;
-        return ERROR;
-    }
-    dest->response[count] = NULL;
     return SUCCESS;
 }
 
@@ -101,7 +50,7 @@ int add_pending_response_to_client(response_t *response,
     request_t *request)
 {
     response_t *pending = NULL;
-    int count = 0;
+    int result;
 
     if (!response || !request || !response->response || !request->client)
         return ERROR;
@@ -111,18 +60,9 @@ int add_pending_response_to_client(response_t *response,
         return ERROR;
     }
     pending = &request->client->data.pending_response;
-    count = 0;
-    while (response->response[count] != NULL)
-        count++;
-    cleanup_pending_response(pending);
-    pending->client = response->client;
-    pending->size = count;
-    if (copy_response_data(pending, response, count) == ERROR) {
-        pthread_mutex_unlock(&request->client->data.pending_mutex);
-        return ERROR;
-    }
+    result = prepare_pending_response(response, pending);
     pthread_mutex_unlock(&request->client->data.pending_mutex);
-    return SUCCESS;
+    return result;
 }
 
 static
@@ -203,14 +143,6 @@ void sleep_time(server_t *server)
     if (server->queue_request.len == 0) {
         nanosleep(&sleep_time, NULL);
     }
-}
-
-static
-void init_response(response_t *response)
-{
-    response->client = NULL;
-    response->size = 0;
-    response->response = NULL;
 }
 
 static

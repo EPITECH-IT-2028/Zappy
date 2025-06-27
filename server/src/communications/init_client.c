@@ -7,6 +7,13 @@
 
 #include "server.h"
 
+void init_response(response_t *response)
+{
+    response->client = NULL;
+    response->size = 0;
+    response->response = NULL;
+}
+
 static
 void init_client_inventory(client_data_t *cd)
 {

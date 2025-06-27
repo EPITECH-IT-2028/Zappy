@@ -55,6 +55,7 @@ SRC += ./src/communications/init_density.c
 SRC += ./src/utils_buffer_management.c
 SRC += ./src/communications/init_client.c
 SRC += ./src/communications/utils_events_server.c
+SRC += ./src/game/utils_game.c
 
 OBJ = $(SRC:.c=.o)
 

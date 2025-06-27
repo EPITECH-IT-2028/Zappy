@@ -187,6 +187,7 @@ int check_params(params_t *params, int ac, char **av);
 void init_client_struct(client_t *clients, int fd);
 int init_server_struct(server_t *server, params_t *params);
 void init_params(params_t *params);
+void init_response(response_t *response);
 
 /* Event handling functions */
 int get_new_connection(server_t *server);
@@ -301,5 +302,11 @@ int add_buffer_to_response(char *buffer, char ***response, int *index);
 int define_index(server_t *server);
 int resize_fds(server_t *server, int new_size);
 void init_fds(server_t *server, int index, int client_fd);
+
+/* Utils game */
+int copy_response_data(response_t *dest, response_t *src, int count);
+int cleanup_pending_response(response_t *pending);
+void check_if_queue_is_full(server_t *server, response_t *response);
+int is_client_on_cd(client_data_t *client_data);
 
 #endif /* SERVER_H_ */
