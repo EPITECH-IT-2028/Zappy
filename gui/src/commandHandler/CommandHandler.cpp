@@ -397,6 +397,9 @@ void handlecommand::CommandHandler::handlePex(const std::string& command) {
         case gui::Orientation::WEST:
           pushed.x = std::max(0, pushed.x - 1);
           break;
+        default:
+          std::cerr << "Unknown orientation: " << static_cast<int>(expellingPlayer.orientation) << "\n";
+          break;
       }
 
       gui::Tile& newTile = _gameState.map.getTile(pushed.x, pushed.y);
