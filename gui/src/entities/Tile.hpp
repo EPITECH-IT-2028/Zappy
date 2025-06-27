@@ -20,6 +20,7 @@ namespace gui {
       std::array<int, RESOURCE_COUNT> resources{};
       std::vector<int> playerIdsOnTile;
       std::vector<int> eggIdsOnTile;
+      TileEffects effects;
 
       bool isEmpty() const;
   };

@@ -402,7 +402,7 @@ void handlecommand::CommandHandler::handlePex(const std::string& command) {
 
       gui::Tile& newTile = _gameState.map.getTile(pushed.x, pushed.y);
       newTile.playerIdsOnTile.push_back(pushed.id);
-      newTile.showPushEffect(pushed.id);
+      newTile.effects.showPushEffect(pushed.id);
     }
 
   } catch (const std::exception& e) {
