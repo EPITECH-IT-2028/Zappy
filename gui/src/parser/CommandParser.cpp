@@ -219,3 +219,20 @@ parser::PlayerExpulsion parser::CommandParser::parsePex(
     throw std::runtime_error("Invalid pex command format");
   return PlayerExpulsion(playerId);
 }
+
+parser::BroadcastEvent parser::CommandParser::parsePbc(const std::string &command) {
+  std::istringstream iss(command);
+  std::string prefix;
+  int playerId;
+  std::string message;
+
+  if (!(iss >> prefix >> playerId))
+    throw std::runtime_error("Invalid pbc command format");
+
+  std::getline(iss, message);
+  if (!message.empty() && message[0] == ' ')
+    message.erase(0, 1);
+
+  return BroadcastEvent(playerId, message);
+}
+
