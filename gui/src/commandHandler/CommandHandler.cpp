@@ -236,13 +236,9 @@ void handlecommand::CommandHandler::handlePic(const std::string& command) {
                                std::to_string(incantation.y) + ")");
     }
 
-    tile.startIncantationEffect();
+    tile.effects.startIncantationEffect();
     gui::IncantationEffect effect(incantation.x, incantation.y,
                                   incantation.level, incantation.playersNumber);
-    effect.x = incantation.x;
-    effect.y = incantation.y;
-    effect.level = incantation.level;
-    effect.players = incantation.playersNumber;
 
     _gameState.activeIncantations.push_back(effect);
 
@@ -269,12 +265,12 @@ void handlecommand::CommandHandler::handlePie(const std::string& command) {
       it->finished = true;
     }
 
-    tile.stopIncantationEffect();
+    tile.effects.stopIncantationEffect();
 
     if (pie.success)
-      tile.showSuccessEffect();
+      tile.effects.showSuccessEffect();
     else
-      tile.showFailureEffect();
+      tile.effects.showFailureEffect();
   } catch (const std::exception& e) {
     std::cerr << "Error while handling pie: " << e.what() << "\n";
   }
@@ -301,7 +297,7 @@ void handlecommand::CommandHandler::handlePfk(const std::string& command) {
         playerList.end()) {
       playerList.push_back(player.id);
     }
-    tile.showForkEffect();
+    tile.effects.showForkEffect();
 
   } catch (const std::exception& e) {
     std::cerr << "Error while handling pfk: " << e.what() << "\n";
@@ -314,15 +310,16 @@ void handlecommand::CommandHandler::handlePdr(const std::string& command) {
 
     auto playerIt = _gameState.players.find(drop.playerID);
     if (playerIt == _gameState.players.end()) {
-      throw std::runtime_error("Player not found with ID " + std::to_string(drop.playerID));
+      throw std::runtime_error("Player not found with ID " +
+                               std::to_string(drop.playerID));
     }
 
     gui::Player& player = playerIt->second;
     if (!_gameState.map.isInside(player.x, player.y)) {
-      throw std::out_of_range("Player coordinates outside map");
+      throw std::out_of_range("Player coordinates outside map for pdr event");
     }
     gui::Tile& tile = _gameState.map.getTile(player.x, player.y);
-    tile.showDropEffect(drop.resourceNumber);
+    tile.effects.showDropEffect(drop.resourceNumber);
 
   } catch (const std::exception& e) {
     std::cerr << "Error while handling pdr: " << e.what() << "\n";
@@ -335,15 +332,16 @@ void handlecommand::CommandHandler::handlePgt(const std::string& command) {
 
     auto playerIt = _gameState.players.find(collect.playerID);
     if (playerIt == _gameState.players.end()) {
-      throw std::runtime_error("Player not found with ID " + std::to_string(collect.playerID));
+      throw std::runtime_error("Player not found with ID " +
+                               std::to_string(collect.playerID));
     }
 
     gui::Player& player = playerIt->second;
     if (!_gameState.map.isInside(player.x, player.y)) {
-    throw std::out_of_range("Player coordinates outside map");
+      throw std::out_of_range("Player coordinates outside map for pgt event");
     }
     gui::Tile& tile = _gameState.map.getTile(player.x, player.y);
-    tile.showCollectEffect(collect.resourceNumber);
+    tile.effects.showCollectEffect(collect.resourceNumber);
 
   } catch (const std::exception& e) {
     std::cerr << "Error while handling pgt: " << e.what() << "\n";

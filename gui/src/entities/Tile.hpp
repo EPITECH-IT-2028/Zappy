@@ -1,6 +1,7 @@
 #pragma once
 #include <array>
 #include <vector>
+#include "TileEffects.hpp"
 
 namespace gui {
   struct Tile {

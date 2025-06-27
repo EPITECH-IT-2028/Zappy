@@ -145,6 +145,20 @@ namespace parser {
     PlayerExpulsion(int playerID) : playerID(playerID) {
     };
   };
+  struct DropResource {
+      int playerID;
+      int resourceNumber;
+
+      DropResource(int playerID, int resourceNumber)
+          : playerID(playerID), resourceNumber(resourceNumber) {};
+  };
+  struct CollectResource {
+      int playerID;
+      int resourceNumber;
+
+      CollectResource(int playerID, int resourceNumber)
+          : playerID(playerID), resourceNumber(resourceNumber) {};
+  };
 
   class CommandParser {
     public:
