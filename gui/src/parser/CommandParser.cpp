@@ -210,7 +210,8 @@ parser::CollectResource parser::CommandParser::parsePgt(
   return CollectResource(playerId, resourceNumber);
 }
 
-parser::PlayerExpulsion parser::CommandParser::parsePex(const std::string &command) {
+parser::PlayerExpulsion parser::CommandParser::parsePex(
+    const std::string &command) {
   int playerId;
   int result = std::sscanf(command.c_str(), "pex %d", &playerId);
 
