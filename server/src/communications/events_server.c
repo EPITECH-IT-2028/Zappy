@@ -15,51 +15,6 @@
 #include <stdlib.h>
 
 static
-int define_index(server_t *server)
-{
-    int idx = 1;
-
-    for (; idx < server->nfds; idx++) {
-        if (server->fds[idx].fd == -1)
-            break;
-    }
-    return idx;
-}
-
-static
-int resize_fds(server_t *server, int new_size)
-{
-    struct pollfd *new_fds = realloc(server->fds,
-            sizeof(struct pollfd) * new_size);
-    client_t **new_clients = realloc(server->clients,
-            sizeof(client_t *) * new_size);
-
-    if (new_fds == NULL || new_clients == NULL) {
-        perror("realloc failed");
-        return ERROR;
-    }
-    for (int i = server->nfds; i < new_size; i++) {
-        new_fds[i].fd = -1;
-        new_fds[i].events = 0;
-        new_fds[i].revents = 0;
-        new_clients[i] = NULL;
-    }
-    server->fds = new_fds;
-    server->clients = new_clients;
-    return SUCCESS;
-}
-
-static
-void init_fds(server_t *server, int index, int client_fd)
-{
-    server->fds[index].fd = client_fd;
-    server->fds[index].events = POLLIN;
-    server->fds[index].revents = 0;
-    if (index == server->nfds)
-        server->nfds++;
-}
-
-static
 void accept_client(server_t *server, int client_fd)
 {
     int index = define_index(server);
@@ -142,17 +97,41 @@ void append_to_client_buffer(client_t *client, char *buffer, int bytes)
 }
 
 static
-void process_client_command(server_t *server, int index)
+void process_client_command(server_t *server, int index, char *buffer)
 {
     client_t *client = server->clients[index];
 
-    remove_newline(client->buffer);
+    remove_newline(buffer);
     if (client->data.team_name == NULL)
-        connection_command(server, index, client->buffer);
+        connection_command(server, index, buffer);
     else if (client->data.is_graphic)
         send_code(client->fd, "ko\n");
     else
-        check_player_command(server, index, client->buffer);
+        check_player_command(server, index, buffer);
+}
+
+static
+void execute_all_commands(server_t *server, int index)
+{
+    char *next_command = NULL;
+    char *command = NULL;
+    char *client_buffer = NULL;
+
+    client_buffer = server->clients[index]->buffer;
+    command = client_buffer;
+    next_command = strchr(command, '\n');
+    while (next_command != NULL) {
+        *next_command = '\0';
+        process_client_command(server, index, command);
+        command = next_command + 1;
+        next_command = strchr(command, '\n');
+    }
+    if (*command != '\0') {
+        memmove(client_buffer, command, strlen(command) + 1);
+    } else {
+        free(client_buffer);
+        server->clients[index]->buffer = NULL;
+    }
 }
 
 static
@@ -165,11 +144,7 @@ void handle_client(server_t *server, int index, char *buffer, int bytes)
     buffer[bytes] = '\0';
     printf("Received from client %d: %s\n", index, buffer);
     append_to_client_buffer(server->clients[index], buffer, bytes);
-    if (strchr(server->clients[index]->buffer, '\n') != NULL) {
-        process_client_command(server, index);
-        free(server->clients[index]->buffer);
-        server->clients[index]->buffer = NULL;
-    }
+    execute_all_commands(server, index);
 }
 
 void handle_all_client(server_t *server)

@@ -31,6 +31,25 @@ void free_map(map_t **map, params_t *params)
     free(map);
 }
 
+static
+void clear_pending_response(client_t *client)
+{
+    pthread_mutex_lock(&client->data.pending_mutex);
+    if (!client->data.pending_response.response) {
+        pthread_mutex_unlock(&client->data.pending_mutex);
+        return;
+    }
+    for (int i = 0; i < client->data.pending_response.size; i++) {
+        if (client->data.pending_response.response[i]) {
+            free(client->data.pending_response.response[i]);
+        }
+    }
+    free(client->data.pending_response.response);
+    client->data.pending_response.response = NULL;
+    client->data.pending_response.size = 0;
+    pthread_mutex_unlock(&client->data.pending_mutex);
+}
+
 void cleanup_client_data(server_t *server, int index)
 {
     client_t *client;
@@ -48,6 +67,7 @@ void cleanup_client_data(server_t *server, int index)
         free(client->data.team_name);
         client->data.team_name = NULL;
     }
+    clear_pending_response(client);
     pthread_mutex_destroy(&client->data.pending_mutex);
     free(client);
     server->clients[index] = NULL;

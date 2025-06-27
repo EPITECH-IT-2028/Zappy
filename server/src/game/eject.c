@@ -91,7 +91,8 @@ int knockback_players(server_t *server, client_t *ejector, int x, int y)
 }
 
 static
-int send_correct_response(response_t *response, bool has_eggs, bool has_players)
+int send_correct_response(response_t *response, bool has_eggs,
+    bool has_players)
 {
     if (has_eggs || has_players) {
         if (add_buffer_to_response("ok", &response->response, &response->size)

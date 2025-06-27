@@ -297,4 +297,9 @@ int init_density(server_t *server, inventory_t *density);
 /* Buffer management function */
 int add_buffer_to_response(char *buffer, char ***response, int *index);
 
+/* Utils events server */
+int define_index(server_t *server);
+int resize_fds(server_t *server, int new_size);
+void init_fds(server_t *server, int index, int client_fd);
+
 #endif /* SERVER_H_ */

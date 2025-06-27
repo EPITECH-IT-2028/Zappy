@@ -35,8 +35,9 @@ void check_player_command(server_t *server, int index, const char *buffer)
     pthread_mutex_lock(&client->data.pending_mutex);
     pending = client->data.pending_requests;
     pthread_mutex_unlock(&client->data.pending_mutex);
-    if (pending >= 10)
+    if (pending >= MAX_REQUEST_PER_CLIENT) {
         return;
+    }
     if (!check_commands(buffer)) {
         send_code(client->fd, "ko\n");
     } else {

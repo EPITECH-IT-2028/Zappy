@@ -6,6 +6,7 @@
 */
 
 #include "macro.h"
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -15,16 +16,16 @@ int add_buffer_to_response(char *buffer, char ***response, int *index)
 
     if (!buffer || !response || !index)
         return ERROR;
-    new_response = realloc(*response, sizeof(char *) * (*index + 1));
+    new_response = realloc(*response, sizeof(char *) * (*index + 2));
     if (!new_response)
         return ERROR;
     *response = new_response;
-    (*response)[*index - 1] = strdup(buffer);
-    if (!(*response)[*index - 1]) {
+    (*response)[*index] = strndup(buffer, strlen(buffer));
+    if (!(*response)[*index]) {
         free(*response);
         return ERROR;
     }
-    (*response)[*index] = NULL;
+    (*response)[*index + 1] = NULL;
     *index += 1;
     return SUCCESS;
 }
