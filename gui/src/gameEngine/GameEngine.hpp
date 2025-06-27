@@ -43,7 +43,6 @@ namespace gui {
       void initialize();
 
     private:
-      static constexpr float WORLD_SCALE = 1.0f;
       static constexpr float SPHERE_HORIZONTAL_SPACING = 0.15f;
       static constexpr float SPHERE_BASE_X = -0.4f;
       static constexpr float SPHERE_BASE_Y = 1.15f;
@@ -51,7 +50,6 @@ namespace gui {
       static constexpr Color GAMEPLAY_BACKGROUND_COLOR = {11, 94, 158, 255};
 
       static constexpr float MOVEMENT_BASE_SPEED = 0.2f;
-      static constexpr float MOVE_SPEED = MOVEMENT_BASE_SPEED / WORLD_SCALE;
       static constexpr float ROTATE_SPEED = 0.7f;
       static constexpr float MIN_SCALE = 0.2f;
       static constexpr float MAX_SCALE = 5.0f;
@@ -65,6 +63,7 @@ namespace gui {
       network::ServerCommunication &_serverCommunication;
       GameState _gameState;
       handlecommand::CommandHandler _commandHandler;
+      float worldScale = 1.0f;
 
       void updateLogoScreen();
       void updateTitleScreen();
