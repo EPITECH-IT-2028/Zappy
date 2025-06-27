@@ -176,7 +176,7 @@ void gui::GameEngine::renderTitleScreen() {
 }
 
 void gui::GameEngine::renderGameplayScreen() {
-  DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, LIGHTGRAY);
+  DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, Color{11, 94, 158, 255});
   drawMap();
   DrawText("GAMEPLAY SCREEN", 20, 20, 40, MAROON);
 }
