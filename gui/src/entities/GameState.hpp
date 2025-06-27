@@ -5,7 +5,6 @@
 #include "IncantationsEffect.hpp"
 #include "Map.hpp"
 #include "Player.hpp"
-#include "IncantationsEffect.hpp"
 
 namespace gui {
   struct GameState {

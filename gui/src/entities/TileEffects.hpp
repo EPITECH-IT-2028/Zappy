@@ -19,6 +19,7 @@ namespace gui {
       void showForkEffect();
       void showDropEffect(int resourceId);
       void showCollectEffect(int resourceId);
+      void showPushEffect(int playerId);
 
       void update(float deltaTime);
       void draw(int x, int y);

@@ -209,3 +209,13 @@ parser::CollectResource parser::CommandParser::parsePgt(
     throw std::runtime_error("Invalid resource number in pgt command");
   return CollectResource(playerId, resourceNumber);
 }
+
+parser::PlayerExpulsion parser::CommandParser::parsePex(
+    const std::string &command) {
+  int playerId;
+  int result = std::sscanf(command.c_str(), "pex %d", &playerId);
+
+  if (result != 1)
+    throw std::runtime_error("Invalid pex command format");
+  return PlayerExpulsion(playerId);
+}

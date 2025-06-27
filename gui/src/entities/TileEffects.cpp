@@ -66,3 +66,8 @@ void gui::TileEffects::showCollectEffect(int resourceId) {
   std::cout << "Collect effect for resource ID: " << resourceId << std::endl;
   // TODO: Add collect effect
 }
+
+void gui::TileEffects::showPushEffect(int playerId) {
+  std::cout << "Push effect for player ID: " << playerId << std::endl;
+  // TODO: Add push effect
+}
