@@ -106,6 +106,8 @@ void gui::GameEngine::updateTitleScreen() {
 void gui::GameEngine::updateGameplayScreen() {
   if (IsKeyPressed(KEY_ENTER))
     _currentScreen = Screen::ENDING;
+
+  moveCamera();
 }
 
 void gui::GameEngine::updateEndingScreen() {
@@ -276,4 +278,109 @@ void gui::GameEngine::drawResource(
       resourceTexts.push_back(std::make_pair(screenPos, resourceCount));
     }
   }
+}
+
+void gui::GameEngine::moveCamera() {
+  handleCameraMovement();
+  handleCameraRotation();
+  handleCameraZoom();
+
+  if (IsKeyPressed(KEY_R))
+    resetCamera();
+}
+
+void gui::GameEngine::handleCameraMovement() {
+  float MOVE_SPEED = movementBaseSpeed / worldScale;
+
+  Vector3 forward =
+      Vector3Normalize(Vector3Subtract(_camera.target, _camera.position));
+  Vector3 right = Vector3Normalize(Vector3CrossProduct(forward, _camera.up));
+  Vector3 up = _camera.up;
+  Vector3 flatForward = Vector3Normalize({forward.x, 0.0f, forward.z});
+  Vector3 flatRight = Vector3Normalize({right.x, 0.0f, right.z});
+
+  if (IsKeyDown(KEY_W)) {
+    _camera.position =
+        Vector3Add(_camera.position, Vector3Scale(flatForward, MOVE_SPEED));
+    _camera.target =
+        Vector3Add(_camera.target, Vector3Scale(flatForward, MOVE_SPEED));
+  }
+  if (IsKeyDown(KEY_A)) {
+    _camera.position =
+        Vector3Subtract(_camera.position, Vector3Scale(flatRight, MOVE_SPEED));
+    _camera.target =
+        Vector3Subtract(_camera.target, Vector3Scale(flatRight, MOVE_SPEED));
+  }
+  if (IsKeyDown(KEY_S)) {
+    _camera.position = Vector3Subtract(_camera.position,
+                                       Vector3Scale(flatForward, MOVE_SPEED));
+    _camera.target =
+        Vector3Subtract(_camera.target, Vector3Scale(flatForward, MOVE_SPEED));
+  }
+  if (IsKeyDown(KEY_D)) {
+    _camera.position =
+        Vector3Add(_camera.position, Vector3Scale(flatRight, MOVE_SPEED));
+    _camera.target =
+        Vector3Add(_camera.target, Vector3Scale(flatRight, MOVE_SPEED));
+  }
+
+  if (IsKeyDown(KEY_SPACE)) {
+    _camera.position =
+        Vector3Add(_camera.position, Vector3Scale(up, MOVE_SPEED));
+    _camera.target = Vector3Add(_camera.target, Vector3Scale(up, MOVE_SPEED));
+  }
+  if (IsKeyDown(KEY_LEFT_SHIFT)) {
+    _camera.position =
+        Vector3Subtract(_camera.position, Vector3Scale(up, MOVE_SPEED));
+    _camera.target =
+        Vector3Subtract(_camera.target, Vector3Scale(up, MOVE_SPEED));
+  }
+}
+
+void gui::GameEngine::handleCameraRotation() {
+  Vector3 direction = Vector3Subtract(_camera.target, _camera.position);
+  Vector3 right = Vector3Normalize(Vector3CrossProduct(direction, _camera.up));
+  Matrix rotation;
+
+  if (IsKeyDown(KEY_UP)) {
+    rotation = MatrixRotate(right, ROTATE_SPEED * DEG2RAD);
+    direction = Vector3Transform(direction, rotation);
+    _camera.target = Vector3Add(_camera.position, direction);
+  }
+  if (IsKeyDown(KEY_DOWN)) {
+    rotation = MatrixRotate(right, -ROTATE_SPEED * DEG2RAD);
+    direction = Vector3Transform(direction, rotation);
+    _camera.target = Vector3Add(_camera.position, direction);
+  }
+  if (IsKeyDown(KEY_LEFT)) {
+    rotation = MatrixRotateY(ROTATE_SPEED * DEG2RAD);
+    direction = Vector3Transform(direction, rotation);
+    _camera.target = Vector3Add(_camera.position, direction);
+  }
+  if (IsKeyDown(KEY_RIGHT)) {
+    rotation = MatrixRotateY(-ROTATE_SPEED * DEG2RAD);
+    direction = Vector3Transform(direction, rotation);
+    _camera.target = Vector3Add(_camera.position, direction);
+  }
+}
+
+void gui::GameEngine::handleCameraZoom() {
+  float wheel = GetMouseWheelMove();
+
+  if (wheel != 0.0f) {
+    worldScale += wheel * SCALE_STEP;
+    if (worldScale < MIN_SCALE)
+      worldScale = MIN_SCALE;
+    if (worldScale > MAX_SCALE)
+      worldScale = MAX_SCALE;
+  }
+}
+
+void gui::GameEngine::resetCamera() {
+  _camera.SetPosition({15.0f, 10.0f, 30.0f});
+  _camera.SetTarget({0.0f, 0.0f, 0.0f});
+  _camera.SetUp({0.0f, 1.0f, 0.0f});
+  _camera.SetFovy(45.0f);
+  _camera.SetProjection(CAMERA_PERSPECTIVE);
+  worldScale = 1.0f;
 }
