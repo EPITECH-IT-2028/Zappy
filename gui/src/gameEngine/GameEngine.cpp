@@ -289,7 +289,7 @@ void gui::GameEngine::moveCamera() {
 }
 
 void gui::GameEngine::handleCameraMovement() {
-  float MOVE_SPEED = MOVEMENT_BASE_SPEED / worldScale;
+  float moveSpeed = MOVEMENT_BASE_SPEED / worldScale;
 
   Vector3 forward =
       Vector3Normalize(Vector3Subtract(_camera.target, _camera.position));
@@ -300,39 +300,39 @@ void gui::GameEngine::handleCameraMovement() {
 
   if (IsKeyDown(KEY_W)) {
     _camera.position =
-        Vector3Add(_camera.position, Vector3Scale(flatForward, MOVE_SPEED));
+        Vector3Add(_camera.position, Vector3Scale(flatForward, moveSpeed));
     _camera.target =
-        Vector3Add(_camera.target, Vector3Scale(flatForward, MOVE_SPEED));
+        Vector3Add(_camera.target, Vector3Scale(flatForward, moveSpeed));
   }
   if (IsKeyDown(KEY_A)) {
     _camera.position =
-        Vector3Subtract(_camera.position, Vector3Scale(flatRight, MOVE_SPEED));
+        Vector3Subtract(_camera.position, Vector3Scale(flatRight, moveSpeed));
     _camera.target =
-        Vector3Subtract(_camera.target, Vector3Scale(flatRight, MOVE_SPEED));
+        Vector3Subtract(_camera.target, Vector3Scale(flatRight, moveSpeed));
   }
   if (IsKeyDown(KEY_S)) {
     _camera.position = Vector3Subtract(_camera.position,
-                                       Vector3Scale(flatForward, MOVE_SPEED));
+                                       Vector3Scale(flatForward, moveSpeed));
     _camera.target =
-        Vector3Subtract(_camera.target, Vector3Scale(flatForward, MOVE_SPEED));
+        Vector3Subtract(_camera.target, Vector3Scale(flatForward, moveSpeed));
   }
   if (IsKeyDown(KEY_D)) {
     _camera.position =
-        Vector3Add(_camera.position, Vector3Scale(flatRight, MOVE_SPEED));
+        Vector3Add(_camera.position, Vector3Scale(flatRight, moveSpeed));
     _camera.target =
-        Vector3Add(_camera.target, Vector3Scale(flatRight, MOVE_SPEED));
+        Vector3Add(_camera.target, Vector3Scale(flatRight, moveSpeed));
   }
 
   if (IsKeyDown(KEY_SPACE)) {
     _camera.position =
-        Vector3Add(_camera.position, Vector3Scale(up, MOVE_SPEED));
-    _camera.target = Vector3Add(_camera.target, Vector3Scale(up, MOVE_SPEED));
+        Vector3Add(_camera.position, Vector3Scale(up, moveSpeed));
+    _camera.target = Vector3Add(_camera.target, Vector3Scale(up, moveSpeed));
   }
   if (IsKeyDown(KEY_LEFT_SHIFT)) {
     _camera.position =
-        Vector3Subtract(_camera.position, Vector3Scale(up, MOVE_SPEED));
+        Vector3Subtract(_camera.position, Vector3Scale(up, moveSpeed));
     _camera.target =
-        Vector3Subtract(_camera.target, Vector3Scale(up, MOVE_SPEED));
+        Vector3Subtract(_camera.target, Vector3Scale(up, moveSpeed));
   }
 }
 
