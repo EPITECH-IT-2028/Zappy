@@ -119,8 +119,8 @@ static
 int find_and_assign_team_egg(server_t *server, client_t *client, int team_id)
 {
     int nb_tiles = server->params.width * server->params.height;
-    int x;
-    int y;
+    int x = 0;
+    int y = 0;
 
     for (int i = 0; i < nb_tiles; i++) {
         x = i / server->params.height;
