@@ -31,11 +31,11 @@ gui::GameEngine::~GameEngine() {
 }
 
 float gui::GameEngine::getWorldScale() const {
-  return worldScale;
+  return WORLD_SCALE;
 }
 
 void gui::GameEngine::setWorldScale(float value) {
-  worldScale = std::clamp(value, MIN_SCALE, MAX_SCALE);
+  WORLD_SCALE = std::clamp(value, MIN_SCALE, MAX_SCALE);
 }
 
 void gui::GameEngine::initialize() {
@@ -225,7 +225,7 @@ void gui::GameEngine::drawMap() {
     return;
   }
 
-  float brickSpacing = BRICK_SPACING * worldScale;
+  float brickSpacing = BRICK_SPACING * WORLD_SCALE;
   float mapWidth = static_cast<float>(_gameState.map.width);
   float mapHeight = static_cast<float>(_gameState.map.height);
   Vector3 gridOrigin = {-((mapWidth - 1) * brickSpacing) / 2.0f, 0.0f,
@@ -237,14 +237,14 @@ void gui::GameEngine::drawMap() {
     for (std::size_t x = 0; x < _gameState.map.width; ++x) {
       Vector3 position = {gridOrigin.x + x * brickSpacing, gridOrigin.y,
                           gridOrigin.z + y * brickSpacing};
-      DrawModel(_brick, position, BRICK_MODEL_SCALE * worldScale, GRAY);
-      Vector3 offset = {WIREFRAME_OFFSET_X * worldScale,
-                        WIREFRAME_OFFSET_Y * worldScale,
-                        WIREFRAME_OFFSET_Z * worldScale};
+      DrawModel(_brick, position, BRICK_MODEL_SCALE * WORLD_SCALE, GRAY);
+      Vector3 offset = {WIREFRAME_OFFSET_X * WORLD_SCALE,
+                        WIREFRAME_OFFSET_Y * WORLD_SCALE,
+                        WIREFRAME_OFFSET_Z * WORLD_SCALE};
       DrawCubeWires(
           {position.x + offset.x, position.y + offset.y, position.z + offset.z},
-          BRICK_SPACING * worldScale, BRICK_SPACING * worldScale,
-          BRICK_SPACING * worldScale, WHITE);
+          BRICK_SPACING * WORLD_SCALE, BRICK_SPACING * WORLD_SCALE,
+          BRICK_SPACING * WORLD_SCALE, WHITE);
       drawResource(position, x, y, resourceCount);
     }
   }
@@ -277,11 +277,11 @@ void gui::GameEngine::drawResource(
     if (resourceCount > 0) {
       Color color = tile.getResourceColor(static_cast<gui::Tile::Resource>(i));
       Vector3 resourcePosition = {
-          position.x + SPHERE_BASE_X * worldScale,
-          position.y + SPHERE_BASE_Y * worldScale,
-          position.z + SPHERE_BASE_Z * worldScale -
-              i * SPHERE_HORIZONTAL_SPACING * worldScale};
-      DrawSphere(resourcePosition, 0.035f * worldScale, color);
+          position.x + SPHERE_BASE_X * WORLD_SCALE,
+          position.y + SPHERE_BASE_Y * WORLD_SCALE,
+          position.z + SPHERE_BASE_Z * WORLD_SCALE -
+              i * SPHERE_HORIZONTAL_SPACING * WORLD_SCALE};
+      DrawSphere(resourcePosition, 0.035f * WORLD_SCALE, color);
       Vector2 screenPos = GetWorldToScreen(resourcePosition, _camera);
       resourceTexts.push_back(std::make_pair(screenPos, resourceCount));
     }
@@ -298,8 +298,6 @@ void gui::GameEngine::moveCamera() {
 }
 
 void gui::GameEngine::handleCameraMovement() {
-  float MOVE_SPEED = MOVEMENT_BASE_SPEED / worldScale;
-
   Vector3 forward =
       Vector3Normalize(Vector3Subtract(_camera.target, _camera.position));
   Vector3 right = Vector3Normalize(Vector3CrossProduct(forward, _camera.up));
@@ -376,11 +374,11 @@ void gui::GameEngine::handleCameraZoom() {
   float wheel = GetMouseWheelMove();
 
   if (wheel != 0.0f) {
-    worldScale += wheel * SCALE_STEP;
-    if (worldScale < MIN_SCALE)
-      worldScale = MIN_SCALE;
-    if (worldScale > MAX_SCALE)
-      worldScale = MAX_SCALE;
+    WORLD_SCALE += wheel * SCALE_STEP;
+    if (WORLD_SCALE < MIN_SCALE)
+      WORLD_SCALE = MIN_SCALE;
+    if (WORLD_SCALE > MAX_SCALE)
+      WORLD_SCALE = MAX_SCALE;
   }
 }
 
@@ -390,5 +388,5 @@ void gui::GameEngine::resetCamera() {
   _camera.SetUp({0.0f, 1.0f, 0.0f});
   _camera.SetFovy(45.0f);
   _camera.SetProjection(CAMERA_PERSPECTIVE);
-  worldScale = 1.0f;
+  WORLD_SCALE = 1.0f;
 }
