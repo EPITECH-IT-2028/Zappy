@@ -8,13 +8,13 @@ namespace gui {
       static constexpr int RESOURCE_COUNT = 7;
 
       enum class Resource {
-        Food,
-        Linemate,
-        Deraumere,
-        Sibur,
-        Mendiane,
-        Phiras,
-        Thystame
+        FOOD,
+        LINEMATE,
+        DERAUMERE,
+        SIBUR,
+        MENDIANE,
+        PHIRAS,
+        THYSTAME
       };
 
       std::array<int, RESOURCE_COUNT> resources{};
