@@ -257,10 +257,6 @@ void gui::GameEngine::drawResource(
     const Vector3 position, int x, int y,
     std::vector<std::pair<Vector2, int>> &resourceTexts) {
   const gui::Tile &tile = _gameState.map.tiles[x][y];
-  constexpr float SPHERE_HORIZONTAL_SPACING = 0.15f;
-  constexpr float SPHERE_BASE_X = -0.4f;
-  constexpr float SPHERE_BASE_Y = 1.15f;
-  constexpr float SPHERE_BASE_Z = 0.6f;
 
   for (int i = 0; i < static_cast<int>(gui::Tile::RESOURCE_COUNT); i++) {
     int resourceCount = tile.resources[i];
