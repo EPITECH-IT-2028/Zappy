@@ -318,6 +318,9 @@ void handlecommand::CommandHandler::handlePdr(const std::string& command) {
     }
 
     gui::Player& player = playerIt->second;
+    if (!_gameState.map.isInside(player.x, player.y)) {
+      throw std::out_of_range("Player coordinates outside map");
+    }
     gui::Tile& tile = _gameState.map.getTile(player.x, player.y);
     tile.showDropEffect(drop.resourceNumber);
 
@@ -336,6 +339,9 @@ void handlecommand::CommandHandler::handlePgt(const std::string& command) {
     }
 
     gui::Player& player = playerIt->second;
+    if (!_gameState.map.isInside(player.x, player.y)) {
+    throw std::out_of_range("Player coordinates outside map");
+    }
     gui::Tile& tile = _gameState.map.getTile(player.x, player.y);
     tile.showCollectEffect(collect.resourceNumber);
 
@@ -355,6 +361,9 @@ void handlecommand::CommandHandler::handlePex(const std::string& command) {
     }
 
     gui::Player& expellingPlayer = playerIt->second;
+    if (!_gameState.map.isInside(expellingPlayer.x, expellingPlayer.y)) {
+      throw std::out_of_range("Expelling player coordinates outside map");
+    }
     gui::Tile& tile = _gameState.map.getTile(expellingPlayer.x, expellingPlayer.y);
 
     std::vector<int> playersToPush;
@@ -387,8 +396,6 @@ void handlecommand::CommandHandler::handlePex(const std::string& command) {
           break;
         case gui::Orientation::WEST:
           pushed.x = std::max(0, pushed.x - 1);
-          break;
-        default:
           break;
       }
 

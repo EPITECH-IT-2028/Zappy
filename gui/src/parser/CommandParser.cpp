@@ -190,6 +190,8 @@ parser::DropResource parser::CommandParser::parsePdr(const std::string &command)
 
   if (result != 2)
     throw std::runtime_error("Invalid pdr command format");
+  if (resourceNumber < 0 || resourceNumber >= 7)
+    throw std::runtime_error("Invalid resource number in pdr command");
   return DropResource(playerId, resourceNumber);
 }
 
@@ -199,6 +201,8 @@ parser::CollectResource parser::CommandParser::parsePgt(const std::string &comma
 
   if (result != 2)
     throw std::runtime_error("Invalid pgt command format");
+  if (resourceNumber < 0 || resourceNumber >= 7)
+    throw std::runtime_error("Invalid resource number in pdr command");
   return CollectResource(playerId, resourceNumber);
 }
 
