@@ -381,10 +381,6 @@ void handlecommand::CommandHandler::handlePex(const std::string& command) {
       int oldX = pushed.x;
       int oldY = pushed.y;
 
-      auto& oldTilePlayers = tile.playerIdsOnTile;
-      oldTilePlayers.erase(
-          std::remove(oldTilePlayers.begin(), oldTilePlayers.end(), pushed.id),
-          oldTilePlayers.end());
       switch (expellingPlayer.orientation) {
         case gui::Orientation::NORTH:
           pushed.y = std::max(0, pushed.y - 1);
