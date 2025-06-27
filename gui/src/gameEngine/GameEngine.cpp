@@ -17,11 +17,11 @@ gui::GameEngine::GameEngine(network::ServerCommunication &serverCommunication)
   if (!IsWindowReady())
     throw std::runtime_error("Failed to initialize Raylib window");
   initialize();
-  _camera.SetPosition({15.0f, 15.0f, 30.0f});
+  _camera.SetPosition({15.0f, 10.0f, 30.0f});
   _camera.SetTarget({0.0f, 0.0f, 0.0f});
   _camera.SetUp({0.0f, 1.0f, 0.0f});
   _camera.SetFovy(45.0f);
-  _camera.SetProjection(CAMERA_ORTHOGRAPHIC);
+  _camera.SetProjection(CAMERA_PERSPECTIVE);
 }
 
 gui::GameEngine::~GameEngine() {
@@ -106,13 +106,6 @@ void gui::GameEngine::updateTitleScreen() {
 void gui::GameEngine::updateGameplayScreen() {
   if (IsKeyPressed(KEY_ENTER))
     _currentScreen = Screen::ENDING;
-  if (_camera.projection == CAMERA_ORTHOGRAPHIC && GetMouseWheelMove() > 0 &&
-      _camera.fovy > MIN_CAMERA_FOVY) {
-    _camera.fovy -= CAMERA_ZOOM_STEP;
-  } else if (_camera.projection == CAMERA_ORTHOGRAPHIC &&
-             GetMouseWheelMove() < 0 && _camera.fovy < MAX_CAMERA_FOVY) {
-    _camera.fovy += CAMERA_ZOOM_STEP;
-  }
 }
 
 void gui::GameEngine::updateEndingScreen() {
