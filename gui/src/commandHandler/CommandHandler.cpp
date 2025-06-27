@@ -350,7 +350,8 @@ void handlecommand::CommandHandler::handlePgt(const std::string& command) {
 
 void handlecommand::CommandHandler::handlePex(const std::string& command) {
   try {
-    parser::PlayerExpulsion expulsion = parser::CommandParser::parsePex(command);
+    parser::PlayerExpulsion expulsion =
+        parser::CommandParser::parsePex(command);
     auto playerIt = _gameState.players.find(expulsion.playerID);
 
     if (playerIt == _gameState.players.end()) {
@@ -362,7 +363,8 @@ void handlecommand::CommandHandler::handlePex(const std::string& command) {
     if (!_gameState.map.isInside(expellingPlayer.x, expellingPlayer.y)) {
       throw std::out_of_range("Expelling player coordinates outside map");
     }
-    gui::Tile& tile = _gameState.map.getTile(expellingPlayer.x, expellingPlayer.y);
+    gui::Tile& tile =
+        _gameState.map.getTile(expellingPlayer.x, expellingPlayer.y);
 
     std::vector<int> playersToPush;
     for (int id : tile.playerIdsOnTile) {
@@ -381,33 +383,34 @@ void handlecommand::CommandHandler::handlePex(const std::string& command) {
 
       auto& oldTilePlayers = tile.playerIdsOnTile;
       oldTilePlayers.erase(
-        std::remove(oldTilePlayers.begin(), oldTilePlayers.end(), pushed.id),
-        oldTilePlayers.end()
-      );
+          std::remove(oldTilePlayers.begin(), oldTilePlayers.end(), pushed.id),
+          oldTilePlayers.end());
       switch (expellingPlayer.orientation) {
         case gui::Orientation::NORTH:
           pushed.y = std::max(0, pushed.y - 1);
           break;
         case gui::Orientation::EAST:
-          pushed.x = std::min(static_cast<int>(_gameState.map.width - 1), pushed.x + 1);
+          pushed.x = std::min(static_cast<int>(_gameState.map.width - 1),
+                              pushed.x + 1);
           break;
         case gui::Orientation::SOUTH:
-          pushed.y = std::min(static_cast<int>(_gameState.map.height - 1), pushed.y + 1);
+          pushed.y = std::min(static_cast<int>(_gameState.map.height - 1),
+                              pushed.y + 1);
           break;
         case gui::Orientation::WEST:
           pushed.x = std::max(0, pushed.x - 1);
           break;
         default:
-          std::cerr << "Unknown orientation: " << static_cast<int>(expellingPlayer.orientation) << "\n";
+          std::cerr << "Unknown orientation: "
+                    << static_cast<int>(expellingPlayer.orientation) << "\n";
           break;
       }
 
       if (pushed.x != oldX || pushed.y != oldY) {
         auto& oldTilePlayers = tile.playerIdsOnTile;
-        oldTilePlayers.erase(
-          std::remove(oldTilePlayers.begin(), oldTilePlayers.end(), pushed.id),
-          oldTilePlayers.end()
-        );
+        oldTilePlayers.erase(std::remove(oldTilePlayers.begin(),
+                                         oldTilePlayers.end(), pushed.id),
+                             oldTilePlayers.end());
         gui::Tile& newTile = _gameState.map.getTile(pushed.x, pushed.y);
         newTile.playerIdsOnTile.push_back(pushed.id);
         newTile.effects.showPushEffect(pushed.id);
