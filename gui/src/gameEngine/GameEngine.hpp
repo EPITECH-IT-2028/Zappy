@@ -44,6 +44,7 @@ namespace gui {
       static constexpr float SPHERE_BASE_X = -0.4f;
       static constexpr float SPHERE_BASE_Y = 1.15f;
       static constexpr float SPHERE_BASE_Z = 0.6f;
+      static constexpr Color GAMEPLAY_BACKGROUND_COLOR = {11, 94, 158, 255};
 
       raylib::Window _window;
       int _framesCounter;
