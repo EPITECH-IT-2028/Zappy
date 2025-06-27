@@ -3,6 +3,7 @@ import threading
 import game
 import ml_agent
 import random
+import time
 import utils
 
 allowed_commands = [
@@ -156,6 +157,9 @@ def execute_command(client, command, args) -> None:
 
     if command not in allowed_commands:
         raise ValueError(f"Command '{command}' non autorisée")
+    if len(client.commands) < utils.MAX_COMMANDS:
+        client.commands.append(command)
+    time.sleep(0.1)
     if command == utils.BROADCAST or command == utils.SET or command == utils.TAKE:
         send_message(client, f"{command} {args}")
     elif command == utils.FORWARD:
@@ -164,8 +168,6 @@ def execute_command(client, command, args) -> None:
         send_message(client, command)
     else:
         send_message(client, command)
-    if len(client.commands) < utils.MAX_COMMANDS:
-        client.commands.append(command)
 
 def handle_client(client) -> None:
     buffer = ""
