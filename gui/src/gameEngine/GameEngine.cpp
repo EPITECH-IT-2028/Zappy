@@ -6,7 +6,7 @@
 #include <ostream>
 #include <unordered_map>
 
-gui::GameEngine::GameEngine(network::ServerCommunication& serverCommunication)
+gui::GameEngine::GameEngine(network::ServerCommunication &serverCommunication)
     : _window(SCREEN_WIDTH, SCREEN_HEIGHT, "Zappy"),
       _framesCounter(0),
       _currentScreen(Screen::LOGO),
@@ -33,7 +33,7 @@ gui::GameEngine::~GameEngine() {
 void gui::GameEngine::initialize() {
   try {
     loadResources();
-  } catch (const std::exception& e) {
+  } catch (const std::exception &e) {
     std::cerr << "Resource initialization failed: " << e.what() << std::endl;
     _resourcesLoaded = false;
     _currentScreen = Screen::ERROR;
@@ -125,18 +125,18 @@ void gui::GameEngine::processNetworkMessages() {
     return;
 
   static const std::unordered_map<std::string, std::function<void(const std::string&)>> commandHandlers = {
-    {"msz", [this](const std::string& msg) { _commandHandler.handleMsz(msg); }},
-    {"sgt", [this](const std::string& msg) { _commandHandler.handleSgt(msg); }},
-    {"tna", [this](const std::string& msg) { _commandHandler.handleTna(msg); }},
-    {"bct", [this](const std::string& msg) { _commandHandler.handleBct(msg); }},
-    {"pnw", [this](const std::string& msg) { _commandHandler.handlePnw(msg); }},
-    {"ppo", [this](const std::string& msg) { _commandHandler.handlePpo(msg); }},
-    {"plv", [this](const std::string& msg) { _commandHandler.handlePlv(msg); }},
-    {"pin", [this](const std::string& msg) { _commandHandler.handlePin(msg); }},
-    {"enw", [this](const std::string& msg) { _commandHandler.handleEnw(msg); }},
-    {"ebo", [this](const std::string& msg) { _commandHandler.handleEbo(msg); }},
-    {"edi", [this](const std::string& msg) { _commandHandler.handleEdi(msg); }},
-    {"pdi", [this](const std::string& msg) { _commandHandler.handlePdi(msg); }}
+    {"msz", [this](const std::string &msg) { _commandHandler.handleMsz(msg); }},
+    {"sgt", [this](const std::string &msg) { _commandHandler.handleSgt(msg); }},
+    {"tna", [this](const std::string &msg) { _commandHandler.handleTna(msg); }},
+    {"bct", [this](const std::string &msg) { _commandHandler.handleBct(msg); }},
+    {"pnw", [this](const std::string &msg) { _commandHandler.handlePnw(msg); }},
+    {"ppo", [this](const std::string &msg) { _commandHandler.handlePpo(msg); }},
+    {"plv", [this](const std::string &msg) { _commandHandler.handlePlv(msg); }},
+    {"pin", [this](const std::string &msg) { _commandHandler.handlePin(msg); }},
+    {"enw", [this](const std::string &msg) { _commandHandler.handleEnw(msg); }},
+    {"ebo", [this](const std::string &msg) { _commandHandler.handleEbo(msg); }},
+    {"edi", [this](const std::string &msg) { _commandHandler.handleEdi(msg); }},
+    {"pdi", [this](const std::string &msg) { _commandHandler.handlePdi(msg); }}
   };
 
   try {
@@ -159,7 +159,7 @@ void gui::GameEngine::processNetworkMessages() {
         std::cout << "Unknown command received: " << message << std::endl;
       }
     }
-  } catch (const std::exception& e) {
+  } catch (const std::exception &e) {
     std::cerr << "Error processing network messages: " << e.what() << std::endl;
   }
 }
