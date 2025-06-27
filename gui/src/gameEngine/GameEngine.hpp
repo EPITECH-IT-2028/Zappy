@@ -33,6 +33,7 @@ namespace gui {
 
   class GameEngine {
     public:
+      float worldScale = 1.0f;
       GameEngine(network::ServerCommunication &serverCommunication);
       ~GameEngine();
 
