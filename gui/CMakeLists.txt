@@ -13,13 +13,14 @@ add_compile_options(-W -Wall -Wextra -std=c++20)
 
 set(SOURCES
   src/main.cpp
-  src/raylib/Raylib.cpp
+  src/gameEngine/GameEngine.cpp
   src/server/ServerCommunication.cpp
   src/parser/ArgsParser.cpp
   src/parser/CommandParser.cpp
   src/entities/GameState.cpp
   src/entities/Map.cpp
   src/entities/Tile.cpp
+  src/entities/TileEffects.cpp
   src/commandHandler/CommandHandler.cpp
 )
 

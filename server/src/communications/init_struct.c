@@ -16,6 +16,7 @@ static
 int init_teams_struct(teams_t *teams, params_t *params)
 {
     for (int i = 0; i < params->teams_count; i++) {
+        teams[i].id = i;
         teams[i].name = strdup(params->teams_names[i]);
         if (teams[i].name == NULL)
             return ERROR;

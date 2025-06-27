@@ -23,8 +23,10 @@ int set_data(server_t *server, int index, const char *name, bool is_graphic)
     server->clients[index]->data.team_name = strdup(name);
     if (is_graphic) {
         server->clients[index]->data.id = -1;
+        server->clients[index]->data.team_id = UNASSIGNED_PLAYER_ID;
     } else {
         server->clients[index]->data.id = server->ids;
+        server->clients[index]->data.team_id = find_team_index(server, name);
         server->ids++;
     }
     if (server->clients[index]->data.team_name == NULL)

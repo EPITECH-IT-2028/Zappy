@@ -10,11 +10,12 @@
 
 int fork_player(server_t *server, response_t *response, request_t *request)
 {
-    int player_id = request->client->data.id;
     int x = request->client->data.x;
     int y = request->client->data.y;
     map_t *tile = &server->map[x][y];
-    egg_t *egg = create_egg(server->egg_ids, x, y, player_id);
+    egg_t *egg = create_egg(server->egg_ids,
+        (egg_args_t){x, y, request->client->data.id,
+        request->client->data.team_id});
 
     if (!egg)
         return ERROR;

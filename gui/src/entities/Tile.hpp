@@ -1,6 +1,7 @@
 #pragma once
 #include <array>
 #include <vector>
+#include "TileEffects.hpp"
 
 namespace gui {
   struct Tile {
@@ -21,5 +22,7 @@ namespace gui {
       std::vector<int> eggIdsOnTile;
 
       bool isEmpty() const;
+
+      TileEffects effects;
   };
-};  // namespace gui
+}  // namespace gui
