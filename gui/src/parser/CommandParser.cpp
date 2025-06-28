@@ -49,8 +49,8 @@ parser::PlayerInfo parser::CommandParser::parsePnw(const std::string &command) {
   int orientationInt;
   char teamName[256] = {0};
 
-  int result = std::sscanf(command.c_str(), "pnw #%d %d %d %d %d %255s", &id, &x,
-                           &y, &orientationInt, &level, teamName);
+  int result = std::sscanf(command.c_str(), "pnw #%d %d %d %d %d %255s", &id,
+                           &x, &y, &orientationInt, &level, teamName);
 
   if (result != 6) {
     throw std::runtime_error("Failed to parse pnw command");
@@ -91,8 +91,8 @@ parser::PlayerInventory parser::CommandParser::parsePin(
   std::array<int, RESOURCE_COUNT> resources = {0};
 
   int result =
-      std::sscanf(command.c_str(), "pin #%d %d %d %d %d %d %d %d %d %d", &id, &x,
-                  &y, &resources[0], &resources[1], &resources[2],
+      std::sscanf(command.c_str(), "pin #%d %d %d %d %d %d %d %d %d %d", &id,
+                  &x, &y, &resources[0], &resources[1], &resources[2],
                   &resources[3], &resources[4], &resources[5], &resources[6]);
 
   if (result != 10)
@@ -220,7 +220,8 @@ parser::PlayerExpulsion parser::CommandParser::parsePex(
   return PlayerExpulsion(playerId);
 }
 
-parser::BroadcastEvent parser::CommandParser::parsePbc(const std::string &command) {
+parser::BroadcastEvent parser::CommandParser::parsePbc(
+    const std::string &command) {
   std::istringstream iss(command);
   std::string prefix;
   int playerId;

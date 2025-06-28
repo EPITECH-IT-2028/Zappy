@@ -1,6 +1,7 @@
 #include "CommandHandler.hpp"
 #include <algorithm>
 #include <iostream>
+#include <sstream>
 #include "entities/Egg.hpp"
 #include "entities/Orientation.hpp"
 #include "entities/Player.hpp"
@@ -425,13 +426,15 @@ void handlecommand::CommandHandler::handlePbc(const std::string& command) {
 
     auto it = _gameState.players.find(event.playerID);
     if (it == _gameState.players.end())
-      throw std::runtime_error("Player not found: ID = " + std::to_string(event.playerID));
+      throw std::runtime_error("Player not found: ID = " +
+                               std::to_string(event.playerID));
 
     std::ostringstream formatted;
     formatted << "[Player #" << event.playerID << "]: " << event.message;
     _gameState.broadcastLog.push_back(formatted.str());
 
-    if (_gameState.broadcastLog.size() > gui::GameState::MAX_BROADCAST_LOG_SIZE) {
+    if (_gameState.broadcastLog.size() >
+        gui::GameState::MAX_BROADCAST_LOG_SIZE) {
       _gameState.broadcastLog.erase(_gameState.broadcastLog.begin());
     }
   } catch (const std::exception& e) {
