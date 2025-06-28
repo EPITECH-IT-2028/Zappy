@@ -6,7 +6,6 @@
 #include "entities/Orientation.hpp"
 #include "entities/Player.hpp"
 #include "parser/CommandParser.hpp"
-#include <sstream>
 
 void handlecommand::CommandHandler::handleMsz(const std::string& command) {
   try {
@@ -458,5 +457,6 @@ void handlecommand::CommandHandler::handleSuc(const std::string& command) {
 
 void handlecommand::CommandHandler::handleSbp(const std::string& command) {
   (void)command;
-  _gameState.broadcastLog.push_back("Command parameter error reported by server.");
+  _gameState.broadcastLog.push_back(
+      "Command parameter error reported by server.");
 }

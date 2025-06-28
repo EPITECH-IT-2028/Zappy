@@ -145,11 +145,14 @@ namespace parser {
   struct BroadcastEvent {
       int playerID;
       std::string message;
-      BroadcastEvent(int id, const std::string& msg) : playerID(id), message(msg) {}
+      BroadcastEvent(int id, const std::string& msg)
+          : playerID(id), message(msg) {
+      }
   };
   struct ServerMessageEvent {
-    std::string message;
-    ServerMessageEvent(const std::string& msg) : message(msg) {}
+      std::string message;
+      ServerMessageEvent(const std::string& msg) : message(msg) {
+      }
   };
 
   class CommandParser {
