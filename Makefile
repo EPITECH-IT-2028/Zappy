@@ -24,8 +24,6 @@ $(ZAPPY_CLIENT):
 	@echo "Compiling $(ZAPPY_CLIENT) with CMake..."
 	@if [ ! -d $(ZAPPY_CLIENT_BUILD_DIR) ]; then \
 		cmake -S $(ZAPPY_CLIENT_DIR) -B $(ZAPPY_CLIENT_BUILD_DIR); \
-	else \
-		echo "$(ZAPPY_CLIENT_BUILD_DIR) already exists, skipping CMake configuration."; \
 	fi
 	@cd $(ZAPPY_CLIENT_BUILD_DIR) && cmake --build .
 	@cp $(ZAPPY_CLIENT_DIR)/$(ZAPPY_CLIENT) .
