@@ -453,6 +453,9 @@ void handlecommand::CommandHandler::handleSmg(const std::string& command) {
 void handlecommand::CommandHandler::handleSuc(const std::string& command) {
   (void)command;
   _gameState.broadcastLog.push_back("Unknown command received by server.");
+  while (_gameState.broadcastLog.size() >
+         gui::GameState::MAX_BROADCAST_LOG_SIZE)
+    _gameState.broadcastLog.erase(_gameState.broadcastLog.begin());
 }
 
 void handlecommand::CommandHandler::handleSbp(const std::string& command) {
