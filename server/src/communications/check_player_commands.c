@@ -26,23 +26,42 @@ bool check_commands(const char *buffer)
     return false;
 }
 
+static
+int count_client_actions(client_t *client)
+{
+    int count = 0;
+    pending_action_t *current = NULL;
+
+    if (!client)
+        return 0;
+    pthread_mutex_lock(&client->data.pending_mutex);
+    current = client->data.queue_head;
+    while (current) {
+        count++;
+        current = current->next;
+    }
+    pthread_mutex_unlock(&client->data.pending_mutex);
+    return count;
+}
+
 void check_player_command(server_t *server, int index, const char *buffer)
 {
     client_t *client = server->clients[index];
-    request_t request;
-    int pending = 0;
+    int action_count = 0;
 
-    pthread_mutex_lock(&client->data.pending_mutex);
-    pending = client->data.pending_requests;
-    pthread_mutex_unlock(&client->data.pending_mutex);
-    if (pending >= MAX_REQUEST_PER_CLIENT) {
+    if (!client || !buffer || !server || !client->connected
+        || !client->data.team_name || client->data.is_graphic)
         return;
-    }
+    action_count = count_client_actions(client);
+    if (action_count >= MAX_REQUEST_PER_CLIENT)
+        return;
     if (!check_commands(buffer)) {
         send_code(client->fd, "ko\n");
-    } else {
-        request.client = client;
-        snprintf(request.request, BUFFER_SIZE, "%s", buffer);
-        queue_add_request(server, &request);
+        return;
     }
+    if (add_action_to_client_queue(client, buffer, server) == SUCCESS)
+        printf("Action '%s' queued for client %d (queue size: %d)\n",
+            buffer, client->data.id, action_count + 1);
+    else
+        send_code(client->fd, "ko\n");
 }

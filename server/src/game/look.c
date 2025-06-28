@@ -123,8 +123,5 @@ int handle_look(server_t *server, response_t *response, request_t *request)
     response->response[response->size - 1][strlen(response->response[
         response->size - 1]) - REMOVE_USELESS_COMMA] = ' ';
     add_buffer_to_response("]", &response->response, &response->size);
-    response->client->data.is_busy = true;
-    response->client->data.action_end_time = get_action_end_time(server,
-        LOOK_TIME);
     return SUCCESS;
 }

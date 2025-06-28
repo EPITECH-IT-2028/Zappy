@@ -210,8 +210,5 @@ int handle_broadcast(server_t *server, response_t *response,
     send_pbc(server, client, broadcast);
     free(broadcast);
     add_buffer_to_response("ok", &response->response, &response->size);
-    response->client->data.is_busy = true;
-    response->client->data.action_end_time = get_action_end_time(server,
-        BROADCAST_TIME);
     return SUCCESS;
 }

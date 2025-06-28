@@ -80,6 +80,7 @@ void free_server(server_t *server)
     server->running = false;
     pthread_mutex_lock(&server->clients_mutex);
     pthread_join(server->threads.game_thread, NULL);
+    cleanup_game_resources(server);
     for (int i = 0; i < server->nfds; i += 1) {
         if (server->clients[i] != NULL) {
             free(server->clients[i]->data.team_name);

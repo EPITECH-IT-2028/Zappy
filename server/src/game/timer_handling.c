@@ -10,32 +10,6 @@
 #include "server.h"
 #include <time.h>
 
-static
-struct timespec calculate_action_duration(int action_units, int frequency)
-{
-    long total_ns = (long)action_units * NANOSECONDS_PER_SECOND / frequency;
-    struct timespec duration = {
-        .tv_sec = total_ns / NANOSECONDS_PER_SECOND,
-        .tv_nsec = total_ns % NANOSECONDS_PER_SECOND
-    };
-
-    return duration;
-}
-
-static
-struct timespec timespec_add(struct timespec *start, struct timespec *duration)
-{
-    struct timespec result;
-
-    result.tv_sec = start->tv_sec + duration->tv_sec;
-    result.tv_nsec = start->tv_nsec + duration->tv_nsec;
-    if (result.tv_nsec >= NANOSECONDS_PER_SECOND) {
-        result.tv_sec++;
-        result.tv_nsec -= NANOSECONDS_PER_SECOND;
-    }
-    return result;
-}
-
 struct timespec get_action_end_time(server_t *server, int action_duration)
 {
     struct timespec current_time;

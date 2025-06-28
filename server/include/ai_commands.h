@@ -47,4 +47,25 @@ const ai_commands_t tab_ai_commands[] = {
     {NULL, NULL}
 };
 
+typedef struct action_duration_s {
+    const char *command;
+    int duration;
+} action_duration_t;
+
+const action_duration_t tab_action_durations[] = {
+    {"Forward", FORWARD_TIME},
+    {"Right", RIGHT_TIME},
+    {"Left", LEFT_TIME},
+    {"Look", LOOK_TIME},
+    {"Inventory", INVENTORY_TIME},
+    {"Connect_nbr", CONNECT_NBR_TIME},
+    {"Broadcast", BROADCAST_TIME},
+    {"Fork", FORK_TIME},
+    {"Eject", EJECT_TIME},
+    {"Take", TAKE_TIME},
+    {"Set", SET_TIME},
+    {"Incantation", INCANTATION_TIME},
+    {NULL, 0}
+};
+
 #endif /* AI_COMMANDS_H_ */

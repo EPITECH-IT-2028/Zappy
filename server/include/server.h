@@ -79,6 +79,12 @@ typedef struct response_s {
     char **response;
 } response_t;
 
+typedef struct pending_action_s {
+    char command[BUFFER_SIZE];
+    struct timespec execute_time;
+    struct pending_action_s *next;
+} pending_action_t;
+
 typedef struct client_data_s {
     char *team_name;
     int team_id;
@@ -97,6 +103,9 @@ typedef struct client_data_s {
     incantation_t incantation;
     struct timespec action_end_time;
     struct response_s pending_response;
+    pending_action_t *queue_head;
+    pending_action_t *queue_tail;
+    bool is_action;
 } client_data_t;
 
 typedef struct client_s {
@@ -320,5 +329,15 @@ int cleanup_pending_response(response_t *pending);
 void check_if_queue_is_full(server_t *server, response_t *response);
 int is_client_on_cd(client_data_t *client_data);
 void sleep_time(server_t *server);
+
+/* Action queue functions */
+int add_action_to_client_queue(client_t *client, const char *command,
+    server_t *server);
+void cleanup_game_resources(server_t *server);
+struct timespec timespec_add(struct timespec *start,
+    struct timespec *duration);
+struct timespec calculate_action_duration(int action_units, int frequency);
+void check_time_events(server_t *server);
+int check_request(server_t *server, response_t *response, request_t *request);
 
 #endif /* SERVER_H_ */
