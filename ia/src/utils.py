@@ -100,6 +100,7 @@ EJECT = "Eject"
 TAKE = "Take"
 SET = "Set"
 INCANTATION = "Incantation"
+CONNECT_NBR = "Connect_nbr"
 
 NO_TARGET = -1
 BUFFER_SIZE = 1024
@@ -110,6 +111,7 @@ GOOD_FOOD = 50
 INVENTORY_ITEMS_COUNT = 7
 MIN_REQUIRED_PLAYERS = 1
 MAX_REQUIRED_PLAYERS = 6
+NBR_PLAYERS_TO_START = 6
 PLAYER_CELL = 0
 CANT_MOVE = 3
 FIRST_COMMAND = 0
@@ -120,6 +122,7 @@ class ZappyClient:
     def __init__(self, client_socket, team_name):
         self.socket = client_socket
         self.team_name = team_name
+        self.unused_slot = 0
         self.map_size = [0, 0]
         self.commands = []
         self.inventory = {}
@@ -139,7 +142,7 @@ class ZappyClient:
         self.waiting_incantation_response = False
         self.start_playing = False
         self.status = "good"
-        self.player_in_game = 0
+        self.player_in_game = 1
         self.at_max_food = False
         self.waiting_for_help = False
         self.look_redirection = False
