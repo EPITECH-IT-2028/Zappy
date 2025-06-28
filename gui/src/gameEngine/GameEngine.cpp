@@ -381,5 +381,5 @@ void gui::GameEngine::resetCamera() {
   _camera.SetUp({0.0f, 1.0f, 0.0f});
   _camera.SetFovy(45.0f);
   _camera.SetProjection(CAMERA_PERSPECTIVE);
-  worldScale = 1.0f;
+  setWorldScale(1.0f);
 }
