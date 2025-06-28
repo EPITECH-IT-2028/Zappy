@@ -150,27 +150,27 @@ All communication is done through **text-based messages**.
 
 **Example AI to Server commands**:
 
-Forward\n
-Look\n
-Take linemate\n
-Broadcast need sibur near (2,3)\n
-Incantation\n
+- Forward\n
+- Look\n
+- Take linemate\n
+- Broadcast need sibur near (2,3)\n
+- Incantation\n
 
 **Example Server to AI responses**:
 
-ok\n
-ko\n
-[ player player food ][ food deraumere ][ ... ]\n
-Current level: 3\n
-Elevation underway\n
+- ok\n
+- ko\n
+- [ player player food ][ food deraumere ][ ... ]\n
+- Current level: 3\n
+- Elevation underway\n
 
 **Server to GUI events (examples)**:
 
-pnw #player_id x y orientation level team_name\n
-ppo #player_id x y orientation\n
-plv #player_id level\n
-pin #player_id x y food linemate ...\n
-seg team_name\n
+- pnw #player_id x y orientation level team_name\n
+- ppo #player_id x y orientation\n
+- plv #player_id level\n
+- pin #player_id x y food linemate ...\n
+- seg team_name\n
 
 ### Technical Challenges and Solutions
 
@@ -196,10 +196,17 @@ If you want to contribute to the project, please create a new branch and make a 
 -   Developed a **Python AI bot** capable of reaching level 4 autonomously by managing food, exploring, and performing simple rituals.
 
 ## Authors
+
+The authors of this 5 weeks project are :
+
+**AI**
 - [@Etienne](https://github.com/Etiennelbre)
+- [@Valentin](https://github.com/jeanmiii)
+
+**Server**
 - [@Arthur](https://github.com/ZifFiji)
 - [@Nolann](https://github.com/MelmanC)
-- [@Quentin](https://github.com/quentin-lpr)
-- [@Valentin](https://github.com/jeanmiii)
-- [@Robin](https://github.com/RobinChassagne)
 
+**Gui**
+- [@Quentin](https://github.com/quentin-lpr)
+- [@Robin](https://github.com/RobinChassagne)
