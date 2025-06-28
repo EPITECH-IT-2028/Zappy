@@ -5,6 +5,7 @@
 #include <iostream>
 #include <ostream>
 #include <unordered_map>
+#include <algorithm>
 
 gui::GameEngine::GameEngine(network::ServerCommunication &serverCommunication)
     : _window(SCREEN_WIDTH, SCREEN_HEIGHT, "Zappy"),
@@ -35,7 +36,7 @@ float gui::GameEngine::getWorldScale() const {
 }
 
 void gui::GameEngine::setWorldScale(float value) {
-  worldScale = Clamp(value, MIN_SCALE, MAX_SCALE);
+  worldScale = std::clamp(value, MIN_SCALE, MAX_SCALE);
 }
 
 void gui::GameEngine::initialize() {
