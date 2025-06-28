@@ -3,7 +3,7 @@
 #include <array>
 #include <string>
 #include <vector>
-#include "../entities/Orientation.hpp"
+#include "entities/Orientation.hpp"
 
 namespace parser {
   inline constexpr std::size_t RESOURCE_COUNT = 7;
