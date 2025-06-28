@@ -6,7 +6,7 @@
 #include <ostream>
 #include <unordered_map>
 
-gui::GameEngine::GameEngine(network::ServerCommunication& serverCommunication)
+gui::GameEngine::GameEngine(network::ServerCommunication &serverCommunication)
     : _window(SCREEN_WIDTH, SCREEN_HEIGHT, "Zappy"),
       _framesCounter(0),
       _currentScreen(Screen::LOGO),
@@ -33,7 +33,7 @@ gui::GameEngine::~GameEngine() {
 void gui::GameEngine::initialize() {
   try {
     loadResources();
-  } catch (const std::exception& e) {
+  } catch (const std::exception &e) {
     std::cerr << "Resource initialization failed: " << e.what() << std::endl;
     _resourcesLoaded = false;
     _currentScreen = Screen::ERROR;
@@ -125,18 +125,18 @@ void gui::GameEngine::processNetworkMessages() {
     return;
 
   static const std::unordered_map<std::string, std::function<void(const std::string&)>> commandHandlers = {
-    {"msz", [this](const std::string& msg) { _commandHandler.handleMsz(msg); }},
-    {"sgt", [this](const std::string& msg) { _commandHandler.handleSgt(msg); }},
-    {"tna", [this](const std::string& msg) { _commandHandler.handleTna(msg); }},
-    {"bct", [this](const std::string& msg) { _commandHandler.handleBct(msg); }},
-    {"pnw", [this](const std::string& msg) { _commandHandler.handlePnw(msg); }},
-    {"ppo", [this](const std::string& msg) { _commandHandler.handlePpo(msg); }},
-    {"plv", [this](const std::string& msg) { _commandHandler.handlePlv(msg); }},
-    {"pin", [this](const std::string& msg) { _commandHandler.handlePin(msg); }},
-    {"enw", [this](const std::string& msg) { _commandHandler.handleEnw(msg); }},
-    {"ebo", [this](const std::string& msg) { _commandHandler.handleEbo(msg); }},
-    {"edi", [this](const std::string& msg) { _commandHandler.handleEdi(msg); }},
-    {"pdi", [this](const std::string& msg) { _commandHandler.handlePdi(msg); }}
+    {"msz", [this](const std::string &msg) { _commandHandler.handleMsz(msg); }},
+    {"sgt", [this](const std::string &msg) { _commandHandler.handleSgt(msg); }},
+    {"tna", [this](const std::string &msg) { _commandHandler.handleTna(msg); }},
+    {"bct", [this](const std::string &msg) { _commandHandler.handleBct(msg); }},
+    {"pnw", [this](const std::string &msg) { _commandHandler.handlePnw(msg); }},
+    {"ppo", [this](const std::string &msg) { _commandHandler.handlePpo(msg); }},
+    {"plv", [this](const std::string &msg) { _commandHandler.handlePlv(msg); }},
+    {"pin", [this](const std::string &msg) { _commandHandler.handlePin(msg); }},
+    {"enw", [this](const std::string &msg) { _commandHandler.handleEnw(msg); }},
+    {"ebo", [this](const std::string &msg) { _commandHandler.handleEbo(msg); }},
+    {"edi", [this](const std::string &msg) { _commandHandler.handleEdi(msg); }},
+    {"pdi", [this](const std::string &msg) { _commandHandler.handlePdi(msg); }}
   };
 
   try {
@@ -159,7 +159,7 @@ void gui::GameEngine::processNetworkMessages() {
         std::cout << "Unknown command received: " << message << std::endl;
       }
     }
-  } catch (const std::exception& e) {
+  } catch (const std::exception &e) {
     std::cerr << "Error processing network messages: " << e.what() << std::endl;
   }
 }
@@ -176,7 +176,7 @@ void gui::GameEngine::renderTitleScreen() {
 }
 
 void gui::GameEngine::renderGameplayScreen() {
-  DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, LIGHTGRAY);
+  DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, GAMEPLAY_BACKGROUND_COLOR);
   drawMap();
   DrawText("GAMEPLAY SCREEN", 20, 20, 40, MAROON);
 }
@@ -227,6 +227,7 @@ void gui::GameEngine::drawMap() {
   float mapHeight = static_cast<float>(_gameState.map.height);
   Vector3 gridOrigin = {-((mapWidth - 1) * brickSpacing) / 2.0f, 0.0f,
                         -((mapHeight - 1) * brickSpacing) / 2.0f};
+  std::vector<std::pair<Vector2, int>> resourceCount;
 
   BeginMode3D(_camera);
   for (std::size_t y = 0; y < _gameState.map.height; ++y) {
@@ -239,7 +240,43 @@ void gui::GameEngine::drawMap() {
       DrawCubeWires(
           {position.x + offset.x, position.y + offset.y, position.z + offset.z},
           BRICK_SPACING, BRICK_SPACING, BRICK_SPACING, WHITE);
+      drawResource(position, x, y, resourceCount);
     }
   }
   EndMode3D();
+
+  for (const auto &info : resourceCount) {
+    Vector2 screenPos = info.first;
+    int count = info.second;
+    DrawText(TextFormat("%d", count), static_cast<int>(screenPos.x) + 10,
+             static_cast<int>(screenPos.y) - 5, 15, WHITE);
+  }
+}
+
+void gui::GameEngine::drawResource(
+    const Vector3 position, int x, int y,
+    std::vector<std::pair<Vector2, int>> &resourceTexts) {
+  const gui::Tile &tile = _gameState.map.tiles[x][y];
+  bool hasAnyResource = false;
+
+  for (int i = 0; i < static_cast<int>(gui::Tile::RESOURCE_COUNT); i++) {
+    if (tile.resources[i] > 0) {
+      hasAnyResource = true;
+      break;
+    }
+  }
+  if (!hasAnyResource)
+    return;
+  for (int i = 0; i < static_cast<int>(gui::Tile::RESOURCE_COUNT); i++) {
+    int resourceCount = tile.resources[i];
+    if (resourceCount > 0) {
+      Color color = tile.getResourceColor(static_cast<gui::Tile::Resource>(i));
+      Vector3 resourcePosition = {
+          position.x + SPHERE_BASE_X, position.y + SPHERE_BASE_Y,
+          position.z + SPHERE_BASE_Z - i * SPHERE_HORIZONTAL_SPACING};
+      DrawSphere(resourcePosition, 0.035f, color);
+      Vector2 screenPos = GetWorldToScreen(resourcePosition, _camera);
+      resourceTexts.push_back(std::make_pair(screenPos, resourceCount));
+    }
+  }
 }

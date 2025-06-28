@@ -40,6 +40,12 @@ namespace gui {
       void initialize();
 
     private:
+      static constexpr float SPHERE_HORIZONTAL_SPACING = 0.15f;
+      static constexpr float SPHERE_BASE_X = -0.4f;
+      static constexpr float SPHERE_BASE_Y = 1.15f;
+      static constexpr float SPHERE_BASE_Z = 0.6f;
+      static constexpr Color GAMEPLAY_BACKGROUND_COLOR = {11, 94, 158, 255};
+
       raylib::Window _window;
       int _framesCounter;
       raylib::Camera3D _camera;
@@ -67,5 +73,7 @@ namespace gui {
       std::string _errorMessage;
 
       void drawMap();
+      void drawResource(const Vector3 position, int x, int y,
+                        std::vector<std::pair<Vector2, int>> &resourceTexts);
   };
 }  // namespace gui
