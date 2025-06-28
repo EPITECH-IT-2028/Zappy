@@ -35,7 +35,7 @@ float gui::GameEngine::getWorldScale() const {
 }
 
 void gui::GameEngine::setWorldScale(float value) {
-  worldScale = std::clamp(value, MIN_SCALE, MAX_SCALE);
+  worldScale = Clamp(value, MIN_SCALE, MAX_SCALE);
 }
 
 void gui::GameEngine::initialize() {
@@ -139,7 +139,8 @@ void gui::GameEngine::processNetworkMessages() {
     {"enw", [this](const std::string &msg) { _commandHandler.handleEnw(msg); }},
     {"ebo", [this](const std::string &msg) { _commandHandler.handleEbo(msg); }},
     {"edi", [this](const std::string &msg) { _commandHandler.handleEdi(msg); }},
-    {"pdi", [this](const std::string &msg) { _commandHandler.handlePdi(msg); }}
+    {"pdi", [this](const std::string &msg) { _commandHandler.handlePdi(msg); }},
+    {"pbc", [this](const std::string &msg) { _commandHandler.handlePbc(msg); }}
   };
 
   try {
@@ -181,6 +182,7 @@ void gui::GameEngine::renderTitleScreen() {
 void gui::GameEngine::renderGameplayScreen() {
   DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, GAMEPLAY_BACKGROUND_COLOR);
   drawMap();
+  drawBroadcastLog();
   DrawText("GAMEPLAY SCREEN", 20, 20, 40, MAROON);
 }
 
@@ -378,4 +380,12 @@ void gui::GameEngine::resetCamera() {
   _camera.SetFovy(45.0f);
   _camera.SetProjection(CAMERA_PERSPECTIVE);
   setWorldScale(1.0f);
+}
+
+void gui::GameEngine::drawBroadcastLog() {
+  int startY = 10;
+  for (const auto& msg : _gameState.broadcastLog) {
+    DrawText(msg.c_str(), 10, startY, 20, DARKGRAY);
+    startY += 25; 
+  }
 }

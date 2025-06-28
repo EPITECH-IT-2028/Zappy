@@ -5,6 +5,7 @@
 #include "entities/Orientation.hpp"
 #include "entities/Player.hpp"
 #include "parser/CommandParser.hpp"
+#include <sstream>
 
 void handlecommand::CommandHandler::handleMsz(const std::string& command) {
   try {
@@ -426,9 +427,9 @@ void handlecommand::CommandHandler::handlePbc(const std::string& command) {
     if (it == _gameState.players.end())
       throw std::runtime_error("Player not found: ID = " + std::to_string(event.playerID));
 
-    gui::Player& player = it->second;
-
-    // ADD an event to the player's broadcast messages
+    std::ostringstream formatted;
+    formatted << "[Player #" << event.playerID << "]: " << event.message;
+    _gameState.broadcastLog.push_back(formatted.str());
 
   } catch (const std::exception& e) {
     std::cerr << "Error while handling pbc: " << e.what() << "\n";

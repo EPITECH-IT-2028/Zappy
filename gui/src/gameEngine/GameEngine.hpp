@@ -90,5 +90,6 @@ namespace gui {
       void handleCameraRotation();
       void handleCameraZoom();
       void resetCamera();
+      void drawBroadcastLog();
   };
 }  // namespace gui
