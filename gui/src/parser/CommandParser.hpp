@@ -145,7 +145,9 @@ namespace parser {
   struct BroadcastEvent {
       int playerID;
       std::string message;
-      BroadcastEvent(int id, const std::string& msg) : playerID(id), message(msg) {}
+      BroadcastEvent(int id, const std::string& msg)
+          : playerID(id), message(msg) {
+      }
   };
 
   class CommandParser {

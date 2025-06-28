@@ -1,11 +1,11 @@
 #include "GameEngine.hpp"
 #include <raylib.h>
+#include <algorithm>
 #include <cstddef>
 #include <functional>
 #include <iostream>
 #include <ostream>
 #include <unordered_map>
-#include <algorithm>
 
 gui::GameEngine::GameEngine(network::ServerCommunication &serverCommunication)
     : _window(SCREEN_WIDTH, SCREEN_HEIGHT, "Zappy"),
@@ -320,8 +320,8 @@ void gui::GameEngine::handleCameraMovement() {
         Vector3Subtract(_camera.target, Vector3Scale(flatRight, moveSpeed));
   }
   if (IsKeyDown(KEY_S)) {
-    _camera.position = Vector3Subtract(_camera.position,
-                                       Vector3Scale(flatForward, moveSpeed));
+    _camera.position =
+        Vector3Subtract(_camera.position, Vector3Scale(flatForward, moveSpeed));
     _camera.target =
         Vector3Subtract(_camera.target, Vector3Scale(flatForward, moveSpeed));
   }
@@ -395,13 +395,16 @@ void gui::GameEngine::drawBroadcastLog() {
   const int startY = 10;
   const int lineHeight = 25;
   const int fontSize = 20;
-  
-  int messagesToShow = std::min(static_cast<int>(_gameState.broadcastLog.size()), maxVisibleMessages);
-  int startIndex = std::max(0, static_cast<int>(_gameState.broadcastLog.size()) - messagesToShow);
-  
+
+  int messagesToShow = std::min(
+      static_cast<int>(_gameState.broadcastLog.size()), maxVisibleMessages);
+  int startIndex = std::max(
+      0, static_cast<int>(_gameState.broadcastLog.size()) - messagesToShow);
+
   for (int i = 0; i < messagesToShow; ++i) {
     int messageIndex = startIndex + i;
     int yPos = startY + i * lineHeight;
-    DrawText(_gameState.broadcastLog[messageIndex].c_str(), startX, yPos, fontSize, DARKGRAY);
+    DrawText(_gameState.broadcastLog[messageIndex].c_str(), startX, yPos,
+             fontSize, DARKGRAY);
   }
 }
