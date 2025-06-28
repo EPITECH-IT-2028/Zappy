@@ -1,5 +1,6 @@
 #include "GameEngine.hpp"
 #include <raylib.h>
+#include <algorithm>
 #include <cstddef>
 #include <functional>
 #include <iostream>
@@ -139,7 +140,17 @@ void gui::GameEngine::processNetworkMessages() {
     {"enw", [this](const std::string &msg) { _commandHandler.handleEnw(msg); }},
     {"ebo", [this](const std::string &msg) { _commandHandler.handleEbo(msg); }},
     {"edi", [this](const std::string &msg) { _commandHandler.handleEdi(msg); }},
-    {"pdi", [this](const std::string &msg) { _commandHandler.handlePdi(msg); }}
+    {"pdi", [this](const std::string &msg) { _commandHandler.handlePdi(msg); }},
+    {"pic", [this](const std::string &msg) { _commandHandler.handlePic(msg); }},
+    {"pie", [this](const std::string &msg) { _commandHandler.handlePie(msg); }},
+    {"pfk", [this](const std::string &msg) { _commandHandler.handlePfk(msg); }},
+    {"pdr", [this](const std::string &msg) { _commandHandler.handlePdr(msg); }},
+    {"pgt", [this](const std::string &msg) { _commandHandler.handlePgt(msg); }},
+    {"pex", [this](const std::string &msg) { _commandHandler.handlePex(msg); }},
+    {"pbc", [this](const std::string &msg) { _commandHandler.handlePbc(msg); }},
+    {"smg", [this](const std::string &msg) { _commandHandler.handleSmg(msg); }},
+    {"suc", [this](const std::string &msg) { _commandHandler.handleSuc(msg); }},
+    {"sbp", [this](const std::string &msg) { _commandHandler.handleSbp(msg); }}
   };
 
   try {
@@ -181,6 +192,7 @@ void gui::GameEngine::renderTitleScreen() {
 void gui::GameEngine::renderGameplayScreen() {
   DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, GAMEPLAY_BACKGROUND_COLOR);
   drawMap();
+  drawBroadcastLog();
   DrawText("GAMEPLAY SCREEN", 20, 20, 40, MAROON);
 }
 
@@ -311,8 +323,8 @@ void gui::GameEngine::handleCameraMovement() {
         Vector3Subtract(_camera.target, Vector3Scale(flatRight, moveSpeed));
   }
   if (IsKeyDown(KEY_S)) {
-    _camera.position = Vector3Subtract(_camera.position,
-                                       Vector3Scale(flatForward, moveSpeed));
+    _camera.position =
+        Vector3Subtract(_camera.position, Vector3Scale(flatForward, moveSpeed));
     _camera.target =
         Vector3Subtract(_camera.target, Vector3Scale(flatForward, moveSpeed));
   }
@@ -378,4 +390,24 @@ void gui::GameEngine::resetCamera() {
   _camera.SetFovy(45.0f);
   _camera.SetProjection(CAMERA_PERSPECTIVE);
   setWorldScale(1.0f);
+}
+
+void gui::GameEngine::drawBroadcastLog() {
+  const int maxVisibleMessages = GameState::MAX_BROADCAST_LOG_SIZE;
+  const int startX = BROADCAST_LOG_START_X;
+  const int startY = BROADCAST_LOG_START_Y;
+  const int lineHeight = BROADCAST_LOG_LINE_HEIGHT;
+  const int fontSize = BROADCAST_LOG_FONT_SIZE;
+
+  int messagesToShow = std::min(
+      static_cast<int>(_gameState.broadcastLog.size()), maxVisibleMessages);
+  int startIndex = std::max(
+      0, static_cast<int>(_gameState.broadcastLog.size()) - messagesToShow);
+
+  for (int i = 0; i < messagesToShow; ++i) {
+    int messageIndex = startIndex + i;
+    int yPos = startY + i * lineHeight;
+    DrawText(_gameState.broadcastLog[messageIndex].c_str(), startX, yPos,
+             fontSize, DARKGRAY);
+  }
 }

@@ -10,7 +10,7 @@ def add_client(client) -> None :
   global threads, clients
 
   client_thread = threading.Thread(
-    target=protocole.handle_client,
+    target=protocole.initialize_clients,
     args=(client,)
   )
   client_thread.daemon = True

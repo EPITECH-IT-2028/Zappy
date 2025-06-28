@@ -1,6 +1,7 @@
 #include "CommandHandler.hpp"
 #include <algorithm>
 #include <iostream>
+#include <sstream>
 #include "entities/Egg.hpp"
 #include "entities/Orientation.hpp"
 #include "entities/Player.hpp"
@@ -416,4 +417,54 @@ void handlecommand::CommandHandler::handlePex(const std::string& command) {
   } catch (const std::exception& e) {
     std::cerr << "Error while handling pex: " << e.what() << "\n";
   }
+}
+
+void handlecommand::CommandHandler::handlePbc(const std::string& command) {
+  try {
+    parser::BroadcastEvent event = parser::CommandParser::parsePbc(command);
+
+    auto it = _gameState.players.find(event.playerID);
+    if (it == _gameState.players.end())
+      throw std::runtime_error("Player not found: ID = " +
+                               std::to_string(event.playerID));
+
+    std::ostringstream formatted;
+    formatted << "[Player #" << event.playerID << "]: " << event.message;
+    _gameState.broadcastLog.push_back(formatted.str());
+
+    if (_gameState.broadcastLog.size() >
+        gui::GameState::MAX_BROADCAST_LOG_SIZE) {
+      _gameState.broadcastLog.erase(_gameState.broadcastLog.begin());
+    }
+  } catch (const std::exception& e) {
+    std::cerr << "Error while handling pbc: " << e.what() << "\n";
+  }
+}
+
+void handlecommand::CommandHandler::handleSmg(const std::string& command) {
+  try {
+    auto event = parser::CommandParser::parseSmg(command);
+    _gameState.broadcastLog.push_back("[Server message] " + event.message);
+    while (_gameState.broadcastLog.size() > gui::GameState::MAX_BROADCAST_LOG_SIZE)
+      _gameState.broadcastLog.erase(_gameState.broadcastLog.begin());
+  } catch (const std::exception& e) {
+    std::cerr << "Error while handling smg: " << e.what() << "\n";
+  }
+}
+
+void handlecommand::CommandHandler::handleSuc(const std::string& command) {
+  (void)command;
+  _gameState.broadcastLog.push_back("Unknown command received by server.");
+  while (_gameState.broadcastLog.size() >
+         gui::GameState::MAX_BROADCAST_LOG_SIZE)
+    _gameState.broadcastLog.erase(_gameState.broadcastLog.begin());
+}
+
+void handlecommand::CommandHandler::handleSbp(const std::string& command) {
+  (void)command;
+  _gameState.broadcastLog.push_back(
+      "Command parameter error reported by server.");
+  while (_gameState.broadcastLog.size() >
+         gui::GameState::MAX_BROADCAST_LOG_SIZE)
+    _gameState.broadcastLog.erase(_gameState.broadcastLog.begin());
 }

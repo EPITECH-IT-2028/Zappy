@@ -75,7 +75,8 @@ struct client_s;
 
 typedef struct response_s {
     struct client_s *client;
-    char response[BUFFER_SIZE];
+    int size;
+    char **response;
 } response_t;
 
 typedef struct client_data_s {
@@ -105,6 +106,7 @@ typedef struct client_s {
     int fd_open;
     bool connected;
     client_data_t data;
+    char *buffer;
 } client_t;
 
 typedef struct request_s {
@@ -188,6 +190,7 @@ int check_params(params_t *params, int ac, char **av);
 void init_client_struct(client_t *clients, int fd);
 int init_server_struct(server_t *server, params_t *params);
 void init_params(params_t *params);
+void init_response(response_t *response);
 
 /* Event handling functions */
 int get_new_connection(server_t *server);
@@ -296,10 +299,26 @@ int remove_needed_ressources(map_t *tile, uint8_t level);
 int check_ressource_update(server_t *server, request_t *request,
     client_data_t *client, bool from_inv_to_map);
 
-
+/* Resource density functions */
 void increment_resources(map_t *map, int type);
 int respawn_resources(server_t *server);
 void increment_resource_density(server_t *server, int type);
 void decrement_resource_density(server_t *server, int type);
 int init_density(server_t *server, inventory_t *density);
+
+/* Buffer management function */
+int add_buffer_to_response(char *buffer, char ***response, int *index);
+
+/* Utils events server */
+int define_index(server_t *server);
+int resize_fds(server_t *server, int new_size);
+void init_fds(server_t *server, int index, int client_fd);
+
+/* Utils game */
+int copy_response_data(response_t *dest, response_t *src, int count);
+int cleanup_pending_response(response_t *pending);
+void check_if_queue_is_full(server_t *server, response_t *response);
+int is_client_on_cd(client_data_t *client_data);
+void sleep_time(server_t *server);
+
 #endif /* SERVER_H_ */
