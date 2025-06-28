@@ -31,6 +31,10 @@
 #define BROADCAST_LOG_LINE_HEIGHT 25
 #define BROADCAST_LOG_FONT_SIZE 20
 
+inline static bool SHOW_LETTER_BOUNDRY = false;
+#define LETTER_BOUNDRY_SIZE 0.25f
+#define LETTER_BOUNDRY_COLOR VIOLET
+
 namespace gui {
   enum class Screen {
     LOGO,
@@ -64,6 +68,12 @@ namespace gui {
       static constexpr float MAX_SCALE = 5.0f;
       static constexpr float SCALE_STEP = 0.1f;
 
+      void DrawTextCodepoint3D(Font font, int codepoint, Vector3 position,
+                               float fontSize, bool backface, Color tint);
+      void DrawText3D(Font font, const char *text, Vector3 position,
+                      float fontSize, float fontSpacing, float lineSpacing,
+                      bool backface, Color tint);
+
       raylib::Window _window;
       int _framesCounter;
       raylib::Camera3D _camera;
@@ -95,9 +105,9 @@ namespace gui {
       std::size_t _resourcesLoaded;
       std::string _errorMessage;
 
-      void drawMap(std::vector<std::pair<Vector2, int>> *resourceCount);
+      void drawMap(std::vector<std::pair<Vector3, int>> *resourceCount);
       void drawResource(const Vector3 position, int x, int y,
-                        std::vector<std::pair<Vector2, int>> &resourceTexts);
+                        std::vector<std::pair<Vector3, int>> &resourceTexts);
       void drawPlayers();
       void drawLights();
       void moveCamera();

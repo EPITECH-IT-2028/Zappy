@@ -194,7 +194,7 @@ void gui::GameEngine::renderTitleScreen() {
 }
 
 void gui::GameEngine::renderGameplayScreen() {
-  std::vector<std::pair<Vector2, int>> resourceCount;
+  std::vector<std::pair<Vector3, int>> resourceCount;
 
   DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, GAMEPLAY_BACKGROUND_COLOR);
   updateShaders();
@@ -204,17 +204,17 @@ void gui::GameEngine::renderGameplayScreen() {
 
   drawMap(&resourceCount);
   drawPlayers();
+  for (const auto &info : resourceCount) {
+    Vector3 worldPos = info.first;
+    DrawText3D(GetFontDefault(), TextFormat("%d", info.second),
+               {worldPos.x + 0.1f, worldPos.y + 0.01f, worldPos.z - 0.1f},
+               0.2f * worldScale, 0.05f, 0.0f, false,
+               (Color){255, 255, 255, 255});
+  }
 
   EndShaderMode();
   drawLights();
   EndMode3D();
-
-  for (const auto &info : resourceCount) {
-    Vector2 screenPos = info.first;
-    int count = info.second;
-    DrawText(TextFormat("%d", count), static_cast<int>(screenPos.x) + 10,
-             static_cast<int>(screenPos.y) - 5, 15, WHITE);
-  }
 
   drawBroadcastLog();
   DrawText("GAMEPLAY SCREEN", 20, 20, 40, MAROON);
@@ -301,7 +301,7 @@ void gui::GameEngine::loadShaders() {
 }
 
 void gui::GameEngine::drawMap(
-    std::vector<std::pair<Vector2, int>> *resourceCount) {
+    std::vector<std::pair<Vector3, int>> *resourceCount) {
   if (_resourcesLoaded != 2) {
     std::cerr << "Resources not loaded, cannot draw map." << std::endl;
     return;
@@ -332,7 +332,7 @@ void gui::GameEngine::drawMap(
 
 void gui::GameEngine::drawResource(
     const Vector3 position, int x, int y,
-    std::vector<std::pair<Vector2, int>> &resourceTexts) {
+    std::vector<std::pair<Vector3, int>> &resourceTexts) {
   const gui::Tile &tile = _gameState.map.tiles[x][y];
 
   for (int i = 0; i < static_cast<int>(gui::Tile::RESOURCE_COUNT); i++) {
@@ -345,8 +345,7 @@ void gui::GameEngine::drawResource(
           position.z + SPHERE_BASE_Z * worldScale -
               i * SPHERE_HORIZONTAL_SPACING * worldScale};
       DrawSphere(resourcePosition, 0.035f * worldScale, color);
-      Vector2 screenPos = GetWorldToScreen(resourcePosition, _camera);
-      resourceTexts.push_back(std::make_pair(screenPos, resourceCount));
+      resourceTexts.push_back(std::make_pair(resourcePosition, resourceCount));
     }
   }
 }
