@@ -323,7 +323,7 @@ void gui::GameEngine::drawMap(
     }
   }
 
-  for (const auto &info : resourceCount) {
+  for (const auto &info : *resourceCount) {
     Vector2 screenPos = info.first;
     int count = info.second;
     DrawText(TextFormat("%d", count), static_cast<int>(screenPos.x) + 10,
