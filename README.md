@@ -21,6 +21,8 @@ The project is architected around three main components:
 
 Each component of the ZAPPY project is compiled as an independent binary. To run the game, you must first launch the **server**, then connect one or more **AI clients** and optionally a **graphical client (GUI)**. Here are the execution instructions for each binary:
 
+First, at the root, compile with make.
+
 1\. Launch the Server (`zappy_server`)
 ```bash
 ./zappy_server -p <port> -x <width> -y <height> -n <team1> <team2> [...] -c <clients_per_team> -f <frequency>
