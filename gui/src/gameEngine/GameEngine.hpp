@@ -71,10 +71,10 @@ namespace gui {
       handlecommand::CommandHandler _commandHandler;
       float worldScale = 1.0f;
 
-      void updateLogoScreen();
-      void updateTitleScreen();
-      void updateGameplayScreen();
-      void updateEndingScreen();
+      void LogoScreenInput();
+      void TitleScreenInput();
+      void GameplayScreenInput();
+      void EndingScreenInput();
       void processNetworkMessages();
 
       void renderLogoScreen();

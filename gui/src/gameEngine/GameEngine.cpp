@@ -58,16 +58,16 @@ void gui::GameEngine::run() {
     processNetworkMessages();
     switch (_currentScreen) {
       case Screen::LOGO:
-        updateLogoScreen();
+        LogoScreenInput();
         break;
       case Screen::TITLE:
-        updateTitleScreen();
+        TitleScreenInput();
         break;
       case Screen::GAMEPLAY:
-        updateGameplayScreen();
+        GameplayScreenInput();
         break;
       case Screen::ENDING:
-        updateEndingScreen();
+        EndingScreenInput();
         break;
       default:
         break;
@@ -100,7 +100,7 @@ void gui::GameEngine::run() {
   }
 }
 
-void gui::GameEngine::updateLogoScreen() {
+void gui::GameEngine::LogoScreenInput() {
   _framesCounter++;
   if (_framesCounter > LOGO_DURATION_FRAMES) {
     _currentScreen = Screen::TITLE;
@@ -108,19 +108,19 @@ void gui::GameEngine::updateLogoScreen() {
   }
 }
 
-void gui::GameEngine::updateTitleScreen() {
+void gui::GameEngine::TitleScreenInput() {
   if (IsKeyPressed(KEY_ENTER))
     _currentScreen = Screen::GAMEPLAY;
 }
 
-void gui::GameEngine::updateGameplayScreen() {
+void gui::GameEngine::GameplayScreenInput() {
   if (IsKeyPressed(KEY_ENTER))
     _currentScreen = Screen::ENDING;
 
   moveCamera();
 }
 
-void gui::GameEngine::updateEndingScreen() {
+void gui::GameEngine::EndingScreenInput() {
   if (IsKeyPressed(KEY_ENTER))
     _currentScreen = Screen::TITLE;
 }
