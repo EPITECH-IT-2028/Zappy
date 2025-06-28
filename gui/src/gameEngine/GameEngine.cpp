@@ -6,6 +6,7 @@
 #include <iostream>
 #include <ostream>
 #include <unordered_map>
+#include "header/rlights.h"
 
 gui::GameEngine::GameEngine(network::ServerCommunication &serverCommunication)
     : _window(SCREEN_WIDTH, SCREEN_HEIGHT, "Zappy"),
@@ -30,6 +31,7 @@ gui::GameEngine::~GameEngine() {
     UnloadModel(_brick);
     UnloadModel(_goomba);
   }
+  UnloadShader(_lightingShader);
 }
 
 float gui::GameEngine::getWorldScale() const {
@@ -43,6 +45,7 @@ void gui::GameEngine::setWorldScale(float value) {
 void gui::GameEngine::initialize() {
   try {
     loadModels();
+    loadShaders();
   } catch (const std::exception &e) {
     std::cerr << "Resource initialization failed: " << e.what() << std::endl;
     _resourcesLoaded = 0;
@@ -192,7 +195,17 @@ void gui::GameEngine::renderTitleScreen() {
 
 void gui::GameEngine::renderGameplayScreen() {
   DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, GAMEPLAY_BACKGROUND_COLOR);
+  updateShaders();
+  BeginMode3D(_camera);
+  BeginShaderMode(_lightingShader);
+
+  DrawPlane(Vector3Zero(), (Vector2){10.0f, 10.0f}, WHITE);
   drawMap();
+
+  EndShaderMode();
+  drawLights();
+  EndMode3D();
+
   drawBroadcastLog();
   DrawText("GAMEPLAY SCREEN", 20, 20, 40, MAROON);
 }
@@ -207,6 +220,15 @@ void gui::GameEngine::renderErrorScreen() {
   DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, RED);
   DrawText("ERROR", 20, 20, 40, BLACK);
   DrawText(_errorMessage.c_str(), 60, 120, 20, BLACK);
+}
+
+void gui::GameEngine::updateShaders() {
+  float cameraPos[3] = {_camera.GetPosition().x, _camera.GetPosition().y,
+                        _camera.GetPosition().z};
+  SetShaderValue(_lightingShader, _lightingShader.locs[SHADER_LOC_VECTOR_VIEW],
+                 cameraPos, SHADER_UNIFORM_VEC3);
+  for (int i = 0; i < MAX_LIGHTS; ++i)
+    UpdateLightValues(_lightingShader, _lights[i]);
 }
 
 void gui::GameEngine::loadModels() {
@@ -247,6 +269,26 @@ void gui::GameEngine::loadModels() {
   }
 }
 
+void gui::GameEngine::loadShaders() {
+  _lightingShader = LoadShader(TextFormat("resources/lighting.vs", 330),
+                               TextFormat("resources/lighting.fs", 330));
+  _lightingShader.locs[SHADER_LOC_VECTOR_VIEW] =
+      GetShaderLocation(_lightingShader, "viewPos");
+  _ambientLoc = GetShaderLocation(_lightingShader, "ambient");
+  SetShaderValue(_lightingShader, _ambientLoc,
+                 (float[4]){0.1f, 0.1f, 0.1f, 1.0f}, SHADER_UNIFORM_VEC4);
+
+  for (int i = 0; i < _brick.materialCount; i++)
+    _brick.materials[i].shader = _lightingShader;
+  for (int i = 0; i < _goomba.materialCount; i++)
+    _goomba.materials[i].shader = _lightingShader;
+
+  _lights[0] = CreateLight(LIGHT_POINT, (Vector3){-6, 4, 0}, Vector3Zero(),
+                           WHITE, _lightingShader);
+  _lights[1] = CreateLight(LIGHT_POINT, (Vector3){6, 4, 0}, Vector3Zero(),
+                           WHITE, _lightingShader);
+}
+
 void gui::GameEngine::drawMap() {
   if (_resourcesLoaded != 2) {
     std::cerr << "Resources not loaded, cannot draw map." << std::endl;
@@ -260,7 +302,6 @@ void gui::GameEngine::drawMap() {
                         -((mapHeight - 1) * brickSpacing) / 2.0f};
   std::vector<std::pair<Vector2, int>> resourceCount;
 
-  BeginMode3D(_camera);
   for (std::size_t y = 0; y < _gameState.map.height; ++y) {
     for (std::size_t x = 0; x < _gameState.map.width; ++x) {
       Vector3 position = {gridOrigin.x + x * brickSpacing, gridOrigin.y,
@@ -276,7 +317,6 @@ void gui::GameEngine::drawMap() {
       drawResource(position, x, y, resourceCount);
     }
   }
-  EndMode3D();
 
   for (const auto &info : resourceCount) {
     Vector2 screenPos = info.first;
@@ -303,6 +343,17 @@ void gui::GameEngine::drawResource(
       DrawSphere(resourcePosition, 0.035f * worldScale, color);
       Vector2 screenPos = GetWorldToScreen(resourcePosition, _camera);
       resourceTexts.push_back(std::make_pair(screenPos, resourceCount));
+    }
+  }
+}
+
+void gui::GameEngine::drawLights() {
+  for (int i = 0; i < MAX_LIGHTS; ++i) {
+    if (_lights[i].enabled) {
+      DrawSphereEx(_lights[i].position, 0.2f, 8, 8, _lights[i].color);
+    } else {
+      DrawSphereWires(_lights[i].position, 0.2f, 8, 8,
+                      ColorAlpha(_lights[i].color, 0.3f));
     }
   }
 }

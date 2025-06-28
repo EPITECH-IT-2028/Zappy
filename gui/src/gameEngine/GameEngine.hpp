@@ -3,10 +3,13 @@
 #include <raylib.h>
 #include "commandHandler/CommandHandler.hpp"
 #include "entities/GameState.hpp"
+#include "header/rlights.h"
 #include "raylib-cpp.hpp"
 #include "server/ServerCommunication.hpp"
 
 #define LOGO_DURATION_FRAMES 120
+#define RLIGHTS_IMPLEMENTATION
+
 #define SCREEN_WIDTH 1600
 #define SCREEN_HEIGHT 900
 
@@ -83,7 +86,10 @@ namespace gui {
       void renderEndingScreen();
       void renderErrorScreen();
 
+      void updateShaders();
+
       void loadModels();
+      void loadShaders();
       Model _brick;
       Model _goomba;
       std::size_t _resourcesLoaded;
@@ -92,11 +98,16 @@ namespace gui {
       void drawMap();
       void drawResource(const Vector3 position, int x, int y,
                         std::vector<std::pair<Vector2, int>> &resourceTexts);
+      void drawLights();
       void moveCamera();
       void handleCameraMovement();
       void handleCameraRotation();
       void handleCameraZoom();
       void resetCamera();
       void drawBroadcastLog();
+
+      Shader _lightingShader;
+      Light _lights[2];
+      int _ambientLoc;
   };
 }  // namespace gui
