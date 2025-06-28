@@ -35,7 +35,7 @@ float gui::GameEngine::getWorldScale() const {
 }
 
 void gui::GameEngine::setWorldScale(float value) {
-  worldScale = std::clamp(value, MIN_SCALE, MAX_SCALE);
+  worldScale = Clamp(value, MIN_SCALE, MAX_SCALE);
 }
 
 void gui::GameEngine::initialize() {
@@ -139,7 +139,13 @@ void gui::GameEngine::processNetworkMessages() {
     {"enw", [this](const std::string &msg) { _commandHandler.handleEnw(msg); }},
     {"ebo", [this](const std::string &msg) { _commandHandler.handleEbo(msg); }},
     {"edi", [this](const std::string &msg) { _commandHandler.handleEdi(msg); }},
-    {"pdi", [this](const std::string &msg) { _commandHandler.handlePdi(msg); }}
+    {"pdi", [this](const std::string &msg) { _commandHandler.handlePdi(msg); }},
+    {"pic", [this](const std::string &msg) { _commandHandler.handlePic(msg); }},
+    {"pie", [this](const std::string &msg) { _commandHandler.handlePie(msg); }},
+    {"pfk", [this](const std::string &msg) { _commandHandler.handlePfk(msg); }},
+    {"pdr", [this](const std::string &msg) { _commandHandler.handlePdr(msg); }},
+    {"pgt", [this](const std::string &msg) { _commandHandler.handlePgt(msg); }},
+    {"pex", [this](const std::string &msg) { _commandHandler.handlePex(msg); }}
   };
 
   try {
