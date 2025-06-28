@@ -367,11 +367,7 @@ void gui::GameEngine::handleCameraZoom() {
   float wheel = GetMouseWheelMove();
 
   if (wheel != 0.0f) {
-    worldScale += wheel * SCALE_STEP;
-    if (worldScale < MIN_SCALE)
-      worldScale = MIN_SCALE;
-    if (worldScale > MAX_SCALE)
-      worldScale = MAX_SCALE;
+    setWorldScale(worldScale + wheel * SCALE_STEP);
   }
 }
 
