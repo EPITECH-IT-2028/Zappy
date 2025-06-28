@@ -54,14 +54,13 @@ void process_client_actions(server_t *server, client_t *client)
     if (current_time.tv_sec > action->execute_time.tv_sec ||
         (current_time.tv_sec == action->execute_time.tv_sec &&
         current_time.tv_nsec >= action->execute_time.tv_nsec)) {
-        client->data.queue_head = action->next;
         execute_pending_action(server, client, action);
     } else
         pthread_mutex_unlock(&client->data.pending_mutex);
 }
 
 static
-void process_client_pending_response(server_t *server, client_t *client)
+void process_client_response(server_t *server, client_t *client)
 {
     response_t tmp;
 
@@ -116,7 +115,7 @@ void process_all_clients(server_t *server)
             continue;
         client = server->clients[i];
         process_client_actions(server, client);
-        process_client_pending_response(server, client);
+        process_client_response(server, client);
         handle_incantation(server, client);
     }
     pthread_mutex_unlock(&server->clients_mutex);
