@@ -7,6 +7,7 @@
 #include <ostream>
 #include <unordered_map>
 #define RLIGHTS_IMPLEMENTATION
+
 #include "header/rlights.h"
 
 gui::GameEngine::GameEngine(network::ServerCommunication &serverCommunication)
@@ -28,7 +29,7 @@ gui::GameEngine::GameEngine(network::ServerCommunication &serverCommunication)
 }
 
 gui::GameEngine::~GameEngine() {
-  if (_resourcesLoaded == 2) {
+  if (_resourcesLoaded == TOTAL_MODELS) {
     UnloadModel(_brick);
     UnloadModel(_goomba);
   }
@@ -249,7 +250,7 @@ void gui::GameEngine::updateShaders() {
 }
 
 void gui::GameEngine::loadModels() {
-  if (_resourcesLoaded == 2)
+  if (_resourcesLoaded == TOTAL_MODELS)
     return;
 
   if (!FileExists(BRICK_MODEL_PATH))
@@ -309,7 +310,7 @@ void gui::GameEngine::loadShaders() {
 
 void gui::GameEngine::drawMap(
     std::vector<std::pair<Vector3, int>> *resourceCount) {
-  if (_resourcesLoaded != 2) {
+  if (_resourcesLoaded != TOTAL_MODELS) {
     std::cerr << "Resources not loaded, cannot draw map." << std::endl;
     return;
   }
