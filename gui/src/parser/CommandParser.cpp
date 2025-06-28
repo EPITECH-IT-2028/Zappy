@@ -49,8 +49,8 @@ parser::PlayerInfo parser::CommandParser::parsePnw(const std::string &command) {
   int orientationInt;
   char teamName[256] = {0};
 
-  int result = std::sscanf(command.c_str(), "pnw #%d %d %d %d %d %255s", &id, &x,
-                           &y, &orientationInt, &level, teamName);
+  int result = std::sscanf(command.c_str(), "pnw #%d %d %d %d %d %255s", &id,
+                           &x, &y, &orientationInt, &level, teamName);
 
   if (result != 6) {
     throw std::runtime_error("Failed to parse pnw command");
@@ -91,8 +91,8 @@ parser::PlayerInventory parser::CommandParser::parsePin(
   std::array<int, RESOURCE_COUNT> resources = {0};
 
   int result =
-      std::sscanf(command.c_str(), "pin #%d %d %d %d %d %d %d %d %d %d", &id, &x,
-                  &y, &resources[0], &resources[1], &resources[2],
+      std::sscanf(command.c_str(), "pin #%d %d %d %d %d %d %d %d %d %d", &id,
+                  &x, &y, &resources[0], &resources[1], &resources[2],
                   &resources[3], &resources[4], &resources[5], &resources[6]);
 
   if (result != 10)
@@ -218,4 +218,29 @@ parser::PlayerExpulsion parser::CommandParser::parsePex(
   if (result != 1)
     throw std::runtime_error("Invalid pex command format");
   return PlayerExpulsion(playerId);
+}
+
+parser::BroadcastEvent parser::CommandParser::parsePbc(
+    const std::string &command) {
+  std::istringstream iss(command);
+  std::string prefix;
+  int playerId;
+  std::string message;
+
+  if (!(iss >> prefix >> playerId) || prefix != "pbc")
+    throw std::runtime_error("Invalid pbc command format");
+
+  std::getline(iss, message);
+  if (!message.empty() && message[0] == ' ')
+    message.erase(0, 1);
+
+  return BroadcastEvent(playerId, message);
+}
+
+parser::ServerMessageEvent parser::CommandParser::parseSmg(
+    const std::string &command) {
+  if (command.size() < 4)
+    throw std::runtime_error("Invalid smg command format");
+  std::string message = command.substr(4);
+  return ServerMessageEvent(message);
 }
