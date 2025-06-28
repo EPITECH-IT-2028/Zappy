@@ -4,7 +4,6 @@ import math
 import random
 import utils
 
-
 def create_help_message(level, food_count):
     return f"I_need_help_to_level_up_to_{level + 1}_with_{food_count}"
 
@@ -176,8 +175,8 @@ def verify_incantation(client, current_cell, needed_resources):
     if count_players < required_players:
         client.incantation = False
         client.waiting_for_help = True
-        protocole.execute_command(client, utils.BROADCAST,
-                                  create_help_message(client.level, client.inventory.get("food", 0)))
+        # protocole.execute_command(client, utils.BROADCAST,
+        #                           create_help_message(client.level, client.inventory.get("food", 0)))
         return
 
     client.waiting_for_help = False
@@ -229,7 +228,6 @@ def get_action_from_broadcast(client, direction):
 
     client.help_direction = 0
 
-
 def strategy(client):
     vision_data = analyze_vision(client)
     needed = define_needed_resources(client)
@@ -237,7 +235,7 @@ def strategy(client):
     current_cell = client.last_look[utils.PLAYER_CELL] if client.last_look else None
 
     if not client.start_playing:
-        if client.player_in_game == utils.MAX_REQUIRED_PLAYERS:
+        if client.player_in_game >= utils.NBR_PLAYERS_TO_START:
             client.start_playing = True
             protocole.execute_command(client, utils.INVENTORY, None)
             return
@@ -311,9 +309,10 @@ def strategy(client):
         protocole.execute_command(client, utils.RIGHT, None)
         protocole.execute_command(client, utils.RIGHT, None)
         protocole.execute_command(client, utils.RIGHT, None)
-        protocole.execute_command(client, utils.INVENTORY, None)
+        protocole.execute_command(client, utils.RIGHT, None)
         protocole.execute_command(client, utils.BROADCAST,
                                   create_help_message(client.level, client.inventory.get("food")))
+        protocole.execute_command(client, utils.INVENTORY, None)
         return
 
     if needed and current_cell:
