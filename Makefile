@@ -33,8 +33,7 @@ $(ZAPPY_CLIENT):
 clean:
 	@make -C $(ZAPPY_SERVER_DIR) clean
 	@make -C $(ZAPPY_IA_DIR) clean
-	@rm -rf $(ZAPPY_CLIENT_DIR)/$(ZAPPY_CLIENT_BUILD_DIR)
-	@rm -rf $(ZAPPY_CLIENT_DIR)/.cache
+	@cd $(ZAPPY_CLIENT_BUILD_DIR) && cmake --build . --target clean
 	@find . -name "*~" -delete
 	@find . -name "*.pyc" -delete
 	@rm -f *.gcno
@@ -43,6 +42,8 @@ clean:
 fclean: clean
 	@make -C $(ZAPPY_SERVER_DIR) fclean
 	@make -C $(ZAPPY_IA_DIR) fclean
+	@rm -rf $(ZAPPY_CLIENT_DIR)/$(ZAPPY_CLIENT_BUILD_DIR)
+	@rm -rf $(ZAPPY_CLIENT_DIR)/.cache
 	@rm -f $(ZAPPY_IA)
 	@rm -f $(ZAPPY_SERVER)
 	@rm -f $(ZAPPY_CLIENT)
