@@ -6,14 +6,14 @@ ZAPPY_SERVER_DIR = server
 
 ZAPPY_CLIENT = zappy_gui
 ZAPPY_CLIENT_DIR = gui
-ZAPPY_CLIENT_BUILD_DIR = $(ZAPPY_CLIENT_DIR)/build
+ZAPPY_CLIENT_BUILD_DIR = .build
 
 all: $(ZAPPY_IA) $(ZAPPY_SERVER) $(ZAPPY_CLIENT)
 
 $(ZAPPY_IA):
 	@echo "Setting up $(ZAPPY_IA)..."
 	@make -C $(ZAPPY_IA_DIR)
-	@cp $(ZAPPY_IA_DIR)/$(ZAPPY_IA) ./
+	@cp $(ZAPPY_IA_DIR)/$(ZAPPY_IA) .
 
 $(ZAPPY_SERVER):
 	@echo "Compiling $(ZAPPY_SERVER)..."
@@ -22,10 +22,13 @@ $(ZAPPY_SERVER):
 
 $(ZAPPY_CLIENT):
 	@echo "Compiling $(ZAPPY_CLIENT) with CMake..."
-	@if [ ! -d $(ZAPPY_CLIENT_BUILD_DIR) ]; then mkdir -p $(ZAPPY_CLIENT_BUILD_DIR); fi
-	@cd $(ZAPPY_CLIENT_BUILD_DIR) && cmake ..
-	@cd $(ZAPPY_CLIENT_BUILD_DIR) && make
-	@cp $(ZAPPY_CLIENT_DIR)/$(ZAPPY_CLIENT) ./
+	@if [ ! -d $(ZAPPY_CLIENT_BUILD_DIR) ]; then \
+		cmake -S $(ZAPPY_CLIENT_DIR) -B $(ZAPPY_CLIENT_BUILD_DIR); \
+	else \
+		echo "$(ZAPPY_CLIENT_BUILD_DIR) already exists, skipping CMake configuration."; \
+	fi
+	@cd $(ZAPPY_CLIENT_BUILD_DIR) && cmake --build .
+	@cp $(ZAPPY_CLIENT_DIR)/$(ZAPPY_CLIENT) .
 
 clean:
 	@make -C $(ZAPPY_SERVER_DIR) clean
