@@ -222,7 +222,6 @@ void gui::GameEngine::loadResources() {
 
   _brick = LoadModel(BRICK_MODEL_PATH);
   _goomba = LoadModel(GOOMBA_MODEL_PATH);
-  _anims = LoadModelAnimations(GOOMBA_MODEL_PATH, &_animationCount);
 
   if (_brick.meshCount > 0 && _brick.materialCount > 0 &&
       _brick.meshes != nullptr) {

@@ -15,7 +15,7 @@
 #define MAX_CAMERA_FOVY 45.0f
 
 #define BRICK_MODEL_PATH "resources/mario_brick/scene.gltf"
-#define GOOMBA_MODEL_PATH "resources/goomba/scene.gltf"
+#define GOOMBA_MODEL_PATH "resources/goomba.glb"
 
 #define BRICK_SPACING 1.1f
 #define BRICK_MODEL_SCALE 0.01f
