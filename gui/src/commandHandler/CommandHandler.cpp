@@ -446,17 +446,26 @@ void handlecommand::CommandHandler::handleSmg(const std::string& command) {
   try {
     auto event = parser::CommandParser::parseSmg(command);
     _gameState.broadcastLog.push_back("[Server message] " + event.message);
+    while (_gameState.broadcastLog.size() > gui::GameState::MAX_BROADCAST_LOG_SIZE)
+      _gameState.broadcastLog.erase(_gameState.broadcastLog.begin());
   } catch (const std::exception& e) {
-    std::cerr << "Error parsing smg: " << e.what() << std::endl;
+    std::cerr << "Error while handling smg: " << e.what() << "\n";
   }
 }
 
 void handlecommand::CommandHandler::handleSuc(const std::string& command) {
   (void)command;
   _gameState.broadcastLog.push_back("Unknown command received by server.");
+  while (_gameState.broadcastLog.size() >
+         gui::GameState::MAX_BROADCAST_LOG_SIZE)
+    _gameState.broadcastLog.erase(_gameState.broadcastLog.begin());
 }
 
 void handlecommand::CommandHandler::handleSbp(const std::string& command) {
   (void)command;
-  _gameState.broadcastLog.push_back("Command parameter error reported by server.");
+  _gameState.broadcastLog.push_back(
+      "Command parameter error reported by server.");
+  while (_gameState.broadcastLog.size() >
+         gui::GameState::MAX_BROADCAST_LOG_SIZE)
+    _gameState.broadcastLog.erase(_gameState.broadcastLog.begin());
 }

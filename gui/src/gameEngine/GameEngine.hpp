@@ -22,7 +22,6 @@
 #define WIREFRAME_OFFSET_Y 0.55f
 #define WIREFRAME_OFFSET_Z 0.15f
 
-
 namespace gui {
   enum class Screen {
     LOGO,

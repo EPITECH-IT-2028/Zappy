@@ -399,10 +399,12 @@ void gui::GameEngine::drawBroadcastLog() {
   const int startY = BROADCAST_LOG_START_Y;
   const int lineHeight = BROADCAST_LOG_LINE_HEIGHT;
   const int fontSize = BROADCAST_LOG_FONT_SIZE;
-  
-  int messagesToShow = std::min(static_cast<int>(_gameState.broadcastLog.size()), maxVisibleMessages);
-  int startIndex = std::max(0, static_cast<int>(_gameState.broadcastLog.size()) - messagesToShow);
-  
+
+  int messagesToShow = std::min(
+      static_cast<int>(_gameState.broadcastLog.size()), maxVisibleMessages);
+  int startIndex = std::max(
+      0, static_cast<int>(_gameState.broadcastLog.size()) - messagesToShow);
+
   for (int i = 0; i < messagesToShow; ++i) {
     int messageIndex = startIndex + i;
     int yPos = startY + i * lineHeight;
