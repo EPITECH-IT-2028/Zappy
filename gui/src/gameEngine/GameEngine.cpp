@@ -42,7 +42,7 @@ void gui::GameEngine::setWorldScale(float value) {
 
 void gui::GameEngine::initialize() {
   try {
-    loadResources();
+    loadModels();
   } catch (const std::exception &e) {
     std::cerr << "Resource initialization failed: " << e.what() << std::endl;
     _resourcesLoaded = 0;
@@ -209,7 +209,7 @@ void gui::GameEngine::renderErrorScreen() {
   DrawText(_errorMessage.c_str(), 60, 120, 20, BLACK);
 }
 
-void gui::GameEngine::loadResources() {
+void gui::GameEngine::loadModels() {
   if (_resourcesLoaded == 2)
     return;
 

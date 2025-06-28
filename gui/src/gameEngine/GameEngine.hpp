@@ -83,7 +83,7 @@ namespace gui {
       void renderEndingScreen();
       void renderErrorScreen();
 
-      void loadResources();
+      void loadModels();
       Model _brick;
       Model _goomba;
       std::size_t _resourcesLoaded;
