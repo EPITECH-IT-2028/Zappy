@@ -283,8 +283,9 @@ void gui::GameEngine::loadShaders() {
   for (int i = 0; i < _goomba.materialCount; i++)
     _goomba.materials[i].shader = _lightingShader;
 
-  _lights[0] = CreateLight(LIGHT_DIRECTIONAL, (Vector3){-6, 4, -6}, Vector3Zero(),
-                           (Color){255, 255, 255, 255}, _lightingShader);
+  _lights[0] =
+      CreateLight(LIGHT_DIRECTIONAL, (Vector3){-6, 4, -6}, Vector3Zero(),
+                  (Color){255, 255, 255, 255}, _lightingShader);
   _lights[1] = CreateLight(LIGHT_DIRECTIONAL, (Vector3){6, 0, 6}, Vector3Zero(),
                            (Color){32, 32, 32, 255}, _lightingShader);
 }
