@@ -30,6 +30,7 @@ namespace handlecommand {
       void handleSmg(const std::string& command);
       void handleSuc(const std::string& command);
       void handleSbp(const std::string& command);
+      void handleSeg(const std::string& command);
 
     private:
       void removeEgg(int eggId);

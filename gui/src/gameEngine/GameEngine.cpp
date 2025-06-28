@@ -150,7 +150,8 @@ void gui::GameEngine::processNetworkMessages() {
     {"pbc", [this](const std::string &msg) { _commandHandler.handlePbc(msg); }},
     {"smg", [this](const std::string &msg) { _commandHandler.handleSmg(msg); }},
     {"suc", [this](const std::string &msg) { _commandHandler.handleSuc(msg); }},
-    {"sbp", [this](const std::string &msg) { _commandHandler.handleSbp(msg); }}
+    {"sbp", [this](const std::string &msg) { _commandHandler.handleSbp(msg); }},
+    {"seg", [this](const std::string &msg) { _commandHandler.handleSeg(msg); }},
   };
 
   try {

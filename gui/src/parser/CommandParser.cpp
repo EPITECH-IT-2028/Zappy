@@ -261,6 +261,5 @@ parser::GameOverEvent parser::CommandParser::parseSeg(const std::string &command
       throw std::runtime_error("Invalid seg command format");
   if (teamName.empty())
     throw std::runtime_error("Winning team name cannot be empty in seg command");
-
   return GameOverEvent(teamName);
 }
