@@ -201,6 +201,7 @@ void gui::GameEngine::renderGameplayScreen() {
 
   DrawPlane(Vector3Zero(), (Vector2){10.0f, 10.0f}, WHITE);
   drawMap();
+  drawPlayers();
 
   EndShaderMode();
   drawLights();
@@ -318,7 +319,6 @@ void gui::GameEngine::drawMap() {
       drawResource(position, x, y, resourceCount);
     }
   }
-  drawPlayers(gridOrigin, brickSpacing);
 
   for (const auto &info : resourceCount) {
     Vector2 screenPos = info.first;
@@ -349,7 +349,13 @@ void gui::GameEngine::drawResource(
   }
 }
 
-void gui::GameEngine::drawPlayers(Vector3 gridOrigin, float brickSpacing) {
+void gui::GameEngine::drawPlayers() {
+  float brickSpacing = BRICK_SPACING * worldScale;
+  Vector3 gridOrigin = {
+      -((static_cast<float>(_gameState.map.width) - 1) * brickSpacing) / 2.0f,
+      0.0f,
+      -((static_cast<float>(_gameState.map.height) - 1) * brickSpacing) / 2.0f};
+
   for (const auto &playerPair : _gameState.players) {
     std::cout << "Drawing player: " << playerPair.first << std::endl;
     const gui::Player &player = playerPair.second;

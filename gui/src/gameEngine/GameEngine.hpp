@@ -98,7 +98,7 @@ namespace gui {
       void drawMap();
       void drawResource(const Vector3 position, int x, int y,
                         std::vector<std::pair<Vector2, int>> &resourceTexts);
-      void drawPlayers(Vector3 gridOrigin, float brickSpacing);
+      void drawPlayers();
       void drawLights();
       void moveCamera();
       void handleCameraMovement();
