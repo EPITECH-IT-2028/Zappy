@@ -9,6 +9,7 @@
 #include "utils.h"
 #include <string.h>
 #include <pthread.h>
+#include <stdlib.h>
 
 static
 bool check_commands(const char *buffer)
@@ -52,6 +53,7 @@ void check_player_command(server_t *server, int index, const char *buffer)
     if (!client || !buffer || !server || !client->connected
         || !client->data.team_name || client->data.is_graphic)
         return;
+    cleanup_old_actions(client, server);
     action_count = count_client_actions(client);
     if (action_count >= MAX_REQUEST_PER_CLIENT)
         return;

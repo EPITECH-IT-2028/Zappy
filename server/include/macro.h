@@ -19,7 +19,7 @@
     #define MIN_CLIENT 1
     #define GRAPHIC_NAME "GRAPHIC"
     #define BUFFER_SIZE 2048
-    #define QUEUE_MAX_SIZE 100
+    #define QUEUE_MAX_SIZE 200
     #define MAX_DIRECTION 4
     #define DEFAULT_VISION_DEPTH 2
     #define ADDITIONAL_VISION 1

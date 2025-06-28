@@ -114,6 +114,7 @@ void process_all_clients(server_t *server)
         if (server->clients[i]->data.is_graphic)
             continue;
         client = server->clients[i];
+        cleanup_old_actions(client, server);
         process_client_actions(server, client);
         process_client_response(server, client);
         handle_incantation(server, client);

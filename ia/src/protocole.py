@@ -224,14 +224,14 @@ def initialize_clients(client) -> None:
 
     client.player_in_game = 0
     handle_client(client)
->>>>>>> 59f2920f15de5c9c706297ddf6e23c2a33e49ea5
 
 def handle_client(client) -> None:
     buffer = ""
 
     execute_command(client, utils.LOOK, None)
-    while client.is_alive:
-
+    while client.is_alive: 
+        print(client.start_playing)
+        print(client.player_in_game)
         response = client.socket.recv(utils.BUFFER_SIZE).decode()
 
         if not response:
@@ -241,6 +241,7 @@ def handle_client(client) -> None:
             break
 
         buffer += response
+        print(buffer)
 
         if buffer:
             while "\n" in buffer:
