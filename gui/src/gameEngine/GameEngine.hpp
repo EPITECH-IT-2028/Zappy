@@ -22,6 +22,11 @@
 #define WIREFRAME_OFFSET_Y 0.55f
 #define WIREFRAME_OFFSET_Z 0.15f
 
+#define BROADCAST_LOG_START_X 10
+#define BROADCAST_LOG_START_Y 10
+#define BROADCAST_LOG_LINE_HEIGHT 25
+#define BROADCAST_LOG_FONT_SIZE 20
+
 namespace gui {
   enum class Screen {
     LOGO,

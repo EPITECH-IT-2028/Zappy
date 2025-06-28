@@ -393,11 +393,11 @@ void gui::GameEngine::resetCamera() {
 }
 
 void gui::GameEngine::drawBroadcastLog() {
-  const int maxVisibleMessages = 10;
-  const int startX = 10;
-  const int startY = 10;
-  const int lineHeight = 25;
-  const int fontSize = 20;
+  const int maxVisibleMessages = GameState::MAX_BROADCAST_LOG_SIZE;
+  const int startX = BROADCAST_LOG_START_X;
+  const int startY = BROADCAST_LOG_START_Y;
+  const int lineHeight = BROADCAST_LOG_LINE_HEIGHT;
+  const int fontSize = BROADCAST_LOG_FONT_SIZE;
   
   int messagesToShow = std::min(static_cast<int>(_gameState.broadcastLog.size()), maxVisibleMessages);
   int startIndex = std::max(0, static_cast<int>(_gameState.broadcastLog.size()) - messagesToShow);
