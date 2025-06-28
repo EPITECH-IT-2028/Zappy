@@ -6,6 +6,7 @@
 #include <iostream>
 #include <ostream>
 #include <unordered_map>
+#define RLIGHTS_IMPLEMENTATION
 #include "header/rlights.h"
 
 gui::GameEngine::GameEngine(network::ServerCommunication &serverCommunication)

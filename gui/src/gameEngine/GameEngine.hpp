@@ -7,8 +7,6 @@
 #include "raylib-cpp.hpp"
 #include "server/ServerCommunication.hpp"
 
-#define RLIGHTS_IMPLEMENTATION
-
 #define LOGO_DURATION_FRAMES 120
 #define SCREEN_WIDTH 1600
 #define SCREEN_HEIGHT 900
