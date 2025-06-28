@@ -154,7 +154,8 @@ void gui::GameEngine::processNetworkMessages() {
     {"pbc", [this](const std::string &msg) { _commandHandler.handlePbc(msg); }},
     {"smg", [this](const std::string &msg) { _commandHandler.handleSmg(msg); }},
     {"suc", [this](const std::string &msg) { _commandHandler.handleSuc(msg); }},
-    {"sbp", [this](const std::string &msg) { _commandHandler.handleSbp(msg); }}
+    {"sbp", [this](const std::string &msg) { _commandHandler.handleSbp(msg); }},
+    {"seg", [this](const std::string &msg) { _commandHandler.handleSeg(msg); }},
   };
 
   try {
@@ -221,9 +222,14 @@ void gui::GameEngine::renderGameplayScreen() {
 }
 
 void gui::GameEngine::renderEndingScreen() {
+  std::string msg = "GAME OVER - Team " + _gameState.winningTeamName + " wins!";
+  int textWidth = MeasureText(msg.c_str(), 40);
+
   DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, BLUE);
   DrawText("ENDING SCREEN", 20, 20, 40, DARKBLUE);
   DrawText("PRESS ENTER to JUMP to TITLE SCREEN", 130, 220, 20, DARKBLUE);
+  DrawText(msg.c_str(), (SCREEN_WIDTH - textWidth) / 2, SCREEN_HEIGHT / 2, 40,
+           RED);
 }
 
 void gui::GameEngine::renderErrorScreen() {

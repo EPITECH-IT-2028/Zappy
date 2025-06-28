@@ -26,15 +26,6 @@
 #define WIREFRAME_OFFSET_Y 0.55f
 #define WIREFRAME_OFFSET_Z 0.15f
 
-#define BROADCAST_LOG_START_X 10
-#define BROADCAST_LOG_START_Y 10
-#define BROADCAST_LOG_LINE_HEIGHT 25
-#define BROADCAST_LOG_FONT_SIZE 20
-
-inline static bool SHOW_LETTER_BOUNDRY = false;
-#define LETTER_BOUNDRY_SIZE 0.25f
-#define LETTER_BOUNDRY_COLOR VIOLET
-
 namespace gui {
   enum class Screen {
     LOGO,
@@ -67,6 +58,11 @@ namespace gui {
       static constexpr float MIN_SCALE = 0.2f;
       static constexpr float MAX_SCALE = 5.0f;
       static constexpr float SCALE_STEP = 0.1f;
+
+      static constexpr int BROADCAST_LOG_START_X = 10;
+      static constexpr int BROADCAST_LOG_START_Y = 10;
+      static constexpr int BROADCAST_LOG_LINE_HEIGHT = 25;
+      static constexpr int BROADCAST_LOG_FONT_SIZE = 20;
 
       void DrawTextCodepoint3D(Font font, int codepoint, Vector3 position,
                                float fontSize, bool backface, Color tint);
