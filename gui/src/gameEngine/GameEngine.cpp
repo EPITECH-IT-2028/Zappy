@@ -204,7 +204,8 @@ void gui::GameEngine::renderEndingScreen() {
   DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, BLUE);
   DrawText("ENDING SCREEN", 20, 20, 40, DARKBLUE);
   DrawText("PRESS ENTER to JUMP to TITLE SCREEN", 130, 220, 20, DARKBLUE);
-  DrawText(msg.c_str(), (SCREEN_WIDTH - textWidth) / 2, SCREEN_HEIGHT / 2, 40, RED);
+  DrawText(msg.c_str(), (SCREEN_WIDTH - textWidth) / 2, SCREEN_HEIGHT / 2, 40,
+           RED);
 }
 
 void gui::GameEngine::renderErrorScreen() {
@@ -412,6 +413,7 @@ void gui::GameEngine::drawBroadcastLog() {
   for (int i = 0; i < messagesToShow; ++i) {
     int messageIndex = startIndex + i;
     int yPos = startY + i * lineHeight;
-    DrawText(_gameState.broadcastLog[messageIndex].c_str(), startX, yPos, fontSize, DARKGRAY);
+    DrawText(_gameState.broadcastLog[messageIndex].c_str(), startX, yPos,
+             fontSize, DARKGRAY);
   }
 }

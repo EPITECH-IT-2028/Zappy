@@ -221,7 +221,7 @@ parser::PlayerExpulsion parser::CommandParser::parsePex(
 }
 
 parser::BroadcastEvent parser::CommandParser::parsePbc(
-  const std::string &command) {
+    const std::string &command) {
   std::istringstream iss(command);
   std::string prefix;
   std::string playerIdToken;
@@ -252,14 +252,16 @@ parser::ServerMessageEvent parser::CommandParser::parseSmg(
   return ServerMessageEvent(message);
 }
 
-parser::GameOverEvent parser::CommandParser::parseSeg(const std::string &command) {
+parser::GameOverEvent parser::CommandParser::parseSeg(
+    const std::string &command) {
   std::istringstream iss(command);
   std::string prefix;
   std::string teamName;
 
   if (!(iss >> prefix >> teamName) || prefix != "seg")
-      throw std::runtime_error("Invalid seg command format");
+    throw std::runtime_error("Invalid seg command format");
   if (teamName.empty())
-    throw std::runtime_error("Winning team name cannot be empty in seg command");
+    throw std::runtime_error(
+        "Winning team name cannot be empty in seg command");
   return GameOverEvent(teamName);
 }
