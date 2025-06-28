@@ -3,7 +3,9 @@ import threading
 import game
 import ml_agent
 import random
+import message as msg
 import utils
+
 
 allowed_commands = [
     "Forward",
@@ -76,6 +78,8 @@ def is_look_response(message):
     return len(items) != utils.INVENTORY_ITEMS_COUNT
 
 def handle_Broadcast(client, response) -> None:
+    crypted_message = ''
+
     if (response == "ok"):
         return
 
@@ -88,11 +92,16 @@ def handle_Broadcast(client, response) -> None:
             client.inventory_redirection = True
         return
 
+    print(response)
     direction, message = response.split(", ")
+    if message.startswith("I_am_starting_to_play") and message.startswith("I_need_help_to_level_up_to_"):
+        decrypted_message = msg.decrypt(message)
+    else :
+        decrypted_message = message
     direction = int(direction.split("message ")[1])
-    
-    if message.startswith("I_need_help_to_level_up_to_"):
-        parts = message.replace("I_need_help_to_level_up_to_", "").split("_with_")
+
+    if decrypted_message.startswith("I_need_help_to_level_up_to_"):
+        parts = decrypted_message.replace("I_need_help_to_level_up_to_", "").split("_with_")
 
         if len(parts) == 2:
             target_level = int(parts[0])
@@ -105,8 +114,7 @@ def handle_Broadcast(client, response) -> None:
             client.help_status = True
             client.help_direction = direction
             return
-    
-    if message == "I_am_starting_to_play":
+    if decrypted_message == "I_am_starting_to_play":
         client.player_in_game += 1
         return
 
@@ -156,7 +164,9 @@ def execute_command(client, command, args) -> None:
 
     if command not in allowed_commands:
         raise ValueError(f"Command '{command}' non autorisée")
-    if command == utils.BROADCAST or command == utils.SET or command == utils.TAKE:
+    if command == utils.BROADCAST:
+        send_message(client, f"{command} {msg.encrypt(args)}")
+    if command == utils.SET or command == utils.TAKE:
         send_message(client, f"{command} {args}")
     elif command == utils.FORWARD:
         if client.last_look[utils.PLAYER_CELL].count("player") > utils.CANT_MOVE and client.help_status:
