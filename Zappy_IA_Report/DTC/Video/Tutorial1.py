@@ -1,19 +1,25 @@
-import pandas as pd
-from skelarn.model_selection import train_test_split
+import pandas as pd 
+from sklearn.model_selection import train_test_split
 
-df = pd.read_csv("data/dataset.csv", encodings = 'latin-1')
-df.head()
-X = df.drop(columns=['level'])
-y = df['level']
-print(X.head())
-print(X.shape())
-print(y.shape())
-print(y.head())
+df = pd.read_csv('500hits.csv', encoding = 'latin-1')
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=11)
-print(X_train.shape())
-print(X_test.shape())
-print(y_train.shape())
-print(y_test.shape())
-print(X_train.head())
-print(X_train.describe().round(3))
+print("df.head: ", df.head())
+
+X = df.drop(columns=['PLAYER', 'HOF'])
+y = df['HOF']
+
+print("\nX.head: ", X.head())
+print("\nX.shape: ", X.shape)
+print("\ny.head: ", y.head())
+print("\ny.shape: ", y.shape)
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=11, test_size=0.2)
+
+print("\nX_train.shape: ", X_train.shape)
+print("\nX_test.shape: ", X_test.shape)
+print("\ny_train.shape: ", y_train.shape)
+print("\ny_test.shape: ", y_test.shape)
+print("\nX_train.head: ", X_train.head())
+
+print("\nX_train.describe: ", X_train.describe().round(3))
+print("\nX_test.describe: ", X_test.describe().round(3))
