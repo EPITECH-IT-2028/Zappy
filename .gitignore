@@ -2,7 +2,10 @@ zappy_gui
 zappy_gui_debug
 zappy_server
 zappy_client
-zappy_ia
+zappy_ai
+
+gui/build/
+zappy_ref-v3.0.1/
 
 *.o
 *.gcda

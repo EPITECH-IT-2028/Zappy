@@ -5,6 +5,7 @@
 #include <iostream>
 #include <ostream>
 #include <unordered_map>
+#include <algorithm>
 
 gui::GameEngine::GameEngine(network::ServerCommunication &serverCommunication)
     : _window(SCREEN_WIDTH, SCREEN_HEIGHT, "Zappy"),
@@ -139,7 +140,13 @@ void gui::GameEngine::processNetworkMessages() {
     {"enw", [this](const std::string &msg) { _commandHandler.handleEnw(msg); }},
     {"ebo", [this](const std::string &msg) { _commandHandler.handleEbo(msg); }},
     {"edi", [this](const std::string &msg) { _commandHandler.handleEdi(msg); }},
-    {"pdi", [this](const std::string &msg) { _commandHandler.handlePdi(msg); }}
+    {"pdi", [this](const std::string &msg) { _commandHandler.handlePdi(msg); }},
+    {"pic", [this](const std::string &msg) { _commandHandler.handlePic(msg); }},
+    {"pie", [this](const std::string &msg) { _commandHandler.handlePie(msg); }},
+    {"pfk", [this](const std::string &msg) { _commandHandler.handlePfk(msg); }},
+    {"pdr", [this](const std::string &msg) { _commandHandler.handlePdr(msg); }},
+    {"pgt", [this](const std::string &msg) { _commandHandler.handlePgt(msg); }},
+    {"pex", [this](const std::string &msg) { _commandHandler.handlePex(msg); }}
   };
 
   try {

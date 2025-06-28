@@ -1,9 +1,10 @@
 import socket
-import threading
 import game
 import ml_agent
-import random
+import time
 import utils
+import select
+import sys
 
 allowed_commands = [
     "Forward",
@@ -60,7 +61,8 @@ def handle_Dead(client, response) -> None:
     client.is_alive = False
     game.remove_client(client)
 
-def handle_fork(client, response) -> None:
+def handle_Fork(client, response) -> None:
+    print("Fork command executed, waiting for connection")
     server_address = client.socket.getpeername()
     team_name = client.team_name
     connect_client(server_address, team_name)
@@ -144,6 +146,14 @@ def handle_Incantation_Response(client, response) -> None:
     client.waiting_for_help = False
     execute_command(client, utils.LOOK, None)
 
+def handle_Connect_nbr(client, response) -> None:
+    client.unused_slot = int(response.strip())
+    if client.unused_slot == 0:
+        time.sleep(0.5)
+        execute_command(client, utils.BROADCAST, utils.START_MESSAGE)
+    else:
+        execute_command(client, utils.CONNECT_NBR, None)
+
 def handle_command(client, command, response):
     func_name = f"handle_{command}"
 
@@ -158,6 +168,9 @@ def execute_command(client, command, args) -> None:
         raise ValueError(f"Command '{command}' non autorisée")
     if len(client.commands) < utils.MAX_COMMANDS:
         client.commands.append(command)
+    else:
+        print("Max commands reached, command not added to queue")
+        return
     if command == utils.BROADCAST or command == utils.SET or command == utils.TAKE:
         send_message(client, f"{command} {args}")
     elif command == utils.FORWARD:
@@ -167,6 +180,52 @@ def execute_command(client, command, args) -> None:
     else:
         send_message(client, command)
 
+def initialize_clients(client) -> None:
+    buffer = ""
+    last_fork_check = time.time()
+    fork_check_interval = 2
+    
+    execute_command(client, utils.CONNECT_NBR, None)
+    
+    while client.is_alive and client.player_in_game < utils.NBR_PLAYERS_TO_START:
+        current_time = time.time()
+        if current_time - last_fork_check >= fork_check_interval:
+            if client.player_in_game < utils.NBR_PLAYERS_TO_START and client.unused_slot == 0:
+                client.player_in_game = 1
+                execute_command(client, utils.FORK, None)
+                execute_command(client, utils.CONNECT_NBR, None)
+            
+            last_fork_check = current_time
+        
+        ready, _, _ = select.select([client.socket], [], [], 0.05)
+        
+        if ready:
+            response = client.socket.recv(utils.BUFFER_SIZE).decode()
+            buffer += response
+
+            print(f"Player in game: {client.player_in_game}")
+            print(f"Unused slot: {client.unused_slot}")
+            
+            if buffer:
+                while "\n" in buffer:
+                    message, buffer = buffer.split("\n", 1)
+
+                    if message:
+                        if (message == "dead"):
+                            print("Client dead, closing connection")
+                            handle_Dead(client, message)
+                            sys.exit(0)
+                        if message.startswith("message "):
+                            handle_Broadcast(client, message)
+                            continue
+
+                        command = client.commands.pop(utils.FIRST_COMMAND)
+                        handle_command(client, command, message)
+
+    client.player_in_game = 0
+    handle_client(client)
+>>>>>>> 59f2920f15de5c9c706297ddf6e23c2a33e49ea5
+
 def handle_client(client) -> None:
     buffer = ""
 
@@ -174,6 +233,12 @@ def handle_client(client) -> None:
     while client.is_alive:
 
         response = client.socket.recv(utils.BUFFER_SIZE).decode()
+
+        if not response:
+            print("No response from server, closing connection")
+            client.socket.close()
+            client.is_alive = False
+            break
 
         buffer += response
 
@@ -204,15 +269,19 @@ def handle_client(client) -> None:
                     if (client.commands):
                         command = client.commands.pop(utils.FIRST_COMMAND)
 
-                        if client.inventory_redirection:
-                            client.inventory_redirection = False
-                            execute_command(client, utils.INVENTORY, message)
+                        handle_command(client, command, message)
 
-                        elif client.look_redirection:
+                        if client.inventory_redirection:
+                            print("Inventory redirection detected")
+                            client.inventory_redirection = False
+                            handle_Inventory(client, message)
+                            command = utils.INVENTORY
+
+                        if client.look_redirection:
+                            print("Look redirection detected")
                             client.look_redirection = False
-                            execute_command(client, utils.LOOK, None)
-                        else:
-                            handle_command(client, command, message)
+                            handle_Look(client, message)
+                            command = utils.LOOK
 
                         if command == utils.INVENTORY:
                             execute_command(client, utils.LOOK, None)
