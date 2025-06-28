@@ -236,3 +236,11 @@ parser::BroadcastEvent parser::CommandParser::parsePbc(
 
   return BroadcastEvent(playerId, message);
 }
+
+parser::ServerMessageEvent parser::CommandParser::parseSmg(
+    const std::string &command) {
+  if (command.size() < 4)
+    throw std::runtime_error("Invalid smg command format");
+  std::string message = command.substr(4);
+  return ServerMessageEvent(message);
+}

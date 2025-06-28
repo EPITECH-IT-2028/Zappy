@@ -149,6 +149,11 @@ namespace parser {
           : playerID(id), message(msg) {
       }
   };
+  struct ServerMessageEvent {
+      std::string message;
+      ServerMessageEvent(const std::string& msg) : message(msg) {
+      }
+  };
 
   class CommandParser {
     public:
@@ -174,6 +179,7 @@ namespace parser {
       static CollectResource parsePgt(const std::string& command);
       static PlayerExpulsion parsePex(const std::string& command);
       static BroadcastEvent parsePbc(const std::string& command);
+      static ServerMessageEvent parseSmg(const std::string& command);
 
     private:
   };

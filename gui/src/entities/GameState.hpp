@@ -20,7 +20,7 @@ namespace gui {
       const Egg &getEggById(int id) const;
 
       std::vector<std::string> broadcastLog;
-      static constexpr std::size_t MAX_BROADCAST_LOG_SIZE = 5;
+      static constexpr std::size_t MAX_BROADCAST_LOG_SIZE = 10;
 
       GameState(std::size_t width, std::size_t height) : map(width, height) {
       }
