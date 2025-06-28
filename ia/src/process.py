@@ -2,9 +2,9 @@ import sys
 from models import iaParser
 from parser import ia_parser
 from utils import exit_error
-# from message import *
+from message import *
 
-def iaProcess(argv: list[str]) -> None:
+def iaProcess(argv: list[str]) -> iaParser:
         """
         Main function that handles command line arguments.
 
@@ -14,15 +14,5 @@ def iaProcess(argv: list[str]) -> None:
         Returns:
             None
         """
-        # Fernet = None
-        # message: List[str] = ["coucou", "caca", "robin", "etienne"]
-        # crypted: List[Tuple[bytes, bytes]] = []
-        # decrypted: List[str] = []
-        # crypted = get_message(message)
-        # print("sentence crypted: ", crypted)
-        # decrypted = get_decrypted_message(crypted)
-        # print("sentence decrypted: ", decrypted)
-        # Parser = ia_parser(argv)
         Parser = ia_parser(argv)
         return Parser
-        

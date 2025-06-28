@@ -23,7 +23,7 @@ void send_pbc(server_t *server, client_t *client, const char *message)
 {
     char response[BUFFER_SIZE];
 
-    snprintf(response, BUFFER_SIZE, "pbc #%d %s",
+    snprintf(response, BUFFER_SIZE, "pbc #%d %s\n",
         client->data.id, message);
     for (int i = 1; i < server->nfds; i++) {
         if (server->clients[i] != NULL &&
@@ -37,7 +37,7 @@ void send_pex(server_t *server, client_t *client)
 {
     char response[BUFFER_SIZE];
 
-    snprintf(response, BUFFER_SIZE, "pex #%d", client->data.id);
+    snprintf(response, BUFFER_SIZE, "pex #%d\n", client->data.id);
     for (int i = 1; i < server->nfds; i++) {
         if (server->clients[i] != NULL &&
             server->clients[i]->data.is_graphic) {
@@ -61,7 +61,7 @@ void send_pdr(server_t *server, client_t *client, int resource_id)
 {
     char response[BUFFER_SIZE];
 
-    snprintf(response, BUFFER_SIZE, "pdr #%d %d",
+    snprintf(response, BUFFER_SIZE, "pdr #%d %d\n",
         client->data.id, resource_id);
     for (int i = 1; i < server->nfds; i++) {
         if (server->clients[i] != NULL &&
@@ -91,7 +91,7 @@ void send_pgt(server_t *server, client_t *client, int resource_id)
 {
     char response[BUFFER_SIZE];
 
-    snprintf(response, BUFFER_SIZE, "pgt #%d %d",
+    snprintf(response, BUFFER_SIZE, "pgt #%d %d\n",
         client->data.id, resource_id);
     for (int i = 1; i < server->nfds; i++) {
         if (server->clients[i] != NULL &&

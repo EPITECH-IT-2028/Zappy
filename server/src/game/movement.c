@@ -7,7 +7,6 @@
 
 #include "macro.h"
 #include "server.h"
-#include <stdlib.h>
 
 static
 void set_offset(direction_offset_t *offset, client_t *client)
@@ -32,23 +31,33 @@ void set_offset(direction_offset_t *offset, client_t *client)
     }
 }
 
-int move_forward(server_t *server, response_t *response, request_t *request)
+static
+int update_player_position(server_t *server, client_t *client)
 {
-    client_t *client = request->client;
     map_t **map = server->map;
     direction_offset_t offset;
     int last_x = client->data.x;
     int last_y = client->data.y;
 
-    if (!server || !response || !request || !client)
-        return ERROR;
     set_offset(&offset, client);
     client->data.x += offset.x;
     client->data.y += offset.y;
     if (map[last_x][last_y].nbr_of_players > 0)
         remove_player_map(&map[last_x][last_y], client);
-    add_player_map(server, map, client);
-    sprintf(response->response, "ok");
+    return add_player_map(server, map, client);
+}
+
+int move_forward(server_t *server, response_t *response, request_t *request)
+{
+    client_t *client = request->client;
+
+    if (!server || !response || !request || !client)
+        return ERROR;
+    if (update_player_position(server, client) == ERROR)
+        return ERROR;
+    if (add_buffer_to_response("ok", &response->response, &response->size)
+        == ERROR)
+        return ERROR;
     response->client->data.is_busy = true;
     response->client->data.action_end_time =
         get_action_end_time(server, FORWARD_TIME);
@@ -63,7 +72,9 @@ int rotate_right(server_t *server, response_t *response, request_t *request)
         return ERROR;
     client->data.direction = (client->data.direction + 1 + MAX_DIRECTION)
         % MAX_DIRECTION;
-    sprintf(response->response, "ok");
+    if (add_buffer_to_response("ok", &response->response, &response->size)
+        == ERROR)
+        return ERROR;
     response->client->data.is_busy = true;
     response->client->data.action_end_time =
         get_action_end_time(server, RIGHT_TIME);
@@ -78,7 +89,9 @@ int rotate_left(server_t *server, response_t *response, request_t *request)
         return ERROR;
     client->data.direction = (client->data.direction - 1 + MAX_DIRECTION)
         % MAX_DIRECTION;
-    sprintf(response->response, "ok");
+    if (add_buffer_to_response("ok", &response->response, &response->size)
+        == ERROR)
+        return ERROR;
     response->client->data.is_busy = true;
     response->client->data.action_end_time =
         get_action_end_time(server, LEFT_TIME);

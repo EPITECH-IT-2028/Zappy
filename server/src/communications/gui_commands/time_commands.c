@@ -16,7 +16,7 @@ void send_time(server_t *server, int index)
 {
     char response[BUFFER_SIZE];
 
-    snprintf(response, BUFFER_SIZE, "sgt %d",
+    snprintf(response, BUFFER_SIZE, "sgt %d\n",
         server->params.frequence);
     send_code(server->clients[index]->fd, response);
 }
@@ -25,7 +25,7 @@ static
 void modify_time(server_t *server, int index, int freq)
 {
     if (freq <= 0) {
-        send_code(server->clients[index]->fd, "sbp");
+        send_code(server->clients[index]->fd, "sbp\n");
         return;
     }
     server->params.frequence = freq;
@@ -45,5 +45,5 @@ void time_commands(server_t *server, int index, char *buffer)
         modify_time(server, index, freq);
         return;
     }
-    send_code(server->clients[index]->fd, "suc");
+    send_code(server->clients[index]->fd, "suc\n");
 }

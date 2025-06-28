@@ -431,6 +431,9 @@ void handlecommand::CommandHandler::handlePbc(const std::string& command) {
     formatted << "[Player #" << event.playerID << "]: " << event.message;
     _gameState.broadcastLog.push_back(formatted.str());
 
+    if (_gameState.broadcastLog.size() > gui::GameState::MAX_BROADCAST_LOG_SIZE) {
+      _gameState.broadcastLog.erase(_gameState.broadcastLog.begin());
+    }
   } catch (const std::exception& e) {
     std::cerr << "Error while handling pbc: " << e.what() << "\n";
   }

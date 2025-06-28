@@ -226,7 +226,7 @@ parser::BroadcastEvent parser::CommandParser::parsePbc(const std::string &comman
   int playerId;
   std::string message;
 
-  if (!(iss >> prefix >> playerId))
+  if (!(iss >> prefix >> playerId) || prefix != "pbc")
     throw std::runtime_error("Invalid pbc command format");
 
   std::getline(iss, message);

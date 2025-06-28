@@ -5,6 +5,7 @@
 #include <iostream>
 #include <ostream>
 #include <unordered_map>
+#include <algorithm>
 
 gui::GameEngine::GameEngine(network::ServerCommunication &serverCommunication)
     : _window(SCREEN_WIDTH, SCREEN_HEIGHT, "Zappy"),
@@ -35,7 +36,7 @@ float gui::GameEngine::getWorldScale() const {
 }
 
 void gui::GameEngine::setWorldScale(float value) {
-  worldScale = Clamp(value, MIN_SCALE, MAX_SCALE);
+  worldScale = std::clamp(value, MIN_SCALE, MAX_SCALE);
 }
 
 void gui::GameEngine::initialize() {
@@ -140,7 +141,13 @@ void gui::GameEngine::processNetworkMessages() {
     {"ebo", [this](const std::string &msg) { _commandHandler.handleEbo(msg); }},
     {"edi", [this](const std::string &msg) { _commandHandler.handleEdi(msg); }},
     {"pdi", [this](const std::string &msg) { _commandHandler.handlePdi(msg); }},
-    {"pbc", [this](const std::string &msg) { _commandHandler.handlePbc(msg); }}
+    {"pic", [this](const std::string &msg) { _commandHandler.handlePic(msg); }},
+    {"pie", [this](const std::string &msg) { _commandHandler.handlePie(msg); }},
+    {"pfk", [this](const std::string &msg) { _commandHandler.handlePfk(msg); }},
+    {"pdr", [this](const std::string &msg) { _commandHandler.handlePdr(msg); }},
+    {"pgt", [this](const std::string &msg) { _commandHandler.handlePgt(msg); }},
+    {"pex", [this](const std::string &msg) { _commandHandler.handlePex(msg); }}
+    , {"pbc", [this](const std::string &msg) { _commandHandler.handlePbc(msg); }}
   };
 
   try {
@@ -383,9 +390,18 @@ void gui::GameEngine::resetCamera() {
 }
 
 void gui::GameEngine::drawBroadcastLog() {
-  int startY = 10;
-  for (const auto& msg : _gameState.broadcastLog) {
-    DrawText(msg.c_str(), 10, startY, 20, DARKGRAY);
-    startY += 25; 
+  const int maxVisibleMessages = 10;
+  const int startX = 10;
+  const int startY = 10;
+  const int lineHeight = 25;
+  const int fontSize = 20;
+  
+  int messagesToShow = std::min(static_cast<int>(_gameState.broadcastLog.size()), maxVisibleMessages);
+  int startIndex = std::max(0, static_cast<int>(_gameState.broadcastLog.size()) - messagesToShow);
+  
+  for (int i = 0; i < messagesToShow; ++i) {
+    int messageIndex = startIndex + i;
+    int yPos = startY + i * lineHeight;
+    DrawText(_gameState.broadcastLog[messageIndex].c_str(), startX, yPos, fontSize, DARKGRAY);
   }
 }

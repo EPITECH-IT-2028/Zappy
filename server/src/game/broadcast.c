@@ -145,7 +145,7 @@ void send_broadcast_to_player(server_t *server,
         if (!receiver || receiver->data.is_graphic)
             continue;
         snprintf(sound_message, sizeof(sound_message),
-                "message %d, %s", results[i].direction_tile, message);
+                "message %d, %s\n", results[i].direction_tile, message);
         send_code(receiver->fd, sound_message);
     }
 }
@@ -209,7 +209,7 @@ int handle_broadcast(server_t *server, response_t *response,
     }
     send_pbc(server, client, broadcast);
     free(broadcast);
-    sprintf(response->response, "ok");
+    add_buffer_to_response("ok", &response->response, &response->size);
     response->client->data.is_busy = true;
     response->client->data.action_end_time = get_action_end_time(server,
         BROADCAST_TIME);

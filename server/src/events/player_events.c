@@ -15,7 +15,7 @@ void send_pin(server_t *server, int index)
 
     if (client == NULL || client->data.team_name == NULL)
         return;
-    snprintf(response, BUFFER_SIZE, "pin #%d %d %d %d %d %d %d %d %d %d",
+    snprintf(response, BUFFER_SIZE, "pin #%d %d %d %d %d %d %d %d %d %d\n",
             client->data.id, client->data.x, client->data.y,
             client->data.inventory.food, client->data.inventory.linemate,
             client->data.inventory.deraumere, client->data.inventory.sibur,
