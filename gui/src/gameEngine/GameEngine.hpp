@@ -15,6 +15,7 @@
 #define MAX_CAMERA_FOVY 45.0f
 
 #define BRICK_MODEL_PATH "resources/mario_brick/scene.gltf"
+#define GOOMBA_MODEL_PATH "resources/goomba/scene.gltf"
 
 #define BRICK_SPACING 1.1f
 #define BRICK_MODEL_SCALE 0.01f
@@ -84,7 +85,8 @@ namespace gui {
 
       void loadResources();
       Model _brick;
-      bool _resourcesLoaded;
+      Model _goomba;
+      std::size_t _resourcesLoaded;
       std::string _errorMessage;
 
       void drawMap();

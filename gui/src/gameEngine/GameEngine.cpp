@@ -14,7 +14,7 @@ gui::GameEngine::GameEngine(network::ServerCommunication &serverCommunication)
       _serverCommunication(serverCommunication),
       _gameState(0, 0),
       _commandHandler(_gameState),
-      _resourcesLoaded(false) {
+      _resourcesLoaded(0) {
   if (!IsWindowReady())
     throw std::runtime_error("Failed to initialize Raylib window");
   initialize();
@@ -26,8 +26,9 @@ gui::GameEngine::GameEngine(network::ServerCommunication &serverCommunication)
 }
 
 gui::GameEngine::~GameEngine() {
-  if (_resourcesLoaded) {
+  if (_resourcesLoaded == 2) {
     UnloadModel(_brick);
+    UnloadModel(_goomba);
   }
 }
 
@@ -44,7 +45,7 @@ void gui::GameEngine::initialize() {
     loadResources();
   } catch (const std::exception &e) {
     std::cerr << "Resource initialization failed: " << e.what() << std::endl;
-    _resourcesLoaded = false;
+    _resourcesLoaded = 0;
     _currentScreen = Screen::ERROR;
     _errorMessage = std::string("Resource loading failed: ") + e.what();
   }
@@ -209,19 +210,24 @@ void gui::GameEngine::renderErrorScreen() {
 }
 
 void gui::GameEngine::loadResources() {
-  if (_resourcesLoaded)
+  if (_resourcesLoaded == 2)
     return;
 
   if (!FileExists(BRICK_MODEL_PATH))
     throw std::runtime_error("Model file not found: " +
                              std::string(BRICK_MODEL_PATH));
+  else if (!FileExists(GOOMBA_MODEL_PATH))
+    throw std::runtime_error("Model file not found: " +
+                             std::string(GOOMBA_MODEL_PATH));
 
   _brick = LoadModel(BRICK_MODEL_PATH);
+  _goomba = LoadModel(GOOMBA_MODEL_PATH);
+  _anims = LoadModelAnimations(GOOMBA_MODEL_PATH, &_animationCount);
 
   if (_brick.meshCount > 0 && _brick.materialCount > 0 &&
       _brick.meshes != nullptr) {
     std::cout << "Brick model loaded successfully." << std::endl;
-    _resourcesLoaded = true;
+    _resourcesLoaded += 1;
   } else {
     std::cerr << "Error: Failed to load model: " << BRICK_MODEL_PATH
               << std::endl;
@@ -229,10 +235,21 @@ void gui::GameEngine::loadResources() {
     throw std::runtime_error(std::string("Failed to load model: ") +
                              BRICK_MODEL_PATH);
   }
+  if (_goomba.meshCount > 0 && _goomba.materialCount > 0 &&
+      _goomba.meshes != nullptr) {
+    std::cout << "Goomba model loaded successfully." << std::endl;
+    _resourcesLoaded += 1;
+  } else {
+    std::cerr << "Error: Failed to load model: " << GOOMBA_MODEL_PATH
+              << std::endl;
+    UnloadModel(_goomba);
+    throw std::runtime_error(std::string("Failed to load model: ") +
+                             GOOMBA_MODEL_PATH);
+  }
 }
 
 void gui::GameEngine::drawMap() {
-  if (!_resourcesLoaded) {
+  if (_resourcesLoaded != 2) {
     std::cerr << "Resources not loaded, cannot draw map." << std::endl;
     return;
   }
