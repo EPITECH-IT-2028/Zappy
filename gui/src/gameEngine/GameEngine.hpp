@@ -95,7 +95,7 @@ namespace gui {
       std::size_t _resourcesLoaded;
       std::string _errorMessage;
 
-      void drawMap();
+      void drawMap(std::vector<std::pair<Vector2, int>> *resourceCount);
       void drawResource(const Vector3 position, int x, int y,
                         std::vector<std::pair<Vector2, int>> &resourceTexts);
       void drawPlayers();

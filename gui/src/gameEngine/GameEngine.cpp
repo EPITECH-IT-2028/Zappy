@@ -196,11 +196,14 @@ void gui::GameEngine::renderTitleScreen() {
 void gui::GameEngine::renderGameplayScreen() {
   DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, GAMEPLAY_BACKGROUND_COLOR);
   updateShaders();
+
+  std::vector<std::pair<Vector2, int>> resourceCount;
+
   BeginMode3D(_camera);
   BeginShaderMode(_lightingShader);
 
   DrawPlane(Vector3Zero(), (Vector2){10.0f, 10.0f}, WHITE);
-  drawMap();
+  drawMap(&resourceCount);
   drawPlayers();
 
   EndShaderMode();
@@ -291,7 +294,8 @@ void gui::GameEngine::loadShaders() {
                            (Color){32, 32, 32, 255}, _lightingShader);
 }
 
-void gui::GameEngine::drawMap() {
+void gui::GameEngine::drawMap(
+    std::vector<std::pair<Vector2, int>> *resourceCount) {
   if (_resourcesLoaded != 2) {
     std::cerr << "Resources not loaded, cannot draw map." << std::endl;
     return;
@@ -302,7 +306,6 @@ void gui::GameEngine::drawMap() {
   float mapHeight = static_cast<float>(_gameState.map.height);
   Vector3 gridOrigin = {-((mapWidth - 1) * brickSpacing) / 2.0f, 0.0f,
                         -((mapHeight - 1) * brickSpacing) / 2.0f};
-  std::vector<std::pair<Vector2, int>> resourceCount;
 
   for (std::size_t y = 0; y < _gameState.map.height; ++y) {
     for (std::size_t x = 0; x < _gameState.map.width; ++x) {
@@ -316,7 +319,7 @@ void gui::GameEngine::drawMap() {
           {position.x + offset.x, position.y + offset.y, position.z + offset.z},
           BRICK_SPACING * worldScale, BRICK_SPACING * worldScale,
           BRICK_SPACING * worldScale, WHITE);
-      drawResource(position, x, y, resourceCount);
+      drawResource(position, x, y, *resourceCount);
     }
   }
 
