@@ -17,7 +17,7 @@ void send_teams_name(server_t *server, int index)
 
     for (int i = 0; i < server->params.teams_count; i++) {
         if (server->teams[i].name != NULL) {
-            snprintf(response, BUFFER_SIZE, "tna %s", server->teams[i].name);
+            snprintf(response, BUFFER_SIZE, "tna %s\n", server->teams[i].name);
             send_code(server->clients[index]->fd, response);
         }
     }
@@ -30,10 +30,10 @@ void player_position(server_t *server, int index, int id)
     client_t *client = find_ai_by_id(server, id);
 
     if (client == NULL) {
-        send_code(server->clients[index]->fd, "sbp");
+        send_code(server->clients[index]->fd, "sbp\n");
         return;
     }
-    snprintf(response, BUFFER_SIZE, "ppo #%d %d %d %d",
+    snprintf(response, BUFFER_SIZE, "ppo #%d %d %d %d\n",
         id,
         client->data.x,
         client->data.y,
@@ -50,6 +50,6 @@ void player_commands(server_t *server, int index, char *buffer)
     } else if (sscanf(buffer, "ppo #%d", &player_id) == 1) {
         player_position(server, index, player_id);
     } else {
-        send_code(server->clients[index]->fd, "suc");
+        send_code(server->clients[index]->fd, "suc\n");
     }
 }

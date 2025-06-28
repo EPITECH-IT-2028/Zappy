@@ -19,7 +19,7 @@ void notify_incantators_end(client_t **incantators)
         return;
     for (int i = 0; incantators[i] != NULL; i++) {
         if (incantators[i]->connected && incantators[i]->fd > 0) {
-            snprintf(current_level, BUFFER_SIZE, "Current level: %d",
+            snprintf(current_level, BUFFER_SIZE, "Current level: %d\n",
                 incantators[i]->data.level);
             send_code(incantators[i]->fd, current_level);
         }
@@ -56,18 +56,20 @@ int handle_ending_incantation(server_t *server, response_t *response,
 {
     client_data_t *client_data = &request->client->data;
 
+    if (!client_data->incantation.client_group)
+        return ERROR;
     if (check_if_incantation_failed(&request->client->data,
-        server->clients, &server->map[response->client->data.x]
-        [response->client->data.y]) == ERROR) {
-        send_pie(server, response->client->data.incantation.client_group);
-        clear_incantation_data(&response->client->data.incantation);
+        server->clients, &server->map[client_data->x][client_data->y])
+        == ERROR) {
+        send_pie(server, client_data->incantation.client_group);
+        clear_incantation_data(&client_data->incantation);
         return ERROR;
     }
     remove_needed_ressources(&server->map[client_data->incantation.x]
         [client_data->incantation.y], client_data->level - 1);
     level_up_all_client(response->client);
-    notify_incantators_end(response->client->data.incantation.client_group);
-    send_pie(server, response->client->data.incantation.client_group);
-    clear_incantation_data(&response->client->data.incantation);
+    notify_incantators_end(client_data->incantation.client_group);
+    send_pie(server, client_data->incantation.client_group);
+    clear_incantation_data(&client_data->incantation);
     return SUCCESS;
 }

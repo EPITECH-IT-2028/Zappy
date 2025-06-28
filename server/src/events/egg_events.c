@@ -56,7 +56,7 @@ void send_enw(server_t *server, egg_t *egg)
 {
     char response[BUFFER_SIZE];
 
-    snprintf(response, BUFFER_SIZE, "enw #%d #%d %d %d",
+    snprintf(response, BUFFER_SIZE, "enw #%d #%d %d %d\n",
         egg->id, egg->player_id, egg->x, egg->y);
     for (int i = 1; i < server->nfds; i++) {
         if (server->clients[i] != NULL &&
@@ -79,7 +79,7 @@ void send_pfk(server_t *server, client_t *client)
 {
     char response[BUFFER_SIZE];
 
-    snprintf(response, BUFFER_SIZE, "pfk #%d", client->data.id);
+    snprintf(response, BUFFER_SIZE, "pfk #%d\n", client->data.id);
     for (int i = 1; i < server->nfds; i++) {
         if (server->clients[i] != NULL &&
             server->clients[i]->data.is_graphic) {
@@ -101,7 +101,7 @@ void send_ebo(server_t *server, egg_t *egg)
 {
     char response[BUFFER_SIZE];
 
-    snprintf(response, BUFFER_SIZE, "ebo #%d", egg->id);
+    snprintf(response, BUFFER_SIZE, "ebo #%d\n", egg->id);
     for (int i = 1; i < server->nfds; i++) {
         if (server->clients[i] != NULL &&
             server->clients[i]->data.is_graphic) {
@@ -124,7 +124,7 @@ void send_edi(server_t *server, egg_t *egg)
 {
     char response[BUFFER_SIZE];
 
-    snprintf(response, BUFFER_SIZE, "edi #%d", egg->id);
+    snprintf(response, BUFFER_SIZE, "edi #%d\n", egg->id);
     for (int i = 1; i < server->nfds; i++) {
         if (server->clients[i] != NULL &&
             server->clients[i]->data.is_graphic) {

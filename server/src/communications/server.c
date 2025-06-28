@@ -16,20 +16,46 @@
 #include <time.h>
 
 static
+void free_response(response_t *response)
+{
+    if (response->response) {
+        for (int i = 0; response->response[i] != NULL; i++) {
+            free(response->response[i]);
+        }
+        free(response->response);
+    }
+    return;
+}
+
+static
 void handle_request(server_t *server)
 {
-    response_t response;
+    response_t response = {0};
+    int actual_count = 0;
 
-    if (queue_pop_response(server, &response) == SUCCESS) {
-        send_code(response.client->fd, response.response);
+    if (queue_pop_response(server, &response) == ERROR)
+        return;
+    if (!response.client || !response.client->connected) {
+        free_response(&response);
+        return;
     }
+    for (int i = 0; response.response[i] != NULL; i++)
+        actual_count++;
+    for (int i = 0; i < actual_count; i++) {
+        send_code(response.client->fd, response.response[i]);
+        free(response.response[i]);
+        response.response[i] = NULL;
+    }
+    send_code(response.client->fd, "\n");
+    free(response.response);
+    response.response = NULL;
 }
 
 static
 int server_loop(server_t *server)
 {
     while (server->running) {
-        if (poll(server->fds, server->nfds, 0) < 0) {
+        if (poll(server->fds, server->nfds, 10) < 0) {
             perror("poll failed");
             return ERROR;
         }
