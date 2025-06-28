@@ -1,11 +1,10 @@
 import socket
-import threading
 import game
 import ml_agent
-import random
 import time
 import utils
 import select
+import sys
 
 allowed_commands = [
     "Forward",
@@ -215,14 +214,13 @@ def initialize_clients(client) -> None:
                         if (message == "dead"):
                             print("Client dead, closing connection")
                             handle_Dead(client, message)
-                            exit(0)
+                            sys.exit(0)
                         if message.startswith("message "):
                             handle_Broadcast(client, message)
                             continue
 
-                        else:
-                            command = client.commands.pop(utils.FIRST_COMMAND)
-                            handle_command(client, command, message)
+                        command = client.commands.pop(utils.FIRST_COMMAND)
+                        handle_command(client, command, message)
 
     client.player_in_game = 0
     handle_client(client)

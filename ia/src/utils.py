@@ -100,7 +100,6 @@ EJECT = "Eject"
 TAKE = "Take"
 SET = "Set"
 INCANTATION = "Incantation"
-CONNECT_NBR = "Connect_nbr"
 
 NO_TARGET = -1
 BUFFER_SIZE = 1024
