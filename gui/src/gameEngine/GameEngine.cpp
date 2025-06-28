@@ -207,7 +207,7 @@ void gui::GameEngine::renderGameplayScreen() {
   for (const auto &info : resourceCount) {
     Vector3 worldPos = info.first;
     DrawText3D(GetFontDefault(), TextFormat("%d", info.second),
-               {worldPos.x + 0.1f, worldPos.y + 0.01f, worldPos.z - 0.1f},
+               {worldPos.x + 0.1f, worldPos.y - 0.05f, worldPos.z - 0.1f},
                0.2f * worldScale, 0.05f, 0.0f, false,
                (Color){255, 255, 255, 255});
   }
