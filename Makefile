@@ -33,7 +33,8 @@ $(ZAPPY_CLIENT):
 clean:
 	@make -C $(ZAPPY_SERVER_DIR) clean
 	@make -C $(ZAPPY_IA_DIR) clean
-	@rm -rf $(ZAPPY_CLIENT_BUILD_DIR)
+	@rm -rf $(ZAPPY_CLIENT_DIR)/$(ZAPPY_CLIENT_BUILD_DIR)
+	@rm -rf $(ZAPPY_CLIENT_DIR)/.cache
 	@find . -name "*~" -delete
 	@find . -name "*.pyc" -delete
 	@rm -f *.gcno
