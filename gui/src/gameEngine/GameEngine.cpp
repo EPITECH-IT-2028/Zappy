@@ -318,6 +318,7 @@ void gui::GameEngine::drawMap() {
       drawResource(position, x, y, resourceCount);
     }
   }
+  drawPlayers(gridOrigin, brickSpacing);
 
   for (const auto &info : resourceCount) {
     Vector2 screenPos = info.first;
@@ -345,6 +346,37 @@ void gui::GameEngine::drawResource(
       Vector2 screenPos = GetWorldToScreen(resourcePosition, _camera);
       resourceTexts.push_back(std::make_pair(screenPos, resourceCount));
     }
+  }
+}
+
+void gui::GameEngine::drawPlayers(Vector3 gridOrigin, float brickSpacing) {
+  for (const auto &playerPair : _gameState.players) {
+    std::cout << "Drawing player: " << playerPair.first << std::endl;
+    const gui::Player &player = playerPair.second;
+    Vector3 position = {gridOrigin.x + player.x * brickSpacing,
+                        gridOrigin.y + 1.1f * worldScale,
+                        gridOrigin.z + player.y * brickSpacing};
+    float angle = 0.0f;
+    switch (player.orientation) {
+      case gui::Orientation::NORTH:
+        angle = PI;
+        break;
+      case gui::Orientation::EAST:
+        angle = PI / 2.0f;
+        break;
+      case gui::Orientation::SOUTH:
+        angle = 0.0f;
+        break;
+      case gui::Orientation::WEST:
+        angle = 3 * PI / 2.0f;
+        break;
+      default:
+        break;
+    }
+    DrawModelEx(
+        _goomba, position, (Vector3){0, 1, 0}, angle * RAD2DEG,
+        (Vector3){0.15f * worldScale, 0.15f * worldScale, 0.15f * worldScale},
+        WHITE);
   }
 }
 
