@@ -194,15 +194,14 @@ void gui::GameEngine::renderTitleScreen() {
 }
 
 void gui::GameEngine::renderGameplayScreen() {
+  std::vector<std::pair<Vector2, int>> resourceCount;
+
   DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, GAMEPLAY_BACKGROUND_COLOR);
   updateShaders();
-
-  std::vector<std::pair<Vector2, int>> resourceCount;
 
   BeginMode3D(_camera);
   BeginShaderMode(_lightingShader);
 
-  DrawPlane(Vector3Zero(), (Vector2){10.0f, 10.0f}, WHITE);
   drawMap(&resourceCount);
   drawPlayers();
 
