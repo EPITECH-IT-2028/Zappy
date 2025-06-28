@@ -471,11 +471,17 @@ void handlecommand::CommandHandler::handleSbp(const std::string& command) {
 
 void handlecommand::CommandHandler::handleSeg(const std::string& command) {
   try {
+    if (_gameState.isGameOver) {
+      std::cerr << "Game is already over, ignoring additional seg command" << std::endl;
+      return;
+    }
     parser::GameOverEvent event = parser::CommandParser::parseSeg(command);
 
     _gameState.isGameOver = true;
     _gameState.winningTeamName = event.winningTeamName;
-    _gameState.broadcastLog.push_back("Game Over! Winning team: " + event.winningTeamName);
+    _gameState.broadcastLog.push_back("Game Over! Winning team: " + event.winningTeamName);    
+    while (_gameState.broadcastLog.size() > gui::GameState::MAX_BROADCAST_LOG_SIZE)
+      _gameState.broadcastLog.erase(_gameState.broadcastLog.begin());
   } catch (const std::exception& e) {
     std::cerr << "Error parsing seg: " << e.what() << std::endl;
   }
