@@ -366,7 +366,6 @@ void gui::GameEngine::drawPlayers() {
       -((static_cast<float>(_gameState.map.height) - 1) * brickSpacing) / 2.0f};
 
   for (const auto &playerPair : _gameState.players) {
-    std::cout << "Drawing player: " << playerPair.first << std::endl;
     const gui::Player &player = playerPair.second;
     Vector3 position = {gridOrigin.x + player.x * brickSpacing,
                         gridOrigin.y + 1.1f * worldScale,
