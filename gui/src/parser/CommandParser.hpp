@@ -3,7 +3,7 @@
 #include <array>
 #include <string>
 #include <vector>
-#include "entities/Orientation.hpp"
+#include "../entities/Orientation.hpp"
 
 namespace parser {
   inline constexpr std::size_t RESOURCE_COUNT = 7;
@@ -151,6 +151,10 @@ namespace parser {
     std::string message;
     ServerMessageEvent(const std::string& msg) : message(msg) {}
   };
+  struct GameOverEvent {
+    std::string winningTeamName;
+    GameOverEvent(const std::string& name) : winningTeamName(name) {}
+  };
 
   class CommandParser {
     public:
@@ -177,6 +181,7 @@ namespace parser {
       static PlayerExpulsion parsePex(const std::string& command);
       static BroadcastEvent parsePbc(const std::string& command);
       static ServerMessageEvent parseSmg(const std::string& command);
+      static GameOverEvent parseSeg(const std::string& command);
 
     private:
   };

@@ -221,25 +221,46 @@ parser::PlayerExpulsion parser::CommandParser::parsePex(
 }
 
 parser::BroadcastEvent parser::CommandParser::parsePbc(
-    const std::string &command) {
+  const std::string &command) {
   std::istringstream iss(command);
   std::string prefix;
-  int playerId;
+  std::string playerIdToken;
   std::string message;
+  int playerId;
 
-  if (!(iss >> prefix >> playerId) || prefix != "pbc")
+  if (!(iss >> prefix >> playerIdToken) || prefix != "pbc")
     throw std::runtime_error("Invalid pbc command format");
 
+  if (playerIdToken[0] != '#')
+    throw std::runtime_error("Invalid player ID format (missing '#')");
+  try {
+    playerId = std::stoi(playerIdToken.substr(1));
+  } catch (...) {
+    throw std::runtime_error("Invalid player ID number");
+  }
   std::getline(iss, message);
   if (!message.empty() && message[0] == ' ')
     message.erase(0, 1);
-
   return BroadcastEvent(playerId, message);
 }
 
+
 parser::ServerMessageEvent parser::CommandParser::parseSmg(const std::string &command) {
-  if (command.size() < 4)
+  if (command.size() < 4 && command.substr(0, 3) != "smg")
     throw std::runtime_error("Invalid smg command format");
   std::string message = command.substr(4);
   return ServerMessageEvent(message);
+}
+
+parser::GameOverEvent parser::CommandParser::parseSeg(const std::string &command) {
+  std::istringstream iss(command);
+  std::string prefix;
+  std::string teamName;
+
+  if (!(iss >> prefix >> teamName) || prefix != "seg")
+      throw std::runtime_error("Invalid seg command format");
+  if (teamName.empty())
+    throw std::runtime_error("Winning team name cannot be empty in seg command");
+
+  return GameOverEvent(teamName);
 }
