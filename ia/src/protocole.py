@@ -172,7 +172,6 @@ def handle_client(client) -> None:
 
     execute_command(client, utils.LOOK, None)
     while client.is_alive:
-        print(client.inventory.get("food", 0))
 
         response = client.socket.recv(utils.BUFFER_SIZE).decode()
 
