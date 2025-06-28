@@ -285,8 +285,8 @@ void gui::GameEngine::loadShaders() {
   _lightingShader.locs[SHADER_LOC_VECTOR_VIEW] =
       GetShaderLocation(_lightingShader, "viewPos");
   _ambientLoc = GetShaderLocation(_lightingShader, "ambient");
-  SetShaderValue(_lightingShader, _ambientLoc,
-                 (float[4]){0.1f, 0.1f, 0.1f, 1.0f}, SHADER_UNIFORM_VEC4);
+  float ambient[4] = {0.1f, 0.1f, 0.1f, 1.0f};
+  SetShaderValue(_lightingShader, _ambientLoc, ambient, SHADER_UNIFORM_VEC4);
 
   for (int i = 0; i < _brick.materialCount; i++)
     _brick.materials[i].shader = _lightingShader;
