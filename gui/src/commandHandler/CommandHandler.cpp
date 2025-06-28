@@ -6,7 +6,6 @@
 #include "entities/Orientation.hpp"
 #include "entities/Player.hpp"
 #include "parser/CommandParser.hpp"
-#include <sstream>
 
 void handlecommand::CommandHandler::handleMsz(const std::string& command) {
   try {
