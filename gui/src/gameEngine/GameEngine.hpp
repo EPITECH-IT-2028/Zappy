@@ -36,10 +36,25 @@ namespace gui {
       GameEngine(network::ServerCommunication &serverCommunication);
       ~GameEngine();
 
+      float getWorldScale() const;
+      void setWorldScale(float value);
+
       void run();
       void initialize();
 
     private:
+      static constexpr float SPHERE_HORIZONTAL_SPACING = 0.15f;
+      static constexpr float SPHERE_BASE_X = -0.4f;
+      static constexpr float SPHERE_BASE_Y = 1.15f;
+      static constexpr float SPHERE_BASE_Z = 0.6f;
+      static constexpr Color GAMEPLAY_BACKGROUND_COLOR = {11, 94, 158, 255};
+
+      static constexpr float MOVEMENT_BASE_SPEED = 0.2f;
+      static constexpr float ROTATE_SPEED = 0.7f;
+      static constexpr float MIN_SCALE = 0.2f;
+      static constexpr float MAX_SCALE = 5.0f;
+      static constexpr float SCALE_STEP = 0.1f;
+
       raylib::Window _window;
       int _framesCounter;
       raylib::Camera3D _camera;
@@ -48,6 +63,7 @@ namespace gui {
       network::ServerCommunication &_serverCommunication;
       GameState _gameState;
       handlecommand::CommandHandler _commandHandler;
+      float worldScale = 1.0f;
 
       void updateLogoScreen();
       void updateTitleScreen();
@@ -67,5 +83,12 @@ namespace gui {
       std::string _errorMessage;
 
       void drawMap();
+      void drawResource(const Vector3 position, int x, int y,
+                        std::vector<std::pair<Vector2, int>> &resourceTexts);
+      void moveCamera();
+      void handleCameraMovement();
+      void handleCameraRotation();
+      void handleCameraZoom();
+      void resetCamera();
   };
 }  // namespace gui

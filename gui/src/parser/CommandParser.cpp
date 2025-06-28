@@ -49,7 +49,7 @@ parser::PlayerInfo parser::CommandParser::parsePnw(const std::string &command) {
   int orientationInt;
   char teamName[256] = {0};
 
-  int result = std::sscanf(command.c_str(), "pnw %d %d %d %d %d %255s", &id, &x,
+  int result = std::sscanf(command.c_str(), "pnw #%d %d %d %d %d %255s", &id, &x,
                            &y, &orientationInt, &level, teamName);
 
   if (result != 6) {
@@ -64,7 +64,7 @@ parser::PlayerPositionUpdate parser::CommandParser::parsePpo(
   int id, x, y;
   int orientationInt;
 
-  int result = std::sscanf(command.c_str(), "ppo %d %d %d %d", &id, &x, &y,
+  int result = std::sscanf(command.c_str(), "ppo #%d %d %d %d", &id, &x, &y,
                            &orientationInt);
   if (result != 4)
     throw std::runtime_error("Invalid ppo command format");
@@ -78,7 +78,7 @@ parser::PlayerLevelUpdate parser::CommandParser::parsePlv(
     const std::string &command) {
   int id, level;
 
-  int result = std::sscanf(command.c_str(), "plv %d %d", &id, &level);
+  int result = std::sscanf(command.c_str(), "plv #%d %d", &id, &level);
 
   if (result != 2)
     throw std::runtime_error("Invalid plv command format");
@@ -91,7 +91,7 @@ parser::PlayerInventory parser::CommandParser::parsePin(
   std::array<int, RESOURCE_COUNT> resources = {0};
 
   int result =
-      std::sscanf(command.c_str(), "pin %d %d %d %d %d %d %d %d %d %d", &id, &x,
+      std::sscanf(command.c_str(), "pin #%d %d %d %d %d %d %d %d %d %d", &id, &x,
                   &y, &resources[0], &resources[1], &resources[2],
                   &resources[3], &resources[4], &resources[5], &resources[6]);
 
@@ -113,7 +113,7 @@ parser::EggLaid parser::CommandParser::parseEnw(const std::string &command) {
 
 parser::EggHatch parser::CommandParser::parseEbo(const std::string &command) {
   int id;
-  int result = std::sscanf(command.c_str(), "ebo %d", &id);
+  int result = std::sscanf(command.c_str(), "ebo #%d", &id);
 
   if (result != 1)
     throw std::runtime_error("Invalid ebo command format");
@@ -122,7 +122,7 @@ parser::EggHatch parser::CommandParser::parseEbo(const std::string &command) {
 
 parser::EggDeath parser::CommandParser::parseEdi(const std::string &command) {
   int id;
-  int result = std::sscanf(command.c_str(), "edi %d", &id);
+  int result = std::sscanf(command.c_str(), "edi #%d", &id);
 
   if (result != 1)
     throw std::runtime_error("Invalid edi command format");
@@ -132,7 +132,7 @@ parser::EggDeath parser::CommandParser::parseEdi(const std::string &command) {
 parser::PlayerDeath parser::CommandParser::parsePdi(
     const std::string &command) {
   int id;
-  int result = std::sscanf(command.c_str(), "pdi %d", &id);
+  int result = std::sscanf(command.c_str(), "pdi #%d", &id);
 
   if (result != 1)
     throw std::runtime_error("Invalid pdi command format");
@@ -144,7 +144,7 @@ parser::Incantation parser::CommandParser::parsePic(
   int x, y, level;
   std::vector<int> playersNumber;
 
-  int result = std::sscanf(command.c_str(), "pic %d %d %d", &x, &y, &level);
+  int result = std::sscanf(command.c_str(), "pic %d #%d #%d", &x, &y, &level);
   if (result != 3) {
     throw std::runtime_error("Invalid pic command format");
   }
@@ -177,7 +177,7 @@ parser::IncantationEnd parser::CommandParser::parsePie(
 
 parser::ForkEvent parser::CommandParser::parsePfk(const std::string &command) {
   int playerId;
-  int result = std::sscanf(command.c_str(), "pfk %d", &playerId);
+  int result = std::sscanf(command.c_str(), "pfk #%d", &playerId);
 
   if (result != 1)
     throw std::runtime_error("Invalid pfk command format");
@@ -188,7 +188,7 @@ parser::DropResource parser::CommandParser::parsePdr(
     const std::string &command) {
   int playerId, resourceNumber;
   int result =
-      std::sscanf(command.c_str(), "pdr %d %d", &playerId, &resourceNumber);
+      std::sscanf(command.c_str(), "pdr #%d %d", &playerId, &resourceNumber);
 
   if (result != 2)
     throw std::runtime_error("Invalid pdr command format");
@@ -201,7 +201,7 @@ parser::CollectResource parser::CommandParser::parsePgt(
     const std::string &command) {
   int playerId, resourceNumber;
   int result =
-      std::sscanf(command.c_str(), "pgt %d %d", &playerId, &resourceNumber);
+      std::sscanf(command.c_str(), "pgt #%d %d", &playerId, &resourceNumber);
 
   if (result != 2)
     throw std::runtime_error("Invalid pgt command format");
@@ -213,7 +213,7 @@ parser::CollectResource parser::CommandParser::parsePgt(
 parser::PlayerExpulsion parser::CommandParser::parsePex(
     const std::string &command) {
   int playerId;
-  int result = std::sscanf(command.c_str(), "pex %d", &playerId);
+  int result = std::sscanf(command.c_str(), "pex #%d", &playerId);
 
   if (result != 1)
     throw std::runtime_error("Invalid pex command format");

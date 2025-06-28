@@ -1,4 +1,5 @@
 #pragma once
+#include <raylib.h>
 #include <array>
 #include <vector>
 #include "TileEffects.hpp"
@@ -8,13 +9,13 @@ namespace gui {
       static constexpr int RESOURCE_COUNT = 7;
 
       enum class Resource {
-        Food,
-        Linemate,
-        Deraumere,
-        Sibur,
-        Mendiane,
-        Phiras,
-        Thystame
+        FOOD,
+        LINEMATE,
+        DERAUMERE,
+        SIBUR,
+        MENDIANE,
+        PHIRAS,
+        THYSTAME
       };
 
       std::array<int, RESOURCE_COUNT> resources{};
@@ -23,5 +24,6 @@ namespace gui {
       TileEffects effects;
 
       bool isEmpty() const;
+      Color getResourceColor(Resource type) const;
   };
 }  // namespace gui
