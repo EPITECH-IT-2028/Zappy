@@ -146,8 +146,11 @@ void gui::GameEngine::processNetworkMessages() {
     {"pfk", [this](const std::string &msg) { _commandHandler.handlePfk(msg); }},
     {"pdr", [this](const std::string &msg) { _commandHandler.handlePdr(msg); }},
     {"pgt", [this](const std::string &msg) { _commandHandler.handlePgt(msg); }},
-    {"pex", [this](const std::string &msg) { _commandHandler.handlePex(msg); }}
-    , {"pbc", [this](const std::string &msg) { _commandHandler.handlePbc(msg); }}
+    {"pex", [this](const std::string &msg) { _commandHandler.handlePex(msg); }},
+    {"pbc", [this](const std::string &msg) { _commandHandler.handlePbc(msg); }},
+    {"smg", [this](const std::string &msg) { _commandHandler.handleSmg(msg); }},
+    {"suc", [this](const std::string &msg) { _commandHandler.handleSuc(msg); }},
+    {"sbp", [this](const std::string &msg) { _commandHandler.handleSbp(msg); }}
   };
 
   try {

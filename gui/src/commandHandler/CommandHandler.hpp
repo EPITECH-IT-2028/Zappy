@@ -27,6 +27,9 @@ namespace handlecommand {
       void handlePgt(const std::string& command);
       void handlePex(const std::string& command);
       void handlePbc(const std::string& command);
+      void handleSmg(const std::string& command);
+      void handleSuc(const std::string& command);
+      void handleSbp(const std::string& command);
 
     private:
       void removeEgg(int eggId);

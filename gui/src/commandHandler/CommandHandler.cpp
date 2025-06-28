@@ -438,3 +438,22 @@ void handlecommand::CommandHandler::handlePbc(const std::string& command) {
     std::cerr << "Error while handling pbc: " << e.what() << "\n";
   }
 }
+
+void handlecommand::CommandHandler::handleSmg(const std::string& command) {
+  try {
+    auto event = parser::CommandParser::parseSmg(command);
+    _gameState.broadcastLog.push_back("[Server message] " + event.message);
+  } catch (const std::exception& e) {
+    std::cerr << "Error parsing smg: " << e.what() << std::endl;
+  }
+}
+
+void handlecommand::CommandHandler::handleSuc(const std::string& command) {
+  (void)command;
+  _gameState.broadcastLog.push_back("Unknown command received by server.");
+}
+
+void handlecommand::CommandHandler::handleSbp(const std::string& command) {
+  (void)command;
+  _gameState.broadcastLog.push_back("Command parameter error reported by server.");
+}
