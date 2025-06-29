@@ -1,4 +1,5 @@
 #include "GameEngine.hpp"
+#include "entities/Map.hpp"
 #include <raylib.h>
 #include <algorithm>
 #include <cstddef>
@@ -83,9 +84,11 @@ void gui::GameEngine::run() {
 
     switch (_currentScreen) {
       case Screen::LOGO:
+        loadResources();
         renderLogoScreen();
         break;
       case Screen::TITLE:
+        loadResources();
         renderTitleScreen();
         break;
       case Screen::GAMEPLAY:
@@ -185,58 +188,85 @@ void gui::GameEngine::processNetworkMessages() {
   }
 }
 
+void gui::GameEngine::loadResources() {
+  _backgroundLogo = LoadTexture("resources/MarioBack.png");
+
+  if (_backgroundLogo.id == 0) {
+      std::cerr << "Erreur : échec du chargement de l'image de fond du logo.\n";
+  }
+  else {
+      std::cout << "Image de fond du logo chargée avec succès.\n";
+  }
+}
+
+void gui::GameEngine::dimensionAsset() {
+  _scaleAsset = 2.7f;
+  _texWidthAsset = _backgroundLogo.width * _scaleAsset;
+  _texHeightAsset = _backgroundLogo.height * _scaleAsset;
+  _xAsset = (SCREEN_WIDTH - _texWidthAsset) / 2.0f;
+  _yAsset = (SCREEN_HEIGHT - _texHeightAsset) / 2.0f;
+}
+
 void gui::GameEngine::renderLogoScreen() {
+  if (_backgroundLogo.id != 0) {
+    dimensionAsset();
+    DrawTextureEx(_backgroundLogo, Vector2{ _xAsset, _yAsset }, 0.0f, _scaleAsset, WHITE);
+  } else {
     ClearBackground(BLACK);
+  }
+  _logoText = "ZAPPY";
+  _fontSize = 60;
+  _textWidth = MeasureText(_logoText, _fontSize);
+  DrawText(_logoText,
+            SCREEN_WIDTH / 2 - _textWidth / 2,
+            SCREEN_HEIGHT / 2 - 100,
+            _fontSize,
+            DARKGREEN);
 
-    _logoText = "ZAPPY";
-    _fontSize = 60;
-    _textWidth = MeasureText(_logoText, _fontSize);
-    DrawText(_logoText,
-             SCREEN_WIDTH / 2 - _textWidth / 2,
-             SCREEN_HEIGHT / 2 - 100,
-             _fontSize,
-             DARKGREEN);
+  _dots = (int)(GetTime() * 2) % 4;
+  _loadingText = "Loading";
+  for (int i = 0; i < _dots; ++i)
+      _loadingText += ".";
 
-    _dots = (int)(GetTime() * 2) % 4;
-    _loadingText = "Loading";
-    for (int i = 0; i < _dots; ++i)
-        _loadingText += ".";
-
-    _loadingFontSize = 24;
-    _loadingWidth = MeasureText(_loadingText.c_str(), _loadingFontSize);
-    DrawText(_loadingText.c_str(),
-             SCREEN_WIDTH / 2 - _loadingWidth / 2,
-             SCREEN_HEIGHT / 2 + 40,
-             _loadingFontSize,
-             LIGHTGRAY);
+  _loadingFontSize = 24;
+  _loadingWidth = MeasureText(_loadingText.c_str(), _loadingFontSize);
+  DrawText(_loadingText.c_str(),
+            SCREEN_WIDTH / 2 - _loadingWidth / 2,
+            SCREEN_HEIGHT / 2 + 40,
+            _loadingFontSize,
+            LIGHTGRAY);
 }
 
 void gui::GameEngine::renderTitleScreen() {
+  if (_backgroundLogo.id != 0) {
+    dimensionAsset();
+    DrawTextureEx(_backgroundLogo, Vector2{ _xAsset, _yAsset }, 0.0f, _scaleAsset, WHITE);
+  } else {
     ClearBackground(BLACK);
+  }
+  _boxWidth = 600;
+  _boxHeight = 300;
+  _boxX = (SCREEN_WIDTH - _boxWidth) / 2;
+  _boxY = (SCREEN_HEIGHT - _boxHeight) / 2;
+  DrawRectangleRounded({ (float)_boxX, (float)_boxY, (float)_boxWidth, (float)_boxHeight }, 0.2f, 10, LIGHTGRAY);
 
-    _boxWidth = 600;
-    _boxHeight = 300;
-    _boxX = (SCREEN_WIDTH - _boxWidth) / 2;
-    _boxY = (SCREEN_HEIGHT - _boxHeight) / 2;
-    DrawRectangleRounded({ (float)_boxX, (float)_boxY, (float)_boxWidth, (float)_boxHeight }, 0.2f, 10, LIGHTGRAY);
+  _title = "ZAPPY GAME";
+  _titleFontSize = 50;
+  _titleTextWidth = MeasureText(_title, _titleFontSize);
+  DrawText(_title,
+            SCREEN_WIDTH / 2 - _titleTextWidth / 2,
+            _boxY + 40,
+            _titleFontSize,
+            DARKGREEN);
 
-    _title = "ZAPPY GAME";
-    _titleFontSize = 50;
-    _titleTextWidth = MeasureText(_title, _titleFontSize);
-    DrawText(_title,
-             SCREEN_WIDTH / 2 - _titleTextWidth / 2,
-             _boxY + 40,
-             _titleFontSize,
-             DARKGREEN);
-
-    _subtitle = "Press ENTER to start";
-    _subtitleFontSize = 24;
-    _subtitleTextWidth = MeasureText(_subtitle, _subtitleFontSize);
-    DrawText(_subtitle,
-             SCREEN_WIDTH / 2 - _subtitleTextWidth / 2,
-             _boxY + _boxHeight - 70,
-             _subtitleFontSize,
-             DARKGRAY);
+  _subtitle = "Press ENTER to start";
+  _subtitleFontSize = 24;
+  _subtitleTextWidth = MeasureText(_subtitle, _subtitleFontSize);
+  DrawText(_subtitle,
+            SCREEN_WIDTH / 2 - _subtitleTextWidth / 2,
+            _boxY + _boxHeight - 70,
+            _subtitleFontSize,
+            DARKGRAY);
 }
 
 void gui::GameEngine::renderGameplayScreen() {

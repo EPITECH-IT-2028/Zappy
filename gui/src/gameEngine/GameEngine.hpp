@@ -141,5 +141,15 @@ namespace gui {
 
       int _loadingFontSize;
       int _loadingWidth;
+
+      Texture _backgroundLogo;
+      void loadResources();
+      
+      void dimensionAsset();
+      float _scaleAsset;
+      float _texWidthAsset;
+      float _texHeightAsset;
+      float _xAsset;
+      float _yAsset;
   };
 }  // namespace gui
