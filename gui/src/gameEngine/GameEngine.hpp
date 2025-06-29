@@ -116,5 +116,30 @@ namespace gui {
       Shader _lightingShader;
       Light _lights[2];
       int _ambientLoc;
+
+      // Title Screen
+      int _boxWidth;
+      int _boxHeight;
+      int _boxX;
+      int _boxY;
+
+      const char* _title;
+      int _titleFontSize;
+      int _titleTextWidth;
+
+      const char* _subtitle;
+      int _subtitleFontSize;
+      int _subtitleTextWidth;
+
+      // Wait screen
+      const char* _logoText;
+      int _fontSize;
+      int _textWidth;
+
+      int _dots;
+      std::string _loadingText;
+
+      int _loadingFontSize;
+      int _loadingWidth;
   };
 }  // namespace gui

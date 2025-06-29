@@ -186,14 +186,57 @@ void gui::GameEngine::processNetworkMessages() {
 }
 
 void gui::GameEngine::renderLogoScreen() {
-  DrawText("LOGO SCREEN", 20, 20, 40, LIGHTGRAY);
-  DrawText("Fake loading... Please wait 2 seconds.", 230, 220, 20, GRAY);
+    ClearBackground(BLACK);
+
+    _logoText = "ZAPPY";
+    _fontSize = 60;
+    _textWidth = MeasureText(_logoText, _fontSize);
+    DrawText(_logoText,
+             SCREEN_WIDTH / 2 - _textWidth / 2,
+             SCREEN_HEIGHT / 2 - 100,
+             _fontSize,
+             DARKGREEN);
+
+    _dots = (int)(GetTime() * 2) % 4;
+    _loadingText = "Loading";
+    for (int i = 0; i < _dots; ++i)
+        _loadingText += ".";
+
+    _loadingFontSize = 24;
+    _loadingWidth = MeasureText(_loadingText.c_str(), _loadingFontSize);
+    DrawText(_loadingText.c_str(),
+             SCREEN_WIDTH / 2 - _loadingWidth / 2,
+             SCREEN_HEIGHT / 2 + 40,
+             _loadingFontSize,
+             LIGHTGRAY);
 }
 
 void gui::GameEngine::renderTitleScreen() {
-  DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, GREEN);
-  DrawText("TITLE SCREEN", 20, 20, 40, DARKGREEN);
-  DrawText("PRESS ENTER to JUMP to GAMEPLAY SCREEN", 120, 220, 20, DARKGREEN);
+    ClearBackground(BLACK);
+
+    _boxWidth = 600;
+    _boxHeight = 300;
+    _boxX = (SCREEN_WIDTH - _boxWidth) / 2;
+    _boxY = (SCREEN_HEIGHT - _boxHeight) / 2;
+    DrawRectangleRounded({ (float)_boxX, (float)_boxY, (float)_boxWidth, (float)_boxHeight }, 0.2f, 10, LIGHTGRAY);
+
+    _title = "ZAPPY GAME";
+    _titleFontSize = 50;
+    _titleTextWidth = MeasureText(_title, _titleFontSize);
+    DrawText(_title,
+             SCREEN_WIDTH / 2 - _titleTextWidth / 2,
+             _boxY + 40,
+             _titleFontSize,
+             DARKGREEN);
+
+    _subtitle = "Press ENTER to start";
+    _subtitleFontSize = 24;
+    _subtitleTextWidth = MeasureText(_subtitle, _subtitleFontSize);
+    DrawText(_subtitle,
+             SCREEN_WIDTH / 2 - _subtitleTextWidth / 2,
+             _boxY + _boxHeight - 70,
+             _subtitleFontSize,
+             DARKGRAY);
 }
 
 void gui::GameEngine::renderGameplayScreen() {
@@ -220,7 +263,7 @@ void gui::GameEngine::renderGameplayScreen() {
   EndMode3D();
 
   drawBroadcastLog();
-  DrawText("GAMEPLAY SCREEN", 20, 20, 40, MAROON);
+  // DrawText("GAMEPLAY SCREEN", 20, 20, 40, MAROON);
 }
 
 void gui::GameEngine::renderEndingScreen() {
