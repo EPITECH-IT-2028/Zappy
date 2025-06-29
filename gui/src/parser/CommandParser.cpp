@@ -139,29 +139,30 @@ parser::PlayerDeath parser::CommandParser::parsePdi(
   return PlayerDeath(id);
 }
 
-parser::Incantation parser::CommandParser::parsePic(
-    const std::string &command) {
+parser::Incantation parser::CommandParser::parsePic(const std::string &command) {
   int x, y, level;
   std::vector<int> playersNumber;
 
-  int result = std::sscanf(command.c_str(), "pic %d #%d #%d", &x, &y, &level);
+  int result = std::sscanf(command.c_str(), "pic %d %d %d", &x, &y, &level);
   if (result != 3) {
     throw std::runtime_error("Invalid pic command format");
   }
 
   std::istringstream iss(command);
   std::string token;
-  iss >> token;
 
   iss >> token;
   iss >> token;
   iss >> token;
+  iss >> token;
+
   while (iss >> token) {
     if (token[0] == '#') {
       int playerId = std::stoi(token.substr(1));
       playersNumber.push_back(playerId);
     }
   }
+
   return Incantation(x, y, level, playersNumber);
 }
 
