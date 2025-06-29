@@ -63,7 +63,7 @@ void gui::GameEngine::initialize() {
   try {
     loadModels();
     loadShaders();
-    loadResources();
+    loadBackgrounds();
 
   } catch (const std::exception &e) {
     std::cerr << "Resource initialization failed: " << e.what() << std::endl;
@@ -202,7 +202,7 @@ void gui::GameEngine::processNetworkMessages() {
   }
 }
 
-void gui::GameEngine::loadResources() {
+void gui::GameEngine::loadBackgrounds() {
   if (!FileExists("resources/MarioBack.png")) {
     std::cerr << "Error: Background logo image not found.\n";
     throw std::runtime_error("Failed to load texture: resources/MarioBack.png");
@@ -290,6 +290,7 @@ void gui::GameEngine::renderGameplayScreen() {
   BeginShaderMode(_lightingShader);
 
   drawMap(&resourceCount);
+  
   drawPlayers();
   for (const auto &info : resourceCount) {
     Vector3 worldPos = info.first;

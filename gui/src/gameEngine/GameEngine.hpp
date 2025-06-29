@@ -161,7 +161,7 @@ namespace gui {
       int _loadingWidth;
 
       Texture _backgroundLogo;
-      void loadResources();
+      void loadBackgrounds();
 
       void dimensionAsset();
       float _scaleAsset;
@@ -169,5 +169,9 @@ namespace gui {
       float _texHeightAsset;
       float _xAsset;
       float _yAsset;
+
+      std::vector<gui::IncantationEffect> _incantationEffects;
+
+      Texture _backgroundTexture;
   };
 }  // namespace gui

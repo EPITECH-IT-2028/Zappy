@@ -1,4 +1,5 @@
 #pragma once
+#include "IncantationsEffect.hpp"
 
 constexpr int TILE_SIZE = 64;
 constexpr float BORDER_THICKNESS = 4.0f;
@@ -22,6 +23,8 @@ namespace gui {
       void showPushEffect(int playerId);
 
       void update(float deltaTime);
-      void draw(int x, int y);
+      void draw3D(int x, int y);
+      std::vector<gui::IncantationEffect> _incantationEffects;
+
   };
 }  // namespace gui

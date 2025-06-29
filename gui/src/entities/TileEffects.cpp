@@ -1,4 +1,5 @@
 #include "TileEffects.hpp"
+#include <cmath>
 #include <iostream>
 #include "raylib.h"
 
@@ -29,29 +30,29 @@ void gui::TileEffects::showFailureEffect() {
 }
 
 void gui::TileEffects::update(float deltaTime) {
-  if (deltaTime < 0.0f) {
-    std::cerr << "Warning: Negative deltaTime in TileEffects update\n";
-    return;
-  }
-  if (showResultEffect) {
-    effectTimer -= deltaTime;
-    if (effectTimer <= 0.0f) {
-      showResultEffect = false;
+  for (auto &inc : _incantationEffects) {
+    if (inc.finished) continue;
+
+    inc.timeSinceStart += deltaTime;
+    if (inc.timeSinceStart > 3.0f) {
+        inc.finished = true;
     }
+}
+}
+
+void gui::TileEffects::draw3D(int x, int y) {
+  if (incantationInProgress) {
+    float time = GetTime();
+    float height = 1.0f + 0.2f * sinf(time * 4.0f);
+    float radius = 0.4f + 0.05f * sinf(time * 3.0f);
+
+    Color effectColor = Fade(PURPLE, 0.6f);
+    Vector3 position = { (float)x + 0.5f, 0.0f, (float)y + 0.5f };
+
+    DrawCylinder(position, radius, radius, height, 16, effectColor);
   }
 }
 
-void gui::TileEffects::draw(int x, int y) {
-  if (incantationInProgress) {
-    DrawRectangle(x, y, TILE_SIZE, TILE_SIZE, Fade(PURPLE, 0.3f));
-  }
-  if (showResultEffect) {
-    Color color = resultSuccess ? GREEN : RED;
-    DrawRectangleLinesEx(
-        {(float)x, (float)y, (float)TILE_SIZE, (float)TILE_SIZE},
-        BORDER_THICKNESS, color);
-  }
-}
 
 void gui::TileEffects::showForkEffect() {
   // TODO: Add fork effect (e.g., show an egg sprite)
