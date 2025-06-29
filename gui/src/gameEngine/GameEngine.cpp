@@ -696,7 +696,7 @@ bool gui::GameEngine::getTileUnderMouse(float mapWidth, float mapHeight,
       BoundingBox box = {(Vector3){pos.x - brickSpacing / 2.0f, pos.y,
                                    pos.z - brickSpacing / 2.0f},
                          (Vector3){pos.x + brickSpacing / 2.0f,
-                                   pos.y + BRICK_SPACING * this->worldScale,
+                                   pos.y + BRICK_SPACING * worldScale,
                                    pos.z + brickSpacing / 2.0f}};
       RayCollision hit = GetRayCollisionBox(ray, box);
       if (hit.hit && hit.distance < minDist) {
