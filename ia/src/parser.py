@@ -1,9 +1,26 @@
+"""
+@file: parser.py
+@brief: Zappy AI client command line argument parser
+"""
+
 import sys
 
 from utils import exit_error
 from models import iaParser
 
 def ia_parser(argv: list[str]) -> iaParser or None:
+    """
+    @brief Parses command line arguments for the Zappy AI client
+    @param argv: List of command line arguments
+    @return: iaParser object containing parsed arguments or None on error
+
+    @details This function processes the command line arguments to extract the port,
+    team name, and machine address. It validates the inputs and returns an iaParser
+    object with the parsed values. If any argument is invalid or missing, it exits
+    with an error message.
+    @raises ValueError: If any argument is invalid or missing
+    """
+    
     try:
         port = None
         name = None
