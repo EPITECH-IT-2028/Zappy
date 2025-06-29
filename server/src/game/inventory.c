@@ -9,6 +9,17 @@
 #include "server.h"
 #include <stdio.h>
 
+/**
+ * @brief Handle the inventory command to display player's resources
+ *
+ * This function creates a formatted string containing all the resources
+ * in the player's inventory and adds it to the response.
+ *
+ * @param server Pointer to the server structure
+ * @param response Pointer to the response structure to fill
+ * @param request Pointer to the client request
+ * @return SUCCESS on successful inventory display, ERROR on failure
+ */
 int handle_inventory(server_t *server, response_t *response,
     request_t *request)
 {

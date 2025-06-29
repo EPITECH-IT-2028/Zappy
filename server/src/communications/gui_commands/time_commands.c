@@ -11,6 +11,15 @@
 #include <string.h>
 #include <stdlib.h>
 
+/**
+ * @brief Send current server time frequency to a GUI client
+ *
+ * This function sends the current server frequency setting to
+ * the specified GUI client using the sgt command format.
+ *
+ * @param server Pointer to the server structure
+ * @param index Index of the GUI client to send to
+ */
 static
 void send_time(server_t *server, int index)
 {
@@ -21,6 +30,16 @@ void send_time(server_t *server, int index)
     send_code(server->clients[index]->fd, response);
 }
 
+/**
+ * @brief Modify server time frequency based on GUI command
+ *
+ * This function validates and sets a new server frequency value,
+ * then sends confirmation or error response to the GUI client.
+ *
+ * @param server Pointer to the server structure
+ * @param index Index of the GUI client sending the command
+ * @param freq New frequency value to set
+ */
 static
 void modify_time(server_t *server, int index, int freq)
 {
@@ -32,6 +51,16 @@ void modify_time(server_t *server, int index, int freq)
     send_time(server, index);
 }
 
+/**
+ * @brief Handle time-related commands from GUI clients
+ *
+ * This function processes time commands (sgt, sst) from GUI clients
+ * and sends appropriate responses or modifies server settings.
+ *
+ * @param server Pointer to the server structure
+ * @param index Index of the GUI client sending the command
+ * @param buffer Command string to process
+ */
 void time_commands(server_t *server, int index, char *buffer)
 {
     int freq;

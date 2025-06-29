@@ -12,6 +12,16 @@
 #include <string.h>
 #include <unistd.h>
 
+/**
+ * @brief Execute a pending action for a client
+ *
+ * This function removes an action from the client's queue and
+ * executes it, sending the response back to the client.
+ *
+ * @param server Pointer to the server structure
+ * @param client Pointer to the client executing the action
+ * @param action Pointer to the pending action to execute
+ */
 static
 void execute_pending_action(server_t *server, client_t *client,
     pending_action_t *action)
@@ -34,6 +44,15 @@ void execute_pending_action(server_t *server, client_t *client,
     free(action);
 }
 
+/**
+ * @brief Process pending actions for a client based on timing
+ *
+ * This function checks if a client has pending actions ready to
+ * execute based on their scheduled execution time.
+ *
+ * @param server Pointer to the server structure
+ * @param client Pointer to the client to process
+ */
 static
 void process_client_actions(server_t *server, client_t *client)
 {
@@ -58,6 +77,15 @@ void process_client_actions(server_t *server, client_t *client)
     }
 }
 
+/**
+ * @brief Process pending responses for a client
+ *
+ * This function checks if a client has pending responses and
+ * adds them to the response queue for transmission.
+ *
+ * @param server Pointer to the server structure
+ * @param client Pointer to the client to process responses for
+ */
 static
 void process_client_response(server_t *server, client_t *client)
 {
@@ -77,6 +105,15 @@ void process_client_response(server_t *server, client_t *client)
     }
 }
 
+/**
+ * @brief Handle incantation completion for a client
+ *
+ * This function processes incantation completion when a client
+ * finishes their incantation cooldown period.
+ *
+ * @param server Pointer to the server structure
+ * @param client Pointer to the client performing incantation
+ */
 static
 void handle_incantation(server_t *server, client_t *client)
 {
@@ -99,6 +136,14 @@ void handle_incantation(server_t *server, client_t *client)
         check_if_queue_is_full(server, &completion_response);
 }
 
+/**
+ * @brief Process all connected clients for game logic
+ *
+ * This function iterates through all connected non-graphic clients
+ * and processes their actions, responses, and incantations.
+ *
+ * @param server Pointer to the server structure
+ */
 static
 void process_all_clients(server_t *server)
 {
@@ -123,6 +168,15 @@ void process_all_clients(server_t *server)
     pthread_mutex_unlock(&server->clients_mutex);
 }
 
+/**
+ * @brief Main game loop thread function
+ *
+ * This function runs the main game loop, processing clients and
+ * handling time-based events until the server stops running.
+ *
+ * @param arg Pointer to the server structure (cast from void*)
+ * @return NULL when the game loop exits
+ */
 static
 void *game(void *arg)
 {

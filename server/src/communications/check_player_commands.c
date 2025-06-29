@@ -11,6 +11,15 @@
 #include <pthread.h>
 #include <stdlib.h>
 
+/**
+ * @brief Check if a command string is valid
+ *
+ * This function validates if the provided command is in the list
+ * of accepted game commands.
+ *
+ * @param buffer Command string to validate
+ * @return true if command is valid, false otherwise
+ */
 static
 bool check_commands(const char *buffer)
 {
@@ -27,6 +36,15 @@ bool check_commands(const char *buffer)
     return false;
 }
 
+/**
+ * @brief Count number of pending actions in client's queue
+ *
+ * This function safely counts the number of actions waiting
+ * in a client's action queue using mutex protection.
+ *
+ * @param client Pointer to the client structure
+ * @return Number of pending actions in the queue
+ */
 static
 int count_client_actions(client_t *client)
 {
@@ -45,6 +63,16 @@ int count_client_actions(client_t *client)
     return count;
 }
 
+/**
+ * @brief Validate and queue player commands
+ *
+ * This function validates player commands, checks queue limits,
+ * and adds valid commands to the client's action queue.
+ *
+ * @param server Pointer to the server structure
+ * @param index Index of the client in the server's client array
+ * @param buffer Command string to process
+ */
 void check_player_command(server_t *server, int index, const char *buffer)
 {
     client_t *client = server->clients[index];

@@ -11,6 +11,15 @@
 #include <string.h>
 #include <stdio.h>
 
+/**
+ * @brief Send map size information to a GUI client
+ *
+ * This function sends the map dimensions (width and height) to
+ * the specified GUI client using the msz command format.
+ *
+ * @param server Pointer to the server structure
+ * @param index Index of the GUI client to send to
+ */
 static
 void send_map_size(server_t *server, int index)
 {
@@ -21,6 +30,15 @@ void send_map_size(server_t *server, int index)
     send_code(server->clients[index]->fd, response);
 }
 
+/**
+ * @brief Send complete map content to a GUI client
+ *
+ * This function sends the resource content of every tile on the map
+ * to the specified GUI client using bct command format.
+ *
+ * @param server Pointer to the server structure
+ * @param index Index of the GUI client to send to
+ */
 static
 void send_map_content(server_t *server, int index)
 {
@@ -45,6 +63,17 @@ void send_map_content(server_t *server, int index)
     }
 }
 
+/**
+ * @brief Send content of a specific tile to a GUI client
+ *
+ * This function sends the resource content of a specific tile
+ * to the GUI client using bct command format.
+ *
+ * @param server Pointer to the server structure
+ * @param index Index of the GUI client to send to
+ * @param x X coordinate of the tile
+ * @param y Y coordinate of the tile
+ */
 static
 void send_index_content(server_t *server, int index, int x, int y)
 {
@@ -62,6 +91,16 @@ void send_index_content(server_t *server, int index, int x, int y)
     send_code(server->clients[index]->fd, response);
 }
 
+/**
+ * @brief Handle map-related commands from GUI clients
+ *
+ * This function processes map commands (msz, mct, bct) from GUI clients
+ * and sends appropriate responses with map information.
+ *
+ * @param server Pointer to the server structure
+ * @param index Index of the GUI client sending the command
+ * @param buffer Command string to process
+ */
 void map_commands(server_t *server, int index, char *buffer)
 {
     int x = 0;

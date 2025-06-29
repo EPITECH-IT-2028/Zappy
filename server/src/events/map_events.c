@@ -8,6 +8,16 @@
 #include "server.h"
 #include "utils.h"
 
+/**
+ * @brief Send bct (tile content) message to all graphic clients
+ *
+ * This function formats a message containing the coordinates and
+ * resource contents of a specific map tile.
+ *
+ * @param server Pointer to the server instance containing client list
+ * @param x X coordinate of the tile
+ * @param y Y coordinate of the tile
+ */
 void send_bct(server_t *server, int x, int y)
 {
     char response[BUFFER_SIZE];

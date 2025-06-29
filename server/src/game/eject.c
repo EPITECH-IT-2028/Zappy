@@ -9,6 +9,15 @@
 #include "server.h"
 #include <stdlib.h>
 
+/**
+ * @brief Get the direction offset for ejecting players
+ *
+ * This function returns the x and y offset coordinates based on
+ * the ejector's facing direction for moving ejected players.
+ *
+ * @param direction The direction the ejector is facing
+ * @return Direction offset structure with x and y coordinates
+ */
 static
 direction_offset_t get_eject_offset(direction_t direction)
 {
@@ -34,6 +43,17 @@ direction_offset_t get_eject_offset(direction_t direction)
     return offset;
 }
 
+/**
+ * @brief Destroy all eggs on a tile and send notifications
+ *
+ * This function removes all eggs from a tile and sends egg destroyed
+ * notifications to all connected clients.
+ *
+ * @param server Pointer to the server structure
+ * @param x X coordinate of the tile
+ * @param y Y coordinate of the tile
+ * @return SUCCESS if eggs were destroyed, ERROR if no eggs present
+ */
 static
 int destroy_egg(server_t *server, int x, int y)
 {
@@ -46,6 +66,17 @@ int destroy_egg(server_t *server, int x, int y)
     return SUCCESS;
 }
 
+/**
+ * @brief Initialize list of players to be ejected from a tile
+ *
+ * This function creates an array of players to eject, excluding
+ * the ejector from the list of players on the tile.
+ *
+ * @param tile Pointer to the map tile containing players
+ * @param count_to_eject Pointer to store the number of players to eject
+ * @param ejector Pointer to the client performing the eject
+ * @return Array of players to eject, or NULL if none or on error
+ */
 static
 client_t **init_players_to_eject(map_t *tile, int *count_to_eject,
     client_t *ejector)
@@ -65,6 +96,18 @@ client_t **init_players_to_eject(map_t *tile, int *count_to_eject,
     return players_to_eject;
 }
 
+/**
+ * @brief Knockback players from a tile in the ejector's direction
+ *
+ * This function moves all players (except the ejector) from a tile
+ * to an adjacent tile based on the ejector's facing direction.
+ *
+ * @param server Pointer to the server structure
+ * @param ejector Pointer to the client performing the eject
+ * @param x X coordinate of the tile to eject from
+ * @param y Y coordinate of the tile to eject from
+ * @return SUCCESS on successful ejection, ERROR on failure
+ */
 static
 int knockback_players(server_t *server, client_t *ejector, int x, int y)
 {
@@ -90,6 +133,17 @@ int knockback_players(server_t *server, client_t *ejector, int x, int y)
     return SUCCESS;
 }
 
+/**
+ * @brief Send appropriate response based on eject action results
+ *
+ * This function sends "ok" if eggs or players were ejected,
+ * otherwise sends "ko" if nothing was affected by the eject.
+ *
+ * @param response Pointer to the response structure to fill
+ * @param has_eggs Boolean indicating if eggs were destroyed
+ * @param has_players Boolean indicating if players were ejected
+ * @return SUCCESS on successful response, ERROR on failure
+ */
 static
 int send_correct_response(response_t *response, bool has_eggs,
     bool has_players)
@@ -105,6 +159,17 @@ int send_correct_response(response_t *response, bool has_eggs,
     return SUCCESS;
 }
 
+/**
+ * @brief Handle the eject command from a client
+ *
+ * This function processes an eject command by destroying eggs and
+ * ejecting players from the client's current tile.
+ *
+ * @param server Pointer to the server structure
+ * @param response Pointer to the response structure to fill
+ * @param request Pointer to the client request
+ * @return SUCCESS on successful eject handling, ERROR on failure
+ */
 int handle_eject(server_t *server, response_t *response, request_t *request)
 {
     int x = request->client->data.x;

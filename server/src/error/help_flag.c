@@ -10,6 +10,14 @@
 #include "server.h"
 #include "macro.h"
 
+/**
+ * @brief Display usage information for the Zappy server
+ *
+ * This function prints the correct usage syntax for the server
+ * including all required parameters and their descriptions.
+ *
+ * @return ERROR to indicate program should exit after showing help
+ */
 int help_flag(void)
 {
     printf(

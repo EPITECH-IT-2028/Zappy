@@ -8,6 +8,15 @@
 #include "server.h"
 #include "utils.h"
 
+/**
+ * @brief Send pin (player inventory) message to all graphic clients
+ *
+ * This function formats a message containing the player's ID,
+ * position, and complete inventory contents.
+ *
+ * @param server Pointer to the server instance containing client list
+ * @param index Index of the client in the server's client array
+ */
 void send_pin(server_t *server, int index)
 {
     client_t *client = server->clients[index];
@@ -29,6 +38,15 @@ void send_pin(server_t *server, int index)
     }
 }
 
+/**
+ * @brief Send ppo (player position) message to all graphic clients
+ *
+ * This function formats a message containing the player's ID,
+ * coordinates, and facing direction.
+ *
+ * @param server Pointer to the server instance containing client list
+ * @param client Pointer to the client whose position to send
+ */
 void send_ppo(server_t *server, client_t *client)
 {
     char response[BUFFER_SIZE];

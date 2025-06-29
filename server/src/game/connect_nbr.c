@@ -10,6 +10,17 @@
 #include "utils.h"
 #include <stdio.h>
 
+/**
+ * @brief Handle the connect_nbr command to get remaining team slots
+ *
+ * This function calculates and returns the number of remaining
+ * connection slots available for the client's team.
+ *
+ * @param server Pointer to the server structure
+ * @param response Pointer to the response structure to fill
+ * @param request Pointer to the client request
+ * @return SUCCESS on success, ERROR on failure
+ */
 int handle_connect_nbr(server_t *server, response_t *response,
     request_t *request)
 {

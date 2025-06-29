@@ -14,6 +14,15 @@
 #include <string.h>
 #include <stdlib.h>
 
+/**
+ * @brief Accept and initialize a new client connection
+ *
+ * This function handles new client acceptance by finding an available
+ * slot, allocating memory, and initializing client structures.
+ *
+ * @param server Pointer to the server structure
+ * @param client_fd File descriptor of the new client connection
+ */
 static
 void accept_client(server_t *server, int client_fd)
 {
@@ -37,6 +46,15 @@ void accept_client(server_t *server, int client_fd)
     init_fds(server, index, client_fd);
 }
 
+/**
+ * @brief Handle new incoming client connections
+ *
+ * This function checks for new connections on the server socket,
+ * accepts them, and sends a welcome message to new clients.
+ *
+ * @param server Pointer to the server structure
+ * @return 0 on success, ERROR on failure
+ */
 int get_new_connection(server_t *server)
 {
     struct sockaddr_in addr;
