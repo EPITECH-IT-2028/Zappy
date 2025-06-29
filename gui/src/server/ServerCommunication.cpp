@@ -10,6 +10,12 @@
 #include <stdexcept>
 #include <string>
 
+/**
+ * @brief Constructs a ServerCommunication object and initializes member variables.
+ *
+ * @param port The port to connect to.
+ * @param hostname The hostname or IP address to connect to.
+ */
 network::ServerCommunication::ServerCommunication(int port,
                                                   const std::string &hostname)
     : _clientFd(-1),
@@ -20,6 +26,9 @@ network::ServerCommunication::ServerCommunication(int port,
   std::memset(&_serverAddr, 0, sizeof(_serverAddr));
 }
 
+/**
+ * @brief Destructor. Closes the client socket if it is open and resets connection state.
+ */
 network::ServerCommunication::~ServerCommunication() {
   if (_clientFd != -1) {
     close(_clientFd);
@@ -28,10 +37,18 @@ network::ServerCommunication::~ServerCommunication() {
   _connected = false;
 }
 
+/**
+ * @brief Checks if the client is currently connected to the server.
+ * @return true if connected, false otherwise.
+ */
 bool network::ServerCommunication::isConnected() const noexcept {
   return _connected;
 }
 
+/**
+ * @brief Creates the client socket.
+ * @throws std::runtime_error if socket creation fails.
+ */
 void network::ServerCommunication::createSocket() {
   _clientFd = socket(AF_INET, SOCK_STREAM, 0);
   if (_clientFd == -1)
@@ -39,6 +56,10 @@ void network::ServerCommunication::createSocket() {
                              std::string(strerror(errno)));
 }
 
+/**
+ * @brief Establishes the connection to the server using the provided hostname and port.
+ * @throws std::runtime_error if the address is invalid or connection fails.
+ */
 void network::ServerCommunication::establishConnection() {
   _serverAddr.sin_family = AF_INET;
   _serverAddr.sin_port = htons(_port);
@@ -53,6 +74,10 @@ void network::ServerCommunication::establishConnection() {
   _connected = true;
 }
 
+/**
+ * @brief Connects to the server by creating a socket and establishing a connection.
+ * @return true if the connection was successful, false otherwise.
+ */
 bool network::ServerCommunication::connectToServer() {
   try {
     createSocket();
@@ -65,6 +90,12 @@ bool network::ServerCommunication::connectToServer() {
   }
 }
 
+/**
+ * @brief Sends a message to the server.
+ *
+ * @param message The message to send.
+ * @throws std::runtime_error if not connected to the server or if sending fails.
+ */
 void network::ServerCommunication::sendMessage(const std::string &message) {
   if (!_connected || _clientFd == -1)
     throw std::runtime_error("Not connected to server");
@@ -86,6 +117,13 @@ void network::ServerCommunication::sendMessage(const std::string &message) {
   std::cout << "Sent to server: " << message;
 }
 
+/**
+ * @brief Receives a message from the server. This function will block until a message is received.
+ *
+ * @return The received message.
+ * @throws std::runtime_error if not connected to the server, if receiving fails,
+ * or if the connection is closed by the server.
+ */
 std::string network::ServerCommunication::receiveMessage() {
   if (!_connected || _clientFd == -1)
     throw std::runtime_error("Not connected to server");
@@ -137,6 +175,10 @@ std::string network::ServerCommunication::receiveMessage() {
   return "";
 }
 
+/**
+ * @brief Checks if there is incoming data from the server.
+ * @return true if there is incoming data, false otherwise.
+ */
 bool network::ServerCommunication::hasIncomingData() {
   if (!_connected || _clientFd == -1)
     return false;

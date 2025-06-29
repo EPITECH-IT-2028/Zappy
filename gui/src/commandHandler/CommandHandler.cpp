@@ -7,6 +7,12 @@
 #include "entities/Player.hpp"
 #include "parser/CommandParser.hpp"
 
+/**
+ * @brief Handles the 'msz' command (map size update).
+ *
+ * Parses the map size from the command and resizes the game map.
+ * @param command The command string received from the server.
+ */
 void handlecommand::CommandHandler::handleMsz(const std::string& command) {
   try {
     parser::MapSize mapSize = parser::CommandParser::parseMsz(command);
@@ -16,6 +22,12 @@ void handlecommand::CommandHandler::handleMsz(const std::string& command) {
   }
 }
 
+/**
+ * @brief Handles the 'sgt' command (time unit update).
+ *
+ * Parses the time unit from the command and updates the game state.
+ * @param command The command string received from the server.
+ */
 void handlecommand::CommandHandler::handleSgt(const std::string& command) {
   try {
     parser::TimeUnit timeUnit = parser::CommandParser::parseSgt(command);
@@ -27,6 +39,12 @@ void handlecommand::CommandHandler::handleSgt(const std::string& command) {
   }
 }
 
+/**
+ * @brief Handles the 'tna' command (team names update).
+ *
+ * Parses team names from the command and updates the game state.
+ * @param command The command string received from the server.
+ */
 void handlecommand::CommandHandler::handleTna(const std::string& command) {
   try {
     parser::TeamNames teamNames = parser::CommandParser::parseTna(command);
@@ -43,6 +61,12 @@ void handlecommand::CommandHandler::handleTna(const std::string& command) {
   }
 }
 
+/**
+ * @brief Handles the 'bct' command (tile resource update).
+ *
+ * Updates the resources on a specific tile based on the command.
+ * @param command The command string received from the server.
+ */
 void handlecommand::CommandHandler::handleBct(const std::string& command) {
   try {
     parser::TileUpdate update = parser::CommandParser::parseBct(command);
@@ -55,6 +79,12 @@ void handlecommand::CommandHandler::handleBct(const std::string& command) {
   }
 }
 
+/**
+ * @brief Handles the 'pnw' command (new player).
+ *
+ * Adds a new player to the game state and updates the tile.
+ * @param command The command string received from the server.
+ */
 void handlecommand::CommandHandler::handlePnw(const std::string& command) {
   try {
     parser::PlayerInfo playerInfo = parser::CommandParser::parsePnw(command);
@@ -74,6 +104,12 @@ void handlecommand::CommandHandler::handlePnw(const std::string& command) {
   }
 }
 
+/**
+ * @brief Handles the 'ppo' command (player position update).
+ *
+ * Updates a player's position and orientation in the game state.
+ * @param command The command string received from the server.
+ */
 void handlecommand::CommandHandler::handlePpo(const std::string& command) {
   try {
     parser::PlayerPositionUpdate update =
@@ -105,6 +141,12 @@ void handlecommand::CommandHandler::handlePpo(const std::string& command) {
   }
 }
 
+/**
+ * @brief Handles the 'plv' command (player level update).
+ *
+ * Updates a player's level in the game state.
+ * @param command The command string received from the server.
+ */
 void handlecommand::CommandHandler::handlePlv(const std::string& command) {
   try {
     parser::PlayerLevelUpdate update = parser::CommandParser::parsePlv(command);
@@ -120,6 +162,12 @@ void handlecommand::CommandHandler::handlePlv(const std::string& command) {
   }
 }
 
+/**
+ * @brief Handles the 'pin' command (player inventory update).
+ *
+ * Updates a player's inventory and position in the game state.
+ * @param command The command string received from the server.
+ */
 void handlecommand::CommandHandler::handlePin(const std::string& command) {
   try {
     parser::PlayerInventory inventory =
@@ -141,6 +189,12 @@ void handlecommand::CommandHandler::handlePin(const std::string& command) {
   }
 }
 
+/**
+ * @brief Handles the 'enw' command (egg laid event).
+ *
+ * Adds a new egg to the game state and updates the tile.
+ * @param command The command string received from the server.
+ */
 void handlecommand::CommandHandler::handleEnw(const std::string& command) {
   try {
     parser::EggLaid eggLaid = parser::CommandParser::parseEnw(command);
@@ -169,6 +223,12 @@ void handlecommand::CommandHandler::handleEnw(const std::string& command) {
   }
 }
 
+/**
+ * @brief Removes an egg from the game state by its ID.
+ *
+ * Updates the tile and removes the egg from the eggs map.
+ * @param eggId The ID of the egg to remove.
+ */
 void handlecommand::CommandHandler::removeEgg(int eggId) {
   auto eggIt = _gameState.eggs.find(eggId);
   if (eggIt == _gameState.eggs.end()) {
@@ -182,6 +242,12 @@ void handlecommand::CommandHandler::removeEgg(int eggId) {
   _gameState.eggs.erase(eggIt);
 }
 
+/**
+ * @brief Handles the 'ebo' command (egg hatch event).
+ *
+ * Removes the hatched egg from the game state.
+ * @param command The command string received from the server.
+ */
 void handlecommand::CommandHandler::handleEbo(const std::string& command) {
   try {
     parser::EggHatch eggHatch = parser::CommandParser::parseEbo(command);
@@ -191,6 +257,12 @@ void handlecommand::CommandHandler::handleEbo(const std::string& command) {
   }
 }
 
+/**
+ * @brief Handles the 'edi' command (egg death event).
+ *
+ * Removes the dead egg from the game state.
+ * @param command The command string received from the server.
+ */
 void handlecommand::CommandHandler::handleEdi(const std::string& command) {
   try {
     parser::EggDeath eggDie = parser::CommandParser::parseEdi(command);
@@ -200,6 +272,12 @@ void handlecommand::CommandHandler::handleEdi(const std::string& command) {
   }
 }
 
+/**
+ * @brief Handles the 'pdi' command (player death event).
+ *
+ * Removes the player from the game state and updates the tile.
+ * @param command The command string received from the server.
+ */
 void handlecommand::CommandHandler::handlePdi(const std::string& command) {
   try {
     parser::PlayerDeath playerDeath = parser::CommandParser::parsePdi(command);
@@ -223,6 +301,12 @@ void handlecommand::CommandHandler::handlePdi(const std::string& command) {
   }
 }
 
+/**
+ * @brief Handles the 'pic' command (incantation start event).
+ *
+ * Starts an incantation effect on the specified tile and adds it to the active incantations.
+ * @param command The command string received from the server.
+ */
 void handlecommand::CommandHandler::handlePic(const std::string& command) {
   try {
     parser::Incantation incantation = parser::CommandParser::parsePic(command);
@@ -248,6 +332,12 @@ void handlecommand::CommandHandler::handlePic(const std::string& command) {
   }
 }
 
+/**
+ * @brief Handles the 'pie' command (incantation end event).
+ *
+ * Stops the incantation effect and shows the result on the tile.
+ * @param command The command string received from the server.
+ */
 void handlecommand::CommandHandler::handlePie(const std::string& command) {
   try {
     parser::IncantationEnd pie = parser::CommandParser::parsePie(command);
@@ -277,6 +367,12 @@ void handlecommand::CommandHandler::handlePie(const std::string& command) {
   }
 }
 
+/**
+ * @brief Handles the 'pfk' command (fork event).
+ *
+ * Shows a fork effect on the player's tile.
+ * @param command The command string received from the server.
+ */
 void handlecommand::CommandHandler::handlePfk(const std::string& command) {
   try {
     parser::ForkEvent forkEvent = parser::CommandParser::parsePfk(command);
@@ -305,6 +401,12 @@ void handlecommand::CommandHandler::handlePfk(const std::string& command) {
   }
 }
 
+/**
+ * @brief Handles the 'pdr' command (drop resource event).
+ *
+ * Shows a drop effect for the specified resource on the player's tile.
+ * @param command The command string received from the server.
+ */
 void handlecommand::CommandHandler::handlePdr(const std::string& command) {
   try {
     parser::DropResource drop = parser::CommandParser::parsePdr(command);
@@ -327,6 +429,12 @@ void handlecommand::CommandHandler::handlePdr(const std::string& command) {
   }
 }
 
+/**
+ * @brief Handles the 'pgt' command (collect resource event).
+ *
+ * Shows a collect effect for the specified resource on the player's tile.
+ * @param command The command string received from the server.
+ */
 void handlecommand::CommandHandler::handlePgt(const std::string& command) {
   try {
     parser::CollectResource collect = parser::CommandParser::parsePgt(command);
@@ -349,6 +457,12 @@ void handlecommand::CommandHandler::handlePgt(const std::string& command) {
   }
 }
 
+/**
+ * @brief Handles the 'pex' command (player expulsion event).
+ *
+ * Moves pushed players to new tiles and shows a push effect.
+ * @param command The command string received from the server.
+ */
 void handlecommand::CommandHandler::handlePex(const std::string& command) {
   try {
     parser::PlayerExpulsion expulsion =
@@ -419,6 +533,12 @@ void handlecommand::CommandHandler::handlePex(const std::string& command) {
   }
 }
 
+/**
+ * @brief Handles the 'pbc' command (broadcast event).
+ *
+ * Adds a broadcast message to the game state's log.
+ * @param command The command string received from the server.
+ */
 void handlecommand::CommandHandler::handlePbc(const std::string& command) {
   try {
     parser::BroadcastEvent event = parser::CommandParser::parsePbc(command);
@@ -441,6 +561,12 @@ void handlecommand::CommandHandler::handlePbc(const std::string& command) {
   }
 }
 
+/**
+ * @brief Handles the 'smg' command (server message event).
+ *
+ * Adds a server message to the broadcast log.
+ * @param command The command string received from the server.
+ */
 void handlecommand::CommandHandler::handleSmg(const std::string& command) {
   try {
     parser::ServerMessageEvent event = parser::CommandParser::parseSmg(command);
@@ -453,6 +579,12 @@ void handlecommand::CommandHandler::handleSmg(const std::string& command) {
   }
 }
 
+/**
+ * @brief Handles the 'suc' command (success event).
+ *
+ * Adds a generic success message to the broadcast log.
+ * @param command The command string received from the server.
+ */
 void handlecommand::CommandHandler::handleSuc(const std::string& command) {
   (void)command;
   _gameState.broadcastLog.push_back("Unknown command received by server.");
@@ -461,6 +593,12 @@ void handlecommand::CommandHandler::handleSuc(const std::string& command) {
     _gameState.broadcastLog.erase(_gameState.broadcastLog.begin());
 }
 
+/**
+ * @brief Handles the 'sbp' command (failure event).
+ *
+ * Adds a generic failure message to the broadcast log.
+ * @param command The command string received from the server.
+ */
 void handlecommand::CommandHandler::handleSbp(const std::string& command) {
   (void)command;
   _gameState.broadcastLog.push_back(
@@ -470,6 +608,12 @@ void handlecommand::CommandHandler::handleSbp(const std::string& command) {
     _gameState.broadcastLog.erase(_gameState.broadcastLog.begin());
 }
 
+/**
+ * @brief Handles the 'seg' command (game over event).
+ *
+ * Updates the game state to reflect that the game is over and logs the winning team.
+ * @param command The command string received from the server.
+ */
 void handlecommand::CommandHandler::handleSeg(const std::string& command) {
   try {
     if (_gameState.isGameOver) {
