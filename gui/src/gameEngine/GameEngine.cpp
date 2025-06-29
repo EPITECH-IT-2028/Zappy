@@ -681,6 +681,41 @@ void gui::GameEngine::drawBroadcastLog() {
   }
 }
 
+bool gui::GameEngine::getTileUnderMouse(float mapWidth, float mapHeight,
+                                        float brickSpacing, Vector3 gridOrigin,
+                                        int &tileX, int &tileY) {
+  Ray ray = GetMouseRay(GetMousePosition(), _camera);
+  float minDist = FLT_MAX;
+  bool found = false;
+  int foundX = -1;
+  int foundY = -1;
+
+  for (int y = 0; y < static_cast<int>(mapHeight); ++y) {
+    for (int x = 0; x < static_cast<int>(mapWidth); ++x) {
+      Vector3 pos = {gridOrigin.x + x * brickSpacing, gridOrigin.y,
+                     gridOrigin.z + y * brickSpacing};
+      BoundingBox box = {(Vector3){pos.x - brickSpacing / 2.0f, pos.y,
+                                   pos.z - brickSpacing / 2.0f},
+                         (Vector3){pos.x + brickSpacing / 2.0f,
+                                   pos.y + BRICK_SPACING * this->worldScale,
+                                   pos.z + brickSpacing / 2.0f}};
+      RayCollision hit = GetRayCollisionBox(ray, box);
+      if (hit.hit && hit.distance < minDist) {
+        minDist = hit.distance;
+        found = true;
+        foundX = x;
+        foundY = y;
+      }
+    }
+  }
+  if (found) {
+    tileX = foundX;
+    tileY = foundY;
+    return true;
+  }
+  return false;
+}
+
 void gui::GameEngine::updateTileSelection() {
   float brickSpacing = BRICK_SPACING * worldScale;
   float mapWidth = static_cast<float>(_gameState.map.width);

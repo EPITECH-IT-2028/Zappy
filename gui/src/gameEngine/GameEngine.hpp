@@ -176,5 +176,11 @@ namespace gui {
       float _texHeightAsset;
       float _xAsset;
       float _yAsset;
+
+      void updateTileSelection();
+      void drawTileInfoPanel();
+      bool getTileUnderMouse(float mapWidth, float mapHeight,
+                             float brickSpacing, Vector3 gridOrigin, int &tileX,
+                             int &tileY);
   };
 }  // namespace gui
