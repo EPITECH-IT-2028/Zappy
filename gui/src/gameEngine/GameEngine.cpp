@@ -426,9 +426,17 @@ void gui::GameEngine::drawPlayerShadows() {
                         gridOrigin.y + 1.1f * worldScale,
                         gridOrigin.z + player.y * brickSpacing};
     Vector3 shadowPos = {position.x, gridOrigin.y + 1.1f, position.z};
-    DrawCylinder(shadowPos, PLAYER_SHADOW_RADIUS * worldScale, PLAYER_SHADOW_RADIUS * worldScale, 0.01f, 32,
+    DrawCylinder(shadowPos, PLAYER_SHADOW_RADIUS * worldScale,
+                 PLAYER_SHADOW_RADIUS * worldScale, 0.01f, 32,
                  (Color){0, 0, 0, PLAYER_SHADOW_ALPHA});
   }
+}
+
+Vector3 gui::GameEngine::calculateEggPosition(const gui::Egg &egg,
+                                              const Vector3 &gridOrigin,
+                                              float brickSpacing) const {
+  return {gridOrigin.x + egg.x * brickSpacing, gridOrigin.y + 1.4f * worldScale,
+          gridOrigin.z + egg.y * brickSpacing};
 }
 
 void gui::GameEngine::drawEggShadows() {
@@ -438,11 +446,10 @@ void gui::GameEngine::drawEggShadows() {
                         -((_gameState.map.height - 1) * brickSpacing) / 2.0f};
   for (const auto &eggPair : _gameState.eggs) {
     const gui::Egg &egg = eggPair.second;
-    Vector3 pos = {gridOrigin.x + egg.x * brickSpacing,
-                   gridOrigin.y + 1.4f * worldScale,
-                   gridOrigin.z + egg.y * brickSpacing};
+    Vector3 pos = calculateEggPosition(egg, gridOrigin, brickSpacing);
     Vector3 shadowPos = {pos.x, gridOrigin.y + 1.1f, pos.z};
-    DrawCylinder(shadowPos, EGG_SHADOW_RADIUS * worldScale, EGG_SHADOW_RADIUS * worldScale, 0.01f, 32,
+    DrawCylinder(shadowPos, EGG_SHADOW_RADIUS * worldScale,
+                 EGG_SHADOW_RADIUS * worldScale, 0.01f, 32,
                  (Color){0, 0, 0, EGG_SHADOW_ALPHA});
   }
 }

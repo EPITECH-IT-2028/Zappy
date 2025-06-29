@@ -121,6 +121,10 @@ namespace gui {
       void resetCamera();
       void drawBroadcastLog();
 
+      Vector3 calculateEggPosition(const gui::Egg &egg,
+                                   const Vector3 &gridOrigin,
+                                   float brickSpacing) const;
+
       Shader _lightingShader;
       Light _lights[2];
       int _ambientLoc;
