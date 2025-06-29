@@ -16,7 +16,8 @@ void cleanup_client_action_queue(client_t *client)
 
     if (!client)
         return;
-    pthread_mutex_lock(&client->data.pending_mutex);
+    if (pthread_mutex_lock(&client->data.pending_mutex) != 0)
+        return;
     current = client->data.queue_head;
     while (current) {
         next = current->next;
@@ -35,7 +36,8 @@ int count_queue(client_t *client, int *queue_size)
 
     if (!client || !queue_size)
         return ERROR;
-    pthread_mutex_lock(&client->data.pending_mutex);
+    if (pthread_mutex_lock(&client->data.pending_mutex) != 0)
+        return ERROR;
     current = client->data.queue_head;
     *queue_size = 0;
     while (current) {
@@ -66,7 +68,7 @@ void cleanup_old_actions(client_t *client)
 
     if (count_queue(client, &queue_size) == ERROR)
         return;
-    while (queue_size > MAX_REQUEST_PER_CLIENT) {
+    while (queue_size > MAX_REQUEST_PER_CLIENT + 5) {
         if (client->data.queue_head) {
             remove_oldest_action(client);
             queue_size--;

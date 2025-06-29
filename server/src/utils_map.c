@@ -25,6 +25,8 @@ static
 int find_player_index(map_t *map, client_t *client)
 {
     for (int i = 0; i < map->nbr_of_players; i++) {
+        if (!map->players[i] || !map->players[i]->connected)
+            continue;
         if (map->players[i]->data.id == client->data.id) {
             return i;
         }

@@ -25,6 +25,8 @@ void accept_client(server_t *server, int client_fd)
             return;
         }
     }
+    if (server->clients[index] != NULL)
+        cleanup_client_data(server, index);
     server->clients[index] = malloc(sizeof(client_t));
     if (server->clients[index] == NULL) {
         perror("malloc failed");
