@@ -999,4 +999,7 @@ void cleanup_old_actions(client_t *client);
 
 void send_plv(server_t *server, client_t **incantators);
 
+/* Victory condition functions */
+int check_victory(server_t *server);
+
 #endif /* SERVER_H_ */

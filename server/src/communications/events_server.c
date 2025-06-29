@@ -14,6 +14,20 @@
 #include <string.h>
 #include <stdlib.h>
 
+static
+void resize_tab(server_t *server, int index, int client_fd)
+{
+    if (index == server->nfds) {
+        pthread_mutex_lock(&server->clients_mutex);
+        if (resize_fds(server, server->nfds + NFDS_REALLOC_NUMBER) == ERROR) {
+            pthread_mutex_unlock(&server->clients_mutex);
+            close(client_fd);
+            return;
+        }
+        pthread_mutex_unlock(&server->clients_mutex);
+    }
+}
+
 /**
  * @brief Accept and initialize a new client connection
  *
@@ -28,22 +42,19 @@ void accept_client(server_t *server, int client_fd)
 {
     int index = define_index(server);
 
-    if (index == server->nfds) {
-        if (resize_fds(server, server->nfds + NFDS_REALLOC_NUMBER) == ERROR) {
-            close(client_fd);
-            return;
-        }
-    }
+    resize_tab(server, index, client_fd);
+    pthread_mutex_lock(&server->clients_mutex);
     if (server->clients[index] != NULL)
         cleanup_client_data(server, index);
     server->clients[index] = malloc(sizeof(client_t));
     if (server->clients[index] == NULL) {
-        perror("malloc failed");
+        pthread_mutex_unlock(&server->clients_mutex);
         close(client_fd);
         return;
     }
     init_client_struct(server->clients[index], client_fd);
     init_fds(server, index, client_fd);
+    pthread_mutex_unlock(&server->clients_mutex);
 }
 
 /**
@@ -164,7 +175,6 @@ void handle_client(server_t *server, int index, char *buffer, int bytes)
     if (bytes <= 0)
         return remove_player(server, index);
     buffer[bytes] = '\0';
-    printf("Received from client %d: %s\n", index, buffer);
     append_to_client_buffer(server->clients[index], buffer, bytes);
     execute_all_commands(server, index);
 }
