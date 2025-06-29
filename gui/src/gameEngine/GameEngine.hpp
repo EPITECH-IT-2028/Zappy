@@ -64,6 +64,11 @@ namespace gui {
       static constexpr int BROADCAST_LOG_LINE_HEIGHT = 25;
       static constexpr int BROADCAST_LOG_FONT_SIZE = 20;
 
+      static constexpr float PLAYER_SHADOW_RADIUS = 0.44f;
+      static constexpr int PLAYER_SHADOW_ALPHA = 60;
+      static constexpr float EGG_SHADOW_RADIUS = 0.22f;
+      static constexpr int EGG_SHADOW_ALPHA = 120;
+
       void DrawTextCodepoint3D(Font font, int codepoint, Vector3 position,
                                float fontSize, bool backface, Color tint);
       void DrawText3D(Font font, const char *text, Vector3 position,

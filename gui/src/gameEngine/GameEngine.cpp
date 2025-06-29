@@ -426,8 +426,8 @@ void gui::GameEngine::drawPlayerShadows() {
                         gridOrigin.y + 1.1f * worldScale,
                         gridOrigin.z + player.y * brickSpacing};
     Vector3 shadowPos = {position.x, gridOrigin.y + 1.1f, position.z};
-    DrawCylinder(shadowPos, 0.44f * worldScale, 0.44f * worldScale, 0.01f, 32,
-                 (Color){0, 0, 0, 60});
+    DrawCylinder(shadowPos, PLAYER_SHADOW_RADIUS * worldScale, PLAYER_SHADOW_RADIUS * worldScale, 0.01f, 32,
+                 (Color){0, 0, 0, PLAYER_SHADOW_ALPHA});
   }
 }
 
@@ -442,8 +442,8 @@ void gui::GameEngine::drawEggShadows() {
                    gridOrigin.y + 1.4f * worldScale,
                    gridOrigin.z + egg.y * brickSpacing};
     Vector3 shadowPos = {pos.x, gridOrigin.y + 1.1f, pos.z};
-    DrawCylinder(shadowPos, 0.22f * worldScale, 0.22f * worldScale, 0.01f, 32,
-                 (Color){0, 0, 0, 120});
+    DrawCylinder(shadowPos, EGG_SHADOW_RADIUS * worldScale, EGG_SHADOW_RADIUS * worldScale, 0.01f, 32,
+                 (Color){0, 0, 0, EGG_SHADOW_ALPHA});
   }
 }
 
