@@ -1,0 +1,173 @@
+\doxysection{network\+::Server\+Communication Class Reference}
+\hypertarget{classnetwork_1_1_server_communication}{}\label{classnetwork_1_1_server_communication}\index{network::ServerCommunication@{network::ServerCommunication}}
+
+
+Handles communication with the Zappy server over TCP.  
+
+
+
+
+{\ttfamily \#include $<$Server\+Communication.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classnetwork_1_1_server_communication_a10a8a45c05696459346a96a796bd1689}{Server\+Communication}} (int port, const std\+::string \&hostname="{}127.\+0.\+0.\+1"{})
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{classnetwork_1_1_server_communication}{Server\+Communication} object. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classnetwork_1_1_server_communication_a282a13f86126629e17e1985f82e1fcb7}{\texorpdfstring{$\sim$}{\string~}\+Server\+Communication}} ()
+\begin{DoxyCompactList}\small\item\em Destructor. Closes the connection if open. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classnetwork_1_1_server_communication_a91bab89db1c0d44d4509fa2e0cce565b}{is\+Connected}} () const noexcept
+\begin{DoxyCompactList}\small\item\em Checks if the client is currently connected to the server. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classnetwork_1_1_server_communication_a077cc851a6dc2b1bc1ee03972e1b401d}{connect\+To\+Server}} ()
+\begin{DoxyCompactList}\small\item\em Attempts to connect to the server. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classnetwork_1_1_server_communication_a2cf786bf970e89a212650cc990345cc0}{send\+Message}} (const std\+::string \&message)
+\begin{DoxyCompactList}\small\item\em Sends a message to the server. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classnetwork_1_1_server_communication_a77ee2fd3c2c96cf31299bef68006ee4b}{receive\+Message}} ()
+\begin{DoxyCompactList}\small\item\em Receives a message from the server (blocking until a full line is received). \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classnetwork_1_1_server_communication_aee2f1f7dea88d0555aa4e7957b150cdb}{has\+Incoming\+Data}} ()
+\begin{DoxyCompactList}\small\item\em Checks if there is incoming data available to read from the server. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Handles communication with the Zappy server over TCP. 
+
+Provides methods to connect, send, and receive messages, as well as check connection status. 
+
+\label{doc-constructors}
+\Hypertarget{classnetwork_1_1_server_communication_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classnetwork_1_1_server_communication_a10a8a45c05696459346a96a796bd1689}\index{network::ServerCommunication@{network::ServerCommunication}!ServerCommunication@{ServerCommunication}}
+\index{ServerCommunication@{ServerCommunication}!network::ServerCommunication@{network::ServerCommunication}}
+\doxysubsubsection{\texorpdfstring{ServerCommunication()}{ServerCommunication()}}
+{\footnotesize\ttfamily \label{classnetwork_1_1_server_communication_a10a8a45c05696459346a96a796bd1689} 
+network\+::\+Server\+Communication\+::\+Server\+Communication (\begin{DoxyParamCaption}\item[{int}]{port}{, }\item[{const std\+::string \&}]{hostname}{ = {\ttfamily "{}127.0.0.1"{}}}\end{DoxyParamCaption})}
+
+
+
+Constructs a \doxylink{classnetwork_1_1_server_communication}{Server\+Communication} object. 
+
+Constructs a \doxylink{classnetwork_1_1_server_communication}{Server\+Communication} object and initializes member variables.
+
+
+\begin{DoxyParams}{Parameters}
+{\em port} & The port to connect to. \\
+\hline
+{\em hostname} & The hostname or IP address to connect to (default\+: "{}127.\+0.\+0.\+1"{}).\\
+\hline
+{\em port} & The port to connect to. \\
+\hline
+{\em hostname} & The hostname or IP address to connect to. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classnetwork_1_1_server_communication_a282a13f86126629e17e1985f82e1fcb7}\index{network::ServerCommunication@{network::ServerCommunication}!````~ServerCommunication@{\texorpdfstring{$\sim$}{\string~}ServerCommunication}}
+\index{````~ServerCommunication@{\texorpdfstring{$\sim$}{\string~}ServerCommunication}!network::ServerCommunication@{network::ServerCommunication}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}ServerCommunication()}{\string~ServerCommunication()}}
+{\footnotesize\ttfamily \label{classnetwork_1_1_server_communication_a282a13f86126629e17e1985f82e1fcb7} 
+network\+::\+Server\+Communication\+::\texorpdfstring{$\sim$}{\string~}\+Server\+Communication (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Destructor. Closes the connection if open. 
+
+Destructor. Closes the client socket if it is open and resets connection state. 
+
+\label{doc-func-members}
+\Hypertarget{classnetwork_1_1_server_communication_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classnetwork_1_1_server_communication_a077cc851a6dc2b1bc1ee03972e1b401d}\index{network::ServerCommunication@{network::ServerCommunication}!connectToServer@{connectToServer}}
+\index{connectToServer@{connectToServer}!network::ServerCommunication@{network::ServerCommunication}}
+\doxysubsubsection{\texorpdfstring{connectToServer()}{connectToServer()}}
+{\footnotesize\ttfamily \label{classnetwork_1_1_server_communication_a077cc851a6dc2b1bc1ee03972e1b401d} 
+bool network\+::\+Server\+Communication\+::connect\+To\+Server (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Attempts to connect to the server. 
+
+Connects to the server by creating a socket and establishing a connection.
+
+\begin{DoxyReturn}{Returns}
+true if connection is successful, false otherwise.
+
+true if the connection was successful, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{classnetwork_1_1_server_communication_aee2f1f7dea88d0555aa4e7957b150cdb}\index{network::ServerCommunication@{network::ServerCommunication}!hasIncomingData@{hasIncomingData}}
+\index{hasIncomingData@{hasIncomingData}!network::ServerCommunication@{network::ServerCommunication}}
+\doxysubsubsection{\texorpdfstring{hasIncomingData()}{hasIncomingData()}}
+{\footnotesize\ttfamily \label{classnetwork_1_1_server_communication_aee2f1f7dea88d0555aa4e7957b150cdb} 
+bool network\+::\+Server\+Communication\+::has\+Incoming\+Data (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Checks if there is incoming data available to read from the server. 
+
+Checks if there is incoming data from the server.
+
+\begin{DoxyReturn}{Returns}
+true if data is available, false otherwise.
+
+true if there is incoming data, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{classnetwork_1_1_server_communication_a91bab89db1c0d44d4509fa2e0cce565b}\index{network::ServerCommunication@{network::ServerCommunication}!isConnected@{isConnected}}
+\index{isConnected@{isConnected}!network::ServerCommunication@{network::ServerCommunication}}
+\doxysubsubsection{\texorpdfstring{isConnected()}{isConnected()}}
+{\footnotesize\ttfamily \label{classnetwork_1_1_server_communication_a91bab89db1c0d44d4509fa2e0cce565b} 
+bool network\+::\+Server\+Communication\+::is\+Connected (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Checks if the client is currently connected to the server. 
+
+\begin{DoxyReturn}{Returns}
+true if connected, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{classnetwork_1_1_server_communication_a77ee2fd3c2c96cf31299bef68006ee4b}\index{network::ServerCommunication@{network::ServerCommunication}!receiveMessage@{receiveMessage}}
+\index{receiveMessage@{receiveMessage}!network::ServerCommunication@{network::ServerCommunication}}
+\doxysubsubsection{\texorpdfstring{receiveMessage()}{receiveMessage()}}
+{\footnotesize\ttfamily \label{classnetwork_1_1_server_communication_a77ee2fd3c2c96cf31299bef68006ee4b} 
+std\+::string network\+::\+Server\+Communication\+::receive\+Message (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Receives a message from the server (blocking until a full line is received). 
+
+Receives a message from the server. This function will block until a message is received.
+
+\begin{DoxyReturn}{Returns}
+The received message (including the newline character).
+
+The received message. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::runtime\+\_\+error} & if not connected to the server, if receiving fails, or if the connection is closed by the server. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{classnetwork_1_1_server_communication_a2cf786bf970e89a212650cc990345cc0}\index{network::ServerCommunication@{network::ServerCommunication}!sendMessage@{sendMessage}}
+\index{sendMessage@{sendMessage}!network::ServerCommunication@{network::ServerCommunication}}
+\doxysubsubsection{\texorpdfstring{sendMessage()}{sendMessage()}}
+{\footnotesize\ttfamily \label{classnetwork_1_1_server_communication_a2cf786bf970e89a212650cc990345cc0} 
+void network\+::\+Server\+Communication\+::send\+Message (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{message}{}\end{DoxyParamCaption})}
+
+
+
+Sends a message to the server. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em message} & The message to send.\\
+\hline
+{\em message} & The message to send. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::runtime\+\_\+error} & if not connected to the server or if sending fails. \\
+\hline
+\end{DoxyExceptions}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/server/\mbox{\hyperlink{_server_communication_8hpp}{Server\+Communication.\+hpp}}\item 
+src/server/\mbox{\hyperlink{_server_communication_8cpp}{Server\+Communication.\+cpp}}\end{DoxyCompactItemize}

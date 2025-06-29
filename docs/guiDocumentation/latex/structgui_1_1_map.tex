@@ -1,0 +1,222 @@
+\doxysection{gui\+::Map Struct Reference}
+\hypertarget{structgui_1_1_map}{}\label{structgui_1_1_map}\index{gui::Map@{gui::Map}}
+
+
+Represents the game map, consisting of a 2D grid of tiles.  
+
+
+
+
+{\ttfamily \#include $<$Map.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{structgui_1_1_map_a360e76d5097aafd97ceb82e1f4e2047e}{resize}} (std\+::size\+\_\+t w, std\+::size\+\_\+t h)
+\begin{DoxyCompactList}\small\item\em Resizes the map to the specified width and height. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structgui_1_1_tile}{Tile}} \& \mbox{\hyperlink{structgui_1_1_map_a3640a590d9c92de5c70d439f14d5c25b}{get\+Tile}} (std\+::size\+\_\+t x, std\+::size\+\_\+t y)
+\begin{DoxyCompactList}\small\item\em Returns a reference to the tile at the specified coordinates. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{structgui_1_1_tile}{Tile}} \& \mbox{\hyperlink{structgui_1_1_map_a943533c6a77129d3b7b9a05f31b9c3a7}{get\+Tile}} (std\+::size\+\_\+t x, std\+::size\+\_\+t y) const
+\begin{DoxyCompactList}\small\item\em Returns a const reference to the tile at the specified coordinates. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{structgui_1_1_map_aeb26b531c4af913129e455f79fa6fc2e}{is\+Inside}} (std\+::size\+\_\+t x, std\+::size\+\_\+t y) const
+\begin{DoxyCompactList}\small\item\em Checks if the given coordinates are inside the map bounds. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structgui_1_1_map_ab9bd8cfb77979aedb43ad970ad259b5f}{Map}} (std\+::size\+\_\+t w, std\+::size\+\_\+t h)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{structgui_1_1_map}{Map} with the given width and height. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::size\+\_\+t \mbox{\hyperlink{structgui_1_1_map_a646cec54ae1aa4f0090e0a813cbae89c}{width}}
+\begin{DoxyCompactList}\small\item\em Width of the map (number of tiles horizontally). \end{DoxyCompactList}\item 
+std\+::size\+\_\+t \mbox{\hyperlink{structgui_1_1_map_a573ef4ce8c8e5b430b56cbc9415a2812}{height}}
+\begin{DoxyCompactList}\small\item\em Height of the map (number of tiles vertically). \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::vector$<$ \mbox{\hyperlink{structgui_1_1_tile}{Tile}} $>$ $>$ \mbox{\hyperlink{structgui_1_1_map_af2719279da990d043fe866fffbff8dcb}{tiles}}
+\begin{DoxyCompactList}\small\item\em 2D vector containing all tiles in the map. Indexed as tiles\mbox{[}y\mbox{]}\mbox{[}x\mbox{]}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents the game map, consisting of a 2D grid of tiles. 
+
+Stores the map\textquotesingle{}s width, height, and the collection of tiles. Provides methods for resizing, accessing, and validating tile positions. 
+
+\label{doc-constructors}
+\Hypertarget{structgui_1_1_map_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{structgui_1_1_map_ab9bd8cfb77979aedb43ad970ad259b5f}\index{gui::Map@{gui::Map}!Map@{Map}}
+\index{Map@{Map}!gui::Map@{gui::Map}}
+\doxysubsubsection{\texorpdfstring{Map()}{Map()}}
+{\footnotesize\ttfamily \label{structgui_1_1_map_ab9bd8cfb77979aedb43ad970ad259b5f} 
+gui\+::\+Map\+::\+Map (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{w}{, }\item[{std\+::size\+\_\+t}]{h}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructs a \doxylink{structgui_1_1_map}{Map} with the given width and height. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em w} & Width of the map (number of tiles horizontally). \\
+\hline
+{\em h} & Height of the map (number of tiles vertically). \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{structgui_1_1_map_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{structgui_1_1_map_a3640a590d9c92de5c70d439f14d5c25b}\index{gui::Map@{gui::Map}!getTile@{getTile}}
+\index{getTile@{getTile}!gui::Map@{gui::Map}}
+\doxysubsubsection{\texorpdfstring{getTile()}{getTile()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{structgui_1_1_map_a3640a590d9c92de5c70d439f14d5c25b} 
+\mbox{\hyperlink{structgui_1_1_tile}{gui\+::\+Tile}} \& gui\+::\+Map\+::get\+Tile (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{x}{, }\item[{std\+::size\+\_\+t}]{y}{}\end{DoxyParamCaption})}
+
+
+
+Returns a reference to the tile at the specified coordinates. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & X coordinate (column index). \\
+\hline
+{\em y} & Y coordinate (row index). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Reference to the tile at (x, y).
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em x} & X coordinate (column index). \\
+\hline
+{\em y} & Y coordinate (row index). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Reference to the tile at (x, y). 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::out\+\_\+of\+\_\+range} & if (x, y) is not inside the map. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{structgui_1_1_map_a943533c6a77129d3b7b9a05f31b9c3a7}\index{gui::Map@{gui::Map}!getTile@{getTile}}
+\index{getTile@{getTile}!gui::Map@{gui::Map}}
+\doxysubsubsection{\texorpdfstring{getTile()}{getTile()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{structgui_1_1_map_a943533c6a77129d3b7b9a05f31b9c3a7} 
+const \mbox{\hyperlink{structgui_1_1_tile}{gui\+::\+Tile}} \& gui\+::\+Map\+::get\+Tile (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{x}{, }\item[{std\+::size\+\_\+t}]{y}{}\end{DoxyParamCaption}) const}
+
+
+
+Returns a const reference to the tile at the specified coordinates. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & X coordinate (column index). \\
+\hline
+{\em y} & Y coordinate (row index). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Const reference to the tile at (x, y).
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em x} & X coordinate (column index). \\
+\hline
+{\em y} & Y coordinate (row index). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Const reference to the tile at (x, y). 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::out\+\_\+of\+\_\+range} & if (x, y) is not inside the map. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{structgui_1_1_map_aeb26b531c4af913129e455f79fa6fc2e}\index{gui::Map@{gui::Map}!isInside@{isInside}}
+\index{isInside@{isInside}!gui::Map@{gui::Map}}
+\doxysubsubsection{\texorpdfstring{isInside()}{isInside()}}
+{\footnotesize\ttfamily \label{structgui_1_1_map_aeb26b531c4af913129e455f79fa6fc2e} 
+bool gui\+::\+Map\+::is\+Inside (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{x}{, }\item[{std\+::size\+\_\+t}]{y}{}\end{DoxyParamCaption}) const}
+
+
+
+Checks if the given coordinates are inside the map bounds. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & X coordinate to check. \\
+\hline
+{\em y} & Y coordinate to check. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if (x, y) is inside the map, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{structgui_1_1_map_a360e76d5097aafd97ceb82e1f4e2047e}\index{gui::Map@{gui::Map}!resize@{resize}}
+\index{resize@{resize}!gui::Map@{gui::Map}}
+\doxysubsubsection{\texorpdfstring{resize()}{resize()}}
+{\footnotesize\ttfamily \label{structgui_1_1_map_a360e76d5097aafd97ceb82e1f4e2047e} 
+void gui\+::\+Map\+::resize (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{w}{, }\item[{std\+::size\+\_\+t}]{h}{}\end{DoxyParamCaption})}
+
+
+
+Resizes the map to the specified width and height. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em w} & New width (number of tiles horizontally). \\
+\hline
+{\em h} & New height (number of tiles vertically).\\
+\hline
+{\em w} & New width (number of tiles horizontally). \\
+\hline
+{\em h} & New height (number of tiles vertically). \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::invalid\+\_\+argument} & if either dimension is zero. \\
+\hline
+\end{DoxyExceptions}
+
+
+\label{doc-variable-members}
+\Hypertarget{structgui_1_1_map_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structgui_1_1_map_a573ef4ce8c8e5b430b56cbc9415a2812}\index{gui::Map@{gui::Map}!height@{height}}
+\index{height@{height}!gui::Map@{gui::Map}}
+\doxysubsubsection{\texorpdfstring{height}{height}}
+{\footnotesize\ttfamily \label{structgui_1_1_map_a573ef4ce8c8e5b430b56cbc9415a2812} 
+std\+::size\+\_\+t gui\+::\+Map\+::height}
+
+
+
+Height of the map (number of tiles vertically). 
+
+\Hypertarget{structgui_1_1_map_af2719279da990d043fe866fffbff8dcb}\index{gui::Map@{gui::Map}!tiles@{tiles}}
+\index{tiles@{tiles}!gui::Map@{gui::Map}}
+\doxysubsubsection{\texorpdfstring{tiles}{tiles}}
+{\footnotesize\ttfamily \label{structgui_1_1_map_af2719279da990d043fe866fffbff8dcb} 
+std\+::vector$<$std\+::vector$<$\mbox{\hyperlink{structgui_1_1_tile}{Tile}}$>$ $>$ gui\+::\+Map\+::tiles}
+
+
+
+2D vector containing all tiles in the map. Indexed as tiles\mbox{[}y\mbox{]}\mbox{[}x\mbox{]}. 
+
+\Hypertarget{structgui_1_1_map_a646cec54ae1aa4f0090e0a813cbae89c}\index{gui::Map@{gui::Map}!width@{width}}
+\index{width@{width}!gui::Map@{gui::Map}}
+\doxysubsubsection{\texorpdfstring{width}{width}}
+{\footnotesize\ttfamily \label{structgui_1_1_map_a646cec54ae1aa4f0090e0a813cbae89c} 
+std\+::size\+\_\+t gui\+::\+Map\+::width}
+
+
+
+Width of the map (number of tiles horizontally). 
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/entities/\mbox{\hyperlink{_map_8hpp}{Map.\+hpp}}\item 
+src/entities/\mbox{\hyperlink{_map_8cpp}{Map.\+cpp}}\end{DoxyCompactItemize}

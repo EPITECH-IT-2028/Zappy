@@ -2,6 +2,15 @@
 #include <iostream>
 #include <stdexcept>
 
+/**
+ * @brief Parses command-line arguments for the Zappy GUI application.
+ *
+ * Expects exactly 4 arguments: -p <port> -h <host> (in any order).
+ * Throws std::invalid_argument or std::out_of_range on invalid input.
+ *
+ * @param argc Number of command-line arguments.
+ * @param argv Array of command-line argument strings.
+ */
 void parser::Config::parse(int argc, char* argv[]) {
   int countP = 0;
   int countH = 0;
@@ -56,14 +65,25 @@ void parser::Config::parse(int argc, char* argv[]) {
   }
 }
 
+/**
+ * @brief Gets the port option value as a string.
+ * @return The port value provided by the user.
+ */
 std::string parser::Config::getOptionP() const {
   return _optionP;
 }
 
+/**
+ * @brief Gets the host option value as a string.
+ * @return The host value provided by the user.
+ */
 std::string parser::Config::getOptionH() const {
   return _optionH;
 }
 
+/**
+ * @brief Displays help information for the Zappy GUI command-line arguments.
+ */
 void parser::Config::displayHelp() const {
   std::cout << "USAGE: ./zappy_gui [-p port] [-h host]\n"
             << "  -p port: specify the port to connect to the server\n"

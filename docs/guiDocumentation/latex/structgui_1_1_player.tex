@@ -1,0 +1,163 @@
+\doxysection{gui\+::Player Struct Reference}
+\hypertarget{structgui_1_1_player}{}\label{structgui_1_1_player}\index{gui::Player@{gui::Player}}
+
+
+Represents a player in the Zappy game world.  
+
+
+
+
+{\ttfamily \#include $<$Player.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structgui_1_1_player_ad516aca6b2afbddbbfbb698f11e48d0d}{Player}} (int \mbox{\hyperlink{structgui_1_1_player_a0092f41d6be0ad541db0b7316ebcf0dd}{id}}, int \mbox{\hyperlink{structgui_1_1_player_a5f8bfc2feaa38aeeb30bad38b4a6e307}{x}}, int \mbox{\hyperlink{structgui_1_1_player_ad89d4059feaeb6f0d9b750dcf9667974}{y}}, \mbox{\hyperlink{namespacegui_ad4abd679184df2f6e5bc0de521f37bd0}{Orientation}} \mbox{\hyperlink{structgui_1_1_player_a327572d8a068a7e9fdc82b5a6251a65c}{orientation}}, int \mbox{\hyperlink{structgui_1_1_player_af0e940e96bc28e5bb4ad08abae04500c}{level}}, const std\+::string \&\mbox{\hyperlink{structgui_1_1_player_a9b56d32296456596ac532913fd9311b1}{team\+Name}}) noexcept
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{structgui_1_1_player}{Player} with the given attributes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{structgui_1_1_player_a0092f41d6be0ad541db0b7316ebcf0dd}{id}}
+\begin{DoxyCompactList}\small\item\em Unique identifier for the player. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{structgui_1_1_player_a5f8bfc2feaa38aeeb30bad38b4a6e307}{x}}
+\begin{DoxyCompactList}\small\item\em X coordinate of the player\textquotesingle{}s position on the map. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{structgui_1_1_player_ad89d4059feaeb6f0d9b750dcf9667974}{y}}
+\begin{DoxyCompactList}\small\item\em Y coordinate of the player\textquotesingle{}s position on the map. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{namespacegui_ad4abd679184df2f6e5bc0de521f37bd0}{gui\+::\+Orientation}} \mbox{\hyperlink{structgui_1_1_player_a327572d8a068a7e9fdc82b5a6251a65c}{orientation}}
+\begin{DoxyCompactList}\small\item\em The orientation (direction) the player is facing. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{structgui_1_1_player_af0e940e96bc28e5bb4ad08abae04500c}{level}}
+\begin{DoxyCompactList}\small\item\em The current level of the player. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{structgui_1_1_player_a9b56d32296456596ac532913fd9311b1}{team\+Name}}
+\begin{DoxyCompactList}\small\item\em The name of the team the player belongs to. \end{DoxyCompactList}\item 
+std\+::array$<$ int, \mbox{\hyperlink{structgui_1_1_player_a55a8d661f1a33d3ae9379a38f1f709dc}{RESOURCE\+\_\+\+COUNT}} $>$ \mbox{\hyperlink{structgui_1_1_player_aa6b957e72b01a15ea2ee1fcfbb4070ae}{inventory\+Player}}
+\begin{DoxyCompactList}\small\item\em Array holding the count of each resource type in the player\textquotesingle{}s inventory. The index corresponds to the resource type. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr int \mbox{\hyperlink{structgui_1_1_player_a55a8d661f1a33d3ae9379a38f1f709dc}{RESOURCE\+\_\+\+COUNT}} = 7
+\begin{DoxyCompactList}\small\item\em Number of resource types in the player\textquotesingle{}s inventory. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents a player in the Zappy game world. 
+
+Stores player ID, position, orientation, level, team name, and inventory. 
+
+\label{doc-constructors}
+\Hypertarget{structgui_1_1_player_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{structgui_1_1_player_ad516aca6b2afbddbbfbb698f11e48d0d}\index{gui::Player@{gui::Player}!Player@{Player}}
+\index{Player@{Player}!gui::Player@{gui::Player}}
+\doxysubsubsection{\texorpdfstring{Player()}{Player()}}
+{\footnotesize\ttfamily \label{structgui_1_1_player_ad516aca6b2afbddbbfbb698f11e48d0d} 
+gui\+::\+Player\+::\+Player (\begin{DoxyParamCaption}\item[{int}]{id}{, }\item[{int}]{x}{, }\item[{int}]{y}{, }\item[{\mbox{\hyperlink{namespacegui_ad4abd679184df2f6e5bc0de521f37bd0}{Orientation}}}]{orientation}{, }\item[{int}]{level}{, }\item[{const std\+::string \&}]{team\+Name}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+
+
+
+Constructs a \doxylink{structgui_1_1_player}{Player} with the given attributes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & Unique player ID. \\
+\hline
+{\em x} & X coordinate on the map. \\
+\hline
+{\em y} & Y coordinate on the map. \\
+\hline
+{\em orientation} & \doxylink{structgui_1_1_player}{Player}\textquotesingle{}s facing direction. \\
+\hline
+{\em level} & \doxylink{structgui_1_1_player}{Player}\textquotesingle{}s level. \\
+\hline
+{\em team\+Name} & Name of the player\textquotesingle{}s team. \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-variable-members}
+\Hypertarget{structgui_1_1_player_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structgui_1_1_player_a0092f41d6be0ad541db0b7316ebcf0dd}\index{gui::Player@{gui::Player}!id@{id}}
+\index{id@{id}!gui::Player@{gui::Player}}
+\doxysubsubsection{\texorpdfstring{id}{id}}
+{\footnotesize\ttfamily \label{structgui_1_1_player_a0092f41d6be0ad541db0b7316ebcf0dd} 
+int gui\+::\+Player\+::id}
+
+
+
+Unique identifier for the player. 
+
+\Hypertarget{structgui_1_1_player_aa6b957e72b01a15ea2ee1fcfbb4070ae}\index{gui::Player@{gui::Player}!inventoryPlayer@{inventoryPlayer}}
+\index{inventoryPlayer@{inventoryPlayer}!gui::Player@{gui::Player}}
+\doxysubsubsection{\texorpdfstring{inventoryPlayer}{inventoryPlayer}}
+{\footnotesize\ttfamily \label{structgui_1_1_player_aa6b957e72b01a15ea2ee1fcfbb4070ae} 
+std\+::array$<$int, \mbox{\hyperlink{structgui_1_1_player_a55a8d661f1a33d3ae9379a38f1f709dc}{RESOURCE\+\_\+\+COUNT}}$>$ gui\+::\+Player\+::inventory\+Player}
+
+
+
+Array holding the count of each resource type in the player\textquotesingle{}s inventory. The index corresponds to the resource type. 
+
+\Hypertarget{structgui_1_1_player_af0e940e96bc28e5bb4ad08abae04500c}\index{gui::Player@{gui::Player}!level@{level}}
+\index{level@{level}!gui::Player@{gui::Player}}
+\doxysubsubsection{\texorpdfstring{level}{level}}
+{\footnotesize\ttfamily \label{structgui_1_1_player_af0e940e96bc28e5bb4ad08abae04500c} 
+int gui\+::\+Player\+::level}
+
+
+
+The current level of the player. 
+
+\Hypertarget{structgui_1_1_player_a327572d8a068a7e9fdc82b5a6251a65c}\index{gui::Player@{gui::Player}!orientation@{orientation}}
+\index{orientation@{orientation}!gui::Player@{gui::Player}}
+\doxysubsubsection{\texorpdfstring{orientation}{orientation}}
+{\footnotesize\ttfamily \label{structgui_1_1_player_a327572d8a068a7e9fdc82b5a6251a65c} 
+\mbox{\hyperlink{namespacegui_ad4abd679184df2f6e5bc0de521f37bd0}{gui\+::\+Orientation}} gui\+::\+Player\+::orientation}
+
+
+
+The orientation (direction) the player is facing. 
+
+\Hypertarget{structgui_1_1_player_a55a8d661f1a33d3ae9379a38f1f709dc}\index{gui::Player@{gui::Player}!RESOURCE\_COUNT@{RESOURCE\_COUNT}}
+\index{RESOURCE\_COUNT@{RESOURCE\_COUNT}!gui::Player@{gui::Player}}
+\doxysubsubsection{\texorpdfstring{RESOURCE\_COUNT}{RESOURCE\_COUNT}}
+{\footnotesize\ttfamily \label{structgui_1_1_player_a55a8d661f1a33d3ae9379a38f1f709dc} 
+int gui\+::\+Player\+::\+RESOURCE\+\_\+\+COUNT = 7\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+Number of resource types in the player\textquotesingle{}s inventory. 
+
+\Hypertarget{structgui_1_1_player_a9b56d32296456596ac532913fd9311b1}\index{gui::Player@{gui::Player}!teamName@{teamName}}
+\index{teamName@{teamName}!gui::Player@{gui::Player}}
+\doxysubsubsection{\texorpdfstring{teamName}{teamName}}
+{\footnotesize\ttfamily \label{structgui_1_1_player_a9b56d32296456596ac532913fd9311b1} 
+std\+::string gui\+::\+Player\+::team\+Name}
+
+
+
+The name of the team the player belongs to. 
+
+\Hypertarget{structgui_1_1_player_a5f8bfc2feaa38aeeb30bad38b4a6e307}\index{gui::Player@{gui::Player}!x@{x}}
+\index{x@{x}!gui::Player@{gui::Player}}
+\doxysubsubsection{\texorpdfstring{x}{x}}
+{\footnotesize\ttfamily \label{structgui_1_1_player_a5f8bfc2feaa38aeeb30bad38b4a6e307} 
+int gui\+::\+Player\+::x}
+
+
+
+X coordinate of the player\textquotesingle{}s position on the map. 
+
+\Hypertarget{structgui_1_1_player_ad89d4059feaeb6f0d9b750dcf9667974}\index{gui::Player@{gui::Player}!y@{y}}
+\index{y@{y}!gui::Player@{gui::Player}}
+\doxysubsubsection{\texorpdfstring{y}{y}}
+{\footnotesize\ttfamily \label{structgui_1_1_player_ad89d4059feaeb6f0d9b750dcf9667974} 
+int gui\+::\+Player\+::y}
+
+
+
+Y coordinate of the player\textquotesingle{}s position on the map. 
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/entities/\mbox{\hyperlink{_player_8hpp}{Player.\+hpp}}\end{DoxyCompactItemize}

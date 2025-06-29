@@ -1,0 +1,730 @@
+\doxysection{parser\+::Command\+Parser Class Reference}
+\hypertarget{classparser_1_1_command_parser}{}\label{classparser_1_1_command_parser}\index{parser::CommandParser@{parser::CommandParser}}
+
+
+\doxylink{classparser_1_1_command_parser}{Command\+Parser} class for parsing server commands into structured data.  
+
+
+
+
+{\ttfamily \#include $<$Command\+Parser.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classparser_1_1_command_parser_a64116173fb80529ab76aaa868523a4be}{Command\+Parser}} ()=default
+\item 
+\mbox{\hyperlink{classparser_1_1_command_parser_ae16337693ea246ef55ad92df2dbef7f9}{\texorpdfstring{$\sim$}{\string~}\+Command\+Parser}} ()=default
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{structparser_1_1_map_size}{Map\+Size}} \mbox{\hyperlink{classparser_1_1_command_parser_a28e45ba0f83a3336305cbc74d3140400}{parse\+Msz}} (const std\+::string \&command)
+\begin{DoxyCompactList}\small\item\em Parses the \textquotesingle{}msz\textquotesingle{} command to extract map size. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{structparser_1_1_time_unit}{Time\+Unit}} \mbox{\hyperlink{classparser_1_1_command_parser_a8f646f690ce196808b6aa6e1a3968d2e}{parse\+Sgt}} (const std\+::string \&command)
+\begin{DoxyCompactList}\small\item\em Parses the \textquotesingle{}sgt\textquotesingle{} command to extract the time unit. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{structparser_1_1_team_names}{Team\+Names}} \mbox{\hyperlink{classparser_1_1_command_parser_ad588f647481cf414481b1a18e857ae48}{parse\+Tna}} (const std\+::string \&command)
+\begin{DoxyCompactList}\small\item\em Parses the \textquotesingle{}tna\textquotesingle{} command to extract team names. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{structparser_1_1_tile_update}{Tile\+Update}} \mbox{\hyperlink{classparser_1_1_command_parser_ab8fadb774922eb1efca06a9a09343cf3}{parse\+Bct}} (const std\+::string \&command)
+\begin{DoxyCompactList}\small\item\em Parses the \textquotesingle{}bct\textquotesingle{} command to extract tile resource information. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{structparser_1_1_player_info}{Player\+Info}} \mbox{\hyperlink{classparser_1_1_command_parser_a26b6d09de8578114b75ebcb3615b1866}{parse\+Pnw}} (const std\+::string \&command)
+\begin{DoxyCompactList}\small\item\em Parses the \textquotesingle{}pnw\textquotesingle{} command to extract player information. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{structparser_1_1_player_position_update}{Player\+Position\+Update}} \mbox{\hyperlink{classparser_1_1_command_parser_a6e4969f8f455b1ccd13b3f346a268672}{parse\+Ppo}} (const std\+::string \&command)
+\begin{DoxyCompactList}\small\item\em Parses the \textquotesingle{}ppo\textquotesingle{} command to extract player position update. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{structparser_1_1_player_level_update}{Player\+Level\+Update}} \mbox{\hyperlink{classparser_1_1_command_parser_a5df1c3d98c397f0e6f38e1bd348d260a}{parse\+Plv}} (const std\+::string \&command)
+\begin{DoxyCompactList}\small\item\em Parses the \textquotesingle{}plv\textquotesingle{} command to extract player level update. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{structparser_1_1_player_inventory}{Player\+Inventory}} \mbox{\hyperlink{classparser_1_1_command_parser_a5acef12830fb5d6c962311cfb1972881}{parse\+Pin}} (const std\+::string \&command)
+\begin{DoxyCompactList}\small\item\em Parses the \textquotesingle{}pin\textquotesingle{} command to extract player inventory. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{structparser_1_1_egg_laid}{Egg\+Laid}} \mbox{\hyperlink{classparser_1_1_command_parser_a66aa47410014efecc2d2026692e4e87b}{parse\+Enw}} (const std\+::string \&command)
+\begin{DoxyCompactList}\small\item\em Parses the \textquotesingle{}enw\textquotesingle{} command to extract egg laid event. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{structparser_1_1_egg_hatch}{Egg\+Hatch}} \mbox{\hyperlink{classparser_1_1_command_parser_ae9a902944f5a76a7511f7a778c442a39}{parse\+Ebo}} (const std\+::string \&command)
+\begin{DoxyCompactList}\small\item\em Parses the \textquotesingle{}ebo\textquotesingle{} command to extract egg hatch event. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{structparser_1_1_egg_death}{Egg\+Death}} \mbox{\hyperlink{classparser_1_1_command_parser_a6663745e00db7f5233982f303c1c4ebc}{parse\+Edi}} (const std\+::string \&command)
+\begin{DoxyCompactList}\small\item\em Parses the \textquotesingle{}edi\textquotesingle{} command to extract egg death event. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{structparser_1_1_player_death}{Player\+Death}} \mbox{\hyperlink{classparser_1_1_command_parser_a37c1084dfafec3268f75a627cfe1b706}{parse\+Pdi}} (const std\+::string \&command)
+\begin{DoxyCompactList}\small\item\em Parses the \textquotesingle{}pdi\textquotesingle{} command to extract player death event. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{structparser_1_1_incantation}{Incantation}} \mbox{\hyperlink{classparser_1_1_command_parser_a25cff618721619419a2f5c173e87fd06}{parse\+Pic}} (const std\+::string \&command)
+\begin{DoxyCompactList}\small\item\em Parses the \textquotesingle{}pic\textquotesingle{} command to extract incantation start event. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{structparser_1_1_incantation_end}{Incantation\+End}} \mbox{\hyperlink{classparser_1_1_command_parser_a0411e9f674a7bfefd02475a41f85d8d1}{parse\+Pie}} (const std\+::string \&command)
+\begin{DoxyCompactList}\small\item\em Parses the \textquotesingle{}pie\textquotesingle{} command to extract incantation end event. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{structparser_1_1_fork_event}{Fork\+Event}} \mbox{\hyperlink{classparser_1_1_command_parser_a6b851505aa40198a1b64de377a8b3848}{parse\+Pfk}} (const std\+::string \&command)
+\begin{DoxyCompactList}\small\item\em Parses the \textquotesingle{}pfk\textquotesingle{} command to extract fork event. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{structparser_1_1_drop_resource}{Drop\+Resource}} \mbox{\hyperlink{classparser_1_1_command_parser_a60576cae9cd4965b14585593200396ac}{parse\+Pdr}} (const std\+::string \&command)
+\begin{DoxyCompactList}\small\item\em Parses the \textquotesingle{}pdr\textquotesingle{} command to extract drop resource event. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{structparser_1_1_collect_resource}{Collect\+Resource}} \mbox{\hyperlink{classparser_1_1_command_parser_a080d1fa6677f31bd2b8633c69ebd8eb2}{parse\+Pgt}} (const std\+::string \&command)
+\begin{DoxyCompactList}\small\item\em Parses the \textquotesingle{}pgt\textquotesingle{} command to extract collect resource event. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{structparser_1_1_player_expulsion}{Player\+Expulsion}} \mbox{\hyperlink{classparser_1_1_command_parser_ad2b1b2d8f4434afbef11f7e28bebd820}{parse\+Pex}} (const std\+::string \&command)
+\begin{DoxyCompactList}\small\item\em Parses the \textquotesingle{}pex\textquotesingle{} command to extract player expulsion event. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{structparser_1_1_broadcast_event}{Broadcast\+Event}} \mbox{\hyperlink{classparser_1_1_command_parser_a7b403ef1242ac603a7683f9904fea639}{parse\+Pbc}} (const std\+::string \&command)
+\begin{DoxyCompactList}\small\item\em Parses the \textquotesingle{}pbc\textquotesingle{} command to extract broadcast event. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{structparser_1_1_server_message_event}{Server\+Message\+Event}} \mbox{\hyperlink{classparser_1_1_command_parser_a623d344d431c207a48e1cdca11d03e6d}{parse\+Smg}} (const std\+::string \&command)
+\begin{DoxyCompactList}\small\item\em Parses the \textquotesingle{}smg\textquotesingle{} command to extract server message event. \end{DoxyCompactList}\item 
+static \mbox{\hyperlink{structparser_1_1_game_over_event}{Game\+Over\+Event}} \mbox{\hyperlink{classparser_1_1_command_parser_a532ab4eb23bc287f3a24b2d10da33f8f}{parse\+Seg}} (const std\+::string \&command)
+\begin{DoxyCompactList}\small\item\em Parses the \textquotesingle{}seg\textquotesingle{} command to extract game over event. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\doxylink{classparser_1_1_command_parser}{Command\+Parser} class for parsing server commands into structured data. 
+
+\label{doc-constructors}
+\Hypertarget{classparser_1_1_command_parser_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classparser_1_1_command_parser_a64116173fb80529ab76aaa868523a4be}\index{parser::CommandParser@{parser::CommandParser}!CommandParser@{CommandParser}}
+\index{CommandParser@{CommandParser}!parser::CommandParser@{parser::CommandParser}}
+\doxysubsubsection{\texorpdfstring{CommandParser()}{CommandParser()}}
+{\footnotesize\ttfamily \label{classparser_1_1_command_parser_a64116173fb80529ab76aaa868523a4be} 
+parser\+::\+Command\+Parser\+::\+Command\+Parser (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+\Hypertarget{classparser_1_1_command_parser_ae16337693ea246ef55ad92df2dbef7f9}\index{parser::CommandParser@{parser::CommandParser}!````~CommandParser@{\texorpdfstring{$\sim$}{\string~}CommandParser}}
+\index{````~CommandParser@{\texorpdfstring{$\sim$}{\string~}CommandParser}!parser::CommandParser@{parser::CommandParser}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}CommandParser()}{\string~CommandParser()}}
+{\footnotesize\ttfamily \label{classparser_1_1_command_parser_ae16337693ea246ef55ad92df2dbef7f9} 
+parser\+::\+Command\+Parser\+::\texorpdfstring{$\sim$}{\string~}\+Command\+Parser (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+
+
+\label{doc-func-members}
+\Hypertarget{classparser_1_1_command_parser_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classparser_1_1_command_parser_ab8fadb774922eb1efca06a9a09343cf3}\index{parser::CommandParser@{parser::CommandParser}!parseBct@{parseBct}}
+\index{parseBct@{parseBct}!parser::CommandParser@{parser::CommandParser}}
+\doxysubsubsection{\texorpdfstring{parseBct()}{parseBct()}}
+{\footnotesize\ttfamily \label{classparser_1_1_command_parser_ab8fadb774922eb1efca06a9a09343cf3} 
+\mbox{\hyperlink{structparser_1_1_tile_update}{parser\+::\+Tile\+Update}} parser\+::\+Command\+Parser\+::parse\+Bct (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Parses the \textquotesingle{}bct\textquotesingle{} command to extract tile resource information. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structparser_1_1_tile_update}{Tile\+Update} structure.
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string (e.\+g., "{}bct 1 2 0 1 2 3 4 5 6"{}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structparser_1_1_tile_update}{Tile\+Update} structure with tile coordinates and resource counts. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::runtime\+\_\+error} & if the command format is invalid. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{classparser_1_1_command_parser_ae9a902944f5a76a7511f7a778c442a39}\index{parser::CommandParser@{parser::CommandParser}!parseEbo@{parseEbo}}
+\index{parseEbo@{parseEbo}!parser::CommandParser@{parser::CommandParser}}
+\doxysubsubsection{\texorpdfstring{parseEbo()}{parseEbo()}}
+{\footnotesize\ttfamily \label{classparser_1_1_command_parser_ae9a902944f5a76a7511f7a778c442a39} 
+\mbox{\hyperlink{structparser_1_1_egg_hatch}{parser\+::\+Egg\+Hatch}} parser\+::\+Command\+Parser\+::parse\+Ebo (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Parses the \textquotesingle{}ebo\textquotesingle{} command to extract egg hatch event. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structparser_1_1_egg_hatch}{Egg\+Hatch} structure.
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string (e.\+g., "{}ebo \#1"{}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structparser_1_1_egg_hatch}{Egg\+Hatch} structure with egg ID. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::runtime\+\_\+error} & if the command format is invalid. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{classparser_1_1_command_parser_a6663745e00db7f5233982f303c1c4ebc}\index{parser::CommandParser@{parser::CommandParser}!parseEdi@{parseEdi}}
+\index{parseEdi@{parseEdi}!parser::CommandParser@{parser::CommandParser}}
+\doxysubsubsection{\texorpdfstring{parseEdi()}{parseEdi()}}
+{\footnotesize\ttfamily \label{classparser_1_1_command_parser_a6663745e00db7f5233982f303c1c4ebc} 
+\mbox{\hyperlink{structparser_1_1_egg_death}{parser\+::\+Egg\+Death}} parser\+::\+Command\+Parser\+::parse\+Edi (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Parses the \textquotesingle{}edi\textquotesingle{} command to extract egg death event. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structparser_1_1_egg_death}{Egg\+Death} structure.
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string (e.\+g., "{}edi \#1"{}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structparser_1_1_egg_death}{Egg\+Death} structure with egg ID. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::runtime\+\_\+error} & if the command format is invalid. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{classparser_1_1_command_parser_a66aa47410014efecc2d2026692e4e87b}\index{parser::CommandParser@{parser::CommandParser}!parseEnw@{parseEnw}}
+\index{parseEnw@{parseEnw}!parser::CommandParser@{parser::CommandParser}}
+\doxysubsubsection{\texorpdfstring{parseEnw()}{parseEnw()}}
+{\footnotesize\ttfamily \label{classparser_1_1_command_parser_a66aa47410014efecc2d2026692e4e87b} 
+\mbox{\hyperlink{structparser_1_1_egg_laid}{parser\+::\+Egg\+Laid}} parser\+::\+Command\+Parser\+::parse\+Enw (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Parses the \textquotesingle{}enw\textquotesingle{} command to extract egg laid event. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structparser_1_1_egg_laid}{Egg\+Laid} structure.
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string (e.\+g., "{}enw \#1 \#2 3 4"{}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structparser_1_1_egg_laid}{Egg\+Laid} structure with egg and player IDs and position. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::runtime\+\_\+error} & if the command format is invalid. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{classparser_1_1_command_parser_a28e45ba0f83a3336305cbc74d3140400}\index{parser::CommandParser@{parser::CommandParser}!parseMsz@{parseMsz}}
+\index{parseMsz@{parseMsz}!parser::CommandParser@{parser::CommandParser}}
+\doxysubsubsection{\texorpdfstring{parseMsz()}{parseMsz()}}
+{\footnotesize\ttfamily \label{classparser_1_1_command_parser_a28e45ba0f83a3336305cbc74d3140400} 
+\mbox{\hyperlink{structparser_1_1_map_size}{parser\+::\+Map\+Size}} parser\+::\+Command\+Parser\+::parse\+Msz (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Parses the \textquotesingle{}msz\textquotesingle{} command to extract map size. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structparser_1_1_map_size}{Map\+Size} structure.
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string (e.\+g., "{}msz 10 20"{}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structparser_1_1_map_size}{Map\+Size} structure with width and height, or (0,0) if parsing fails. 
+\end{DoxyReturn}
+\Hypertarget{classparser_1_1_command_parser_a7b403ef1242ac603a7683f9904fea639}\index{parser::CommandParser@{parser::CommandParser}!parsePbc@{parsePbc}}
+\index{parsePbc@{parsePbc}!parser::CommandParser@{parser::CommandParser}}
+\doxysubsubsection{\texorpdfstring{parsePbc()}{parsePbc()}}
+{\footnotesize\ttfamily \label{classparser_1_1_command_parser_a7b403ef1242ac603a7683f9904fea639} 
+\mbox{\hyperlink{structparser_1_1_broadcast_event}{parser\+::\+Broadcast\+Event}} parser\+::\+Command\+Parser\+::parse\+Pbc (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Parses the \textquotesingle{}pbc\textquotesingle{} command to extract broadcast event. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structparser_1_1_broadcast_event}{Broadcast\+Event} structure.
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string (e.\+g., "{}pbc \#1 message"{}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structparser_1_1_broadcast_event}{Broadcast\+Event} structure with player ID and message. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::runtime\+\_\+error} & if the command format or player ID is invalid. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{classparser_1_1_command_parser_a37c1084dfafec3268f75a627cfe1b706}\index{parser::CommandParser@{parser::CommandParser}!parsePdi@{parsePdi}}
+\index{parsePdi@{parsePdi}!parser::CommandParser@{parser::CommandParser}}
+\doxysubsubsection{\texorpdfstring{parsePdi()}{parsePdi()}}
+{\footnotesize\ttfamily \label{classparser_1_1_command_parser_a37c1084dfafec3268f75a627cfe1b706} 
+\mbox{\hyperlink{structparser_1_1_player_death}{parser\+::\+Player\+Death}} parser\+::\+Command\+Parser\+::parse\+Pdi (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Parses the \textquotesingle{}pdi\textquotesingle{} command to extract player death event. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structparser_1_1_player_death}{Player\+Death} structure.
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string (e.\+g., "{}pdi \#1"{}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structparser_1_1_player_death}{Player\+Death} structure with player ID. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::runtime\+\_\+error} & if the command format is invalid. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{classparser_1_1_command_parser_a60576cae9cd4965b14585593200396ac}\index{parser::CommandParser@{parser::CommandParser}!parsePdr@{parsePdr}}
+\index{parsePdr@{parsePdr}!parser::CommandParser@{parser::CommandParser}}
+\doxysubsubsection{\texorpdfstring{parsePdr()}{parsePdr()}}
+{\footnotesize\ttfamily \label{classparser_1_1_command_parser_a60576cae9cd4965b14585593200396ac} 
+\mbox{\hyperlink{structparser_1_1_drop_resource}{parser\+::\+Drop\+Resource}} parser\+::\+Command\+Parser\+::parse\+Pdr (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Parses the \textquotesingle{}pdr\textquotesingle{} command to extract drop resource event. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structparser_1_1_drop_resource}{Drop\+Resource} structure.
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string (e.\+g., "{}pdr \#1 2"{}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structparser_1_1_drop_resource}{Drop\+Resource} structure with player ID and resource number. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::runtime\+\_\+error} & if the command format or resource number is invalid. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{classparser_1_1_command_parser_ad2b1b2d8f4434afbef11f7e28bebd820}\index{parser::CommandParser@{parser::CommandParser}!parsePex@{parsePex}}
+\index{parsePex@{parsePex}!parser::CommandParser@{parser::CommandParser}}
+\doxysubsubsection{\texorpdfstring{parsePex()}{parsePex()}}
+{\footnotesize\ttfamily \label{classparser_1_1_command_parser_ad2b1b2d8f4434afbef11f7e28bebd820} 
+\mbox{\hyperlink{structparser_1_1_player_expulsion}{parser\+::\+Player\+Expulsion}} parser\+::\+Command\+Parser\+::parse\+Pex (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Parses the \textquotesingle{}pex\textquotesingle{} command to extract player expulsion event. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structparser_1_1_player_expulsion}{Player\+Expulsion} structure.
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string (e.\+g., "{}pex \#1"{}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structparser_1_1_player_expulsion}{Player\+Expulsion} structure with player ID. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::runtime\+\_\+error} & if the command format is invalid. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{classparser_1_1_command_parser_a6b851505aa40198a1b64de377a8b3848}\index{parser::CommandParser@{parser::CommandParser}!parsePfk@{parsePfk}}
+\index{parsePfk@{parsePfk}!parser::CommandParser@{parser::CommandParser}}
+\doxysubsubsection{\texorpdfstring{parsePfk()}{parsePfk()}}
+{\footnotesize\ttfamily \label{classparser_1_1_command_parser_a6b851505aa40198a1b64de377a8b3848} 
+\mbox{\hyperlink{structparser_1_1_fork_event}{parser\+::\+Fork\+Event}} parser\+::\+Command\+Parser\+::parse\+Pfk (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Parses the \textquotesingle{}pfk\textquotesingle{} command to extract fork event. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structparser_1_1_fork_event}{Fork\+Event} structure.
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string (e.\+g., "{}pfk \#1"{}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structparser_1_1_fork_event}{Fork\+Event} structure with player ID. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::runtime\+\_\+error} & if the command format is invalid. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{classparser_1_1_command_parser_a080d1fa6677f31bd2b8633c69ebd8eb2}\index{parser::CommandParser@{parser::CommandParser}!parsePgt@{parsePgt}}
+\index{parsePgt@{parsePgt}!parser::CommandParser@{parser::CommandParser}}
+\doxysubsubsection{\texorpdfstring{parsePgt()}{parsePgt()}}
+{\footnotesize\ttfamily \label{classparser_1_1_command_parser_a080d1fa6677f31bd2b8633c69ebd8eb2} 
+\mbox{\hyperlink{structparser_1_1_collect_resource}{parser\+::\+Collect\+Resource}} parser\+::\+Command\+Parser\+::parse\+Pgt (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Parses the \textquotesingle{}pgt\textquotesingle{} command to extract collect resource event. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structparser_1_1_collect_resource}{Collect\+Resource} structure.
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string (e.\+g., "{}pgt \#1 2"{}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structparser_1_1_collect_resource}{Collect\+Resource} structure with player ID and resource number. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::runtime\+\_\+error} & if the command format or resource number is invalid. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{classparser_1_1_command_parser_a25cff618721619419a2f5c173e87fd06}\index{parser::CommandParser@{parser::CommandParser}!parsePic@{parsePic}}
+\index{parsePic@{parsePic}!parser::CommandParser@{parser::CommandParser}}
+\doxysubsubsection{\texorpdfstring{parsePic()}{parsePic()}}
+{\footnotesize\ttfamily \label{classparser_1_1_command_parser_a25cff618721619419a2f5c173e87fd06} 
+\mbox{\hyperlink{structparser_1_1_incantation}{parser\+::\+Incantation}} parser\+::\+Command\+Parser\+::parse\+Pic (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Parses the \textquotesingle{}pic\textquotesingle{} command to extract incantation start event. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structparser_1_1_incantation}{Incantation} structure.
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string (e.\+g., "{}pic 1 2 3 \#4 \#5"{}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structparser_1_1_incantation}{Incantation} structure with coordinates, level, and player IDs. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::runtime\+\_\+error} & if the command format is invalid. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{classparser_1_1_command_parser_a0411e9f674a7bfefd02475a41f85d8d1}\index{parser::CommandParser@{parser::CommandParser}!parsePie@{parsePie}}
+\index{parsePie@{parsePie}!parser::CommandParser@{parser::CommandParser}}
+\doxysubsubsection{\texorpdfstring{parsePie()}{parsePie()}}
+{\footnotesize\ttfamily \label{classparser_1_1_command_parser_a0411e9f674a7bfefd02475a41f85d8d1} 
+\mbox{\hyperlink{structparser_1_1_incantation_end}{parser\+::\+Incantation\+End}} parser\+::\+Command\+Parser\+::parse\+Pie (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Parses the \textquotesingle{}pie\textquotesingle{} command to extract incantation end event. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structparser_1_1_incantation_end}{Incantation\+End} structure.
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string (e.\+g., "{}pie 1 2 1"{}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structparser_1_1_incantation_end}{Incantation\+End} structure with coordinates and success flag. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::runtime\+\_\+error} & if the command format is invalid. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{classparser_1_1_command_parser_a5acef12830fb5d6c962311cfb1972881}\index{parser::CommandParser@{parser::CommandParser}!parsePin@{parsePin}}
+\index{parsePin@{parsePin}!parser::CommandParser@{parser::CommandParser}}
+\doxysubsubsection{\texorpdfstring{parsePin()}{parsePin()}}
+{\footnotesize\ttfamily \label{classparser_1_1_command_parser_a5acef12830fb5d6c962311cfb1972881} 
+\mbox{\hyperlink{structparser_1_1_player_inventory}{parser\+::\+Player\+Inventory}} parser\+::\+Command\+Parser\+::parse\+Pin (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Parses the \textquotesingle{}pin\textquotesingle{} command to extract player inventory. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structparser_1_1_player_inventory}{Player\+Inventory} structure.
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string (e.\+g., "{}pin \#1 2 3 0 1 2 3 4 5 6"{}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structparser_1_1_player_inventory}{Player\+Inventory} structure with player ID, position, and resources. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::runtime\+\_\+error} & if the command format is invalid. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{classparser_1_1_command_parser_a5df1c3d98c397f0e6f38e1bd348d260a}\index{parser::CommandParser@{parser::CommandParser}!parsePlv@{parsePlv}}
+\index{parsePlv@{parsePlv}!parser::CommandParser@{parser::CommandParser}}
+\doxysubsubsection{\texorpdfstring{parsePlv()}{parsePlv()}}
+{\footnotesize\ttfamily \label{classparser_1_1_command_parser_a5df1c3d98c397f0e6f38e1bd348d260a} 
+\mbox{\hyperlink{structparser_1_1_player_level_update}{parser\+::\+Player\+Level\+Update}} parser\+::\+Command\+Parser\+::parse\+Plv (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Parses the \textquotesingle{}plv\textquotesingle{} command to extract player level update. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structparser_1_1_player_level_update}{Player\+Level\+Update} structure.
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string (e.\+g., "{}plv \#1 2"{}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structparser_1_1_player_level_update}{Player\+Level\+Update} structure with player ID and level. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::runtime\+\_\+error} & if the command format is invalid. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{classparser_1_1_command_parser_a26b6d09de8578114b75ebcb3615b1866}\index{parser::CommandParser@{parser::CommandParser}!parsePnw@{parsePnw}}
+\index{parsePnw@{parsePnw}!parser::CommandParser@{parser::CommandParser}}
+\doxysubsubsection{\texorpdfstring{parsePnw()}{parsePnw()}}
+{\footnotesize\ttfamily \label{classparser_1_1_command_parser_a26b6d09de8578114b75ebcb3615b1866} 
+\mbox{\hyperlink{structparser_1_1_player_info}{parser\+::\+Player\+Info}} parser\+::\+Command\+Parser\+::parse\+Pnw (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Parses the \textquotesingle{}pnw\textquotesingle{} command to extract player information. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structparser_1_1_player_info}{Player\+Info} structure.
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string (e.\+g., "{}pnw \#1 2 3 4 5 team"{}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structparser_1_1_player_info}{Player\+Info} structure with player details. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::runtime\+\_\+error} & if the command format is invalid. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{classparser_1_1_command_parser_a6e4969f8f455b1ccd13b3f346a268672}\index{parser::CommandParser@{parser::CommandParser}!parsePpo@{parsePpo}}
+\index{parsePpo@{parsePpo}!parser::CommandParser@{parser::CommandParser}}
+\doxysubsubsection{\texorpdfstring{parsePpo()}{parsePpo()}}
+{\footnotesize\ttfamily \label{classparser_1_1_command_parser_a6e4969f8f455b1ccd13b3f346a268672} 
+\mbox{\hyperlink{structparser_1_1_player_position_update}{parser\+::\+Player\+Position\+Update}} parser\+::\+Command\+Parser\+::parse\+Ppo (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Parses the \textquotesingle{}ppo\textquotesingle{} command to extract player position update. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structparser_1_1_player_position_update}{Player\+Position\+Update} structure.
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string (e.\+g., "{}ppo \#1 2 3 4"{}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structparser_1_1_player_position_update}{Player\+Position\+Update} structure with player position and orientation. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::runtime\+\_\+error} & if the command format or orientation is invalid. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{classparser_1_1_command_parser_a532ab4eb23bc287f3a24b2d10da33f8f}\index{parser::CommandParser@{parser::CommandParser}!parseSeg@{parseSeg}}
+\index{parseSeg@{parseSeg}!parser::CommandParser@{parser::CommandParser}}
+\doxysubsubsection{\texorpdfstring{parseSeg()}{parseSeg()}}
+{\footnotesize\ttfamily \label{classparser_1_1_command_parser_a532ab4eb23bc287f3a24b2d10da33f8f} 
+\mbox{\hyperlink{structparser_1_1_game_over_event}{parser\+::\+Game\+Over\+Event}} parser\+::\+Command\+Parser\+::parse\+Seg (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Parses the \textquotesingle{}seg\textquotesingle{} command to extract game over event. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structparser_1_1_game_over_event}{Game\+Over\+Event} structure.
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string (e.\+g., "{}seg team\+Name"{}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structparser_1_1_game_over_event}{Game\+Over\+Event} structure with the winning team name. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::runtime\+\_\+error} & if the command format or team name is invalid. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{classparser_1_1_command_parser_a8f646f690ce196808b6aa6e1a3968d2e}\index{parser::CommandParser@{parser::CommandParser}!parseSgt@{parseSgt}}
+\index{parseSgt@{parseSgt}!parser::CommandParser@{parser::CommandParser}}
+\doxysubsubsection{\texorpdfstring{parseSgt()}{parseSgt()}}
+{\footnotesize\ttfamily \label{classparser_1_1_command_parser_a8f646f690ce196808b6aa6e1a3968d2e} 
+\mbox{\hyperlink{structparser_1_1_time_unit}{parser\+::\+Time\+Unit}} parser\+::\+Command\+Parser\+::parse\+Sgt (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Parses the \textquotesingle{}sgt\textquotesingle{} command to extract the time unit. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structparser_1_1_time_unit}{Time\+Unit} structure.
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string (e.\+g., "{}sgt 100"{}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structparser_1_1_time_unit}{Time\+Unit} structure with the time value, or 0 if parsing fails. 
+\end{DoxyReturn}
+\Hypertarget{classparser_1_1_command_parser_a623d344d431c207a48e1cdca11d03e6d}\index{parser::CommandParser@{parser::CommandParser}!parseSmg@{parseSmg}}
+\index{parseSmg@{parseSmg}!parser::CommandParser@{parser::CommandParser}}
+\doxysubsubsection{\texorpdfstring{parseSmg()}{parseSmg()}}
+{\footnotesize\ttfamily \label{classparser_1_1_command_parser_a623d344d431c207a48e1cdca11d03e6d} 
+\mbox{\hyperlink{structparser_1_1_server_message_event}{parser\+::\+Server\+Message\+Event}} parser\+::\+Command\+Parser\+::parse\+Smg (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Parses the \textquotesingle{}smg\textquotesingle{} command to extract server message event. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structparser_1_1_server_message_event}{Server\+Message\+Event} structure.
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string (e.\+g., "{}smg message"{}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structparser_1_1_server_message_event}{Server\+Message\+Event} structure with the message. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::runtime\+\_\+error} & if the command format is invalid. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{classparser_1_1_command_parser_ad588f647481cf414481b1a18e857ae48}\index{parser::CommandParser@{parser::CommandParser}!parseTna@{parseTna}}
+\index{parseTna@{parseTna}!parser::CommandParser@{parser::CommandParser}}
+\doxysubsubsection{\texorpdfstring{parseTna()}{parseTna()}}
+{\footnotesize\ttfamily \label{classparser_1_1_command_parser_ad588f647481cf414481b1a18e857ae48} 
+\mbox{\hyperlink{structparser_1_1_team_names}{parser\+::\+Team\+Names}} parser\+::\+Command\+Parser\+::parse\+Tna (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Parses the \textquotesingle{}tna\textquotesingle{} command to extract team names. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structparser_1_1_team_names}{Team\+Names} structure.
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string (e.\+g., "{}tna team1 team2"{}). \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{structparser_1_1_team_names}{Team\+Names} structure with a vector of team names. 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/parser/\mbox{\hyperlink{_command_parser_8hpp}{Command\+Parser.\+hpp}}\item 
+src/parser/\mbox{\hyperlink{_command_parser_8cpp}{Command\+Parser.\+cpp}}\end{DoxyCompactItemize}

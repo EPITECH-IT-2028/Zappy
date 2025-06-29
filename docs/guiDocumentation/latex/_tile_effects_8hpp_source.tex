@@ -1,0 +1,33 @@
+\doxysection{Tile\+Effects.\+hpp}
+\hypertarget{_tile_effects_8hpp_source}{}\label{_tile_effects_8hpp_source}\index{src/entities/TileEffects.hpp@{src/entities/TileEffects.hpp}}
+\mbox{\hyperlink{_tile_effects_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{_tile_effects_8hpp_a82862e4ec6bc53ff56d37a0a59ae98f0}{TILE\_SIZE}}\ =\ 64;}
+\DoxyCodeLine{00004\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{_tile_effects_8hpp_a22a14250b9f8f65d625790279eb4d029}{BORDER\_THICKNESS}}\ =\ 4.0f;}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacegui}{gui}}\ \{}
+\DoxyCodeLine{00013\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structgui_1_1_tile_effects}{TileEffects}}\ \{}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structgui_1_1_tile_effects_ae4e21d2e7318287da2745e2385c4f6ae}{incantationInProgress}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structgui_1_1_tile_effects_ae376d1e1d5104277df9e85d33a2fffd9}{showResultEffect}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structgui_1_1_tile_effects_aa93c30ffb70ab96bcfb10aa1c396f5b8}{resultSuccess}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{structgui_1_1_tile_effects_a41b6f1f0e505fd817ad4f9dde2767e6d}{effectTimer}}\ =\ 0.0f;}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structgui_1_1_tile_effects_aad500e83d5cb6399d7870fe0efd25c76}{startIncantationEffect}}();}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structgui_1_1_tile_effects_ae80af97ca0b452a9afcb906798f7e0f9}{stopIncantationEffect}}();}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structgui_1_1_tile_effects_ab19abd58d96466b467b701b564e5e4d5}{showSuccessEffect}}();}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structgui_1_1_tile_effects_aaa7b9e54e75ed20caf9f54ccaa6c0f1b}{showFailureEffect}}();}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structgui_1_1_tile_effects_a507e938fae198ef6c3d1ca407a2ed3b0}{resultEffect}}(\textcolor{keywordtype}{bool}\ success);}
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structgui_1_1_tile_effects_a8e28bc1ec68085a6fb19409444ffc932}{showForkEffect}}();}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structgui_1_1_tile_effects_af2ead13d44d73dcaaee5ec3a969a2717}{showDropEffect}}(\textcolor{keywordtype}{int}\ resourceId);}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structgui_1_1_tile_effects_abc37c1cb52f5dc57693461abbd2d9c3f}{showCollectEffect}}(\textcolor{keywordtype}{int}\ resourceId);}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structgui_1_1_tile_effects_acc9c4959cbe9ee3c99f3801d3bae2544}{showPushEffect}}(\textcolor{keywordtype}{int}\ playerId);}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structgui_1_1_tile_effects_afb70e082a1d7f9ad06fb3ee9746658ee}{update}}(\textcolor{keywordtype}{float}\ deltaTime);}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structgui_1_1_tile_effects_a8d291e929ac163b343578c023bdc82a5}{draw}}(\textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y);}
+\DoxyCodeLine{00084\ \ \ \};}
+\DoxyCodeLine{00085\ \}\ \ \textcolor{comment}{//\ namespace\ gui}}
+
+\end{DoxyCode}

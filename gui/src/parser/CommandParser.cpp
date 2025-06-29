@@ -2,6 +2,11 @@
 #include <cstdio>
 #include <sstream>
 
+/**
+ * @brief Parses the 'msz' command to extract map size.
+ * @param command The command string (e.g., "msz 10 20").
+ * @return MapSize structure with width and height, or (0,0) if parsing fails.
+ */
 parser::MapSize parser::CommandParser::parseMsz(const std::string &command) {
   int width, height;
   int result = sscanf(command.c_str(), "msz %d %d", &width, &height);
@@ -10,6 +15,11 @@ parser::MapSize parser::CommandParser::parseMsz(const std::string &command) {
   return MapSize(width, height);
 }
 
+/**
+ * @brief Parses the 'sgt' command to extract the time unit.
+ * @param command The command string (e.g., "sgt 100").
+ * @return TimeUnit structure with the time value, or 0 if parsing fails.
+ */
 parser::TimeUnit parser::CommandParser::parseSgt(const std::string &command) {
   int time;
   int result = sscanf(command.c_str(), "sgt %d", &time);
@@ -18,6 +28,11 @@ parser::TimeUnit parser::CommandParser::parseSgt(const std::string &command) {
   return TimeUnit(time);
 }
 
+/**
+ * @brief Parses the 'tna' command to extract team names.
+ * @param command The command string (e.g., "tna team1 team2").
+ * @return TeamNames structure with a vector of team names.
+ */
 parser::TeamNames parser::CommandParser::parseTna(const std::string &command) {
   std::vector<std::string> names;
   std::istringstream iss(command);
@@ -31,6 +46,12 @@ parser::TeamNames parser::CommandParser::parseTna(const std::string &command) {
   return TeamNames(names);
 }
 
+/**
+ * @brief Parses the 'bct' command to extract tile resource information.
+ * @param command The command string (e.g., "bct 1 2 0 1 2 3 4 5 6").
+ * @return TileUpdate structure with tile coordinates and resource counts.
+ * @throws std::runtime_error if the command format is invalid.
+ */
 parser::TileUpdate parser::CommandParser::parseBct(const std::string &command) {
   int x, y;
   std::array<int, RESOURCE_COUNT> resources = {0};
@@ -44,6 +65,12 @@ parser::TileUpdate parser::CommandParser::parseBct(const std::string &command) {
   return TileUpdate(x, y, resources);
 }
 
+/**
+ * @brief Parses the 'pnw' command to extract player information.
+ * @param command The command string (e.g., "pnw #1 2 3 4 5 team").
+ * @return PlayerInfo structure with player details.
+ * @throws std::runtime_error if the command format is invalid.
+ */
 parser::PlayerInfo parser::CommandParser::parsePnw(const std::string &command) {
   int id, x, y, level;
   int orientationInt;
@@ -59,6 +86,12 @@ parser::PlayerInfo parser::CommandParser::parsePnw(const std::string &command) {
   return PlayerInfo(id, x, y, orientation, level, std::string(teamName));
 }
 
+/**
+ * @brief Parses the 'ppo' command to extract player position update.
+ * @param command The command string (e.g., "ppo #1 2 3 4").
+ * @return PlayerPositionUpdate structure with player position and orientation.
+ * @throws std::runtime_error if the command format or orientation is invalid.
+ */
 parser::PlayerPositionUpdate parser::CommandParser::parsePpo(
     const std::string &command) {
   int id, x, y;
@@ -74,6 +107,12 @@ parser::PlayerPositionUpdate parser::CommandParser::parsePpo(
   return PlayerPositionUpdate(id, x, y, orientation);
 }
 
+/**
+ * @brief Parses the 'plv' command to extract player level update.
+ * @param command The command string (e.g., "plv #1 2").
+ * @return PlayerLevelUpdate structure with player ID and level.
+ * @throws std::runtime_error if the command format is invalid.
+ */
 parser::PlayerLevelUpdate parser::CommandParser::parsePlv(
     const std::string &command) {
   int id, level;
@@ -85,6 +124,12 @@ parser::PlayerLevelUpdate parser::CommandParser::parsePlv(
   return PlayerLevelUpdate(id, level);
 }
 
+/**
+ * @brief Parses the 'pin' command to extract player inventory.
+ * @param command The command string (e.g., "pin #1 2 3 0 1 2 3 4 5 6").
+ * @return PlayerInventory structure with player ID, position, and resources.
+ * @throws std::runtime_error if the command format is invalid.
+ */
 parser::PlayerInventory parser::CommandParser::parsePin(
     const std::string &command) {
   int id, x, y;
@@ -100,6 +145,12 @@ parser::PlayerInventory parser::CommandParser::parsePin(
   return PlayerInventory(id, x, y, resources);
 }
 
+/**
+ * @brief Parses the 'enw' command to extract egg laid event.
+ * @param command The command string (e.g., "enw #1 #2 3 4").
+ * @return EggLaid structure with egg and player IDs and position.
+ * @throws std::runtime_error if the command format is invalid.
+ */
 parser::EggLaid parser::CommandParser::parseEnw(const std::string &command) {
   int idEgg, idPlayer, x, y;
 
@@ -111,6 +162,12 @@ parser::EggLaid parser::CommandParser::parseEnw(const std::string &command) {
   return EggLaid(idEgg, idPlayer, x, y);
 }
 
+/**
+ * @brief Parses the 'ebo' command to extract egg hatch event.
+ * @param command The command string (e.g., "ebo #1").
+ * @return EggHatch structure with egg ID.
+ * @throws std::runtime_error if the command format is invalid.
+ */
 parser::EggHatch parser::CommandParser::parseEbo(const std::string &command) {
   int id;
   int result = std::sscanf(command.c_str(), "ebo #%d", &id);
@@ -120,6 +177,12 @@ parser::EggHatch parser::CommandParser::parseEbo(const std::string &command) {
   return EggHatch(id);
 }
 
+/**
+ * @brief Parses the 'edi' command to extract egg death event.
+ * @param command The command string (e.g., "edi #1").
+ * @return EggDeath structure with egg ID.
+ * @throws std::runtime_error if the command format is invalid.
+ */
 parser::EggDeath parser::CommandParser::parseEdi(const std::string &command) {
   int id;
   int result = std::sscanf(command.c_str(), "edi #%d", &id);
@@ -129,6 +192,12 @@ parser::EggDeath parser::CommandParser::parseEdi(const std::string &command) {
   return EggDeath(id);
 }
 
+/**
+ * @brief Parses the 'pdi' command to extract player death event.
+ * @param command The command string (e.g., "pdi #1").
+ * @return PlayerDeath structure with player ID.
+ * @throws std::runtime_error if the command format is invalid.
+ */
 parser::PlayerDeath parser::CommandParser::parsePdi(
     const std::string &command) {
   int id;
@@ -139,6 +208,12 @@ parser::PlayerDeath parser::CommandParser::parsePdi(
   return PlayerDeath(id);
 }
 
+/**
+ * @brief Parses the 'pic' command to extract incantation start event.
+ * @param command The command string (e.g., "pic 1 2 3 #4 #5").
+ * @return Incantation structure with coordinates, level, and player IDs.
+ * @throws std::runtime_error if the command format is invalid.
+ */
 parser::Incantation parser::CommandParser::parsePic(const std::string &command) {
   int x, y, level;
   std::vector<int> playersNumber;
@@ -166,6 +241,12 @@ parser::Incantation parser::CommandParser::parsePic(const std::string &command) 
   return Incantation(x, y, level, playersNumber);
 }
 
+/**
+ * @brief Parses the 'pie' command to extract incantation end event.
+ * @param command The command string (e.g., "pie 1 2 1").
+ * @return IncantationEnd structure with coordinates and success flag.
+ * @throws std::runtime_error if the command format is invalid.
+ */
 parser::IncantationEnd parser::CommandParser::parsePie(
     const std::string &command) {
   int x, y, result;
@@ -176,6 +257,12 @@ parser::IncantationEnd parser::CommandParser::parsePie(
   return IncantationEnd(x, y, result == 1);
 }
 
+/**
+ * @brief Parses the 'pfk' command to extract fork event.
+ * @param command The command string (e.g., "pfk #1").
+ * @return ForkEvent structure with player ID.
+ * @throws std::runtime_error if the command format is invalid.
+ */
 parser::ForkEvent parser::CommandParser::parsePfk(const std::string &command) {
   int playerId;
   int result = std::sscanf(command.c_str(), "pfk #%d", &playerId);
@@ -185,6 +272,12 @@ parser::ForkEvent parser::CommandParser::parsePfk(const std::string &command) {
   return ForkEvent(playerId);
 }
 
+/**
+ * @brief Parses the 'pdr' command to extract drop resource event.
+ * @param command The command string (e.g., "pdr #1 2").
+ * @return DropResource structure with player ID and resource number.
+ * @throws std::runtime_error if the command format or resource number is invalid.
+ */
 parser::DropResource parser::CommandParser::parsePdr(
     const std::string &command) {
   int playerId, resourceNumber;
@@ -198,6 +291,12 @@ parser::DropResource parser::CommandParser::parsePdr(
   return DropResource(playerId, resourceNumber);
 }
 
+/**
+ * @brief Parses the 'pgt' command to extract collect resource event.
+ * @param command The command string (e.g., "pgt #1 2").
+ * @return CollectResource structure with player ID and resource number.
+ * @throws std::runtime_error if the command format or resource number is invalid.
+ */
 parser::CollectResource parser::CommandParser::parsePgt(
     const std::string &command) {
   int playerId, resourceNumber;
@@ -211,6 +310,12 @@ parser::CollectResource parser::CommandParser::parsePgt(
   return CollectResource(playerId, resourceNumber);
 }
 
+/**
+ * @brief Parses the 'pex' command to extract player expulsion event.
+ * @param command The command string (e.g., "pex #1").
+ * @return PlayerExpulsion structure with player ID.
+ * @throws std::runtime_error if the command format is invalid.
+ */
 parser::PlayerExpulsion parser::CommandParser::parsePex(
     const std::string &command) {
   int playerId;
@@ -221,6 +326,12 @@ parser::PlayerExpulsion parser::CommandParser::parsePex(
   return PlayerExpulsion(playerId);
 }
 
+/**
+ * @brief Parses the 'pbc' command to extract broadcast event.
+ * @param command The command string (e.g., "pbc #1 message").
+ * @return BroadcastEvent structure with player ID and message.
+ * @throws std::runtime_error if the command format or player ID is invalid.
+ */
 parser::BroadcastEvent parser::CommandParser::parsePbc(
     const std::string &command) {
   std::istringstream iss(command);
@@ -245,6 +356,12 @@ parser::BroadcastEvent parser::CommandParser::parsePbc(
   return BroadcastEvent(playerId, message);
 }
 
+/**
+ * @brief Parses the 'smg' command to extract server message event.
+ * @param command The command string (e.g., "smg message").
+ * @return ServerMessageEvent structure with the message.
+ * @throws std::runtime_error if the command format is invalid.
+ */
 parser::ServerMessageEvent parser::CommandParser::parseSmg(
     const std::string &command) {
   if (command.size() < 4)
@@ -253,6 +370,12 @@ parser::ServerMessageEvent parser::CommandParser::parseSmg(
   return ServerMessageEvent(message);
 }
 
+/**
+ * @brief Parses the 'seg' command to extract game over event.
+ * @param command The command string (e.g., "seg teamName").
+ * @return GameOverEvent structure with the winning team name.
+ * @throws std::runtime_error if the command format or team name is invalid.
+ */
 parser::GameOverEvent parser::CommandParser::parseSeg(
     const std::string &command) {
   std::istringstream iss(command);

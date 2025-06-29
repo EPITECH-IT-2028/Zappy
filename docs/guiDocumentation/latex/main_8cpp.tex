@@ -1,0 +1,86 @@
+\doxysection{src/main.cpp File Reference}
+\hypertarget{main_8cpp}{}\label{main_8cpp}\index{src/main.cpp@{src/main.cpp}}
+{\ttfamily \#include $<$exception$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include "{}parser/\+Args\+Parser.\+hpp"{}}\newline
+{\ttfamily \#include "{}game\+Engine/\+Game\+Engine.\+hpp"{}}\newline
+{\ttfamily \#include "{}server/\+Server\+Communication.\+hpp"{}}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{main_8cpp_aba51915c87d64af47fb1cc59348961c9}{OK}}~0
+\item 
+\#define \mbox{\hyperlink{main_8cpp_acb00992efca56626cdf0907e5edb5b51}{KO}}~84
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{main_8cpp_ab6fb4e7ceacfb168d8b50c27aedc865a}{is\+Help\+Requested}} (int argc, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}argv)
+\begin{DoxyCompactList}\small\item\em Checks if the help flag is requested by the user. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{main_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{main}} (int argc, char \texorpdfstring{$\ast$}{*}argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Entry point for the Zappy GUI application. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{main_8cpp_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{main_8cpp_acb00992efca56626cdf0907e5edb5b51}\index{main.cpp@{main.cpp}!KO@{KO}}
+\index{KO@{KO}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{KO}{KO}}
+{\footnotesize\ttfamily \label{main_8cpp_acb00992efca56626cdf0907e5edb5b51} 
+\#define KO~84}
+
+\Hypertarget{main_8cpp_aba51915c87d64af47fb1cc59348961c9}\index{main.cpp@{main.cpp}!OK@{OK}}
+\index{OK@{OK}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{OK}{OK}}
+{\footnotesize\ttfamily \label{main_8cpp_aba51915c87d64af47fb1cc59348961c9} 
+\#define OK~0}
+
+
+
+\label{doc-func-members}
+\Hypertarget{main_8cpp_doc-func-members}
+\doxysubsection{Function Documentation}
+\Hypertarget{main_8cpp_ab6fb4e7ceacfb168d8b50c27aedc865a}\index{main.cpp@{main.cpp}!isHelpRequested@{isHelpRequested}}
+\index{isHelpRequested@{isHelpRequested}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{isHelpRequested()}{isHelpRequested()}}
+{\footnotesize\ttfamily \label{main_8cpp_ab6fb4e7ceacfb168d8b50c27aedc865a} 
+bool is\+Help\+Requested (\begin{DoxyParamCaption}\item[{int}]{argc}{, }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{argv}{}\end{DoxyParamCaption})}
+
+
+
+Checks if the help flag is requested by the user. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em argc} & Number of command-\/line arguments. \\
+\hline
+{\em argv} & Array of command-\/line argument strings. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if \textquotesingle{}--help\textquotesingle{} is provided as the only argument, false otherwise. 
+\end{DoxyReturn}
+\Hypertarget{main_8cpp_a0ddf1224851353fc92bfbff6f499fa97}\index{main.cpp@{main.cpp}!main@{main}}
+\index{main@{main}!main.cpp@{main.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{main_8cpp_a0ddf1224851353fc92bfbff6f499fa97} 
+int main (\begin{DoxyParamCaption}\item[{int}]{argc}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{argv}{\mbox{[}$\,$\mbox{]}}\end{DoxyParamCaption})}
+
+
+
+Entry point for the Zappy GUI application. 
+
+Parses command-\/line arguments, establishes a connection to the server, and starts the main application loop. Handles errors and displays appropriate messages to the user.
+
+
+\begin{DoxyParams}{Parameters}
+{\em argc} & Number of command-\/line arguments. \\
+\hline
+{\em argv} & Array of command-\/line argument strings. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int Exit code (0 for success, 84 for error). 
+\end{DoxyReturn}

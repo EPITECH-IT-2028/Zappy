@@ -1,0 +1,178 @@
+\doxysection{rlights.\+h}
+\hypertarget{rlights_8h_source}{}\label{rlights_8h_source}\index{src/header/rlights.h@{src/header/rlights.h}}
+\mbox{\hyperlink{rlights_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/**********************************************************************************************}}
+\DoxyCodeLine{00002\ \textcolor{comment}{*}}
+\DoxyCodeLine{00003\ \textcolor{comment}{*\ \ \ raylib.lights\ -\/\ Some\ useful\ functions\ to\ deal\ with\ lights\ data}}
+\DoxyCodeLine{00004\ \textcolor{comment}{*}}
+\DoxyCodeLine{00005\ \textcolor{comment}{*\ \ \ CONFIGURATION:}}
+\DoxyCodeLine{00006\ \textcolor{comment}{*}}
+\DoxyCodeLine{00007\ \textcolor{comment}{*\ \ \ \#define\ RLIGHTS\_IMPLEMENTATION}}
+\DoxyCodeLine{00008\ \textcolor{comment}{*\ \ \ \ \ \ \ Generates\ the\ implementation\ of\ the\ library\ into\ the\ included\ file.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{*\ \ \ \ \ \ \ If\ not\ defined,\ the\ library\ is\ in\ header\ only\ mode\ and\ can\ be\ included\ in\ other\ headers\ }}
+\DoxyCodeLine{00010\ \textcolor{comment}{*\ \ \ \ \ \ \ or\ source\ files\ without\ problems.\ But\ only\ ONE\ file\ should\ hold\ the\ implementation.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{*}}
+\DoxyCodeLine{00012\ \textcolor{comment}{*\ \ \ LICENSE:\ zlib/libpng}}
+\DoxyCodeLine{00013\ \textcolor{comment}{*}}
+\DoxyCodeLine{00014\ \textcolor{comment}{*\ \ \ Copyright\ (c)\ 2017-\/2024\ Victor\ Fisac\ (@victorfisac)\ and\ Ramon\ Santamaria\ (@raysan5)}}
+\DoxyCodeLine{00015\ \textcolor{comment}{*}}
+\DoxyCodeLine{00016\ \textcolor{comment}{*\ \ \ This\ software\ is\ provided\ "{}as-\/is"{},\ without\ any\ express\ or\ implied\ warranty.\ In\ no\ event}}
+\DoxyCodeLine{00017\ \textcolor{comment}{*\ \ \ will\ the\ authors\ be\ held\ liable\ for\ any\ damages\ arising\ from\ the\ use\ of\ this\ software.}}
+\DoxyCodeLine{00018\ \textcolor{comment}{*}}
+\DoxyCodeLine{00019\ \textcolor{comment}{*\ \ \ Permission\ is\ granted\ to\ anyone\ to\ use\ this\ software\ for\ any\ purpose,\ including\ commercial}}
+\DoxyCodeLine{00020\ \textcolor{comment}{*\ \ \ applications,\ and\ to\ alter\ it\ and\ redistribute\ it\ freely,\ subject\ to\ the\ following\ restrictions:}}
+\DoxyCodeLine{00021\ \textcolor{comment}{*}}
+\DoxyCodeLine{00022\ \textcolor{comment}{*\ \ \ \ \ 1.\ The\ origin\ of\ this\ software\ must\ not\ be\ misrepresented;\ you\ must\ not\ claim\ that\ you}}
+\DoxyCodeLine{00023\ \textcolor{comment}{*\ \ \ \ \ wrote\ the\ original\ software.\ If\ you\ use\ this\ software\ in\ a\ product,\ an\ acknowledgment}}
+\DoxyCodeLine{00024\ \textcolor{comment}{*\ \ \ \ \ in\ the\ product\ documentation\ would\ be\ appreciated\ but\ is\ not\ required.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{*}}
+\DoxyCodeLine{00026\ \textcolor{comment}{*\ \ \ \ \ 2.\ Altered\ source\ versions\ must\ be\ plainly\ marked\ as\ such,\ and\ must\ not\ be\ misrepresented}}
+\DoxyCodeLine{00027\ \textcolor{comment}{*\ \ \ \ \ as\ being\ the\ original\ software.}}
+\DoxyCodeLine{00028\ \textcolor{comment}{*}}
+\DoxyCodeLine{00029\ \textcolor{comment}{*\ \ \ \ \ 3.\ This\ notice\ may\ not\ be\ removed\ or\ altered\ from\ any\ source\ distribution.}}
+\DoxyCodeLine{00030\ \textcolor{comment}{*}}
+\DoxyCodeLine{00031\ \textcolor{comment}{**********************************************************************************************/}}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#ifndef\ RLIGHTS\_H}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ RLIGHTS\_H}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#include\ "{}raylib.h"{}}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00039\ \textcolor{comment}{//\ Defines\ and\ Macros}}
+\DoxyCodeLine{00040\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ MAX\_LIGHTS\ \ 4\ \ \ \ \ \ \ \ \ }\textcolor{comment}{//\ Max\ dynamic\ lights\ supported\ by\ shader}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00044\ \textcolor{comment}{//\ Types\ and\ Structures\ Definition}}
+\DoxyCodeLine{00045\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00047\ \textcolor{comment}{//\ Light\ data}}
+\DoxyCodeLine{00048\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{\ \ \ }
+\DoxyCodeLine{00049\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_light_ad5c0b51a5d09ab56d1119706b58a6941}{type}};}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{struct_light_a6dfed8051e33dde2baaef3e50d74084e}{enabled}};}
+\DoxyCodeLine{00051\ \ \ \ \ Vector3\ \mbox{\hyperlink{struct_light_aaf0e960606cf34ba827b5fef2c74b042}{position}};}
+\DoxyCodeLine{00052\ \ \ \ \ Vector3\ \mbox{\hyperlink{struct_light_ada0bd72079232cbfaba34001229e8cfa}{target}};}
+\DoxyCodeLine{00053\ \ \ \ \ Color\ \mbox{\hyperlink{struct_light_ad7a168d26aed1bf7cca1a8d8e6f8ada4}{color}};}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{struct_light_af8b645352e549c52ace8731a3aca34c4}{attenuation}};}
+\DoxyCodeLine{00055\ \ \ \ \ }
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{comment}{//\ Shader\ locations}}
+\DoxyCodeLine{00057\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_light_af606501e4853296552b5cfb03f37fae8}{enabledLoc}};}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_light_a69074799494a828b60170d962675fb90}{typeLoc}};}
+\DoxyCodeLine{00059\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_light_a448d502e227576d9ffa8627e050065ef}{positionLoc}};}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_light_a39192f609cfe392cca178e4a7f36937b}{targetLoc}};}
+\DoxyCodeLine{00061\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_light_a98df12cebc437d739f22dd809b66878c}{colorLoc}};}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_light_a45d4a94a276ab0870a108f4a4a460e0a}{attenuationLoc}};}
+\DoxyCodeLine{00063\ \}\ \mbox{\hyperlink{struct_light}{Light}};}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{comment}{//\ Light\ type}}
+\DoxyCodeLine{00066\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00067\ \ \ \ \ \mbox{\hyperlink{rlights_8h_adc3ec8293e6a97ebe43f0196b9a7f638ab12dea138375f6dfacbd2ffbb98135a0}{LIGHT\_DIRECTIONAL}}\ =\ 0,}
+\DoxyCodeLine{00068\ \ \ \ \ \mbox{\hyperlink{rlights_8h_adc3ec8293e6a97ebe43f0196b9a7f638abdec4858df81ac7fc719321ed2b4fe7c}{LIGHT\_POINT}}}
+\DoxyCodeLine{00069\ \}\ \mbox{\hyperlink{rlights_8h_adc3ec8293e6a97ebe43f0196b9a7f638}{LightType}};}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00072\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Prevents\ name\ mangling\ of\ functions}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00076\ \textcolor{comment}{//\ Module\ Functions\ Declaration}}
+\DoxyCodeLine{00077\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00078\ \mbox{\hyperlink{struct_light}{Light}}\ \mbox{\hyperlink{rlights_8h_afc243bc3de16abf2627f9ae16dd484de}{CreateLight}}(\textcolor{keywordtype}{int}\ type,\ Vector3\ position,\ Vector3\ target,\ Color\ color,\ Shader\ shader);\ \ \ \textcolor{comment}{//\ Create\ a\ light\ and\ get\ shader\ locations}}
+\DoxyCodeLine{00079\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{rlights_8h_a147b7e5788024577fc8abb7df32e4c5c}{UpdateLightValues}}(Shader\ shader,\ \mbox{\hyperlink{struct_light}{Light}}\ light);\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Send\ light\ properties\ to\ shader}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00082\ \}}
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ RLIGHTS\_H}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \textcolor{comment}{/***********************************************************************************}}
+\DoxyCodeLine{00089\ \textcolor{comment}{*}}
+\DoxyCodeLine{00090\ \textcolor{comment}{*\ \ \ RLIGHTS\ IMPLEMENTATION}}
+\DoxyCodeLine{00091\ \textcolor{comment}{*}}
+\DoxyCodeLine{00092\ \textcolor{comment}{************************************************************************************/}}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#if\ defined(RLIGHTS\_IMPLEMENTATION)}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#include\ "{}raylib.h"{}}}
+\DoxyCodeLine{00097\ }
+\DoxyCodeLine{00098\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00099\ \textcolor{comment}{//\ Defines\ and\ Macros}}
+\DoxyCodeLine{00100\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00101\ \textcolor{comment}{//\ ...}}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00104\ \textcolor{comment}{//\ Types\ and\ Structures\ Definition}}
+\DoxyCodeLine{00105\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00106\ \textcolor{comment}{//\ ...}}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00108\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00109\ \textcolor{comment}{//\ Global\ Variables\ Definition}}
+\DoxyCodeLine{00110\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00111\ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ lightsCount\ =\ 0;\ \ \ \ \textcolor{comment}{//\ Current\ amount\ of\ created\ lights}}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00114\ \textcolor{comment}{//\ Module\ specific\ Functions\ Declaration}}
+\DoxyCodeLine{00115\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00116\ \textcolor{comment}{//\ ...}}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00118\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00119\ \textcolor{comment}{//\ Module\ Functions\ Definition}}
+\DoxyCodeLine{00120\ \textcolor{comment}{//-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ \textcolor{comment}{//\ Create\ a\ light\ and\ get\ shader\ locations}}
+\DoxyCodeLine{00123\ \mbox{\hyperlink{struct_light}{Light}}\ \mbox{\hyperlink{rlights_8h_afc243bc3de16abf2627f9ae16dd484de}{CreateLight}}(\textcolor{keywordtype}{int}\ type,\ Vector3\ position,\ Vector3\ target,\ Color\ color,\ Shader\ shader)}
+\DoxyCodeLine{00124\ \{}
+\DoxyCodeLine{00125\ \ \ \ \ \mbox{\hyperlink{struct_light}{Light}}\ light\ =\ \{\ .enabled\ =\ 0\ \};}
+\DoxyCodeLine{00126\ }
+\DoxyCodeLine{00127\ \ \ \ \ \textcolor{keywordflow}{if}\ (lightsCount\ <\ \mbox{\hyperlink{rlights_8h_a737b417f16ea225cf15e8d4c23df53dc}{MAX\_LIGHTS}})}
+\DoxyCodeLine{00128\ \ \ \ \ \{}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ light.\mbox{\hyperlink{struct_light_a6dfed8051e33dde2baaef3e50d74084e}{enabled}}\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \ \ light.\mbox{\hyperlink{struct_light_ad5c0b51a5d09ab56d1119706b58a6941}{type}}\ =\ type;}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ light.\mbox{\hyperlink{struct_light_aaf0e960606cf34ba827b5fef2c74b042}{position}}\ =\ position;}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ light.\mbox{\hyperlink{struct_light_ada0bd72079232cbfaba34001229e8cfa}{target}}\ =\ target;}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ light.\mbox{\hyperlink{struct_light_ad7a168d26aed1bf7cca1a8d8e6f8ada4}{color}}\ =\ color;}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ NOTE:\ Lighting\ shader\ naming\ must\ be\ the\ provided\ ones}}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \ \ light.\mbox{\hyperlink{struct_light_af606501e4853296552b5cfb03f37fae8}{enabledLoc}}\ =\ GetShaderLocation(shader,\ TextFormat(\textcolor{stringliteral}{"{}lights[\%i].enabled"{}},\ lightsCount));}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ light.\mbox{\hyperlink{struct_light_a69074799494a828b60170d962675fb90}{typeLoc}}\ =\ GetShaderLocation(shader,\ TextFormat(\textcolor{stringliteral}{"{}lights[\%i].type"{}},\ lightsCount));}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \ \ light.\mbox{\hyperlink{struct_light_a448d502e227576d9ffa8627e050065ef}{positionLoc}}\ =\ GetShaderLocation(shader,\ TextFormat(\textcolor{stringliteral}{"{}lights[\%i].position"{}},\ lightsCount));}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ light.\mbox{\hyperlink{struct_light_a39192f609cfe392cca178e4a7f36937b}{targetLoc}}\ =\ GetShaderLocation(shader,\ TextFormat(\textcolor{stringliteral}{"{}lights[\%i].target"{}},\ lightsCount));}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ light.\mbox{\hyperlink{struct_light_a98df12cebc437d739f22dd809b66878c}{colorLoc}}\ =\ GetShaderLocation(shader,\ TextFormat(\textcolor{stringliteral}{"{}lights[\%i].color"{}},\ lightsCount));}
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{rlights_8h_a147b7e5788024577fc8abb7df32e4c5c}{UpdateLightValues}}(shader,\ light);}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ lightsCount++;}
+\DoxyCodeLine{00145\ \ \ \ \ \}}
+\DoxyCodeLine{00146\ }
+\DoxyCodeLine{00147\ \ \ \ \ \textcolor{keywordflow}{return}\ light;}
+\DoxyCodeLine{00148\ \}}
+\DoxyCodeLine{00149\ }
+\DoxyCodeLine{00150\ \textcolor{comment}{//\ Send\ light\ properties\ to\ shader}}
+\DoxyCodeLine{00151\ \textcolor{comment}{//\ NOTE:\ Light\ shader\ locations\ should\ be\ available\ }}
+\DoxyCodeLine{00152\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{rlights_8h_a147b7e5788024577fc8abb7df32e4c5c}{UpdateLightValues}}(Shader\ shader,\ \mbox{\hyperlink{struct_light}{Light}}\ light)}
+\DoxyCodeLine{00153\ \{}
+\DoxyCodeLine{00154\ \ \ \ \ \textcolor{comment}{//\ Send\ to\ shader\ light\ enabled\ state\ and\ type}}
+\DoxyCodeLine{00155\ \ \ \ \ SetShaderValue(shader,\ light.\mbox{\hyperlink{struct_light_af606501e4853296552b5cfb03f37fae8}{enabledLoc}},\ \&light.\mbox{\hyperlink{struct_light_a6dfed8051e33dde2baaef3e50d74084e}{enabled}},\ SHADER\_UNIFORM\_INT);}
+\DoxyCodeLine{00156\ \ \ \ \ SetShaderValue(shader,\ light.\mbox{\hyperlink{struct_light_a69074799494a828b60170d962675fb90}{typeLoc}},\ \&light.\mbox{\hyperlink{struct_light_ad5c0b51a5d09ab56d1119706b58a6941}{type}},\ SHADER\_UNIFORM\_INT);}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{comment}{//\ Send\ to\ shader\ light\ position\ values}}
+\DoxyCodeLine{00159\ \ \ \ \ \textcolor{keywordtype}{float}\ position[3]\ =\ \{\ light.\mbox{\hyperlink{struct_light_aaf0e960606cf34ba827b5fef2c74b042}{position}}.x,\ light.\mbox{\hyperlink{struct_light_aaf0e960606cf34ba827b5fef2c74b042}{position}}.y,\ light.\mbox{\hyperlink{struct_light_aaf0e960606cf34ba827b5fef2c74b042}{position}}.z\ \};}
+\DoxyCodeLine{00160\ \ \ \ \ SetShaderValue(shader,\ light.\mbox{\hyperlink{struct_light_a448d502e227576d9ffa8627e050065ef}{positionLoc}},\ position,\ SHADER\_UNIFORM\_VEC3);}
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ \ \ \ \ \textcolor{comment}{//\ Send\ to\ shader\ light\ target\ position\ values}}
+\DoxyCodeLine{00163\ \ \ \ \ \textcolor{keywordtype}{float}\ target[3]\ =\ \{\ light.\mbox{\hyperlink{struct_light_ada0bd72079232cbfaba34001229e8cfa}{target}}.x,\ light.\mbox{\hyperlink{struct_light_ada0bd72079232cbfaba34001229e8cfa}{target}}.y,\ light.\mbox{\hyperlink{struct_light_ada0bd72079232cbfaba34001229e8cfa}{target}}.z\ \};}
+\DoxyCodeLine{00164\ \ \ \ \ SetShaderValue(shader,\ light.\mbox{\hyperlink{struct_light_a39192f609cfe392cca178e4a7f36937b}{targetLoc}},\ target,\ SHADER\_UNIFORM\_VEC3);}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \ \ \ \ \textcolor{comment}{//\ Send\ to\ shader\ light\ color\ values}}
+\DoxyCodeLine{00167\ \ \ \ \ \textcolor{keywordtype}{float}\ color[4]\ =\ \{\ (float)light.\mbox{\hyperlink{struct_light_ad7a168d26aed1bf7cca1a8d8e6f8ada4}{color}}.r/(\textcolor{keywordtype}{float})255,\ (float)light.\mbox{\hyperlink{struct_light_ad7a168d26aed1bf7cca1a8d8e6f8ada4}{color}}.g/(\textcolor{keywordtype}{float})255,\ }
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (float)light.\mbox{\hyperlink{struct_light_ad7a168d26aed1bf7cca1a8d8e6f8ada4}{color}}.b/(\textcolor{keywordtype}{float})255,\ (float)light.\mbox{\hyperlink{struct_light_ad7a168d26aed1bf7cca1a8d8e6f8ada4}{color}}.a/(\textcolor{keywordtype}{float})255\ \};}
+\DoxyCodeLine{00169\ \ \ \ \ SetShaderValue(shader,\ light.\mbox{\hyperlink{struct_light_a98df12cebc437d739f22dd809b66878c}{colorLoc}},\ color,\ SHADER\_UNIFORM\_VEC4);}
+\DoxyCodeLine{00170\ \}}
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ RLIGHTS\_IMPLEMENTATION}}
+
+\end{DoxyCode}

@@ -1,0 +1,106 @@
+\doxysection{gui Namespace Reference}
+\hypertarget{namespacegui}{}\label{namespacegui}\index{gui@{gui}}
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structgui_1_1_egg}{Egg}}
+\begin{DoxyCompactList}\small\item\em Represents an egg entity in the Zappy game world. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classgui_1_1_game_engine}{Game\+Engine}}
+\begin{DoxyCompactList}\small\item\em Main class responsible for running and rendering the game GUI. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structgui_1_1_game_state}{Game\+State}}
+\begin{DoxyCompactList}\small\item\em Represents the complete state of the Zappy game world. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structgui_1_1_incantation_effect}{Incantation\+Effect}}
+\begin{DoxyCompactList}\small\item\em Represents the visual effect of an incantation in progress on the map. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structgui_1_1_map}{Map}}
+\begin{DoxyCompactList}\small\item\em Represents the game map, consisting of a 2D grid of tiles. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structgui_1_1_player}{Player}}
+\begin{DoxyCompactList}\small\item\em Represents a player in the Zappy game world. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structgui_1_1_tile}{Tile}}
+\begin{DoxyCompactList}\small\item\em Represents a map tile in the Zappy game world. \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structgui_1_1_tile_effects}{Tile\+Effects}}
+\begin{DoxyCompactList}\small\item\em Manages and renders visual effects for a map tile (e.\+g., incantations, resource drops). \end{DoxyCompactList}\item 
+struct \mbox{\hyperlink{structgui_1_1_tile_selection}{Tile\+Selection}}
+\begin{DoxyCompactList}\small\item\em Structure representing the selection state of a tile. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{namespacegui_ad4abd679184df2f6e5bc0de521f37bd0}{Orientation}} \{ \mbox{\hyperlink{namespacegui_ad4abd679184df2f6e5bc0de521f37bd0a2bf8f791695c70efa9c14e6f1c326403}{NORTH}} = 1
+, \mbox{\hyperlink{namespacegui_ad4abd679184df2f6e5bc0de521f37bd0a45ac78bf3d4882ac520f4e7fb08d55c5}{EAST}} = 2
+, \mbox{\hyperlink{namespacegui_ad4abd679184df2f6e5bc0de521f37bd0a96e44fa82e5a5263fb92337be422d3eb}{SOUTH}} = 3
+, \mbox{\hyperlink{namespacegui_ad4abd679184df2f6e5bc0de521f37bd0a83c9f5692281bf59471b13dfddb3af91}{WEST}} = 4
+ \}
+\begin{DoxyCompactList}\small\item\em Enum representing the possible orientations (directions) a player can face. \end{DoxyCompactList}\item 
+enum class \mbox{\hyperlink{namespacegui_a5eb364352c145724b1cd8713f72a56ba}{Screen}} \{ \newline
+\mbox{\hyperlink{namespacegui_a5eb364352c145724b1cd8713f72a56baa6044e1b77e91b4fe89b4880b3c5fad15}{LOGO}}
+, \mbox{\hyperlink{namespacegui_a5eb364352c145724b1cd8713f72a56baa6f9dccd85b2e0786c8d522045365eb48}{TITLE}}
+, \mbox{\hyperlink{namespacegui_a5eb364352c145724b1cd8713f72a56baa056e68b506d7b8324ca79ad1a56931d1}{GAMEPLAY}}
+, \mbox{\hyperlink{namespacegui_a5eb364352c145724b1cd8713f72a56baa5d2c84883acf876a2154cae9ab07d59f}{ENDING}}
+, \newline
+\mbox{\hyperlink{namespacegui_a5eb364352c145724b1cd8713f72a56baabb1ca97ec761fc37101737ba0aa2e7c5}{ERROR}}
+ \}
+\begin{DoxyCompactList}\small\item\em Enum representing the different screens in the game. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\label{doc-enum-members}
+\Hypertarget{namespacegui_doc-enum-members}
+\doxysubsection{Enumeration Type Documentation}
+\Hypertarget{namespacegui_ad4abd679184df2f6e5bc0de521f37bd0}\index{gui@{gui}!Orientation@{Orientation}}
+\index{Orientation@{Orientation}!gui@{gui}}
+\doxysubsubsection{\texorpdfstring{Orientation}{Orientation}}
+{\footnotesize\ttfamily \label{namespacegui_ad4abd679184df2f6e5bc0de521f37bd0} 
+enum class \mbox{\hyperlink{namespacegui_ad4abd679184df2f6e5bc0de521f37bd0}{gui\+::\+Orientation}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+Enum representing the possible orientations (directions) a player can face. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{NORTH@{NORTH}!gui@{gui}}\index{gui@{gui}!NORTH@{NORTH}}}\Hypertarget{namespacegui_ad4abd679184df2f6e5bc0de521f37bd0a2bf8f791695c70efa9c14e6f1c326403}\label{namespacegui_ad4abd679184df2f6e5bc0de521f37bd0a2bf8f791695c70efa9c14e6f1c326403} 
+NORTH&Facing north (up) \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{EAST@{EAST}!gui@{gui}}\index{gui@{gui}!EAST@{EAST}}}\Hypertarget{namespacegui_ad4abd679184df2f6e5bc0de521f37bd0a45ac78bf3d4882ac520f4e7fb08d55c5}\label{namespacegui_ad4abd679184df2f6e5bc0de521f37bd0a45ac78bf3d4882ac520f4e7fb08d55c5} 
+EAST&Facing east (right) \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SOUTH@{SOUTH}!gui@{gui}}\index{gui@{gui}!SOUTH@{SOUTH}}}\Hypertarget{namespacegui_ad4abd679184df2f6e5bc0de521f37bd0a96e44fa82e5a5263fb92337be422d3eb}\label{namespacegui_ad4abd679184df2f6e5bc0de521f37bd0a96e44fa82e5a5263fb92337be422d3eb} 
+SOUTH&Facing south (down) \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{WEST@{WEST}!gui@{gui}}\index{gui@{gui}!WEST@{WEST}}}\Hypertarget{namespacegui_ad4abd679184df2f6e5bc0de521f37bd0a83c9f5692281bf59471b13dfddb3af91}\label{namespacegui_ad4abd679184df2f6e5bc0de521f37bd0a83c9f5692281bf59471b13dfddb3af91} 
+WEST&Facing west (left) \\
+\hline
+
+\end{DoxyEnumFields}
+\Hypertarget{namespacegui_a5eb364352c145724b1cd8713f72a56ba}\index{gui@{gui}!Screen@{Screen}}
+\index{Screen@{Screen}!gui@{gui}}
+\doxysubsubsection{\texorpdfstring{Screen}{Screen}}
+{\footnotesize\ttfamily \label{namespacegui_a5eb364352c145724b1cd8713f72a56ba} 
+enum class \mbox{\hyperlink{namespacegui_a5eb364352c145724b1cd8713f72a56ba}{gui\+::\+Screen}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+Enum representing the different screens in the game. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LOGO@{LOGO}!gui@{gui}}\index{gui@{gui}!LOGO@{LOGO}}}\Hypertarget{namespacegui_a5eb364352c145724b1cd8713f72a56baa6044e1b77e91b4fe89b4880b3c5fad15}\label{namespacegui_a5eb364352c145724b1cd8713f72a56baa6044e1b77e91b4fe89b4880b3c5fad15} 
+LOGO&Logo/loading screen. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{TITLE@{TITLE}!gui@{gui}}\index{gui@{gui}!TITLE@{TITLE}}}\Hypertarget{namespacegui_a5eb364352c145724b1cd8713f72a56baa6f9dccd85b2e0786c8d522045365eb48}\label{namespacegui_a5eb364352c145724b1cd8713f72a56baa6f9dccd85b2e0786c8d522045365eb48} 
+TITLE&Title/main menu screen. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{GAMEPLAY@{GAMEPLAY}!gui@{gui}}\index{gui@{gui}!GAMEPLAY@{GAMEPLAY}}}\Hypertarget{namespacegui_a5eb364352c145724b1cd8713f72a56baa056e68b506d7b8324ca79ad1a56931d1}\label{namespacegui_a5eb364352c145724b1cd8713f72a56baa056e68b506d7b8324ca79ad1a56931d1} 
+GAMEPLAY&Main gameplay screen. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ENDING@{ENDING}!gui@{gui}}\index{gui@{gui}!ENDING@{ENDING}}}\Hypertarget{namespacegui_a5eb364352c145724b1cd8713f72a56baa5d2c84883acf876a2154cae9ab07d59f}\label{namespacegui_a5eb364352c145724b1cd8713f72a56baa5d2c84883acf876a2154cae9ab07d59f} 
+ENDING&Ending/score screen. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{ERROR@{ERROR}!gui@{gui}}\index{gui@{gui}!ERROR@{ERROR}}}\Hypertarget{namespacegui_a5eb364352c145724b1cd8713f72a56baabb1ca97ec761fc37101737ba0aa2e7c5}\label{namespacegui_a5eb364352c145724b1cd8713f72a56baabb1ca97ec761fc37101737ba0aa2e7c5} 
+ERROR&Error screen. \\
+\hline
+
+\end{DoxyEnumFields}

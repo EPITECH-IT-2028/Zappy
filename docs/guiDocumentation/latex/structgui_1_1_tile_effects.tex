@@ -1,0 +1,260 @@
+\doxysection{gui\+::Tile\+Effects Struct Reference}
+\hypertarget{structgui_1_1_tile_effects}{}\label{structgui_1_1_tile_effects}\index{gui::TileEffects@{gui::TileEffects}}
+
+
+Manages and renders visual effects for a map tile (e.\+g., incantations, resource drops).  
+
+
+
+
+{\ttfamily \#include $<$Tile\+Effects.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{structgui_1_1_tile_effects_aad500e83d5cb6399d7870fe0efd25c76}{start\+Incantation\+Effect}} ()
+\begin{DoxyCompactList}\small\item\em Starts the incantation visual effect. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{structgui_1_1_tile_effects_ae80af97ca0b452a9afcb906798f7e0f9}{stop\+Incantation\+Effect}} ()
+\begin{DoxyCompactList}\small\item\em Stops the incantation visual effect. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{structgui_1_1_tile_effects_ab19abd58d96466b467b701b564e5e4d5}{show\+Success\+Effect}} ()
+\begin{DoxyCompactList}\small\item\em Shows a success result effect (e.\+g., green highlight). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{structgui_1_1_tile_effects_aaa7b9e54e75ed20caf9f54ccaa6c0f1b}{show\+Failure\+Effect}} ()
+\begin{DoxyCompactList}\small\item\em Shows a failure result effect (e.\+g., red highlight). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{structgui_1_1_tile_effects_a507e938fae198ef6c3d1ca407a2ed3b0}{result\+Effect}} (bool success)
+\begin{DoxyCompactList}\small\item\em Triggers a result effect (success or failure). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{structgui_1_1_tile_effects_a8e28bc1ec68085a6fb19409444ffc932}{show\+Fork\+Effect}} ()
+\begin{DoxyCompactList}\small\item\em Shows a fork effect (e.\+g., egg laid visual). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{structgui_1_1_tile_effects_af2ead13d44d73dcaaee5ec3a969a2717}{show\+Drop\+Effect}} (int resource\+Id)
+\begin{DoxyCompactList}\small\item\em Shows a resource drop effect for a given resource. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{structgui_1_1_tile_effects_abc37c1cb52f5dc57693461abbd2d9c3f}{show\+Collect\+Effect}} (int resource\+Id)
+\begin{DoxyCompactList}\small\item\em Shows a resource collect effect for a given resource. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{structgui_1_1_tile_effects_acc9c4959cbe9ee3c99f3801d3bae2544}{show\+Push\+Effect}} (int player\+Id)
+\begin{DoxyCompactList}\small\item\em Shows a push effect for a given player. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{structgui_1_1_tile_effects_afb70e082a1d7f9ad06fb3ee9746658ee}{update}} (float delta\+Time)
+\begin{DoxyCompactList}\small\item\em Updates the state of all effects (timers, animations). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{structgui_1_1_tile_effects_a8d291e929ac163b343578c023bdc82a5}{draw}} (int x, int y)
+\begin{DoxyCompactList}\small\item\em Draws all active effects for this tile at the given position. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{structgui_1_1_tile_effects_ae4e21d2e7318287da2745e2385c4f6ae}{incantation\+In\+Progress}} = false
+\begin{DoxyCompactList}\small\item\em True if an incantation is currently in progress on this tile. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{structgui_1_1_tile_effects_ae376d1e1d5104277df9e85d33a2fffd9}{show\+Result\+Effect}} = false
+\begin{DoxyCompactList}\small\item\em True if a result effect (success/failure) should be shown. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{structgui_1_1_tile_effects_aa93c30ffb70ab96bcfb10aa1c396f5b8}{result\+Success}} = false
+\begin{DoxyCompactList}\small\item\em True if the last result effect was a success, false if failure. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{structgui_1_1_tile_effects_a41b6f1f0e505fd817ad4f9dde2767e6d}{effect\+Timer}} = 0.\+0f
+\begin{DoxyCompactList}\small\item\em Timer for how long the result effect should be displayed (in seconds). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Manages and renders visual effects for a map tile (e.\+g., incantations, resource drops). 
+
+Handles the state and animation of effects such as incantation progress, result highlights, fork, drop, collect, and push events for a tile in the Zappy game world. 
+
+\label{doc-func-members}
+\Hypertarget{structgui_1_1_tile_effects_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{structgui_1_1_tile_effects_a8d291e929ac163b343578c023bdc82a5}\index{gui::TileEffects@{gui::TileEffects}!draw@{draw}}
+\index{draw@{draw}!gui::TileEffects@{gui::TileEffects}}
+\doxysubsubsection{\texorpdfstring{draw()}{draw()}}
+{\footnotesize\ttfamily \label{structgui_1_1_tile_effects_a8d291e929ac163b343578c023bdc82a5} 
+void gui\+::\+Tile\+Effects\+::draw (\begin{DoxyParamCaption}\item[{int}]{x}{, }\item[{int}]{y}{}\end{DoxyParamCaption})}
+
+
+
+Draws all active effects for this tile at the given position. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The X coordinate (in pixels). \\
+\hline
+{\em y} & The Y coordinate (in pixels). \\
+\hline
+\end{DoxyParams}
+\Hypertarget{structgui_1_1_tile_effects_a507e938fae198ef6c3d1ca407a2ed3b0}\index{gui::TileEffects@{gui::TileEffects}!resultEffect@{resultEffect}}
+\index{resultEffect@{resultEffect}!gui::TileEffects@{gui::TileEffects}}
+\doxysubsubsection{\texorpdfstring{resultEffect()}{resultEffect()}}
+{\footnotesize\ttfamily \label{structgui_1_1_tile_effects_a507e938fae198ef6c3d1ca407a2ed3b0} 
+void gui\+::\+Tile\+Effects\+::result\+Effect (\begin{DoxyParamCaption}\item[{bool}]{success}{}\end{DoxyParamCaption})}
+
+
+
+Triggers a result effect (success or failure). 
+
+Triggers a result effect (success or failure) after an incantation.
+
+
+\begin{DoxyParams}{Parameters}
+{\em success} & True for success, false for failure.\\
+\hline
+{\em success} & True for a success effect, false for a failure effect. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{structgui_1_1_tile_effects_abc37c1cb52f5dc57693461abbd2d9c3f}\index{gui::TileEffects@{gui::TileEffects}!showCollectEffect@{showCollectEffect}}
+\index{showCollectEffect@{showCollectEffect}!gui::TileEffects@{gui::TileEffects}}
+\doxysubsubsection{\texorpdfstring{showCollectEffect()}{showCollectEffect()}}
+{\footnotesize\ttfamily \label{structgui_1_1_tile_effects_abc37c1cb52f5dc57693461abbd2d9c3f} 
+void gui\+::\+Tile\+Effects\+::show\+Collect\+Effect (\begin{DoxyParamCaption}\item[{int}]{resource\+Id}{}\end{DoxyParamCaption})}
+
+
+
+Shows a resource collect effect for a given resource. 
+
+Shows a resource collect effect for a given resource. (Not yet implemented)
+
+
+\begin{DoxyParams}{Parameters}
+{\em resource\+Id} & The ID of the resource collected. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{structgui_1_1_tile_effects_af2ead13d44d73dcaaee5ec3a969a2717}\index{gui::TileEffects@{gui::TileEffects}!showDropEffect@{showDropEffect}}
+\index{showDropEffect@{showDropEffect}!gui::TileEffects@{gui::TileEffects}}
+\doxysubsubsection{\texorpdfstring{showDropEffect()}{showDropEffect()}}
+{\footnotesize\ttfamily \label{structgui_1_1_tile_effects_af2ead13d44d73dcaaee5ec3a969a2717} 
+void gui\+::\+Tile\+Effects\+::show\+Drop\+Effect (\begin{DoxyParamCaption}\item[{int}]{resource\+Id}{}\end{DoxyParamCaption})}
+
+
+
+Shows a resource drop effect for a given resource. 
+
+Shows a resource drop effect for a given resource. (Not yet implemented)
+
+
+\begin{DoxyParams}{Parameters}
+{\em resource\+Id} & The ID of the resource dropped. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{structgui_1_1_tile_effects_aaa7b9e54e75ed20caf9f54ccaa6c0f1b}\index{gui::TileEffects@{gui::TileEffects}!showFailureEffect@{showFailureEffect}}
+\index{showFailureEffect@{showFailureEffect}!gui::TileEffects@{gui::TileEffects}}
+\doxysubsubsection{\texorpdfstring{showFailureEffect()}{showFailureEffect()}}
+{\footnotesize\ttfamily \label{structgui_1_1_tile_effects_aaa7b9e54e75ed20caf9f54ccaa6c0f1b} 
+void gui\+::\+Tile\+Effects\+::show\+Failure\+Effect (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Shows a failure result effect (e.\+g., red highlight). 
+
+\Hypertarget{structgui_1_1_tile_effects_a8e28bc1ec68085a6fb19409444ffc932}\index{gui::TileEffects@{gui::TileEffects}!showForkEffect@{showForkEffect}}
+\index{showForkEffect@{showForkEffect}!gui::TileEffects@{gui::TileEffects}}
+\doxysubsubsection{\texorpdfstring{showForkEffect()}{showForkEffect()}}
+{\footnotesize\ttfamily \label{structgui_1_1_tile_effects_a8e28bc1ec68085a6fb19409444ffc932} 
+void gui\+::\+Tile\+Effects\+::show\+Fork\+Effect (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Shows a fork effect (e.\+g., egg laid visual). 
+
+Shows a fork effect (e.\+g., egg laid visual). (Not yet implemented) \Hypertarget{structgui_1_1_tile_effects_acc9c4959cbe9ee3c99f3801d3bae2544}\index{gui::TileEffects@{gui::TileEffects}!showPushEffect@{showPushEffect}}
+\index{showPushEffect@{showPushEffect}!gui::TileEffects@{gui::TileEffects}}
+\doxysubsubsection{\texorpdfstring{showPushEffect()}{showPushEffect()}}
+{\footnotesize\ttfamily \label{structgui_1_1_tile_effects_acc9c4959cbe9ee3c99f3801d3bae2544} 
+void gui\+::\+Tile\+Effects\+::show\+Push\+Effect (\begin{DoxyParamCaption}\item[{int}]{player\+Id}{}\end{DoxyParamCaption})}
+
+
+
+Shows a push effect for a given player. 
+
+Shows a push effect for a given player. (Not yet implemented)
+
+
+\begin{DoxyParams}{Parameters}
+{\em player\+Id} & The ID of the player pushed. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{structgui_1_1_tile_effects_ab19abd58d96466b467b701b564e5e4d5}\index{gui::TileEffects@{gui::TileEffects}!showSuccessEffect@{showSuccessEffect}}
+\index{showSuccessEffect@{showSuccessEffect}!gui::TileEffects@{gui::TileEffects}}
+\doxysubsubsection{\texorpdfstring{showSuccessEffect()}{showSuccessEffect()}}
+{\footnotesize\ttfamily \label{structgui_1_1_tile_effects_ab19abd58d96466b467b701b564e5e4d5} 
+void gui\+::\+Tile\+Effects\+::show\+Success\+Effect (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Shows a success result effect (e.\+g., green highlight). 
+
+\Hypertarget{structgui_1_1_tile_effects_aad500e83d5cb6399d7870fe0efd25c76}\index{gui::TileEffects@{gui::TileEffects}!startIncantationEffect@{startIncantationEffect}}
+\index{startIncantationEffect@{startIncantationEffect}!gui::TileEffects@{gui::TileEffects}}
+\doxysubsubsection{\texorpdfstring{startIncantationEffect()}{startIncantationEffect()}}
+{\footnotesize\ttfamily \label{structgui_1_1_tile_effects_aad500e83d5cb6399d7870fe0efd25c76} 
+void gui\+::\+Tile\+Effects\+::start\+Incantation\+Effect (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Starts the incantation visual effect. 
+
+Starts the incantation visual effect for this tile. \Hypertarget{structgui_1_1_tile_effects_ae80af97ca0b452a9afcb906798f7e0f9}\index{gui::TileEffects@{gui::TileEffects}!stopIncantationEffect@{stopIncantationEffect}}
+\index{stopIncantationEffect@{stopIncantationEffect}!gui::TileEffects@{gui::TileEffects}}
+\doxysubsubsection{\texorpdfstring{stopIncantationEffect()}{stopIncantationEffect()}}
+{\footnotesize\ttfamily \label{structgui_1_1_tile_effects_ae80af97ca0b452a9afcb906798f7e0f9} 
+void gui\+::\+Tile\+Effects\+::stop\+Incantation\+Effect (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Stops the incantation visual effect. 
+
+Stops the incantation visual effect for this tile. \Hypertarget{structgui_1_1_tile_effects_afb70e082a1d7f9ad06fb3ee9746658ee}\index{gui::TileEffects@{gui::TileEffects}!update@{update}}
+\index{update@{update}!gui::TileEffects@{gui::TileEffects}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily \label{structgui_1_1_tile_effects_afb70e082a1d7f9ad06fb3ee9746658ee} 
+void gui\+::\+Tile\+Effects\+::update (\begin{DoxyParamCaption}\item[{float}]{delta\+Time}{}\end{DoxyParamCaption})}
+
+
+
+Updates the state of all effects (timers, animations). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em delta\+Time} & Time elapsed since last update (in seconds). \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-variable-members}
+\Hypertarget{structgui_1_1_tile_effects_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structgui_1_1_tile_effects_a41b6f1f0e505fd817ad4f9dde2767e6d}\index{gui::TileEffects@{gui::TileEffects}!effectTimer@{effectTimer}}
+\index{effectTimer@{effectTimer}!gui::TileEffects@{gui::TileEffects}}
+\doxysubsubsection{\texorpdfstring{effectTimer}{effectTimer}}
+{\footnotesize\ttfamily \label{structgui_1_1_tile_effects_a41b6f1f0e505fd817ad4f9dde2767e6d} 
+float gui\+::\+Tile\+Effects\+::effect\+Timer = 0.\+0f}
+
+
+
+Timer for how long the result effect should be displayed (in seconds). 
+
+\Hypertarget{structgui_1_1_tile_effects_ae4e21d2e7318287da2745e2385c4f6ae}\index{gui::TileEffects@{gui::TileEffects}!incantationInProgress@{incantationInProgress}}
+\index{incantationInProgress@{incantationInProgress}!gui::TileEffects@{gui::TileEffects}}
+\doxysubsubsection{\texorpdfstring{incantationInProgress}{incantationInProgress}}
+{\footnotesize\ttfamily \label{structgui_1_1_tile_effects_ae4e21d2e7318287da2745e2385c4f6ae} 
+bool gui\+::\+Tile\+Effects\+::incantation\+In\+Progress = false}
+
+
+
+True if an incantation is currently in progress on this tile. 
+
+\Hypertarget{structgui_1_1_tile_effects_aa93c30ffb70ab96bcfb10aa1c396f5b8}\index{gui::TileEffects@{gui::TileEffects}!resultSuccess@{resultSuccess}}
+\index{resultSuccess@{resultSuccess}!gui::TileEffects@{gui::TileEffects}}
+\doxysubsubsection{\texorpdfstring{resultSuccess}{resultSuccess}}
+{\footnotesize\ttfamily \label{structgui_1_1_tile_effects_aa93c30ffb70ab96bcfb10aa1c396f5b8} 
+bool gui\+::\+Tile\+Effects\+::result\+Success = false}
+
+
+
+True if the last result effect was a success, false if failure. 
+
+\Hypertarget{structgui_1_1_tile_effects_ae376d1e1d5104277df9e85d33a2fffd9}\index{gui::TileEffects@{gui::TileEffects}!showResultEffect@{showResultEffect}}
+\index{showResultEffect@{showResultEffect}!gui::TileEffects@{gui::TileEffects}}
+\doxysubsubsection{\texorpdfstring{showResultEffect}{showResultEffect}}
+{\footnotesize\ttfamily \label{structgui_1_1_tile_effects_ae376d1e1d5104277df9e85d33a2fffd9} 
+bool gui\+::\+Tile\+Effects\+::show\+Result\+Effect = false}
+
+
+
+True if a result effect (success/failure) should be shown. 
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/entities/\mbox{\hyperlink{_tile_effects_8hpp}{Tile\+Effects.\+hpp}}\item 
+src/entities/\mbox{\hyperlink{_tile_effects_8cpp}{Tile\+Effects.\+cpp}}\end{DoxyCompactItemize}

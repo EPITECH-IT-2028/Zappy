@@ -1,0 +1,261 @@
+\doxysection{gui\+::Game\+State Struct Reference}
+\hypertarget{structgui_1_1_game_state}{}\label{structgui_1_1_game_state}\index{gui::GameState@{gui::GameState}}
+
+
+Represents the complete state of the Zappy game world.  
+
+
+
+
+{\ttfamily \#include $<$Game\+State.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+const \mbox{\hyperlink{structgui_1_1_player}{Player}} \& \mbox{\hyperlink{structgui_1_1_game_state_ac70f65f8a90ad4d8099f8649b18fd0d7}{get\+Player\+By\+Id}} (int id) const
+\begin{DoxyCompactList}\small\item\em Gets a const reference to a player by their ID. \end{DoxyCompactList}\item 
+const \mbox{\hyperlink{structgui_1_1_egg}{Egg}} \& \mbox{\hyperlink{structgui_1_1_game_state_a9247d8c4d8ed864bc1afc24c2e4bf082}{get\+Egg\+By\+Id}} (int id) const
+\begin{DoxyCompactList}\small\item\em Gets a const reference to an egg by its ID. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structgui_1_1_game_state_a2e983053e9b81605ac8437b947d8e55b}{Game\+State}} (std\+::size\+\_\+t width, std\+::size\+\_\+t height)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{structgui_1_1_game_state}{Game\+State} with a map of the given size. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structgui_1_1_map}{Map}} \mbox{\hyperlink{structgui_1_1_game_state_a1e5997f65efb4bb6067bc30711f9a8ba}{map}}
+\begin{DoxyCompactList}\small\item\em The game map (2D grid of tiles). \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{structgui_1_1_game_state_a75bbeb621ca282f2157ef89a4c0b7aa6}{time\+Unit}} = 0
+\begin{DoxyCompactList}\small\item\em The current time unit (tick rate) of the game. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{structgui_1_1_game_state_a29a228b4885f699f68062cb55d54f270}{team\+Names}}
+\begin{DoxyCompactList}\small\item\em List of all team names in the game. \end{DoxyCompactList}\item 
+std\+::unordered\+\_\+map$<$ int, \mbox{\hyperlink{structgui_1_1_player}{Player}} $>$ \mbox{\hyperlink{structgui_1_1_game_state_a1a729d8694e4207b089e2df68d0dafc5}{players}}
+\begin{DoxyCompactList}\small\item\em \doxylink{structgui_1_1_map}{Map} of player IDs to \doxylink{structgui_1_1_player}{Player} objects. \end{DoxyCompactList}\item 
+std\+::unordered\+\_\+map$<$ int, \mbox{\hyperlink{structgui_1_1_egg}{Egg}} $>$ \mbox{\hyperlink{structgui_1_1_game_state_a21adbd6ae7fabdb01307c1c55a1ab138}{eggs}}
+\begin{DoxyCompactList}\small\item\em \doxylink{structgui_1_1_map}{Map} of egg IDs to \doxylink{structgui_1_1_egg}{Egg} objects. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{structgui_1_1_game_state_aa13722262e33cf3b78d637f77df80dd4}{is\+Game\+Over}} = false
+\begin{DoxyCompactList}\small\item\em True if the game is over, false otherwise. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{structgui_1_1_game_state_aeb2644e45ba156d08d2d11493b96b6a6}{winning\+Team\+Name}} = "{}"{}
+\begin{DoxyCompactList}\small\item\em Name of the winning team (if the game is over). \end{DoxyCompactList}\item 
+std\+::vector$<$ \mbox{\hyperlink{structgui_1_1_incantation_effect}{Incantation\+Effect}} $>$ \mbox{\hyperlink{structgui_1_1_game_state_a2923697ed1cba0d811aa7d735d3b2287}{active\+Incantations}}
+\begin{DoxyCompactList}\small\item\em List of currently active incantation effects. \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::string $>$ \mbox{\hyperlink{structgui_1_1_game_state_a13ddb557bc4c84c0c7bbfdf8b9cd4586}{broadcast\+Log}}
+\begin{DoxyCompactList}\small\item\em Log of recent broadcast messages (up to MAX\+\_\+\+BROADCAST\+\_\+\+LOG\+\_\+\+SIZE). \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr std\+::size\+\_\+t \mbox{\hyperlink{structgui_1_1_game_state_a20a0c2b6f11ea520b36750366490dac4}{MAX\+\_\+\+BROADCAST\+\_\+\+LOG\+\_\+\+SIZE}} = 10
+\begin{DoxyCompactList}\small\item\em Maximum number of broadcast messages to keep in the log. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents the complete state of the Zappy game world. 
+
+Stores the map, players, eggs, incantations, teams, broadcast log, and game status. 
+
+\label{doc-constructors}
+\Hypertarget{structgui_1_1_game_state_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{structgui_1_1_game_state_a2e983053e9b81605ac8437b947d8e55b}\index{gui::GameState@{gui::GameState}!GameState@{GameState}}
+\index{GameState@{GameState}!gui::GameState@{gui::GameState}}
+\doxysubsubsection{\texorpdfstring{GameState()}{GameState()}}
+{\footnotesize\ttfamily \label{structgui_1_1_game_state_a2e983053e9b81605ac8437b947d8e55b} 
+gui\+::\+Game\+State\+::\+Game\+State (\begin{DoxyParamCaption}\item[{std\+::size\+\_\+t}]{width}{, }\item[{std\+::size\+\_\+t}]{height}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructs a \doxylink{structgui_1_1_game_state}{Game\+State} with a map of the given size. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em width} & Width of the map (number of tiles horizontally). \\
+\hline
+{\em height} & Height of the map (number of tiles vertically). \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{structgui_1_1_game_state_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{structgui_1_1_game_state_a9247d8c4d8ed864bc1afc24c2e4bf082}\index{gui::GameState@{gui::GameState}!getEggById@{getEggById}}
+\index{getEggById@{getEggById}!gui::GameState@{gui::GameState}}
+\doxysubsubsection{\texorpdfstring{getEggById()}{getEggById()}}
+{\footnotesize\ttfamily \label{structgui_1_1_game_state_a9247d8c4d8ed864bc1afc24c2e4bf082} 
+const \mbox{\hyperlink{structgui_1_1_egg}{gui\+::\+Egg}} \& gui\+::\+Game\+State\+::get\+Egg\+By\+Id (\begin{DoxyParamCaption}\item[{int}]{id}{}\end{DoxyParamCaption}) const}
+
+
+
+Gets a const reference to an egg by its ID. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & The egg ID. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Const reference to the \doxylink{structgui_1_1_egg}{Egg} object. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::out\+\_\+of\+\_\+range} & if the egg ID does not exist.\\
+\hline
+\end{DoxyExceptions}
+
+\begin{DoxyParams}{Parameters}
+{\em id} & The egg ID. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Const reference to the \doxylink{structgui_1_1_egg}{Egg} object. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::runtime\+\_\+error} & if the egg ID does not exist. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{structgui_1_1_game_state_ac70f65f8a90ad4d8099f8649b18fd0d7}\index{gui::GameState@{gui::GameState}!getPlayerById@{getPlayerById}}
+\index{getPlayerById@{getPlayerById}!gui::GameState@{gui::GameState}}
+\doxysubsubsection{\texorpdfstring{getPlayerById()}{getPlayerById()}}
+{\footnotesize\ttfamily \label{structgui_1_1_game_state_ac70f65f8a90ad4d8099f8649b18fd0d7} 
+const \mbox{\hyperlink{structgui_1_1_player}{gui\+::\+Player}} \& gui\+::\+Game\+State\+::get\+Player\+By\+Id (\begin{DoxyParamCaption}\item[{int}]{id}{}\end{DoxyParamCaption}) const}
+
+
+
+Gets a const reference to a player by their ID. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & The player ID. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Const reference to the \doxylink{structgui_1_1_player}{Player} object. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::out\+\_\+of\+\_\+range} & if the player ID does not exist.\\
+\hline
+\end{DoxyExceptions}
+
+\begin{DoxyParams}{Parameters}
+{\em id} & The player ID. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Const reference to the \doxylink{structgui_1_1_player}{Player} object. 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::runtime\+\_\+error} & if the player ID does not exist. \\
+\hline
+\end{DoxyExceptions}
+
+
+\label{doc-variable-members}
+\Hypertarget{structgui_1_1_game_state_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structgui_1_1_game_state_a2923697ed1cba0d811aa7d735d3b2287}\index{gui::GameState@{gui::GameState}!activeIncantations@{activeIncantations}}
+\index{activeIncantations@{activeIncantations}!gui::GameState@{gui::GameState}}
+\doxysubsubsection{\texorpdfstring{activeIncantations}{activeIncantations}}
+{\footnotesize\ttfamily \label{structgui_1_1_game_state_a2923697ed1cba0d811aa7d735d3b2287} 
+std\+::vector$<$\mbox{\hyperlink{structgui_1_1_incantation_effect}{Incantation\+Effect}}$>$ gui\+::\+Game\+State\+::active\+Incantations}
+
+
+
+List of currently active incantation effects. 
+
+\Hypertarget{structgui_1_1_game_state_a13ddb557bc4c84c0c7bbfdf8b9cd4586}\index{gui::GameState@{gui::GameState}!broadcastLog@{broadcastLog}}
+\index{broadcastLog@{broadcastLog}!gui::GameState@{gui::GameState}}
+\doxysubsubsection{\texorpdfstring{broadcastLog}{broadcastLog}}
+{\footnotesize\ttfamily \label{structgui_1_1_game_state_a13ddb557bc4c84c0c7bbfdf8b9cd4586} 
+std\+::vector$<$std\+::string$>$ gui\+::\+Game\+State\+::broadcast\+Log}
+
+
+
+Log of recent broadcast messages (up to MAX\+\_\+\+BROADCAST\+\_\+\+LOG\+\_\+\+SIZE). 
+
+\Hypertarget{structgui_1_1_game_state_a21adbd6ae7fabdb01307c1c55a1ab138}\index{gui::GameState@{gui::GameState}!eggs@{eggs}}
+\index{eggs@{eggs}!gui::GameState@{gui::GameState}}
+\doxysubsubsection{\texorpdfstring{eggs}{eggs}}
+{\footnotesize\ttfamily \label{structgui_1_1_game_state_a21adbd6ae7fabdb01307c1c55a1ab138} 
+std\+::unordered\+\_\+map$<$int, \mbox{\hyperlink{structgui_1_1_egg}{Egg}}$>$ gui\+::\+Game\+State\+::eggs}
+
+
+
+\doxylink{structgui_1_1_map}{Map} of egg IDs to \doxylink{structgui_1_1_egg}{Egg} objects. 
+
+\Hypertarget{structgui_1_1_game_state_aa13722262e33cf3b78d637f77df80dd4}\index{gui::GameState@{gui::GameState}!isGameOver@{isGameOver}}
+\index{isGameOver@{isGameOver}!gui::GameState@{gui::GameState}}
+\doxysubsubsection{\texorpdfstring{isGameOver}{isGameOver}}
+{\footnotesize\ttfamily \label{structgui_1_1_game_state_aa13722262e33cf3b78d637f77df80dd4} 
+bool gui\+::\+Game\+State\+::is\+Game\+Over = false}
+
+
+
+True if the game is over, false otherwise. 
+
+\Hypertarget{structgui_1_1_game_state_a1e5997f65efb4bb6067bc30711f9a8ba}\index{gui::GameState@{gui::GameState}!map@{map}}
+\index{map@{map}!gui::GameState@{gui::GameState}}
+\doxysubsubsection{\texorpdfstring{map}{map}}
+{\footnotesize\ttfamily \label{structgui_1_1_game_state_a1e5997f65efb4bb6067bc30711f9a8ba} 
+\mbox{\hyperlink{structgui_1_1_map}{Map}} gui\+::\+Game\+State\+::map}
+
+
+
+The game map (2D grid of tiles). 
+
+\Hypertarget{structgui_1_1_game_state_a20a0c2b6f11ea520b36750366490dac4}\index{gui::GameState@{gui::GameState}!MAX\_BROADCAST\_LOG\_SIZE@{MAX\_BROADCAST\_LOG\_SIZE}}
+\index{MAX\_BROADCAST\_LOG\_SIZE@{MAX\_BROADCAST\_LOG\_SIZE}!gui::GameState@{gui::GameState}}
+\doxysubsubsection{\texorpdfstring{MAX\_BROADCAST\_LOG\_SIZE}{MAX\_BROADCAST\_LOG\_SIZE}}
+{\footnotesize\ttfamily \label{structgui_1_1_game_state_a20a0c2b6f11ea520b36750366490dac4} 
+std\+::size\+\_\+t gui\+::\+Game\+State\+::\+MAX\+\_\+\+BROADCAST\+\_\+\+LOG\+\_\+\+SIZE = 10\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+Maximum number of broadcast messages to keep in the log. 
+
+\Hypertarget{structgui_1_1_game_state_a1a729d8694e4207b089e2df68d0dafc5}\index{gui::GameState@{gui::GameState}!players@{players}}
+\index{players@{players}!gui::GameState@{gui::GameState}}
+\doxysubsubsection{\texorpdfstring{players}{players}}
+{\footnotesize\ttfamily \label{structgui_1_1_game_state_a1a729d8694e4207b089e2df68d0dafc5} 
+std\+::unordered\+\_\+map$<$int, \mbox{\hyperlink{structgui_1_1_player}{Player}}$>$ gui\+::\+Game\+State\+::players}
+
+
+
+\doxylink{structgui_1_1_map}{Map} of player IDs to \doxylink{structgui_1_1_player}{Player} objects. 
+
+\Hypertarget{structgui_1_1_game_state_a29a228b4885f699f68062cb55d54f270}\index{gui::GameState@{gui::GameState}!teamNames@{teamNames}}
+\index{teamNames@{teamNames}!gui::GameState@{gui::GameState}}
+\doxysubsubsection{\texorpdfstring{teamNames}{teamNames}}
+{\footnotesize\ttfamily \label{structgui_1_1_game_state_a29a228b4885f699f68062cb55d54f270} 
+std\+::vector$<$std\+::string$>$ gui\+::\+Game\+State\+::team\+Names}
+
+
+
+List of all team names in the game. 
+
+\Hypertarget{structgui_1_1_game_state_a75bbeb621ca282f2157ef89a4c0b7aa6}\index{gui::GameState@{gui::GameState}!timeUnit@{timeUnit}}
+\index{timeUnit@{timeUnit}!gui::GameState@{gui::GameState}}
+\doxysubsubsection{\texorpdfstring{timeUnit}{timeUnit}}
+{\footnotesize\ttfamily \label{structgui_1_1_game_state_a75bbeb621ca282f2157ef89a4c0b7aa6} 
+int gui\+::\+Game\+State\+::time\+Unit = 0}
+
+
+
+The current time unit (tick rate) of the game. 
+
+\Hypertarget{structgui_1_1_game_state_aeb2644e45ba156d08d2d11493b96b6a6}\index{gui::GameState@{gui::GameState}!winningTeamName@{winningTeamName}}
+\index{winningTeamName@{winningTeamName}!gui::GameState@{gui::GameState}}
+\doxysubsubsection{\texorpdfstring{winningTeamName}{winningTeamName}}
+{\footnotesize\ttfamily \label{structgui_1_1_game_state_aeb2644e45ba156d08d2d11493b96b6a6} 
+std\+::string gui\+::\+Game\+State\+::winning\+Team\+Name = "{}"{}}
+
+
+
+Name of the winning team (if the game is over). 
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/entities/\mbox{\hyperlink{_game_state_8hpp}{Game\+State.\+hpp}}\item 
+src/entities/\mbox{\hyperlink{_game_state_8cpp}{Game\+State.\+cpp}}\end{DoxyCompactItemize}

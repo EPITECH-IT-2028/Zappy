@@ -8,10 +8,27 @@
 #define OK 0
 #define KO 84
 
+/**
+ * @brief Checks if the help flag is requested by the user.
+ *
+ * @param argc Number of command-line arguments.
+ * @param argv Array of command-line argument strings.
+ * @return true if '--help' is provided as the only argument, false otherwise.
+ */
 bool isHelpRequested(int argc, char** argv) {
   return argc == 2 && std::string(argv[1]) == "--help";
 }
 
+/**
+ * @brief Entry point for the Zappy GUI application.
+ *
+ * Parses command-line arguments, establishes a connection to the server, and starts the main application loop.
+ * Handles errors and displays appropriate messages to the user.
+ *
+ * @param argc Number of command-line arguments.
+ * @param argv Array of command-line argument strings.
+ * @return int Exit code (0 for success, 84 for error).
+ */
 int main(int argc, char* argv[]) {
   try {
     parser::Config config;

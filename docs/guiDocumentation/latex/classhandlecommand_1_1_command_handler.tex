@@ -1,0 +1,558 @@
+\doxysection{handlecommand\+::Command\+Handler Class Reference}
+\hypertarget{classhandlecommand_1_1_command_handler}{}\label{classhandlecommand_1_1_command_handler}\index{handlecommand::CommandHandler@{handlecommand::CommandHandler}}
+
+
+Handles server commands and updates the game state accordingly.  
+
+
+
+
+{\ttfamily \#include $<$Command\+Handler.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classhandlecommand_1_1_command_handler_aa7c40a15714f8d252885b9811444a5f9}{Command\+Handler}} (\mbox{\hyperlink{structgui_1_1_game_state}{gui\+::\+Game\+State}} \&game\+State)
+\begin{DoxyCompactList}\small\item\em Constructs a \doxylink{classhandlecommand_1_1_command_handler}{Command\+Handler} with a reference to the game state. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhandlecommand_1_1_command_handler_a8bec4bb0c8470fec9138034eaff7c9b4}{handle\+Msz}} (const std\+::string \&command)
+\begin{DoxyCompactList}\small\item\em Handles the \textquotesingle{}msz\textquotesingle{} command (map size update). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhandlecommand_1_1_command_handler_a26ab4af811316d7c090e0d1bb3a48585}{handle\+Sgt}} (const std\+::string \&command)
+\begin{DoxyCompactList}\small\item\em Handles the \textquotesingle{}sgt\textquotesingle{} command (time unit update). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhandlecommand_1_1_command_handler_a901e167076c71cc43a1cb29a29cc87e6}{handle\+Tna}} (const std\+::string \&command)
+\begin{DoxyCompactList}\small\item\em Handles the \textquotesingle{}tna\textquotesingle{} command (team names update). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhandlecommand_1_1_command_handler_a546f50c7b227ab53d7f2ed738bc7f33c}{handle\+Bct}} (const std\+::string \&command)
+\begin{DoxyCompactList}\small\item\em Handles the \textquotesingle{}bct\textquotesingle{} command (tile resource update). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhandlecommand_1_1_command_handler_a31bb00fd6d68c600a75de0134738df2c}{handle\+Pnw}} (const std\+::string \&command)
+\begin{DoxyCompactList}\small\item\em Handles the \textquotesingle{}pnw\textquotesingle{} command (new player). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhandlecommand_1_1_command_handler_aa9ac1634cd4e85b64eba53feeefd838a}{handle\+Ppo}} (const std\+::string \&command)
+\begin{DoxyCompactList}\small\item\em Handles the \textquotesingle{}ppo\textquotesingle{} command (player position update). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhandlecommand_1_1_command_handler_a71f04bc3aac5cb4635f0d090ef37f626}{handle\+Plv}} (const std\+::string \&command)
+\begin{DoxyCompactList}\small\item\em Handles the \textquotesingle{}plv\textquotesingle{} command (player level update). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhandlecommand_1_1_command_handler_a2ba17fe8568ec82b1bae4271d7281b64}{handle\+Pin}} (const std\+::string \&command)
+\begin{DoxyCompactList}\small\item\em Handles the \textquotesingle{}pin\textquotesingle{} command (player inventory update). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhandlecommand_1_1_command_handler_a81f1e6f1b3c756cc066ecb3a1d8b09d4}{handle\+Enw}} (const std\+::string \&command)
+\begin{DoxyCompactList}\small\item\em Handles the \textquotesingle{}enw\textquotesingle{} command (egg laid event). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhandlecommand_1_1_command_handler_a14623c1ee716894b532ffbe825bc4c02}{handle\+Ebo}} (const std\+::string \&command)
+\begin{DoxyCompactList}\small\item\em Handles the \textquotesingle{}ebo\textquotesingle{} command (egg hatch event). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhandlecommand_1_1_command_handler_a1fcb9596d6e9b90aaf599c33d16de170}{handle\+Edi}} (const std\+::string \&command)
+\begin{DoxyCompactList}\small\item\em Handles the \textquotesingle{}edi\textquotesingle{} command (egg death event). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhandlecommand_1_1_command_handler_ae0a7b9ccff3adfbd67c76e841df8b96a}{handle\+Pdi}} (const std\+::string \&command)
+\begin{DoxyCompactList}\small\item\em Handles the \textquotesingle{}pdi\textquotesingle{} command (player death event). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhandlecommand_1_1_command_handler_a8837e54fca282bcbf90262a88464d67d}{handle\+Pic}} (const std\+::string \&command)
+\begin{DoxyCompactList}\small\item\em Handles the \textquotesingle{}pic\textquotesingle{} command (incantation start event). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhandlecommand_1_1_command_handler_a5c678f3eb8399f71ef2bd9c3442e5bbb}{handle\+Pie}} (const std\+::string \&command)
+\begin{DoxyCompactList}\small\item\em Handles the \textquotesingle{}pie\textquotesingle{} command (incantation end event). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhandlecommand_1_1_command_handler_a207041ac32fa8ad6e596ca91eba28954}{handle\+Pfk}} (const std\+::string \&command)
+\begin{DoxyCompactList}\small\item\em Handles the \textquotesingle{}pfk\textquotesingle{} command (fork event). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhandlecommand_1_1_command_handler_af889a2727720b1c3328505a8812be23f}{handle\+Pdr}} (const std\+::string \&command)
+\begin{DoxyCompactList}\small\item\em Handles the \textquotesingle{}pdr\textquotesingle{} command (drop resource event). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhandlecommand_1_1_command_handler_aa09d6381196c241928c8f07b81a8ab73}{handle\+Pgt}} (const std\+::string \&command)
+\begin{DoxyCompactList}\small\item\em Handles the \textquotesingle{}pgt\textquotesingle{} command (collect resource event). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhandlecommand_1_1_command_handler_a9cf13982a3077491fbc64f5764d95a13}{handle\+Pex}} (const std\+::string \&command)
+\begin{DoxyCompactList}\small\item\em Handles the \textquotesingle{}pex\textquotesingle{} command (player expulsion event). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhandlecommand_1_1_command_handler_a892d9d4115d90049fabb0226bb97ecb7}{handle\+Pbc}} (const std\+::string \&command)
+\begin{DoxyCompactList}\small\item\em Handles the \textquotesingle{}pbc\textquotesingle{} command (broadcast event). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhandlecommand_1_1_command_handler_ad99313d8b47d008dd2d0dcf317c0338d}{handle\+Smg}} (const std\+::string \&command)
+\begin{DoxyCompactList}\small\item\em Handles the \textquotesingle{}smg\textquotesingle{} command (server message event). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhandlecommand_1_1_command_handler_aaf8e297945ef9726e394e10b22222b62}{handle\+Suc}} (const std\+::string \&command)
+\begin{DoxyCompactList}\small\item\em Handles the \textquotesingle{}suc\textquotesingle{} command (success event). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhandlecommand_1_1_command_handler_a4c5bb3d6d7acaa330d5cd7a1e756fce6}{handle\+Sbp}} (const std\+::string \&command)
+\begin{DoxyCompactList}\small\item\em Handles the \textquotesingle{}sbp\textquotesingle{} command (failure event). \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classhandlecommand_1_1_command_handler_aea9b48317e1faf36de70ee3ffccb43f8}{handle\+Seg}} (const std\+::string \&command)
+\begin{DoxyCompactList}\small\item\em Handles the \textquotesingle{}seg\textquotesingle{} command (game over event). \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Handles server commands and updates the game state accordingly. 
+
+Provides methods to process each type of server command and apply changes to the game state. 
+
+\label{doc-constructors}
+\Hypertarget{classhandlecommand_1_1_command_handler_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classhandlecommand_1_1_command_handler_aa7c40a15714f8d252885b9811444a5f9}\index{handlecommand::CommandHandler@{handlecommand::CommandHandler}!CommandHandler@{CommandHandler}}
+\index{CommandHandler@{CommandHandler}!handlecommand::CommandHandler@{handlecommand::CommandHandler}}
+\doxysubsubsection{\texorpdfstring{CommandHandler()}{CommandHandler()}}
+{\footnotesize\ttfamily \label{classhandlecommand_1_1_command_handler_aa7c40a15714f8d252885b9811444a5f9} 
+handlecommand\+::\+Command\+Handler\+::\+Command\+Handler (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structgui_1_1_game_state}{gui\+::\+Game\+State}} \&}]{game\+State}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructs a \doxylink{classhandlecommand_1_1_command_handler}{Command\+Handler} with a reference to the game state. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em game\+State} & Reference to the Game\+State to be updated. \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-func-members}
+\Hypertarget{classhandlecommand_1_1_command_handler_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classhandlecommand_1_1_command_handler_a546f50c7b227ab53d7f2ed738bc7f33c}\index{handlecommand::CommandHandler@{handlecommand::CommandHandler}!handleBct@{handleBct}}
+\index{handleBct@{handleBct}!handlecommand::CommandHandler@{handlecommand::CommandHandler}}
+\doxysubsubsection{\texorpdfstring{handleBct()}{handleBct()}}
+{\footnotesize\ttfamily \label{classhandlecommand_1_1_command_handler_a546f50c7b227ab53d7f2ed738bc7f33c} 
+void handlecommand\+::\+Command\+Handler\+::handle\+Bct (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{}\end{DoxyParamCaption})}
+
+
+
+Handles the \textquotesingle{}bct\textquotesingle{} command (tile resource update). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server.\\
+\hline
+\end{DoxyParams}
+Updates the resources on a specific tile based on the command. 
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhandlecommand_1_1_command_handler_a14623c1ee716894b532ffbe825bc4c02}\index{handlecommand::CommandHandler@{handlecommand::CommandHandler}!handleEbo@{handleEbo}}
+\index{handleEbo@{handleEbo}!handlecommand::CommandHandler@{handlecommand::CommandHandler}}
+\doxysubsubsection{\texorpdfstring{handleEbo()}{handleEbo()}}
+{\footnotesize\ttfamily \label{classhandlecommand_1_1_command_handler_a14623c1ee716894b532ffbe825bc4c02} 
+void handlecommand\+::\+Command\+Handler\+::handle\+Ebo (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{}\end{DoxyParamCaption})}
+
+
+
+Handles the \textquotesingle{}ebo\textquotesingle{} command (egg hatch event). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server.\\
+\hline
+\end{DoxyParams}
+Removes the hatched egg from the game state. 
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhandlecommand_1_1_command_handler_a1fcb9596d6e9b90aaf599c33d16de170}\index{handlecommand::CommandHandler@{handlecommand::CommandHandler}!handleEdi@{handleEdi}}
+\index{handleEdi@{handleEdi}!handlecommand::CommandHandler@{handlecommand::CommandHandler}}
+\doxysubsubsection{\texorpdfstring{handleEdi()}{handleEdi()}}
+{\footnotesize\ttfamily \label{classhandlecommand_1_1_command_handler_a1fcb9596d6e9b90aaf599c33d16de170} 
+void handlecommand\+::\+Command\+Handler\+::handle\+Edi (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{}\end{DoxyParamCaption})}
+
+
+
+Handles the \textquotesingle{}edi\textquotesingle{} command (egg death event). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server.\\
+\hline
+\end{DoxyParams}
+Removes the dead egg from the game state. 
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhandlecommand_1_1_command_handler_a81f1e6f1b3c756cc066ecb3a1d8b09d4}\index{handlecommand::CommandHandler@{handlecommand::CommandHandler}!handleEnw@{handleEnw}}
+\index{handleEnw@{handleEnw}!handlecommand::CommandHandler@{handlecommand::CommandHandler}}
+\doxysubsubsection{\texorpdfstring{handleEnw()}{handleEnw()}}
+{\footnotesize\ttfamily \label{classhandlecommand_1_1_command_handler_a81f1e6f1b3c756cc066ecb3a1d8b09d4} 
+void handlecommand\+::\+Command\+Handler\+::handle\+Enw (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{}\end{DoxyParamCaption})}
+
+
+
+Handles the \textquotesingle{}enw\textquotesingle{} command (egg laid event). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server.\\
+\hline
+\end{DoxyParams}
+Adds a new egg to the game state and updates the tile. 
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhandlecommand_1_1_command_handler_a8bec4bb0c8470fec9138034eaff7c9b4}\index{handlecommand::CommandHandler@{handlecommand::CommandHandler}!handleMsz@{handleMsz}}
+\index{handleMsz@{handleMsz}!handlecommand::CommandHandler@{handlecommand::CommandHandler}}
+\doxysubsubsection{\texorpdfstring{handleMsz()}{handleMsz()}}
+{\footnotesize\ttfamily \label{classhandlecommand_1_1_command_handler_a8bec4bb0c8470fec9138034eaff7c9b4} 
+void handlecommand\+::\+Command\+Handler\+::handle\+Msz (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{}\end{DoxyParamCaption})}
+
+
+
+Handles the \textquotesingle{}msz\textquotesingle{} command (map size update). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server.\\
+\hline
+\end{DoxyParams}
+Parses the map size from the command and resizes the game map. 
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhandlecommand_1_1_command_handler_a892d9d4115d90049fabb0226bb97ecb7}\index{handlecommand::CommandHandler@{handlecommand::CommandHandler}!handlePbc@{handlePbc}}
+\index{handlePbc@{handlePbc}!handlecommand::CommandHandler@{handlecommand::CommandHandler}}
+\doxysubsubsection{\texorpdfstring{handlePbc()}{handlePbc()}}
+{\footnotesize\ttfamily \label{classhandlecommand_1_1_command_handler_a892d9d4115d90049fabb0226bb97ecb7} 
+void handlecommand\+::\+Command\+Handler\+::handle\+Pbc (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{}\end{DoxyParamCaption})}
+
+
+
+Handles the \textquotesingle{}pbc\textquotesingle{} command (broadcast event). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server.\\
+\hline
+\end{DoxyParams}
+Adds a broadcast message to the game state\textquotesingle{}s log. 
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhandlecommand_1_1_command_handler_ae0a7b9ccff3adfbd67c76e841df8b96a}\index{handlecommand::CommandHandler@{handlecommand::CommandHandler}!handlePdi@{handlePdi}}
+\index{handlePdi@{handlePdi}!handlecommand::CommandHandler@{handlecommand::CommandHandler}}
+\doxysubsubsection{\texorpdfstring{handlePdi()}{handlePdi()}}
+{\footnotesize\ttfamily \label{classhandlecommand_1_1_command_handler_ae0a7b9ccff3adfbd67c76e841df8b96a} 
+void handlecommand\+::\+Command\+Handler\+::handle\+Pdi (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{}\end{DoxyParamCaption})}
+
+
+
+Handles the \textquotesingle{}pdi\textquotesingle{} command (player death event). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server.\\
+\hline
+\end{DoxyParams}
+Removes the player from the game state and updates the tile. 
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhandlecommand_1_1_command_handler_af889a2727720b1c3328505a8812be23f}\index{handlecommand::CommandHandler@{handlecommand::CommandHandler}!handlePdr@{handlePdr}}
+\index{handlePdr@{handlePdr}!handlecommand::CommandHandler@{handlecommand::CommandHandler}}
+\doxysubsubsection{\texorpdfstring{handlePdr()}{handlePdr()}}
+{\footnotesize\ttfamily \label{classhandlecommand_1_1_command_handler_af889a2727720b1c3328505a8812be23f} 
+void handlecommand\+::\+Command\+Handler\+::handle\+Pdr (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{}\end{DoxyParamCaption})}
+
+
+
+Handles the \textquotesingle{}pdr\textquotesingle{} command (drop resource event). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server.\\
+\hline
+\end{DoxyParams}
+Shows a drop effect for the specified resource on the player\textquotesingle{}s tile. 
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhandlecommand_1_1_command_handler_a9cf13982a3077491fbc64f5764d95a13}\index{handlecommand::CommandHandler@{handlecommand::CommandHandler}!handlePex@{handlePex}}
+\index{handlePex@{handlePex}!handlecommand::CommandHandler@{handlecommand::CommandHandler}}
+\doxysubsubsection{\texorpdfstring{handlePex()}{handlePex()}}
+{\footnotesize\ttfamily \label{classhandlecommand_1_1_command_handler_a9cf13982a3077491fbc64f5764d95a13} 
+void handlecommand\+::\+Command\+Handler\+::handle\+Pex (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{}\end{DoxyParamCaption})}
+
+
+
+Handles the \textquotesingle{}pex\textquotesingle{} command (player expulsion event). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server.\\
+\hline
+\end{DoxyParams}
+Moves pushed players to new tiles and shows a push effect. 
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhandlecommand_1_1_command_handler_a207041ac32fa8ad6e596ca91eba28954}\index{handlecommand::CommandHandler@{handlecommand::CommandHandler}!handlePfk@{handlePfk}}
+\index{handlePfk@{handlePfk}!handlecommand::CommandHandler@{handlecommand::CommandHandler}}
+\doxysubsubsection{\texorpdfstring{handlePfk()}{handlePfk()}}
+{\footnotesize\ttfamily \label{classhandlecommand_1_1_command_handler_a207041ac32fa8ad6e596ca91eba28954} 
+void handlecommand\+::\+Command\+Handler\+::handle\+Pfk (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{}\end{DoxyParamCaption})}
+
+
+
+Handles the \textquotesingle{}pfk\textquotesingle{} command (fork event). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server.\\
+\hline
+\end{DoxyParams}
+Shows a fork effect on the player\textquotesingle{}s tile. 
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhandlecommand_1_1_command_handler_aa09d6381196c241928c8f07b81a8ab73}\index{handlecommand::CommandHandler@{handlecommand::CommandHandler}!handlePgt@{handlePgt}}
+\index{handlePgt@{handlePgt}!handlecommand::CommandHandler@{handlecommand::CommandHandler}}
+\doxysubsubsection{\texorpdfstring{handlePgt()}{handlePgt()}}
+{\footnotesize\ttfamily \label{classhandlecommand_1_1_command_handler_aa09d6381196c241928c8f07b81a8ab73} 
+void handlecommand\+::\+Command\+Handler\+::handle\+Pgt (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{}\end{DoxyParamCaption})}
+
+
+
+Handles the \textquotesingle{}pgt\textquotesingle{} command (collect resource event). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server.\\
+\hline
+\end{DoxyParams}
+Shows a collect effect for the specified resource on the player\textquotesingle{}s tile. 
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhandlecommand_1_1_command_handler_a8837e54fca282bcbf90262a88464d67d}\index{handlecommand::CommandHandler@{handlecommand::CommandHandler}!handlePic@{handlePic}}
+\index{handlePic@{handlePic}!handlecommand::CommandHandler@{handlecommand::CommandHandler}}
+\doxysubsubsection{\texorpdfstring{handlePic()}{handlePic()}}
+{\footnotesize\ttfamily \label{classhandlecommand_1_1_command_handler_a8837e54fca282bcbf90262a88464d67d} 
+void handlecommand\+::\+Command\+Handler\+::handle\+Pic (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{}\end{DoxyParamCaption})}
+
+
+
+Handles the \textquotesingle{}pic\textquotesingle{} command (incantation start event). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server.\\
+\hline
+\end{DoxyParams}
+Starts an incantation effect on the specified tile and adds it to the active incantations. 
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhandlecommand_1_1_command_handler_a5c678f3eb8399f71ef2bd9c3442e5bbb}\index{handlecommand::CommandHandler@{handlecommand::CommandHandler}!handlePie@{handlePie}}
+\index{handlePie@{handlePie}!handlecommand::CommandHandler@{handlecommand::CommandHandler}}
+\doxysubsubsection{\texorpdfstring{handlePie()}{handlePie()}}
+{\footnotesize\ttfamily \label{classhandlecommand_1_1_command_handler_a5c678f3eb8399f71ef2bd9c3442e5bbb} 
+void handlecommand\+::\+Command\+Handler\+::handle\+Pie (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{}\end{DoxyParamCaption})}
+
+
+
+Handles the \textquotesingle{}pie\textquotesingle{} command (incantation end event). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server.\\
+\hline
+\end{DoxyParams}
+Stops the incantation effect and shows the result on the tile. 
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhandlecommand_1_1_command_handler_a2ba17fe8568ec82b1bae4271d7281b64}\index{handlecommand::CommandHandler@{handlecommand::CommandHandler}!handlePin@{handlePin}}
+\index{handlePin@{handlePin}!handlecommand::CommandHandler@{handlecommand::CommandHandler}}
+\doxysubsubsection{\texorpdfstring{handlePin()}{handlePin()}}
+{\footnotesize\ttfamily \label{classhandlecommand_1_1_command_handler_a2ba17fe8568ec82b1bae4271d7281b64} 
+void handlecommand\+::\+Command\+Handler\+::handle\+Pin (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{}\end{DoxyParamCaption})}
+
+
+
+Handles the \textquotesingle{}pin\textquotesingle{} command (player inventory update). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server.\\
+\hline
+\end{DoxyParams}
+Updates a player\textquotesingle{}s inventory and position in the game state. 
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhandlecommand_1_1_command_handler_a71f04bc3aac5cb4635f0d090ef37f626}\index{handlecommand::CommandHandler@{handlecommand::CommandHandler}!handlePlv@{handlePlv}}
+\index{handlePlv@{handlePlv}!handlecommand::CommandHandler@{handlecommand::CommandHandler}}
+\doxysubsubsection{\texorpdfstring{handlePlv()}{handlePlv()}}
+{\footnotesize\ttfamily \label{classhandlecommand_1_1_command_handler_a71f04bc3aac5cb4635f0d090ef37f626} 
+void handlecommand\+::\+Command\+Handler\+::handle\+Plv (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{}\end{DoxyParamCaption})}
+
+
+
+Handles the \textquotesingle{}plv\textquotesingle{} command (player level update). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server.\\
+\hline
+\end{DoxyParams}
+Updates a player\textquotesingle{}s level in the game state. 
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhandlecommand_1_1_command_handler_a31bb00fd6d68c600a75de0134738df2c}\index{handlecommand::CommandHandler@{handlecommand::CommandHandler}!handlePnw@{handlePnw}}
+\index{handlePnw@{handlePnw}!handlecommand::CommandHandler@{handlecommand::CommandHandler}}
+\doxysubsubsection{\texorpdfstring{handlePnw()}{handlePnw()}}
+{\footnotesize\ttfamily \label{classhandlecommand_1_1_command_handler_a31bb00fd6d68c600a75de0134738df2c} 
+void handlecommand\+::\+Command\+Handler\+::handle\+Pnw (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{}\end{DoxyParamCaption})}
+
+
+
+Handles the \textquotesingle{}pnw\textquotesingle{} command (new player). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server.\\
+\hline
+\end{DoxyParams}
+Adds a new player to the game state and updates the tile. 
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhandlecommand_1_1_command_handler_aa9ac1634cd4e85b64eba53feeefd838a}\index{handlecommand::CommandHandler@{handlecommand::CommandHandler}!handlePpo@{handlePpo}}
+\index{handlePpo@{handlePpo}!handlecommand::CommandHandler@{handlecommand::CommandHandler}}
+\doxysubsubsection{\texorpdfstring{handlePpo()}{handlePpo()}}
+{\footnotesize\ttfamily \label{classhandlecommand_1_1_command_handler_aa9ac1634cd4e85b64eba53feeefd838a} 
+void handlecommand\+::\+Command\+Handler\+::handle\+Ppo (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{}\end{DoxyParamCaption})}
+
+
+
+Handles the \textquotesingle{}ppo\textquotesingle{} command (player position update). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server.\\
+\hline
+\end{DoxyParams}
+Updates a player\textquotesingle{}s position and orientation in the game state. 
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhandlecommand_1_1_command_handler_a4c5bb3d6d7acaa330d5cd7a1e756fce6}\index{handlecommand::CommandHandler@{handlecommand::CommandHandler}!handleSbp@{handleSbp}}
+\index{handleSbp@{handleSbp}!handlecommand::CommandHandler@{handlecommand::CommandHandler}}
+\doxysubsubsection{\texorpdfstring{handleSbp()}{handleSbp()}}
+{\footnotesize\ttfamily \label{classhandlecommand_1_1_command_handler_a4c5bb3d6d7acaa330d5cd7a1e756fce6} 
+void handlecommand\+::\+Command\+Handler\+::handle\+Sbp (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{}\end{DoxyParamCaption})}
+
+
+
+Handles the \textquotesingle{}sbp\textquotesingle{} command (failure event). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server.\\
+\hline
+\end{DoxyParams}
+Adds a generic failure message to the broadcast log. 
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhandlecommand_1_1_command_handler_aea9b48317e1faf36de70ee3ffccb43f8}\index{handlecommand::CommandHandler@{handlecommand::CommandHandler}!handleSeg@{handleSeg}}
+\index{handleSeg@{handleSeg}!handlecommand::CommandHandler@{handlecommand::CommandHandler}}
+\doxysubsubsection{\texorpdfstring{handleSeg()}{handleSeg()}}
+{\footnotesize\ttfamily \label{classhandlecommand_1_1_command_handler_aea9b48317e1faf36de70ee3ffccb43f8} 
+void handlecommand\+::\+Command\+Handler\+::handle\+Seg (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{}\end{DoxyParamCaption})}
+
+
+
+Handles the \textquotesingle{}seg\textquotesingle{} command (game over event). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server.\\
+\hline
+\end{DoxyParams}
+Updates the game state to reflect that the game is over and logs the winning team. 
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhandlecommand_1_1_command_handler_a26ab4af811316d7c090e0d1bb3a48585}\index{handlecommand::CommandHandler@{handlecommand::CommandHandler}!handleSgt@{handleSgt}}
+\index{handleSgt@{handleSgt}!handlecommand::CommandHandler@{handlecommand::CommandHandler}}
+\doxysubsubsection{\texorpdfstring{handleSgt()}{handleSgt()}}
+{\footnotesize\ttfamily \label{classhandlecommand_1_1_command_handler_a26ab4af811316d7c090e0d1bb3a48585} 
+void handlecommand\+::\+Command\+Handler\+::handle\+Sgt (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{}\end{DoxyParamCaption})}
+
+
+
+Handles the \textquotesingle{}sgt\textquotesingle{} command (time unit update). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server.\\
+\hline
+\end{DoxyParams}
+Parses the time unit from the command and updates the game state. 
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhandlecommand_1_1_command_handler_ad99313d8b47d008dd2d0dcf317c0338d}\index{handlecommand::CommandHandler@{handlecommand::CommandHandler}!handleSmg@{handleSmg}}
+\index{handleSmg@{handleSmg}!handlecommand::CommandHandler@{handlecommand::CommandHandler}}
+\doxysubsubsection{\texorpdfstring{handleSmg()}{handleSmg()}}
+{\footnotesize\ttfamily \label{classhandlecommand_1_1_command_handler_ad99313d8b47d008dd2d0dcf317c0338d} 
+void handlecommand\+::\+Command\+Handler\+::handle\+Smg (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{}\end{DoxyParamCaption})}
+
+
+
+Handles the \textquotesingle{}smg\textquotesingle{} command (server message event). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server.\\
+\hline
+\end{DoxyParams}
+Adds a server message to the broadcast log. 
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhandlecommand_1_1_command_handler_aaf8e297945ef9726e394e10b22222b62}\index{handlecommand::CommandHandler@{handlecommand::CommandHandler}!handleSuc@{handleSuc}}
+\index{handleSuc@{handleSuc}!handlecommand::CommandHandler@{handlecommand::CommandHandler}}
+\doxysubsubsection{\texorpdfstring{handleSuc()}{handleSuc()}}
+{\footnotesize\ttfamily \label{classhandlecommand_1_1_command_handler_aaf8e297945ef9726e394e10b22222b62} 
+void handlecommand\+::\+Command\+Handler\+::handle\+Suc (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{}\end{DoxyParamCaption})}
+
+
+
+Handles the \textquotesingle{}suc\textquotesingle{} command (success event). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server.\\
+\hline
+\end{DoxyParams}
+Adds a generic success message to the broadcast log. 
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server. \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classhandlecommand_1_1_command_handler_a901e167076c71cc43a1cb29a29cc87e6}\index{handlecommand::CommandHandler@{handlecommand::CommandHandler}!handleTna@{handleTna}}
+\index{handleTna@{handleTna}!handlecommand::CommandHandler@{handlecommand::CommandHandler}}
+\doxysubsubsection{\texorpdfstring{handleTna()}{handleTna()}}
+{\footnotesize\ttfamily \label{classhandlecommand_1_1_command_handler_a901e167076c71cc43a1cb29a29cc87e6} 
+void handlecommand\+::\+Command\+Handler\+::handle\+Tna (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{command}{}\end{DoxyParamCaption})}
+
+
+
+Handles the \textquotesingle{}tna\textquotesingle{} command (team names update). 
+
+
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server.\\
+\hline
+\end{DoxyParams}
+Parses team names from the command and updates the game state. 
+\begin{DoxyParams}{Parameters}
+{\em command} & The command string received from the server. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/command\+Handler/\mbox{\hyperlink{_command_handler_8hpp}{Command\+Handler.\+hpp}}\item 
+src/command\+Handler/\mbox{\hyperlink{_command_handler_8cpp}{Command\+Handler.\+cpp}}\end{DoxyCompactItemize}

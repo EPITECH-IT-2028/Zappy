@@ -1,10 +1,13 @@
 #pragma once
 
 namespace gui {
+  /**
+   * @brief Enum representing the possible orientations (directions) a player can face.
+   */
   enum class Orientation {
-    NORTH = 1,
-    EAST = 2,
-    SOUTH = 3,
-    WEST = 4
+    NORTH = 1, ///< Facing north (up)
+    EAST = 2,  ///< Facing east (right)
+    SOUTH = 3, ///< Facing south (down)
+    WEST = 4   ///< Facing west (left)
   };
 }  // namespace gui

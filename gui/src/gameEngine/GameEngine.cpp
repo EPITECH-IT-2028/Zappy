@@ -12,6 +12,11 @@
 #include <cfloat>
 #include "header/rlights.h"
 
+/**
+ * @brief Constructs the GameEngine, initializes the window, camera, and loads the egg texture.
+ * @param serverCommunication Reference to the server communication handler.
+ * @throws std::runtime_error if the Raylib window or egg texture cannot be initialized.
+ */
 gui::GameEngine::GameEngine(network::ServerCommunication &serverCommunication)
     : _window(SCREEN_WIDTH, SCREEN_HEIGHT, "Zappy"),
       _framesCounter(0),
@@ -39,6 +44,9 @@ gui::GameEngine::GameEngine(network::ServerCommunication &serverCommunication)
   }
 }
 
+/**
+ * @brief Destructor for GameEngine. Unloads models, textures, and shaders if loaded.
+ */
 gui::GameEngine::~GameEngine() {
   if (_resourcesLoaded == TOTAL_MODELS) {
     UnloadModel(_brick);
@@ -52,14 +60,25 @@ gui::GameEngine::~GameEngine() {
     UnloadTexture(_backgroundLogo);
 }
 
+/**
+ * @brief Gets the current world scale factor.
+ * @return The world scale factor.
+ */
 float gui::GameEngine::getWorldScale() const {
   return worldScale;
 }
 
+/**
+ * @brief Sets the world scale factor, clamped between MIN_SCALE and MAX_SCALE.
+ * @param value The new world scale factor.
+ */
 void gui::GameEngine::setWorldScale(float value) {
   worldScale = std::clamp(value, MIN_SCALE, MAX_SCALE);
 }
 
+/**
+ * @brief Initializes models, shaders, and resources. Sets error state if initialization fails.
+ */
 void gui::GameEngine::initialize() {
   try {
     loadModels();
@@ -74,6 +93,9 @@ void gui::GameEngine::initialize() {
   }
 }
 
+/**
+ * @brief Main loop for running the game engine. Handles input, updates, and rendering.
+ */
 void gui::GameEngine::run() {
   _window.SetTargetFPS(60);
 
@@ -123,6 +145,9 @@ void gui::GameEngine::run() {
   }
 }
 
+/**
+ * @brief Handles input for the logo screen. Transitions to the title screen after a delay.
+ */
 void gui::GameEngine::LogoScreenInput() {
   _framesCounter++;
   if (_framesCounter > LOGO_DURATION_FRAMES) {
@@ -131,11 +156,17 @@ void gui::GameEngine::LogoScreenInput() {
   }
 }
 
+/**
+ * @brief Handles input for the title screen. Starts the game on Enter key press.
+ */
 void gui::GameEngine::TitleScreenInput() {
   if (IsKeyPressed(KEY_ENTER))
     _currentScreen = Screen::GAMEPLAY;
 }
 
+/**
+ * @brief Handles input for the gameplay screen. Allows player to interact and move the camera.
+ */
 void gui::GameEngine::GameplayScreenInput() {
   if (IsKeyPressed(KEY_ENTER))
     _currentScreen = Screen::ENDING;
@@ -143,11 +174,17 @@ void gui::GameEngine::GameplayScreenInput() {
   moveCamera();
 }
 
+/**
+ * @brief Handles input for the ending screen. Returns to the title screen on Enter key press.
+ */
 void gui::GameEngine::EndingScreenInput() {
   if (IsKeyPressed(KEY_ENTER))
     _currentScreen = Screen::TITLE;
 }
 
+/**
+ * @brief Processes incoming network messages and dispatches them to the appropriate handler.
+ */
 void gui::GameEngine::processNetworkMessages() {
   if (!_serverCommunication.isConnected())
     return;
@@ -203,6 +240,10 @@ void gui::GameEngine::processNetworkMessages() {
   }
 }
 
+/**
+ * @brief Loads resources such as textures and models from files.
+ * @throws std::runtime_error if any resource file cannot be loaded.
+ */
 void gui::GameEngine::loadResources() {
   if (!FileExists("resources/MarioBack.png")) {
     std::cerr << "Error: Background logo image not found.\n";
@@ -215,6 +256,9 @@ void gui::GameEngine::loadResources() {
   }
 }
 
+/**
+ * @brief Calculates and sets the dimensions for the asset (background logo) based on its texture.
+ */
 void gui::GameEngine::dimensionAsset() {
   if (_backgroundLogo.id == 0) {
     std::cerr << "Warning: Cannot calculate dimensions for invalid texture.\n";
@@ -227,6 +271,9 @@ void gui::GameEngine::dimensionAsset() {
   _yAsset = (SCREEN_HEIGHT - _texHeightAsset) / 2.0f;
 }
 
+/**
+ * @brief Renders the logo screen, including the background, logo text, and loading animation.
+ */
 void gui::GameEngine::renderLogoScreen() {
   if (_backgroundLogo.id != 0) {
     dimensionAsset();
@@ -252,6 +299,9 @@ void gui::GameEngine::renderLogoScreen() {
            SCREEN_HEIGHT / 2 + 40, _loadingFontSize, LIGHTGRAY);
 }
 
+/**
+ * @brief Renders the title screen with the game title and instructions.
+ */
 void gui::GameEngine::renderTitleScreen() {
   if (_backgroundLogo.id != 0) {
     dimensionAsset();
@@ -281,6 +331,9 @@ void gui::GameEngine::renderTitleScreen() {
            _boxY + _boxHeight - 70, _subtitleFontSize, DARKGRAY);
 }
 
+/**
+ * @brief Renders the gameplay screen, including the map, players, resources, and UI panels.
+ */
 void gui::GameEngine::renderGameplayScreen() {
   updateTileSelection();
   std::vector<std::pair<Vector3, int>> resourceCount;
@@ -314,6 +367,9 @@ void gui::GameEngine::renderGameplayScreen() {
   drawPlayerInfoPanel();
 }
 
+/**
+ * @brief Renders the ending screen, displaying the game result and instructions to return to the title screen.
+ */
 void gui::GameEngine::renderEndingScreen() {
   std::string msg = "GAME OVER - Team " + _gameState.winningTeamName + " wins!";
   int textWidth = MeasureText(msg.c_str(), 40);
@@ -325,12 +381,18 @@ void gui::GameEngine::renderEndingScreen() {
            RED);
 }
 
+/**
+ * @brief Renders the error screen, displaying an error message.
+ */
 void gui::GameEngine::renderErrorScreen() {
   DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, RED);
   DrawText("ERROR", 20, 20, 40, BLACK);
   DrawText(_errorMessage.c_str(), 60, 120, 20, BLACK);
 }
 
+/**
+ * @brief Updates shader values based on the current camera position and light settings.
+ */
 void gui::GameEngine::updateShaders() {
   float cameraPos[3] = {_camera.GetPosition().x, _camera.GetPosition().y,
                         _camera.GetPosition().z};
@@ -340,6 +402,10 @@ void gui::GameEngine::updateShaders() {
     UpdateLightValues(_lightingShader, _lights[i]);
 }
 
+/**
+ * @brief Loads 3D models for the game (e.g., brick and goomba models).
+ * @throws std::runtime_error if any model file cannot be loaded.
+ */
 void gui::GameEngine::loadModels() {
   if (_resourcesLoaded == TOTAL_MODELS)
     return;
@@ -378,6 +444,9 @@ void gui::GameEngine::loadModels() {
   }
 }
 
+/**
+ * @brief Loads shaders from file and sets up shader locations for lighting.
+ */
 void gui::GameEngine::loadShaders() {
   _lightingShader = LoadShader(TextFormat("resources/lighting.vs", 330),
                                TextFormat("resources/lighting.fs", 330));
@@ -399,6 +468,10 @@ void gui::GameEngine::loadShaders() {
                            (Color){32, 32, 32, 255}, _lightingShader);
 }
 
+/**
+ * @brief Draws the game map, including bricks and resources.
+ * @param resourceCount Vector to store the position and count of resources for rendering.
+ */
 void gui::GameEngine::drawMap(
     std::vector<std::pair<Vector3, int>> *resourceCount) {
   if (_resourcesLoaded != TOTAL_MODELS) {
@@ -429,6 +502,13 @@ void gui::GameEngine::drawMap(
   }
 }
 
+/**
+ * @brief Draws resources on a specific tile.
+ * @param position The world position of the tile.
+ * @param x The x-coordinate of the tile in the map.
+ * @param y The y-coordinate of the tile in the map.
+ * @param resourceTexts Vector to store the position and count of resources for rendering.
+ */
 void gui::GameEngine::drawResource(
     const Vector3 position, int x, int y,
     std::vector<std::pair<Vector3, int>> &resourceTexts) {
@@ -449,6 +529,11 @@ void gui::GameEngine::drawResource(
   }
 }
 
+/**
+ * @brief Draws all players on the map using the Goomba model.
+ *
+ * Calculates each player's position and orientation, then renders the model at the correct location.
+ */
 void gui::GameEngine::drawPlayers() {
   float brickSpacing = BRICK_SPACING * worldScale;
   Vector3 gridOrigin = {
@@ -485,12 +570,25 @@ void gui::GameEngine::drawPlayers() {
   }
 }
 
+/**
+ * @brief Calculates the origin (center) of the grid in world coordinates.
+ *
+ * @param mapWidth Width of the map (number of tiles).
+ * @param mapHeight Height of the map (number of tiles).
+ * @param brickSpacing Spacing between bricks.
+ * @return The 3D world position of the grid origin.
+ */
 Vector3 gui::GameEngine::calculateGridOrigin(float mapWidth, float mapHeight,
                                              float brickSpacing) const {
   return {-(mapWidth - 1) * brickSpacing / 2.0f, 0.0f,
           -(mapHeight - 1) * brickSpacing / 2.0f};
 }
 
+/**
+ * @brief Draws all eggs on the map as billboards.
+ *
+ * Calculates each egg's position and renders it using the egg texture.
+ */
 void gui::GameEngine::drawEggs() {
   float brickSpacing = BRICK_SPACING * worldScale;
   float mapWidth = static_cast<float>(_gameState.map.width);
@@ -503,6 +601,14 @@ void gui::GameEngine::drawEggs() {
   }
 }
 
+/**
+ * @brief Calculates the 3D position of a player on the grid.
+ *
+ * @param player The player whose position to calculate.
+ * @param gridOrigin The origin of the grid in world coordinates.
+ * @param brickSpacing Spacing between bricks.
+ * @return The 3D world position of the player.
+ */
 Vector3 gui::GameEngine::calculatePlayerPosition(const gui::Player &player,
                                                  const Vector3 &gridOrigin,
                                                  float brickSpacing) const {
@@ -511,6 +617,18 @@ Vector3 gui::GameEngine::calculatePlayerPosition(const gui::Player &player,
           gridOrigin.z + player.y * brickSpacing};
 }
 
+Vector3 gui::GameEngine::calculateEggPosition(const gui::Egg &egg,
+                                              const Vector3 &gridOrigin,
+                                              float brickSpacing) const {
+  return {gridOrigin.x + egg.x * brickSpacing, gridOrigin.y + 1.4f * worldScale,
+          gridOrigin.z + egg.y * brickSpacing};
+}
+
+/**
+ * @brief Draws shadows for all players on the map.
+ *
+ * Shadows are rendered as semi-transparent cylinders at the player's position.
+ */
 void gui::GameEngine::drawPlayerShadows() {
   float brickSpacing = BRICK_SPACING * worldScale;
   Vector3 gridOrigin = {
@@ -529,13 +647,11 @@ void gui::GameEngine::drawPlayerShadows() {
   }
 }
 
-Vector3 gui::GameEngine::calculateEggPosition(const gui::Egg &egg,
-                                              const Vector3 &gridOrigin,
-                                              float brickSpacing) const {
-  return {gridOrigin.x + egg.x * brickSpacing, gridOrigin.y + 1.4f * worldScale,
-          gridOrigin.z + egg.y * brickSpacing};
-}
-
+/**
+ * @brief Draws shadows for all eggs on the map.
+ *
+ * Shadows are rendered as semi-transparent cylinders at the egg's position.
+ */
 void gui::GameEngine::drawEggShadows() {
   float brickSpacing = BRICK_SPACING * worldScale;
   Vector3 gridOrigin = {-((_gameState.map.width - 1) * brickSpacing) / 2.0f,
@@ -551,6 +667,11 @@ void gui::GameEngine::drawEggShadows() {
   }
 }
 
+/**
+ * @brief Draws light sources in the 3D world.
+ *
+ * Lights are represented as spheres, with their properties set by the shader.
+ */
 void gui::GameEngine::drawLights() {
   for (int i = 0; i < MAX_LIGHTS; ++i) {
     if (_lights[i].enabled) {
@@ -562,6 +683,11 @@ void gui::GameEngine::drawLights() {
   }
 }
 
+/**
+ * @brief Moves the camera based on user input.
+ *
+ * Camera movement includes translation, rotation, and zoom.
+ */
 void gui::GameEngine::moveCamera() {
   handleCameraMovement();
   handleCameraRotation();
@@ -571,6 +697,9 @@ void gui::GameEngine::moveCamera() {
     resetCamera();
 }
 
+/**
+ * @brief Handles camera translation (movement) based on user input.
+ */
 void gui::GameEngine::handleCameraMovement() {
   float moveSpeed = MOVEMENT_BASE_SPEED / worldScale;
 
@@ -619,6 +748,9 @@ void gui::GameEngine::handleCameraMovement() {
   }
 }
 
+/**
+ * @brief Handles camera rotation based on user input.
+ */
 void gui::GameEngine::handleCameraRotation() {
   Vector3 direction = Vector3Subtract(_camera.target, _camera.position);
   Vector3 right = Vector3Normalize(Vector3CrossProduct(direction, _camera.up));
@@ -646,6 +778,9 @@ void gui::GameEngine::handleCameraRotation() {
   }
 }
 
+/**
+ * @brief Handles camera zoom in and out using the mouse wheel.
+ */
 void gui::GameEngine::handleCameraZoom() {
   float wheel = GetMouseWheelMove();
 
@@ -654,6 +789,9 @@ void gui::GameEngine::handleCameraZoom() {
   }
 }
 
+/**
+ * @brief Resets the camera to its default position, target, and projection.
+ */
 void gui::GameEngine::resetCamera() {
   _camera.SetPosition({15.0f, 10.0f, 30.0f});
   _camera.SetTarget({0.0f, 0.0f, 0.0f});
@@ -663,6 +801,11 @@ void gui::GameEngine::resetCamera() {
   setWorldScale(1.0f);
 }
 
+/**
+ * @brief Draws the broadcast log on the screen.
+ *
+ * Displays the most recent broadcast messages from the server.
+ */
 void gui::GameEngine::drawBroadcastLog() {
   const int maxVisibleMessages = GameState::MAX_BROADCAST_LOG_SIZE;
   const int startX = BROADCAST_LOG_START_X;
@@ -683,6 +826,17 @@ void gui::GameEngine::drawBroadcastLog() {
   }
 }
 
+/**
+ * @brief Gets the tile coordinates under the mouse cursor.
+ *
+ * @param mapWidth Width of the map (number of tiles).
+ * @param mapHeight Height of the map (number of tiles).
+ * @param brickSpacing Spacing between bricks.
+ * @param gridOrigin The origin of the grid in world coordinates.
+ * @param tileX Reference to store the x-coordinate of the tile.
+ * @param tileY Reference to store the y-coordinate of the tile.
+ * @return True if a tile was found under the mouse, false otherwise.
+ */
 bool gui::GameEngine::getTileUnderMouse(float mapWidth, float mapHeight,
                                         float brickSpacing, Vector3 gridOrigin,
                                         int &tileX, int &tileY) {
@@ -718,6 +872,9 @@ bool gui::GameEngine::getTileUnderMouse(float mapWidth, float mapHeight,
   return false;
 }
 
+/**
+ * @brief Updates the tile selection based on the mouse position.
+ */
 void gui::GameEngine::updateTileSelection() {
   float brickSpacing = BRICK_SPACING * worldScale;
   float mapWidth = static_cast<float>(_gameState.map.width);
@@ -735,6 +892,9 @@ void gui::GameEngine::updateTileSelection() {
   }
 }
 
+/**
+ * @brief Draws the tile information panel, displaying resources on the hovered tile.
+ */
 void gui::GameEngine::drawTileInfoPanel() {
   int textY = TILE_PANEL_Y + 18;
   int textX = TILE_PANEL_X + 16;
@@ -770,6 +930,9 @@ void gui::GameEngine::drawTileInfoPanel() {
   }
 }
 
+/**
+ * @brief Draws the player list panel, showing all players in the game.
+ */
 void gui::GameEngine::drawPlayerListPanel() {
   DrawRectangle(PLAYER_PANEL_X, PLAYER_PANEL_Y, PLAYER_PANEL_WIDTH,
                 PLAYER_PANEL_HEIGHT, Fade(LIGHTGRAY, 0.95f));
@@ -802,6 +965,11 @@ void gui::GameEngine::drawPlayerListPanel() {
   }
 }
 
+/**
+ * @brief Draws the information panel for the selected player.
+ *
+ * Shows the player's ID, team, level, and inventory.
+ */
 void gui::GameEngine::drawPlayerInfoPanel() {
   if (selectedPlayerId == -1)
     return;

@@ -4,6 +4,19 @@
 #define LETTER_BOUNDARY_SIZE 0.01f
 #define LETTER_BOUNDARY_COLOR RED
 
+/**
+ * @brief Draws a single Unicode codepoint (character) in 3D space using a given font.
+ *
+ * Renders the specified codepoint at the given 3D position, with support for font size, backface rendering,
+ * and color tinting. Optionally draws a wireframe boundary for debugging.
+ *
+ * @param font The font to use for rendering the codepoint.
+ * @param codepoint The Unicode codepoint to draw.
+ * @param position The 3D position where the character will be drawn.
+ * @param fontSize The size of the font in world units.
+ * @param backface If true, draws the character's back face as well.
+ * @param tint The color tint to apply to the character.
+ */
 void gui::GameEngine::DrawTextCodepoint3D(Font font, int codepoint, Vector3 position, float fontSize, bool backface, Color tint) {
   // Character index position in sprite font
   // NOTE: In case a codepoint is not available in the font, index returned points to '?'
@@ -69,6 +82,21 @@ void gui::GameEngine::DrawTextCodepoint3D(Font font, int codepoint, Vector3 posi
   }
 }
 
+/**
+ * @brief Draws a UTF-8 encoded string in 3D space using a given font.
+ *
+ * Renders the specified text at the given 3D position, with support for font size, spacing, line spacing,
+ * backface rendering, and color tinting. Handles newlines and advances position accordingly.
+ *
+ * @param font The font to use for rendering the text.
+ * @param text The UTF-8 encoded string to draw.
+ * @param position The 3D position where the text will start.
+ * @param fontSize The size of the font in world units.
+ * @param fontSpacing Additional spacing between characters.
+ * @param lineSpacing Additional spacing between lines (on newline characters).
+ * @param backface If true, draws the back face of each character as well.
+ * @param tint The color tint to apply to the text.
+ */
 void gui::GameEngine::DrawText3D(Font font, const char *text, Vector3 position, float fontSize, float fontSpacing, float lineSpacing, bool backface, Color tint) {
   int length = TextLength(text);          // Total length in bytes of the text, scanned by codepoints in loop
 

@@ -1,0 +1,30 @@
+\doxysection{Map.\+hpp}
+\hypertarget{_map_8hpp_source}{}\label{_map_8hpp_source}\index{src/entities/Map.hpp@{src/entities/Map.hpp}}
+\mbox{\hyperlink{_map_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ <cstddef>}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_tile_8hpp}{Tile.hpp}}"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacegui}{gui}}\ \{}
+\DoxyCodeLine{00013\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structgui_1_1_map_ab9bd8cfb77979aedb43ad970ad259b5f}{Map}}\ \{}
+\DoxyCodeLine{00017\ \ \ \ \ \ \ std::size\_t\ \mbox{\hyperlink{structgui_1_1_map_a646cec54ae1aa4f0090e0a813cbae89c}{width}};}
+\DoxyCodeLine{00021\ \ \ \ \ \ \ std::size\_t\ \mbox{\hyperlink{structgui_1_1_map_a573ef4ce8c8e5b430b56cbc9415a2812}{height}};}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ std::vector<std::vector<Tile>>\ \mbox{\hyperlink{structgui_1_1_map_af2719279da990d043fe866fffbff8dcb}{tiles}};}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{structgui_1_1_map_a360e76d5097aafd97ceb82e1f4e2047e}{resize}}(std::size\_t\ w,\ std::size\_t\ h);}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \mbox{\hyperlink{structgui_1_1_tile}{Tile}}\&\ \mbox{\hyperlink{structgui_1_1_map_a3640a590d9c92de5c70d439f14d5c25b}{getTile}}(std::size\_t\ x,\ std::size\_t\ y);}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structgui_1_1_tile}{Tile}}\&\ \mbox{\hyperlink{structgui_1_1_map_a3640a590d9c92de5c70d439f14d5c25b}{getTile}}(std::size\_t\ x,\ std::size\_t\ y)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structgui_1_1_map_aeb26b531c4af913129e455f79fa6fc2e}{isInside}}(std::size\_t\ x,\ std::size\_t\ y)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00059\ }
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \mbox{\hyperlink{structgui_1_1_map_ab9bd8cfb77979aedb43ad970ad259b5f}{Map}}(std::size\_t\ w,\ std::size\_t\ h)}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{structgui_1_1_map_a646cec54ae1aa4f0090e0a813cbae89c}{width}}(w),\ \mbox{\hyperlink{structgui_1_1_map_a573ef4ce8c8e5b430b56cbc9415a2812}{height}}(h),\ \mbox{\hyperlink{structgui_1_1_map_af2719279da990d043fe866fffbff8dcb}{tiles}}(h,\ std::vector<\mbox{\hyperlink{structgui_1_1_tile}{Tile}}>(w))\ \{}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ ensureInBounds(std::size\_t\ x,\ std::size\_t\ y)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00079\ \ \ \};}
+\DoxyCodeLine{00080\ \}\ \ \textcolor{comment}{//\ namespace\ gui}}
+
+\end{DoxyCode}

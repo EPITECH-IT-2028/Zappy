@@ -1,0 +1,35 @@
+\doxysection{Server\+Communication.\+hpp}
+\hypertarget{_server_communication_8hpp_source}{}\label{_server_communication_8hpp_source}\index{src/server/ServerCommunication.hpp@{src/server/ServerCommunication.hpp}}
+\mbox{\hyperlink{_server_communication_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <netinet/in.h>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacenetwork}{network}}\ \{}
+\DoxyCodeLine{00012\ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classnetwork_1_1_server_communication_a10a8a45c05696459346a96a796bd1689}{ServerCommunication}}\ \{}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \mbox{\hyperlink{classnetwork_1_1_server_communication_a10a8a45c05696459346a96a796bd1689}{ServerCommunication}}(\textcolor{keywordtype}{int}\ port,\ \textcolor{keyword}{const}\ std::string\ \&hostname\ =\ \textcolor{stringliteral}{"{}127.0.0.1"{}});}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \mbox{\hyperlink{classnetwork_1_1_server_communication_a282a13f86126629e17e1985f82e1fcb7}{\string~ServerCommunication}}();}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classnetwork_1_1_server_communication_a91bab89db1c0d44d4509fa2e0cce565b}{isConnected}}()\ \textcolor{keyword}{const}\ \textcolor{keyword}{noexcept};}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classnetwork_1_1_server_communication_a077cc851a6dc2b1bc1ee03972e1b401d}{connectToServer}}();}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classnetwork_1_1_server_communication_a2cf786bf970e89a212650cc990345cc0}{sendMessage}}(\textcolor{keyword}{const}\ std::string\ \&message);}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{classnetwork_1_1_server_communication_a77ee2fd3c2c96cf31299bef68006ee4b}{receiveMessage}}();}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classnetwork_1_1_server_communication_aee2f1f7dea88d0555aa4e7957b150cdb}{hasIncomingData}}();}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ createSocket();}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ establishConnection();}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \_clientFd;\ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \_port;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00065\ \ \ \ \ \ \ std::string\ \_hostname;\ \ \ \ \ \ }
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \textcolor{keyword}{struct\ }sockaddr\_in\ \_serverAddr;\ }
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \_connected;\ \ \ \ \ \ \ \ \ \ \ \ }
+\DoxyCodeLine{00068\ \ \ \ \ \ \ std::string\ \_pendingData;\ \ \ }
+\DoxyCodeLine{00069\ \ \ \};}
+\DoxyCodeLine{00070\ \}\ \ \textcolor{comment}{//\ namespace\ network}}
+
+\end{DoxyCode}
