@@ -1,10 +1,13 @@
 import socket
 import game
 import ml_agent
+import random
+import message as msg
 import time
 import utils
 import select
 import sys
+
 
 allowed_commands = [
     "Forward",
@@ -53,7 +56,6 @@ def handle_Inventory(client, response) -> None:
                 resource, quantity = item.split()
                 client.inventory[resource] = int(quantity)
             except ValueError:
-                print(f"response: {response}")
                 client.look_redirection = True
 
 def handle_Dead(client, response) -> None:
@@ -62,7 +64,6 @@ def handle_Dead(client, response) -> None:
     game.remove_client(client)
 
 def handle_Fork(client, response) -> None:
-    print("Fork command executed, waiting for connection")
     server_address = client.socket.getpeername()
     team_name = client.team_name
     connect_client(server_address, team_name)
@@ -91,10 +92,11 @@ def handle_Broadcast(client, response) -> None:
         return
 
     direction, message = response.split(", ")
+    decrypted_message = msg.decrypt(message)
     direction = int(direction.split("message ")[1])
-    
-    if message.startswith("I_need_help_to_level_up_to_"):
-        parts = message.replace("I_need_help_to_level_up_to_", "").split("_with_")
+
+    if decrypted_message.startswith("I_need_help_to_level_up_to_"):
+        parts = decrypted_message.replace("I_need_help_to_level_up_to_", "").split("_with_")
 
         if len(parts) == 2:
             target_level = int(parts[0])
@@ -107,8 +109,7 @@ def handle_Broadcast(client, response) -> None:
             client.help_status = True
             client.help_direction = direction
             return
-    
-    if message == "I_am_starting_to_play":
+    if decrypted_message == "I_am_starting_to_play":
         client.player_in_game += 1
         return
 
@@ -169,9 +170,11 @@ def execute_command(client, command, args) -> None:
     if len(client.commands) < utils.MAX_COMMANDS:
         client.commands.append(command)
     else:
-        print("Max commands reached, command not added to queue")
         return
-    if command == utils.BROADCAST or command == utils.SET or command == utils.TAKE:
+    if command == utils.BROADCAST:
+        send_message(client, f"{command} {msg.encrypt(args)}")
+        print(f"Broadcast sent: {msg.encrypt(args)}")
+    elif command == utils.SET or command == utils.TAKE:
         send_message(client, f"{command} {args}")
     elif command == utils.FORWARD:
         if client.last_look[utils.PLAYER_CELL].count("player") > utils.CANT_MOVE and client.help_status:
@@ -203,16 +206,13 @@ def initialize_clients(client) -> None:
             response = client.socket.recv(utils.BUFFER_SIZE).decode()
             buffer += response
 
-            print(f"Player in game: {client.player_in_game}")
-            print(f"Unused slot: {client.unused_slot}")
-            
+
             if buffer:
                 while "\n" in buffer:
                     message, buffer = buffer.split("\n", 1)
 
                     if message:
                         if (message == "dead"):
-                            print("Client dead, closing connection")
                             handle_Dead(client, message)
                             sys.exit(0)
                         if message.startswith("message "):
@@ -234,7 +234,6 @@ def handle_client(client) -> None:
         response = client.socket.recv(utils.BUFFER_SIZE).decode()
 
         if not response:
-            print("No response from server, closing connection")
             client.socket.close()
             client.is_alive = False
             break
@@ -253,7 +252,6 @@ def handle_client(client) -> None:
                         continue
 
                     if (message == "dead"):
-                        print("Client dead, closing connection")
                         handle_Dead(client, message)
                         break
 
@@ -271,13 +269,11 @@ def handle_client(client) -> None:
                         handle_command(client, command, message)
 
                         if client.inventory_redirection:
-                            print("Inventory redirection detected")
                             client.inventory_redirection = False
                             handle_Inventory(client, message)
                             command = utils.INVENTORY
 
                         if client.look_redirection:
-                            print("Look redirection detected")
                             client.look_redirection = False
                             handle_Look(client, message)
                             command = utils.LOOK
@@ -305,7 +301,6 @@ def connect_client(server_address, team_name) -> int:
 
     game_data = client.socket.recv(utils.BUFFER_SIZE).decode()
     if game_data == "ko\n":
-        print("Unknown team name or team is full")
         return 0
   
     unused_slot = game_data.split()[0]
