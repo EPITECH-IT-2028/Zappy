@@ -1,9 +1,0 @@
-PROJECT_NAME           = "Zappy"
-OUTPUT_DIRECTORY       = docs
-INPUT                  = /home/arthur/Tek2/Project/Zappy/server/src /home/arthur/Tek2/Project/Zappy/server/include
-FILE_PATTERNS          = *.c *.h
-RECURSIVE              = YES
-EXTRACT_ALL            = YES
-GENERATE_HTML          = YES
-HTML_OUTPUT            = html
-
