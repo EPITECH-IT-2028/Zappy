@@ -26,6 +26,7 @@ gui::GameEngine::GameEngine(network::ServerCommunication &serverCommunication)
   _camera.SetUp({0.0f, 1.0f, 0.0f});
   _camera.SetFovy(45.0f);
   _camera.SetProjection(CAMERA_PERSPECTIVE);
+  _eggTexture = LoadTexture("resources/egg.png");
 }
 
 gui::GameEngine::~GameEngine() {
@@ -33,6 +34,7 @@ gui::GameEngine::~GameEngine() {
     UnloadModel(_brick);
     UnloadModel(_goomba);
   }
+  UnloadTexture(_eggTexture);
   UnloadShader(_lightingShader);
 }
 
@@ -216,6 +218,7 @@ void gui::GameEngine::renderGameplayScreen() {
   }
 
   EndShaderMode();
+  drawEggs();
   drawLights();
   EndMode3D();
 
@@ -391,6 +394,22 @@ void gui::GameEngine::drawPlayers() {
         _goomba, position, (Vector3){0, 1, 0}, angle * RAD2DEG,
         (Vector3){0.15f * worldScale, 0.15f * worldScale, 0.15f * worldScale},
         WHITE);
+  }
+}
+
+void gui::GameEngine::drawEggs() {
+  float brickSpacing = BRICK_SPACING * worldScale;
+  Vector3 gridOrigin = {-((_gameState.map.width - 1) * brickSpacing) / 2.0f,
+                        0.0f,
+                        -((_gameState.map.height - 1) * brickSpacing) / 2.0f};
+  for (const auto &eggPair : _gameState.eggs) {
+    const gui::Egg &egg = eggPair.second;
+    Vector3 pos = {gridOrigin.x + egg.x * brickSpacing,
+                   gridOrigin.y + 1.4f * worldScale,
+                   gridOrigin.z + egg.y * brickSpacing};
+    Vector3 shadowPos = {pos.x, gridOrigin.y + 1.1f, pos.z};
+    DrawCylinder(shadowPos, 0.22f * worldScale, 0.22f * worldScale, 0.01f, 32, (Color){0, 0, 0, 120});
+    DrawBillboard(_camera, _eggTexture, pos, 0.5f * worldScale, WHITE);
   }
 }
 

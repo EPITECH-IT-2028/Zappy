@@ -105,6 +105,7 @@ namespace gui {
       void drawResource(const Vector3 position, int x, int y,
                         std::vector<std::pair<Vector3, int>> &resourceTexts);
       void drawPlayers();
+      void drawEggs();
       void drawLights();
       void moveCamera();
       void handleCameraMovement();
@@ -116,5 +117,6 @@ namespace gui {
       Shader _lightingShader;
       Light _lights[2];
       int _ambientLoc;
+      Texture2D _eggTexture;
   };
 }  // namespace gui
