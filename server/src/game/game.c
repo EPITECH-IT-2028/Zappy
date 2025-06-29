@@ -55,8 +55,11 @@ void process_client_actions(server_t *server, client_t *client)
         (current_time.tv_sec == action->execute_time.tv_sec &&
         current_time.tv_nsec >= action->execute_time.tv_nsec)) {
         execute_pending_action(server, client, action);
-    } else
+    } else {
+        printf("[DEBUG] Client %d: Action '%s' WAITING (remaining)\n", 
+               client->data.id, action->command);
         pthread_mutex_unlock(&client->data.pending_mutex);
+    }
 }
 
 static
@@ -114,7 +117,7 @@ void process_all_clients(server_t *server)
         if (server->clients[i]->data.is_graphic)
             continue;
         client = server->clients[i];
-        cleanup_old_actions(client, server);
+        cleanup_old_actions(client);
         process_client_actions(server, client);
         process_client_response(server, client);
         handle_incantation(server, client);

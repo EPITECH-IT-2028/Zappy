@@ -19,6 +19,7 @@ int handle_take(server_t *server, response_t *response, request_t *request)
     if (id == ERROR)
         return ERROR;
     send_pgt(server, request->client, id);
+    send_bct(server, client->x, client->y);
     add_buffer_to_response("ok", &response->response, &response->size);
     return SUCCESS;
 }

@@ -58,6 +58,7 @@ int move_forward(server_t *server, response_t *response, request_t *request)
     if (add_buffer_to_response("ok", &response->response, &response->size)
         == ERROR)
         return ERROR;
+    send_ppo(server, client);
     return SUCCESS;
 }
 
@@ -72,6 +73,7 @@ int rotate_right(server_t *server, response_t *response, request_t *request)
     if (add_buffer_to_response("ok", &response->response, &response->size)
         == ERROR)
         return ERROR;
+    send_ppo(server, client);
     return SUCCESS;
 }
 
@@ -86,5 +88,6 @@ int rotate_left(server_t *server, response_t *response, request_t *request)
     if (add_buffer_to_response("ok", &response->response, &response->size)
         == ERROR)
         return ERROR;
+    send_ppo(server, client);
     return SUCCESS;
 }

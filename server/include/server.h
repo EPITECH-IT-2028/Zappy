@@ -236,10 +236,12 @@ void send_pdr(server_t *server, client_t *client, int resource_id);
 void send_pgt(server_t *server, client_t *client, int resource_id);
 void send_pdi(server_t *server, int index);
 void send_pin(server_t *server, int index);
+void send_ppo(server_t *server, client_t *client);
 void send_pbc(server_t *server, client_t *client, const char *message);
 void send_all_eggs_to_gui(server_t *server);
 void send_pic(server_t *server, client_t **incantators);
 void send_pie(server_t *server, client_t **incantators);
+void send_bct(server_t *server, int x, int y);
 
 /* Player Tile functions */
 
@@ -339,6 +341,6 @@ struct timespec timespec_add(struct timespec *start,
 struct timespec calculate_action_duration(int action_units, int frequency);
 void check_time_events(server_t *server);
 int check_request(server_t *server, response_t *response, request_t *request);
-void cleanup_old_actions(client_t *client, server_t *server);
+void cleanup_old_actions(client_t *client);
 
 #endif /* SERVER_H_ */

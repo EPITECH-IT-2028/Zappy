@@ -11,7 +11,7 @@
 
 void sleep_time(server_t *server)
 {
-    struct timespec sleep_time = {0, 1000000};
+    struct timespec sleep_time = {0, 10000};
 
     if (server->queue_request.len == 0) {
         nanosleep(&sleep_time, NULL);
@@ -34,7 +34,7 @@ int is_client_on_cd(client_data_t *client_data)
 void check_if_queue_is_full(server_t *server, response_t *response)
 {
     if (queue_add_response(server, response) == ERROR)
-        fprintf(stderr, "Error: Queue was full response will not be sent.\n");
+        fprintf(stderr, "[Error]: Queue was full response will not be sent.\n");
 }
 
 int cleanup_pending_response(response_t *pending)

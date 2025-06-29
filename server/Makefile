@@ -15,6 +15,7 @@ SRC = ./src/main.c \
 			./src/communications/gui_commands/time_commands.c \
 			./src/communications/gui_commands/player_commands.c \
 			./src/events/game_events.c \
+			./src/events/map_events.c \
 			./src/events/connection_events.c \
 			./src/events/player_events.c \
 			./src/events/egg_events.c \

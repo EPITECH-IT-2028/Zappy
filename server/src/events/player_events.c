@@ -28,3 +28,18 @@ void send_pin(server_t *server, int index)
         }
     }
 }
+
+void send_ppo(server_t *server, client_t *client)
+{
+    char response[BUFFER_SIZE];
+
+    snprintf(response, BUFFER_SIZE, "ppo #%d %d %d %d\n",
+        client->data.id, client->data.x, client->data.y,
+        client->data.direction + 1);
+    for (int i = 1; i < server->nfds; i++) {
+        if (server->clients[i] != NULL &&
+            server->clients[i]->data.is_graphic) {
+            send_code(server->clients[i]->fd, response);
+        }
+    }
+}

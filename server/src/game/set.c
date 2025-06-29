@@ -141,5 +141,6 @@ int handle_set(server_t *server, response_t *response, request_t *request)
     if (add_buffer_to_response("ok", &response->response, &response->size)
         == ERROR)
         return ERROR;
+    send_bct(server, client->x, client->y);
     return SUCCESS;
 }
