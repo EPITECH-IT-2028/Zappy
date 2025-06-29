@@ -5,6 +5,7 @@ NC=\033[0m
 
 ZAPPY_IA = zappy_ai
 ZAPPY_IA_DIR = ia
+ZAPPY_IA_TEST = zappy_ai_test
 
 ZAPPY_SERVER = zappy_server
 ZAPPY_SERVER_DIR = server
@@ -33,6 +34,13 @@ $(ZAPPY_CLIENT):
 	@cd $(ZAPPY_CLIENT_BUILD_DIR) && cmake --build .
 	@cp $(ZAPPY_CLIENT_DIR)/$(ZAPPY_CLIENT) .
 
+test:
+	@echo "\n$(GREEN)[ OK ] Running tests for $(ZAPPY_IA)...$(NC)"
+	@make -C $(ZAPPY_IA_DIR) test
+	@cp $(ZAPPY_IA_DIR)/$(ZAPPY_IA_TEST) .
+	@echo "$(GREEN)[ OK ] Tests for $(ZAPPY_IA) completed.$(NC)"
+	@echo "$(GREEN)[ OK ] Test binary copied to root directory.$(NC)"
+
 clean:
 	@make -C $(ZAPPY_SERVER_DIR) clean
 	@make -C $(ZAPPY_IA_DIR) clean
@@ -50,7 +58,8 @@ fclean: clean
 	@rm -f $(ZAPPY_IA)
 	@rm -f $(ZAPPY_SERVER)
 	@rm -f $(ZAPPY_CLIENT)
+	@rm -f $(ZAPPY_IA_TEST)
 
 re: fclean all
 
-.PHONY: all clean fclean re $(ZAPPY_IA) $(ZAPPY_SERVER) $(ZAPPY_CLIENT)
+.PHONY: all clean fclean re $(ZAPPY_IA) $(ZAPPY_SERVER) $(ZAPPY_CLIENT) test

@@ -1,5 +1,5 @@
 NAME = zappy_ai
-TEST_NAME = unitTest
+TEST_NAME = zappy_ai_test
 TEST_DIR = test
 SRC_DIR = src
 
