@@ -127,6 +127,8 @@ namespace gui {
       Vector3 calculateEggPosition(const gui::Egg &egg,
                                    const Vector3 &gridOrigin,
                                    float brickSpacing) const;
+      Vector3 calculateGridOrigin(float mapWidth, float mapHeight,
+                                  float brickSpacing) const;
 
       Shader _lightingShader;
       Light _lights[2];

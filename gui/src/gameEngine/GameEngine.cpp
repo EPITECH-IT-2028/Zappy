@@ -399,16 +399,20 @@ void gui::GameEngine::drawPlayers() {
   }
 }
 
+Vector3 gui::GameEngine::calculateGridOrigin(float mapWidth, float mapHeight,
+                                             float brickSpacing) const {
+  return {-(mapWidth - 1) * brickSpacing / 2.0f, 0.0f,
+          -(mapHeight - 1) * brickSpacing / 2.0f};
+}
+
 void gui::GameEngine::drawEggs() {
   float brickSpacing = BRICK_SPACING * worldScale;
-  Vector3 gridOrigin = {-((_gameState.map.width - 1) * brickSpacing) / 2.0f,
-                        0.0f,
-                        -((_gameState.map.height - 1) * brickSpacing) / 2.0f};
+  float mapWidth = static_cast<float>(_gameState.map.width);
+  float mapHeight = static_cast<float>(_gameState.map.height);
+  Vector3 gridOrigin = calculateGridOrigin(mapWidth, mapHeight, brickSpacing);
   for (const auto &eggPair : _gameState.eggs) {
     const gui::Egg &egg = eggPair.second;
-    Vector3 pos = {gridOrigin.x + egg.x * brickSpacing,
-                   gridOrigin.y + 1.4f * worldScale,
-                   gridOrigin.z + egg.y * brickSpacing};
+    Vector3 pos = calculateEggPosition(egg, gridOrigin, brickSpacing);
     DrawBillboard(_camera, _eggTexture, pos, 0.5f * worldScale, WHITE);
   }
 }
