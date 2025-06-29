@@ -1,16 +1,20 @@
+"""
+@filename: models.py
+@brief: AI parser model definition
+"""
+
 class iaParser:
     """
-    Represents a iaParser body.
+    @brief Represents a Zappy AI client parser
+    @details This class encapsulates the necessary attributes for a Zappy AI client,
+    including the port number, team name, and machine address.
+    @attributes:
+        port (int): The port number for the Zappy server connection.
+        name (str): The name of the AI team.
+        machine (str): The address of the Zappy server machine.
     """
+    
     def __init__(self, port, name, machine):
-        """
-        Initializes a iaParser body.
-
-        Args:
-            port (int): port number
-            name (str): name of the team
-            machine (str): name of the machine;localhost by default
-        """
         self.port = port
         self.name = name
         self.machine = machine
