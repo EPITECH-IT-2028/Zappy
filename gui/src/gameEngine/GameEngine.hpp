@@ -121,6 +121,9 @@ namespace gui {
       void resetCamera();
       void drawBroadcastLog();
 
+      Vector3 calculatePlayerPosition(const gui::Player &player,
+                                      const Vector3 &gridOrigin,
+                                      float brickSpacing) const;
       Vector3 calculateEggPosition(const gui::Egg &egg,
                                    const Vector3 &gridOrigin,
                                    float brickSpacing) const;

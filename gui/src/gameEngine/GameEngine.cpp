@@ -413,6 +413,14 @@ void gui::GameEngine::drawEggs() {
   }
 }
 
+Vector3 gui::GameEngine::calculatePlayerPosition(const gui::Player &player,
+                                                 const Vector3 &gridOrigin,
+                                                 float brickSpacing) const {
+  return {gridOrigin.x + player.x * brickSpacing,
+          gridOrigin.y + 1.1f * worldScale,
+          gridOrigin.z + player.y * brickSpacing};
+}
+
 void gui::GameEngine::drawPlayerShadows() {
   float brickSpacing = BRICK_SPACING * worldScale;
   Vector3 gridOrigin = {
@@ -422,9 +430,8 @@ void gui::GameEngine::drawPlayerShadows() {
 
   for (const auto &playerPair : _gameState.players) {
     const gui::Player &player = playerPair.second;
-    Vector3 position = {gridOrigin.x + player.x * brickSpacing,
-                        gridOrigin.y + 1.1f * worldScale,
-                        gridOrigin.z + player.y * brickSpacing};
+    Vector3 position =
+        calculatePlayerPosition(player, gridOrigin, brickSpacing);
     Vector3 shadowPos = {position.x, gridOrigin.y + 1.1f, position.z};
     DrawCylinder(shadowPos, PLAYER_SHADOW_RADIUS * worldScale,
                  PLAYER_SHADOW_RADIUS * worldScale, 0.01f, 32,
