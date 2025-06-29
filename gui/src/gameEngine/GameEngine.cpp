@@ -42,8 +42,10 @@ gui::GameEngine::~GameEngine() {
     UnloadModel(_brick);
     UnloadModel(_goomba);
   }
-  UnloadTexture(_eggTexture);
-  UnloadShader(_lightingShader);
+  if (_eggTexture.id != 0)
+    UnloadTexture(_eggTexture);
+  if (_lightingShader.id != 0)
+    UnloadShader(_lightingShader);
 }
 
 float gui::GameEngine::getWorldScale() const {
@@ -144,6 +146,7 @@ void gui::GameEngine::processNetworkMessages() {
   if (!_serverCommunication.isConnected())
     return;
 
+  // clang-format off
   static const std::unordered_map<std::string, std::function<void(const std::string&)>> commandHandlers = {
     {"msz", [this](const std::string &msg) { _commandHandler.handleMsz(msg); }},
     {"sgt", [this](const std::string &msg) { _commandHandler.handleSgt(msg); }},
@@ -169,6 +172,7 @@ void gui::GameEngine::processNetworkMessages() {
     {"sbp", [this](const std::string &msg) { _commandHandler.handleSbp(msg); }},
     {"seg", [this](const std::string &msg) { _commandHandler.handleSeg(msg); }},
   };
+  // clang-format on
 
   try {
     while (_serverCommunication.hasIncomingData()) {
