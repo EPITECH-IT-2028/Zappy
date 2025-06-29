@@ -8,6 +8,8 @@
 #include "macro.h"
 #include "server.h"
 #include "utils.h"
+#include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 /**
@@ -69,4 +71,45 @@ void send_pic(server_t *server, client_t **incantators)
             server->clients[i]->data.is_graphic &&
             server->clients[i]->connected)
             send_code(server->clients[i]->fd, response);
+}
+
+static
+void send_level_to_gui(server_t *server, char *buffer)
+{
+    char response[BUFFER_SIZE] = {0};
+    int id = 0;
+    int level = 0;
+
+    if (sscanf(buffer, "plv #%d %d", &id, &level) != 2)
+        return;
+    snprintf(response, BUFFER_SIZE, "plv #%d %d\n", id, level);
+    for (int i = MIN_CLIENT; i < server->nfds; i++) {
+        if (server->clients[i] && server->clients[i]->fd > 0 &&
+            server->clients[i]->data.is_graphic &&
+            server->clients[i]->connected) {
+            send_code(server->clients[i]->fd, response);
+        }
+    }
+}
+
+void send_plv(server_t *server, client_t **incantators)
+{
+    char **response = NULL;
+    char level[BUFFER_SIZE] = {0};
+    int size = 1;
+
+    if (!incantators || !incantators[INDEX_INCANTATOR])
+        return;
+    for (int i = 0; incantators[i] != NULL; i++) {
+        response = realloc(response, sizeof(char *) * (size + 1));
+        sprintf(level, "plv #%d %d\n", incantators[i]->data.id,
+                incantators[i]->data.level);
+        response[i] = strdup(level);
+        response[i + 1] = NULL;
+        size++;
+    }
+    for (int i = MIN_CLIENT; i < server->nfds; i++)
+        for (int j = 0; response && response[j] != NULL; j++) {
+            send_level_to_gui(server, response[j]);
+        }
 }

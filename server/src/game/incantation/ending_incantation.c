@@ -106,6 +106,7 @@ int handle_ending_incantation(server_t *server, response_t *response,
     level_up_all_client(response->client);
     notify_incantators_end(client_data->incantation.client_group);
     send_pie(server, client_data->incantation.client_group);
+    send_plv(server, client_data->incantation.client_group);
     clear_incantation_data(&client_data->incantation);
     return SUCCESS;
 }
