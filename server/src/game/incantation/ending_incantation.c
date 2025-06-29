@@ -70,6 +70,7 @@ void clear_incantation_data(incantation_t *client_incantation_data)
             is_incantating = false;
         client_incantation_data->client_group[i]->data.incantation.x = 0;
         client_incantation_data->client_group[i]->data.incantation.y = 0;
+        client_incantation_data->client_group[i]->data.is_busy = false;
     }
     free(client_incantation_data->client_group);
     client_incantation_data->client_group = NULL;

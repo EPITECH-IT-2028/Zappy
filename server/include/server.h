@@ -997,4 +997,7 @@ int check_request(server_t *server, response_t *response, request_t *request);
  */
 void cleanup_old_actions(client_t *client);
 
+/* Victory condition functions */
+int check_victory(server_t *server);
+
 #endif /* SERVER_H_ */

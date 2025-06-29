@@ -89,9 +89,6 @@ void check_player_command(server_t *server, int index, const char *buffer)
         send_code(client->fd, "ko\n");
         return;
     }
-    if (add_action_to_client_queue(client, buffer, server) == SUCCESS)
-        printf("Action '%s' queued for client %d (queue size: %d)\n",
-            buffer, client->data.id, action_count + 1);
-    else
+    if (add_action_to_client_queue(client, buffer, server) == ERROR)
         send_code(client->fd, "ko\n");
 }
