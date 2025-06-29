@@ -106,6 +106,8 @@ namespace gui {
                         std::vector<std::pair<Vector3, int>> &resourceTexts);
       void drawPlayers();
       void drawEggs();
+      void drawPlayerShadows();
+      void drawEggShadows();
       void drawLights();
       void moveCamera();
       void handleCameraMovement();
