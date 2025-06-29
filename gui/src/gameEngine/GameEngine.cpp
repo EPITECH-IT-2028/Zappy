@@ -192,12 +192,14 @@ void gui::GameEngine::processNetworkMessages() {
 }
 
 void gui::GameEngine::loadResources() {
+  if (!FileExists("resources/MarioBack.png")) {
+    std::cerr << "Error: Background logo image not found.\n";
+    throw std::runtime_error("Failed to load texture: resources/MarioBack.png");
+  }
   _backgroundLogo = LoadTexture("resources/MarioBack.png");
-
   if (_backgroundLogo.id == 0) {
     std::cerr << "Error: Failed to load logo background image.\n";
-  } else {
-    std::cout << "Logo background image loaded successfully.\n";
+    throw std::runtime_error("Failed to load texture: resources/MarioBack.png");
   }
 }
 
