@@ -75,10 +75,15 @@ namespace gui {
       static constexpr float EGG_SHADOW_RADIUS = 0.22f;
       static constexpr int EGG_SHADOW_ALPHA = 120;
 
-      static constexpr int PANEL_WIDTH = 260;
-      static constexpr int PANEL_HEIGHT = 210;
-      static constexpr int PANEL_X = 20;
-      static constexpr int PANEL_Y = SCREEN_HEIGHT - PANEL_HEIGHT - 20;
+      static constexpr int TILE_PANEL_WIDTH = 260;
+      static constexpr int TILE_PANEL_HEIGHT = 210;
+      static constexpr int TILE_PANEL_X = 20;
+      static constexpr int TILE_PANEL_Y = SCREEN_HEIGHT - TILE_PANEL_HEIGHT - 20;
+
+      static constexpr int PLAYER_PANEL_WIDTH = 260;
+      static constexpr int PLAYER_PANEL_HEIGHT = 320;
+      static constexpr int PLAYER_PANEL_X = SCREEN_WIDTH - PLAYER_PANEL_WIDTH - 20;
+      static constexpr int PLAYER_PANEL_Y = 20;
 
       void DrawTextCodepoint3D(Font font, int codepoint, Vector3 position,
                                float fontSize, bool backface, Color tint);
@@ -96,6 +101,8 @@ namespace gui {
       handlecommand::CommandHandler _commandHandler;
       float worldScale = 1.0f;
       TileSelection hoveredTile;
+      TileSelection clickedTile;
+      int selectedPlayerId = -1;
 
       void LogoScreenInput();
       void TitleScreenInput();
@@ -187,5 +194,7 @@ namespace gui {
       bool getTileUnderMouse(float mapWidth, float mapHeight,
                              float brickSpacing, Vector3 gridOrigin, int &tileX,
                              int &tileY);
+      void drawPlayerListPanel();
+      void drawPlayerInfoPanel();
   };
 }  // namespace gui

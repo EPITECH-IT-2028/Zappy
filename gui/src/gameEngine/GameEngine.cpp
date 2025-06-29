@@ -7,6 +7,7 @@
 #include <ostream>
 #include <unordered_map>
 #include "entities/Map.hpp"
+#include "entities/Tile.hpp"
 #define RLIGHTS_IMPLEMENTATION
 #include <cfloat>
 #include "header/rlights.h"
@@ -309,6 +310,8 @@ void gui::GameEngine::renderGameplayScreen() {
 
   drawBroadcastLog();
   drawTileInfoPanel();
+  drawPlayerListPanel();
+  drawPlayerInfoPanel();
 }
 
 void gui::GameEngine::renderEndingScreen() {
@@ -733,12 +736,12 @@ void gui::GameEngine::updateTileSelection() {
 }
 
 void gui::GameEngine::drawTileInfoPanel() {
-  int textY = PANEL_Y + 18;
-  int textX = PANEL_X + 16;
+  int textY = TILE_PANEL_Y + 18;
+  int textX = TILE_PANEL_X + 16;
   int fontSize = 20;
   TileSelection *activeTile = nullptr;
 
-  DrawRectangle(PANEL_X, PANEL_Y, PANEL_WIDTH, PANEL_HEIGHT,
+  DrawRectangle(TILE_PANEL_X, TILE_PANEL_Y, TILE_PANEL_WIDTH, TILE_PANEL_HEIGHT,
                 Fade(LIGHTGRAY, 1.0f));
   if (hoveredTile.valid)
     activeTile = &hoveredTile;
@@ -764,5 +767,79 @@ void gui::GameEngine::drawTileInfoPanel() {
     }
   } else {
     DrawText("Hover a tile to see info", textX, textY, fontSize - 2, GRAY);
+  }
+}
+
+void gui::GameEngine::drawPlayerListPanel() {
+  DrawRectangle(PLAYER_PANEL_X, PLAYER_PANEL_Y, PLAYER_PANEL_WIDTH,
+                PLAYER_PANEL_HEIGHT, Fade(LIGHTGRAY, 0.95f));
+  DrawRectangleLines(PLAYER_PANEL_X, PLAYER_PANEL_Y, PLAYER_PANEL_WIDTH,
+                     PLAYER_PANEL_HEIGHT, DARKGRAY);
+  int textY = PLAYER_PANEL_Y + 18;
+  int textX = PLAYER_PANEL_X + 16;
+  int fontSize = 20;
+  DrawText("Players", textX, textY, fontSize, DARKGREEN);
+  textY += fontSize + 12;
+  for (const auto &pair : _gameState.players) {
+    int pid = pair.first;
+    const gui::Player &player = pair.second;
+    Color nameColor = (selectedPlayerId == pid) ? BLUE : BLACK;
+    Rectangle nameRect = {(float)textX, (float)textY,
+                          (float)(PLAYER_PANEL_WIDTH - 32),
+                          (float)fontSize + 4};
+    DrawRectangleRec(nameRect, (selectedPlayerId == pid) ? Fade(BLUE, 0.15f)
+                                                         : Fade(GRAY, 0.05f));
+    DrawText(TextFormat("%s: %d", player.teamName.c_str(), pid), textX + 4,
+             textY, fontSize - 2, nameColor);
+    Vector2 mouse = GetMousePosition();
+    if (CheckCollisionPointRec(mouse, nameRect) &&
+        IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+      selectedPlayerId = pid;
+    }
+    textY += fontSize + 8;
+    if (textY > PLAYER_PANEL_Y + PLAYER_PANEL_HEIGHT - fontSize - 10)
+      break;
+  }
+}
+
+void gui::GameEngine::drawPlayerInfoPanel() {
+  if (selectedPlayerId == -1)
+    return;
+  auto it = _gameState.players.find(selectedPlayerId);
+  if (it == _gameState.players.end())
+    return;
+  const gui::Player &player = it->second;
+  const int panelWidth = 260;
+  const int panelHeight = 290;
+  const int panelX = SCREEN_WIDTH - panelWidth - 20;
+  const int panelY = 350;
+  DrawRectangle(panelX, panelY, panelWidth, panelHeight,
+                Fade(LIGHTGRAY, 0.95f));
+  DrawRectangleLines(panelX, panelY, panelWidth, panelHeight, DARKGRAY);
+  int textY = panelY + 18;
+  int textX = panelX + 16;
+  int fontSize = 20;
+  DrawText(TextFormat("Player ID: %d", selectedPlayerId), textX, textY,
+           fontSize, DARKGREEN);
+  textY += fontSize + 6;
+  DrawText(TextFormat("Team: %s", player.teamName.c_str()), textX, textY,
+           fontSize - 2, BLACK);
+  textY += fontSize + 2;
+  DrawText(TextFormat("Level: %d", player.level), textX, textY, fontSize - 2,
+           BLACK);
+  textY += fontSize + 12;
+  DrawText("Inventory:", textX, textY, fontSize - 2, DARKGRAY);
+  textY += fontSize + 6;
+  gui::Tile tileTmp;
+  for (int i = 0; i < (int)gui::Tile::RESOURCE_COUNT; ++i) {
+    int count = player.inventoryPlayer[i];
+    Color color = tileTmp.getResourceColor(static_cast<gui::Tile::Resource>(i));
+    DrawRectangle(textX, textY + 2, 16, 16, color);
+    DrawRectangleLines(textX, textY + 2, 16, 16, DARKGRAY);
+    std::string resourceName =
+        tileTmp.getResourceName(static_cast<gui::Tile::Resource>(i));
+    DrawText(TextFormat("%s: %d", resourceName.c_str(), count), textX + 24,
+             textY, fontSize - 2, BLACK);
+    textY += fontSize + 2;
   }
 }
