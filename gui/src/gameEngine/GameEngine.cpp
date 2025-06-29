@@ -27,6 +27,15 @@ gui::GameEngine::GameEngine(network::ServerCommunication &serverCommunication)
   _camera.SetUp({0.0f, 1.0f, 0.0f});
   _camera.SetFovy(45.0f);
   _camera.SetProjection(CAMERA_PERSPECTIVE);
+  if (!FileExists("resources/egg.png")) {
+    std::cerr << "Texture file not found: resources/egg.png" << std::endl;
+    throw std::runtime_error("Texture file not found: resources/egg.png");
+  }
+  _eggTexture = LoadTexture("resources/egg.png");
+  if (_eggTexture.id == 0) {
+    std::cerr << "Failed to load texture: resources/egg.png" << std::endl;
+    throw std::runtime_error("Failed to load texture: resources/egg.png");
+  }
 }
 
 gui::GameEngine::~GameEngine() {
@@ -34,10 +43,12 @@ gui::GameEngine::~GameEngine() {
     UnloadModel(_brick);
     UnloadModel(_goomba);
   }
-  if (_backgroundLogo.id != 0) {
+  if (_eggTexture.id != 0)
+    UnloadTexture(_eggTexture);
+  if (_lightingShader.id != 0)
+    UnloadShader(_lightingShader);
+  if (_backgroundLogo.id != 0)
     UnloadTexture(_backgroundLogo);
-  }
-  UnloadShader(_lightingShader);
 }
 
 float gui::GameEngine::getWorldScale() const {
@@ -289,6 +300,9 @@ void gui::GameEngine::renderGameplayScreen() {
   }
 
   EndShaderMode();
+  drawPlayerShadows();
+  drawEggShadows();
+  drawEggs();
   drawLights();
   EndMode3D();
 
@@ -464,6 +478,72 @@ void gui::GameEngine::drawPlayers() {
         _goomba, position, (Vector3){0, 1, 0}, angle * RAD2DEG,
         (Vector3){0.15f * worldScale, 0.15f * worldScale, 0.15f * worldScale},
         WHITE);
+  }
+}
+
+Vector3 gui::GameEngine::calculateGridOrigin(float mapWidth, float mapHeight,
+                                             float brickSpacing) const {
+  return {-(mapWidth - 1) * brickSpacing / 2.0f, 0.0f,
+          -(mapHeight - 1) * brickSpacing / 2.0f};
+}
+
+void gui::GameEngine::drawEggs() {
+  float brickSpacing = BRICK_SPACING * worldScale;
+  float mapWidth = static_cast<float>(_gameState.map.width);
+  float mapHeight = static_cast<float>(_gameState.map.height);
+  Vector3 gridOrigin = calculateGridOrigin(mapWidth, mapHeight, brickSpacing);
+  for (const auto &eggPair : _gameState.eggs) {
+    const gui::Egg &egg = eggPair.second;
+    Vector3 pos = calculateEggPosition(egg, gridOrigin, brickSpacing);
+    DrawBillboard(_camera, _eggTexture, pos, 0.5f * worldScale, WHITE);
+  }
+}
+
+Vector3 gui::GameEngine::calculatePlayerPosition(const gui::Player &player,
+                                                 const Vector3 &gridOrigin,
+                                                 float brickSpacing) const {
+  return {gridOrigin.x + player.x * brickSpacing,
+          gridOrigin.y + 1.1f * worldScale,
+          gridOrigin.z + player.y * brickSpacing};
+}
+
+void gui::GameEngine::drawPlayerShadows() {
+  float brickSpacing = BRICK_SPACING * worldScale;
+  Vector3 gridOrigin = {
+      -((static_cast<float>(_gameState.map.width) - 1) * brickSpacing) / 2.0f,
+      0.0f,
+      -((static_cast<float>(_gameState.map.height) - 1) * brickSpacing) / 2.0f};
+
+  for (const auto &playerPair : _gameState.players) {
+    const gui::Player &player = playerPair.second;
+    Vector3 position =
+        calculatePlayerPosition(player, gridOrigin, brickSpacing);
+    Vector3 shadowPos = {position.x, gridOrigin.y + 1.1f, position.z};
+    DrawCylinder(shadowPos, PLAYER_SHADOW_RADIUS * worldScale,
+                 PLAYER_SHADOW_RADIUS * worldScale, 0.01f, 32,
+                 (Color){0, 0, 0, PLAYER_SHADOW_ALPHA});
+  }
+}
+
+Vector3 gui::GameEngine::calculateEggPosition(const gui::Egg &egg,
+                                              const Vector3 &gridOrigin,
+                                              float brickSpacing) const {
+  return {gridOrigin.x + egg.x * brickSpacing, gridOrigin.y + 1.4f * worldScale,
+          gridOrigin.z + egg.y * brickSpacing};
+}
+
+void gui::GameEngine::drawEggShadows() {
+  float brickSpacing = BRICK_SPACING * worldScale;
+  Vector3 gridOrigin = {-((_gameState.map.width - 1) * brickSpacing) / 2.0f,
+                        0.0f,
+                        -((_gameState.map.height - 1) * brickSpacing) / 2.0f};
+  for (const auto &eggPair : _gameState.eggs) {
+    const gui::Egg &egg = eggPair.second;
+    Vector3 pos = calculateEggPosition(egg, gridOrigin, brickSpacing);
+    Vector3 shadowPos = {pos.x, gridOrigin.y + 1.1f, pos.z};
+    DrawCylinder(shadowPos, EGG_SHADOW_RADIUS * worldScale,
+                 EGG_SHADOW_RADIUS * worldScale, 0.01f, 32,
+                 (Color){0, 0, 0, EGG_SHADOW_ALPHA});
   }
 }
 

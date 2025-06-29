@@ -64,6 +64,11 @@ namespace gui {
       static constexpr int BROADCAST_LOG_LINE_HEIGHT = 25;
       static constexpr int BROADCAST_LOG_FONT_SIZE = 20;
 
+      static constexpr float PLAYER_SHADOW_RADIUS = 0.44f;
+      static constexpr int PLAYER_SHADOW_ALPHA = 60;
+      static constexpr float EGG_SHADOW_RADIUS = 0.22f;
+      static constexpr int EGG_SHADOW_ALPHA = 120;
+
       void DrawTextCodepoint3D(Font font, int codepoint, Vector3 position,
                                float fontSize, bool backface, Color tint);
       void DrawText3D(Font font, const char *text, Vector3 position,
@@ -105,6 +110,9 @@ namespace gui {
       void drawResource(const Vector3 position, int x, int y,
                         std::vector<std::pair<Vector3, int>> &resourceTexts);
       void drawPlayers();
+      void drawEggs();
+      void drawPlayerShadows();
+      void drawEggShadows();
       void drawLights();
       void moveCamera();
       void handleCameraMovement();
@@ -113,9 +121,19 @@ namespace gui {
       void resetCamera();
       void drawBroadcastLog();
 
+      Vector3 calculatePlayerPosition(const gui::Player &player,
+                                      const Vector3 &gridOrigin,
+                                      float brickSpacing) const;
+      Vector3 calculateEggPosition(const gui::Egg &egg,
+                                   const Vector3 &gridOrigin,
+                                   float brickSpacing) const;
+      Vector3 calculateGridOrigin(float mapWidth, float mapHeight,
+                                  float brickSpacing) const;
+
       Shader _lightingShader;
       Light _lights[2];
       int _ambientLoc;
+      Texture2D _eggTexture;
 
       // Title Screen
       int _boxWidth;
