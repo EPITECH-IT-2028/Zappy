@@ -26,7 +26,15 @@ gui::GameEngine::GameEngine(network::ServerCommunication &serverCommunication)
   _camera.SetUp({0.0f, 1.0f, 0.0f});
   _camera.SetFovy(45.0f);
   _camera.SetProjection(CAMERA_PERSPECTIVE);
+  if (!FileExists("resources/egg.png")) {
+    std::cerr << "Texture file not found: resources/egg.png" << std::endl;
+    throw std::runtime_error("Texture file not found: resources/egg.png");
+  }
   _eggTexture = LoadTexture("resources/egg.png");
+  if (_eggTexture.id == 0) {
+    std::cerr << "Failed to load texture: resources/egg.png" << std::endl;
+    throw std::runtime_error("Failed to load texture: resources/egg.png");
+  }
 }
 
 gui::GameEngine::~GameEngine() {
