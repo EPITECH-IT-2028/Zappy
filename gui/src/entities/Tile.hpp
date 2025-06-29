@@ -25,5 +25,6 @@ namespace gui {
 
       bool isEmpty() const;
       Color getResourceColor(Resource type) const;
+      std::string getResourceName(Resource type) const;
   };
 }  // namespace gui
