@@ -1,7 +1,7 @@
 NAME = zappy_ai
 TEST_NAME = zappy_ai_test
-TEST_DIR = test
-SRC_DIR = src
+TEST_DIR = ia/test
+SRC_DIR = ia/src
 
 all: $(NAME)
 
