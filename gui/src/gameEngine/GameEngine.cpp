@@ -34,6 +34,9 @@ gui::GameEngine::~GameEngine() {
     UnloadModel(_brick);
     UnloadModel(_goomba);
   }
+  if (_backgroundLogo.id != 0) {
+    UnloadTexture(_backgroundLogo);
+  }
   UnloadShader(_lightingShader);
 }
 
@@ -49,6 +52,8 @@ void gui::GameEngine::initialize() {
   try {
     loadModels();
     loadShaders();
+    loadResources();
+
   } catch (const std::exception &e) {
     std::cerr << "Resource initialization failed: " << e.what() << std::endl;
     _resourcesLoaded = 0;
@@ -84,11 +89,9 @@ void gui::GameEngine::run() {
 
     switch (_currentScreen) {
       case Screen::LOGO:
-        loadResources();
         renderLogoScreen();
         break;
       case Screen::TITLE:
-        loadResources();
         renderTitleScreen();
         break;
       case Screen::GAMEPLAY:
@@ -192,14 +195,18 @@ void gui::GameEngine::loadResources() {
   _backgroundLogo = LoadTexture("resources/MarioBack.png");
 
   if (_backgroundLogo.id == 0) {
-      std::cerr << "Erreur : échec du chargement de l'image de fond du logo.\n";
+      std::cerr << "Error: Failed to load logo background image.\n";
   }
   else {
-      std::cout << "Image de fond du logo chargée avec succès.\n";
+      std::cout << "Logo background image loaded successfully.\n";
   }
 }
 
 void gui::GameEngine::dimensionAsset() {
+   if (_backgroundLogo.id == 0) {
+    std::cerr << "Warning: Cannot calculate dimensions for invalid texture.\n";
+    return;
+  }
   _scaleAsset = 2.7f;
   _texWidthAsset = _backgroundLogo.width * _scaleAsset;
   _texHeightAsset = _backgroundLogo.height * _scaleAsset;
