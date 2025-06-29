@@ -37,7 +37,7 @@ void player_position(server_t *server, int index, int id)
         id,
         client->data.x,
         client->data.y,
-        client->data.orientation + 1);
+        client->data.direction + 1);
     send_code(server->clients[index]->fd, response);
 }
 

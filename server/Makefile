@@ -15,6 +15,7 @@ SRC = ./src/main.c \
 			./src/communications/gui_commands/time_commands.c \
 			./src/communications/gui_commands/player_commands.c \
 			./src/events/game_events.c \
+			./src/events/map_events.c \
 			./src/events/connection_events.c \
 			./src/events/player_events.c \
 			./src/events/egg_events.c \
@@ -41,6 +42,8 @@ SRC += ./src/game/food.c
 SRC += ./src/game/timer_handling.c
 SRC += ./src/game/broadcast.c
 SRC += ./src/game/fork.c
+SRC += ./src/game/cleanup.c
+SRC += ./src/game/queue.c
 SRC += ./src/communications/init_direction.c
 SRC += ./src/game/connect_nbr.c
 SRC += ./src/game/incantation/oncoming_incantation.c
@@ -49,6 +52,7 @@ SRC += ./src/game/incantation/incantation_setups.c
 SRC += ./src/events/incantation_events.c
 SRC += ./src/game/take.c
 SRC += ./src/game/set.c
+SRC += ./src/game/time.c
 SRC += ./src/game/eject.c
 SRC += ./src/game/respawn_resources.c
 SRC += ./src/communications/init_density.c
@@ -78,7 +82,8 @@ TEST_LDFLAGS = -lm
 TEST_SRC_FILE_NAME = %.test.o
 
 CC = gcc
-BASE_FLAGS = -g -W -Wall -Wextra -I./include
+BASE_FLAGS = -fsanitize=address,undefined -fno-omit-frame-pointer \
+						 -g -O0 -W -Wall -Wextra -I./include
 CFLAGS = $(BASE_FLAGS) -lpthread
 LDFLAGS = -lm
 

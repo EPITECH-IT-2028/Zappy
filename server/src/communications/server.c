@@ -35,10 +35,10 @@ void handle_request(server_t *server)
 
     if (queue_pop_response(server, &response) == ERROR)
         return;
-    if (!response.client || !response.client->connected) {
-        free_response(&response);
+    if (!response.client || !response.client->connected)
+        return free_response(&response);
+    if (!response.response)
         return;
-    }
     for (int i = 0; response.response[i] != NULL; i++)
         actual_count++;
     for (int i = 0; i < actual_count; i++) {

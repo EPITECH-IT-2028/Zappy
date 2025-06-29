@@ -17,7 +17,7 @@ void gui::TileEffects::resultEffect(bool success) {
   }
   showResultEffect = true;
   resultSuccess = success;
-  effectTimer = 2.0f;
+  effectTimer = 3.0f;
 }
 
 void gui::TileEffects::showSuccessEffect() {

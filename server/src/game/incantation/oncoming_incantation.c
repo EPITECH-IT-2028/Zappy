@@ -123,7 +123,7 @@ int freeze_every_player(server_t *server, request_t *request)
 
     nbr_of_incantators = build_incantation_group(request->client, unit_space);
     setup_main_incantator(server, client);
-    setup_group_members(server, client, nbr_of_incantators);
+    setup_group_members(client, nbr_of_incantators);
     return SUCCESS;
 }
 
@@ -152,10 +152,8 @@ int start_new_incantation(server_t *server, response_t *response,
 
     if (check_incantation_condition(server, request) == ERROR)
         return ERROR;
-    if (request->client->data.incantation.client_group) {
-        free(request->client->data.incantation.client_group);
-        request->client->data.incantation.client_group = NULL;
-    }
+    if (request->client->data.incantation.client_group != NULL)
+        return ERROR;
     nbr = build_incantation_group(
         request->client,
         &server->map[request->client->data.x][request->client->data.y]

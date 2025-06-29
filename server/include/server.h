@@ -79,6 +79,12 @@ typedef struct response_s {
     char **response;
 } response_t;
 
+typedef struct pending_action_s {
+    char command[BUFFER_SIZE];
+    struct timespec execute_time;
+    struct pending_action_s *next;
+} pending_action_t;
+
 typedef struct client_data_s {
     char *team_name;
     int team_id;
@@ -86,7 +92,6 @@ typedef struct client_data_s {
     int id;
     int x;
     int y;
-    int orientation;
     int level;
     int pending_requests;
     pthread_mutex_t pending_mutex;
@@ -97,6 +102,9 @@ typedef struct client_data_s {
     incantation_t incantation;
     struct timespec action_end_time;
     struct response_s pending_response;
+    pending_action_t *queue_head;
+    pending_action_t *queue_tail;
+    bool is_action;
 } client_data_t;
 
 typedef struct client_s {
@@ -227,10 +235,12 @@ void send_pdr(server_t *server, client_t *client, int resource_id);
 void send_pgt(server_t *server, client_t *client, int resource_id);
 void send_pdi(server_t *server, int index);
 void send_pin(server_t *server, int index);
+void send_ppo(server_t *server, client_t *client);
 void send_pbc(server_t *server, client_t *client, const char *message);
 void send_all_eggs_to_gui(server_t *server);
 void send_pic(server_t *server, client_t **incantators);
 void send_pie(server_t *server, client_t **incantators);
+void send_bct(server_t *server, int x, int y);
 
 /* Player Tile functions */
 
@@ -290,8 +300,7 @@ int handle_ending_incantation(server_t *server, response_t *response,
     request_t *request);
 uint8_t build_incantation_group(client_t *main_client, map_t *unit_space);
 void setup_main_incantator(server_t *server, client_data_t *client);
-void setup_group_members(server_t *server, client_data_t *client,
-    uint8_t nbr_of_incantators);
+void setup_group_members(client_data_t *client, uint8_t nbr_of_incantators);
 void init_incantation_state(incantation_t *inc);
 int remove_needed_ressources(map_t *tile, uint8_t level);
 
@@ -320,5 +329,16 @@ int cleanup_pending_response(response_t *pending);
 void check_if_queue_is_full(server_t *server, response_t *response);
 int is_client_on_cd(client_data_t *client_data);
 void sleep_time(server_t *server);
+
+/* Action queue functions */
+int add_action_to_client_queue(client_t *client, const char *command,
+    server_t *server);
+void cleanup_game_resources(server_t *server);
+struct timespec timespec_add(struct timespec *start,
+    struct timespec *duration);
+struct timespec calculate_action_duration(int action_units, int frequency);
+void check_time_events(server_t *server);
+int check_request(server_t *server, response_t *response, request_t *request);
+void cleanup_old_actions(client_t *client);
 
 #endif /* SERVER_H_ */

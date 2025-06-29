@@ -50,14 +50,11 @@ void clear_pending_response(client_t *client)
     pthread_mutex_unlock(&client->data.pending_mutex);
 }
 
-void cleanup_client_data(server_t *server, int index)
+static
+void decrement_team_count(server_t *server, client_t *client)
 {
-    client_t *client;
-    int team_index;
+    int team_index = 0;
 
-    if (server->clients[index] == NULL)
-        return;
-    client = server->clients[index];
     if (client->data.team_name) {
         team_index = find_team_index(server, client->data.team_name);
         if (!client->data.is_graphic && team_index != ERROR &&
@@ -67,10 +64,27 @@ void cleanup_client_data(server_t *server, int index)
         free(client->data.team_name);
         client->data.team_name = NULL;
     }
+}
+
+void cleanup_client_data(server_t *server, int index)
+{
+    client_t *client;
+
+    if (server->clients[index] == NULL)
+        return;
+    client = server->clients[index];
+    if (!client->data.is_graphic && client->data.team_name)
+        remove_player_map(
+        &server->map[client->data.x][client->data.y], client);
+    decrement_team_count(server, client);
     clear_pending_response(client);
     pthread_mutex_destroy(&client->data.pending_mutex);
-    free(client);
+    if (client->buffer) {
+        free(client->buffer);
+        client->buffer = NULL;
+    }
     server->clients[index] = NULL;
+    free(client);
 }
 
 void free_server(server_t *server)
@@ -80,6 +94,7 @@ void free_server(server_t *server)
     server->running = false;
     pthread_mutex_lock(&server->clients_mutex);
     pthread_join(server->threads.game_thread, NULL);
+    cleanup_game_resources(server);
     for (int i = 0; i < server->nfds; i += 1) {
         if (server->clients[i] != NULL) {
             free(server->clients[i]->data.team_name);

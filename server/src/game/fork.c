@@ -25,8 +25,5 @@ int fork_player(server_t *server, response_t *response, request_t *request)
     send_enw(server, &tile->eggs[tile->eggs_count - 1]);
     server->egg_ids++;
     add_buffer_to_response("ok", &response->response, &response->size);
-    response->client->data.is_busy = true;
-    response->client->data.action_end_time =
-        get_action_end_time(server, FORK_TIME);
     return SUCCESS;
 }
