@@ -1,0 +1,144 @@
+\doxysection{src/game\+Engine/\+Game\+Engine.hpp File Reference}
+\hypertarget{_game_engine_8hpp}{}\label{_game_engine_8hpp}\index{src/gameEngine/GameEngine.hpp@{src/gameEngine/GameEngine.hpp}}
+{\ttfamily \#include $<$raylib.\+h$>$}\newline
+{\ttfamily \#include "{}command\+Handler/\+Command\+Handler.\+hpp"{}}\newline
+{\ttfamily \#include "{}entities/\+Game\+State.\+hpp"{}}\newline
+{\ttfamily \#include "{}header/rlights.\+h"{}}\newline
+{\ttfamily \#include "{}raylib-\/cpp.\+hpp"{}}\newline
+{\ttfamily \#include "{}server/\+Server\+Communication.\+hpp"{}}\newline
+\doxysubsubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structgui_1_1_tile_selection}{gui\+::\+Tile\+Selection}}
+\begin{DoxyCompactList}\small\item\em Structure representing the selection state of a tile. \end{DoxyCompactList}\item 
+class \mbox{\hyperlink{classgui_1_1_game_engine}{gui\+::\+Game\+Engine}}
+\begin{DoxyCompactList}\small\item\em Main class responsible for running and rendering the game GUI. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespacegui}{gui}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{_game_engine_8hpp_a2545b68cb4834046c7ba1740971d9d23}{LOGO\+\_\+\+DURATION\+\_\+\+FRAMES}}~120
+\item 
+\#define \mbox{\hyperlink{_game_engine_8hpp_a2cd109632a6dcccaa80b43561b1ab700}{SCREEN\+\_\+\+WIDTH}}~1600
+\item 
+\#define \mbox{\hyperlink{_game_engine_8hpp_a6974d08a74da681b3957b2fead2608b8}{SCREEN\+\_\+\+HEIGHT}}~900
+\item 
+\#define \mbox{\hyperlink{_game_engine_8hpp_a0a98b4534140491c32db2dd5b9fa3ea6}{CAMERA\+\_\+\+ZOOM\+\_\+\+STEP}}~0.\+5f
+\item 
+\#define \mbox{\hyperlink{_game_engine_8hpp_a6a8f5a11413d469eda9fd9452f35ad91}{MIN\+\_\+\+CAMERA\+\_\+\+FOVY}}~6.\+0f
+\item 
+\#define \mbox{\hyperlink{_game_engine_8hpp_a187cd94c0fb26d75c118e04fac8f249f}{MAX\+\_\+\+CAMERA\+\_\+\+FOVY}}~45.\+0f
+\item 
+\#define \mbox{\hyperlink{_game_engine_8hpp_af5698453862e1118ecc2c4ae45aa7817}{BRICK\+\_\+\+MODEL\+\_\+\+PATH}}~"{}resources/mario\+\_\+brick/scene.\+gltf"{}
+\item 
+\#define \mbox{\hyperlink{_game_engine_8hpp_a99aa8e8728628c36916e2b75adc4784a}{GOOMBA\+\_\+\+MODEL\+\_\+\+PATH}}~"{}resources/goomba.\+glb"{}
+\item 
+\#define \mbox{\hyperlink{_game_engine_8hpp_af4c2c2be5d9f1c419b05d7f1d946836b}{BRICK\+\_\+\+SPACING}}~1.\+1f
+\item 
+\#define \mbox{\hyperlink{_game_engine_8hpp_ad671be09cf0ad017ff0e5191d008e0d4}{BRICK\+\_\+\+MODEL\+\_\+\+SCALE}}~0.\+01f
+\item 
+\#define \mbox{\hyperlink{_game_engine_8hpp_ae8768e07a2193fe3a8d99ffe5ba21632}{WIREFRAME\+\_\+\+OFFSET\+\_\+X}}~0.\+0f
+\item 
+\#define \mbox{\hyperlink{_game_engine_8hpp_ac6331fa3636ef0fce60aa74086d6bc0d}{WIREFRAME\+\_\+\+OFFSET\+\_\+Y}}~0.\+55f
+\item 
+\#define \mbox{\hyperlink{_game_engine_8hpp_a027a4ff1aa058db7b764304e41bc5862}{WIREFRAME\+\_\+\+OFFSET\+\_\+Z}}~0.\+15f
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{namespacegui_a5eb364352c145724b1cd8713f72a56ba}{gui\+::\+Screen}} \{ \newline
+\mbox{\hyperlink{namespacegui_a5eb364352c145724b1cd8713f72a56baa6044e1b77e91b4fe89b4880b3c5fad15}{gui\+::\+LOGO}}
+, \mbox{\hyperlink{namespacegui_a5eb364352c145724b1cd8713f72a56baa6f9dccd85b2e0786c8d522045365eb48}{gui\+::\+TITLE}}
+, \mbox{\hyperlink{namespacegui_a5eb364352c145724b1cd8713f72a56baa056e68b506d7b8324ca79ad1a56931d1}{gui\+::\+GAMEPLAY}}
+, \mbox{\hyperlink{namespacegui_a5eb364352c145724b1cd8713f72a56baa5d2c84883acf876a2154cae9ab07d59f}{gui\+::\+ENDING}}
+, \newline
+\mbox{\hyperlink{namespacegui_a5eb364352c145724b1cd8713f72a56baabb1ca97ec761fc37101737ba0aa2e7c5}{gui\+::\+ERROR}}
+ \}
+\begin{DoxyCompactList}\small\item\em Enum representing the different screens in the game. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\label{doc-define-members}
+\Hypertarget{_game_engine_8hpp_doc-define-members}
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{_game_engine_8hpp_af5698453862e1118ecc2c4ae45aa7817}\index{GameEngine.hpp@{GameEngine.hpp}!BRICK\_MODEL\_PATH@{BRICK\_MODEL\_PATH}}
+\index{BRICK\_MODEL\_PATH@{BRICK\_MODEL\_PATH}!GameEngine.hpp@{GameEngine.hpp}}
+\doxysubsubsection{\texorpdfstring{BRICK\_MODEL\_PATH}{BRICK\_MODEL\_PATH}}
+{\footnotesize\ttfamily \label{_game_engine_8hpp_af5698453862e1118ecc2c4ae45aa7817} 
+\#define BRICK\+\_\+\+MODEL\+\_\+\+PATH~"{}resources/mario\+\_\+brick/scene.\+gltf"{}}
+
+\Hypertarget{_game_engine_8hpp_ad671be09cf0ad017ff0e5191d008e0d4}\index{GameEngine.hpp@{GameEngine.hpp}!BRICK\_MODEL\_SCALE@{BRICK\_MODEL\_SCALE}}
+\index{BRICK\_MODEL\_SCALE@{BRICK\_MODEL\_SCALE}!GameEngine.hpp@{GameEngine.hpp}}
+\doxysubsubsection{\texorpdfstring{BRICK\_MODEL\_SCALE}{BRICK\_MODEL\_SCALE}}
+{\footnotesize\ttfamily \label{_game_engine_8hpp_ad671be09cf0ad017ff0e5191d008e0d4} 
+\#define BRICK\+\_\+\+MODEL\+\_\+\+SCALE~0.\+01f}
+
+\Hypertarget{_game_engine_8hpp_af4c2c2be5d9f1c419b05d7f1d946836b}\index{GameEngine.hpp@{GameEngine.hpp}!BRICK\_SPACING@{BRICK\_SPACING}}
+\index{BRICK\_SPACING@{BRICK\_SPACING}!GameEngine.hpp@{GameEngine.hpp}}
+\doxysubsubsection{\texorpdfstring{BRICK\_SPACING}{BRICK\_SPACING}}
+{\footnotesize\ttfamily \label{_game_engine_8hpp_af4c2c2be5d9f1c419b05d7f1d946836b} 
+\#define BRICK\+\_\+\+SPACING~1.\+1f}
+
+\Hypertarget{_game_engine_8hpp_a0a98b4534140491c32db2dd5b9fa3ea6}\index{GameEngine.hpp@{GameEngine.hpp}!CAMERA\_ZOOM\_STEP@{CAMERA\_ZOOM\_STEP}}
+\index{CAMERA\_ZOOM\_STEP@{CAMERA\_ZOOM\_STEP}!GameEngine.hpp@{GameEngine.hpp}}
+\doxysubsubsection{\texorpdfstring{CAMERA\_ZOOM\_STEP}{CAMERA\_ZOOM\_STEP}}
+{\footnotesize\ttfamily \label{_game_engine_8hpp_a0a98b4534140491c32db2dd5b9fa3ea6} 
+\#define CAMERA\+\_\+\+ZOOM\+\_\+\+STEP~0.\+5f}
+
+\Hypertarget{_game_engine_8hpp_a99aa8e8728628c36916e2b75adc4784a}\index{GameEngine.hpp@{GameEngine.hpp}!GOOMBA\_MODEL\_PATH@{GOOMBA\_MODEL\_PATH}}
+\index{GOOMBA\_MODEL\_PATH@{GOOMBA\_MODEL\_PATH}!GameEngine.hpp@{GameEngine.hpp}}
+\doxysubsubsection{\texorpdfstring{GOOMBA\_MODEL\_PATH}{GOOMBA\_MODEL\_PATH}}
+{\footnotesize\ttfamily \label{_game_engine_8hpp_a99aa8e8728628c36916e2b75adc4784a} 
+\#define GOOMBA\+\_\+\+MODEL\+\_\+\+PATH~"{}resources/goomba.\+glb"{}}
+
+\Hypertarget{_game_engine_8hpp_a2545b68cb4834046c7ba1740971d9d23}\index{GameEngine.hpp@{GameEngine.hpp}!LOGO\_DURATION\_FRAMES@{LOGO\_DURATION\_FRAMES}}
+\index{LOGO\_DURATION\_FRAMES@{LOGO\_DURATION\_FRAMES}!GameEngine.hpp@{GameEngine.hpp}}
+\doxysubsubsection{\texorpdfstring{LOGO\_DURATION\_FRAMES}{LOGO\_DURATION\_FRAMES}}
+{\footnotesize\ttfamily \label{_game_engine_8hpp_a2545b68cb4834046c7ba1740971d9d23} 
+\#define LOGO\+\_\+\+DURATION\+\_\+\+FRAMES~120}
+
+\Hypertarget{_game_engine_8hpp_a187cd94c0fb26d75c118e04fac8f249f}\index{GameEngine.hpp@{GameEngine.hpp}!MAX\_CAMERA\_FOVY@{MAX\_CAMERA\_FOVY}}
+\index{MAX\_CAMERA\_FOVY@{MAX\_CAMERA\_FOVY}!GameEngine.hpp@{GameEngine.hpp}}
+\doxysubsubsection{\texorpdfstring{MAX\_CAMERA\_FOVY}{MAX\_CAMERA\_FOVY}}
+{\footnotesize\ttfamily \label{_game_engine_8hpp_a187cd94c0fb26d75c118e04fac8f249f} 
+\#define MAX\+\_\+\+CAMERA\+\_\+\+FOVY~45.\+0f}
+
+\Hypertarget{_game_engine_8hpp_a6a8f5a11413d469eda9fd9452f35ad91}\index{GameEngine.hpp@{GameEngine.hpp}!MIN\_CAMERA\_FOVY@{MIN\_CAMERA\_FOVY}}
+\index{MIN\_CAMERA\_FOVY@{MIN\_CAMERA\_FOVY}!GameEngine.hpp@{GameEngine.hpp}}
+\doxysubsubsection{\texorpdfstring{MIN\_CAMERA\_FOVY}{MIN\_CAMERA\_FOVY}}
+{\footnotesize\ttfamily \label{_game_engine_8hpp_a6a8f5a11413d469eda9fd9452f35ad91} 
+\#define MIN\+\_\+\+CAMERA\+\_\+\+FOVY~6.\+0f}
+
+\Hypertarget{_game_engine_8hpp_a6974d08a74da681b3957b2fead2608b8}\index{GameEngine.hpp@{GameEngine.hpp}!SCREEN\_HEIGHT@{SCREEN\_HEIGHT}}
+\index{SCREEN\_HEIGHT@{SCREEN\_HEIGHT}!GameEngine.hpp@{GameEngine.hpp}}
+\doxysubsubsection{\texorpdfstring{SCREEN\_HEIGHT}{SCREEN\_HEIGHT}}
+{\footnotesize\ttfamily \label{_game_engine_8hpp_a6974d08a74da681b3957b2fead2608b8} 
+\#define SCREEN\+\_\+\+HEIGHT~900}
+
+\Hypertarget{_game_engine_8hpp_a2cd109632a6dcccaa80b43561b1ab700}\index{GameEngine.hpp@{GameEngine.hpp}!SCREEN\_WIDTH@{SCREEN\_WIDTH}}
+\index{SCREEN\_WIDTH@{SCREEN\_WIDTH}!GameEngine.hpp@{GameEngine.hpp}}
+\doxysubsubsection{\texorpdfstring{SCREEN\_WIDTH}{SCREEN\_WIDTH}}
+{\footnotesize\ttfamily \label{_game_engine_8hpp_a2cd109632a6dcccaa80b43561b1ab700} 
+\#define SCREEN\+\_\+\+WIDTH~1600}
+
+\Hypertarget{_game_engine_8hpp_ae8768e07a2193fe3a8d99ffe5ba21632}\index{GameEngine.hpp@{GameEngine.hpp}!WIREFRAME\_OFFSET\_X@{WIREFRAME\_OFFSET\_X}}
+\index{WIREFRAME\_OFFSET\_X@{WIREFRAME\_OFFSET\_X}!GameEngine.hpp@{GameEngine.hpp}}
+\doxysubsubsection{\texorpdfstring{WIREFRAME\_OFFSET\_X}{WIREFRAME\_OFFSET\_X}}
+{\footnotesize\ttfamily \label{_game_engine_8hpp_ae8768e07a2193fe3a8d99ffe5ba21632} 
+\#define WIREFRAME\+\_\+\+OFFSET\+\_\+X~0.\+0f}
+
+\Hypertarget{_game_engine_8hpp_ac6331fa3636ef0fce60aa74086d6bc0d}\index{GameEngine.hpp@{GameEngine.hpp}!WIREFRAME\_OFFSET\_Y@{WIREFRAME\_OFFSET\_Y}}
+\index{WIREFRAME\_OFFSET\_Y@{WIREFRAME\_OFFSET\_Y}!GameEngine.hpp@{GameEngine.hpp}}
+\doxysubsubsection{\texorpdfstring{WIREFRAME\_OFFSET\_Y}{WIREFRAME\_OFFSET\_Y}}
+{\footnotesize\ttfamily \label{_game_engine_8hpp_ac6331fa3636ef0fce60aa74086d6bc0d} 
+\#define WIREFRAME\+\_\+\+OFFSET\+\_\+Y~0.\+55f}
+
+\Hypertarget{_game_engine_8hpp_a027a4ff1aa058db7b764304e41bc5862}\index{GameEngine.hpp@{GameEngine.hpp}!WIREFRAME\_OFFSET\_Z@{WIREFRAME\_OFFSET\_Z}}
+\index{WIREFRAME\_OFFSET\_Z@{WIREFRAME\_OFFSET\_Z}!GameEngine.hpp@{GameEngine.hpp}}
+\doxysubsubsection{\texorpdfstring{WIREFRAME\_OFFSET\_Z}{WIREFRAME\_OFFSET\_Z}}
+{\footnotesize\ttfamily \label{_game_engine_8hpp_a027a4ff1aa058db7b764304e41bc5862} 
+\#define WIREFRAME\+\_\+\+OFFSET\+\_\+Z~0.\+15f}
+

@@ -1,0 +1,35 @@
+\doxysection{Game\+State.\+hpp}
+\hypertarget{_game_state_8hpp_source}{}\label{_game_state_8hpp_source}\index{src/entities/GameState.hpp@{src/entities/GameState.hpp}}
+\mbox{\hyperlink{_game_state_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ <cstddef>}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <unordered\_map>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_egg_8hpp}{Egg.hpp}}"{}}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_incantations_effect_8hpp}{IncantationsEffect.hpp}}"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_map_8hpp}{Map.hpp}}"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_player_8hpp}{Player.hpp}}"{}}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00009\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacegui}{gui}}\ \{}
+\DoxyCodeLine{00015\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structgui_1_1_game_state_a2e983053e9b81605ac8437b947d8e55b}{GameState}}\ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \mbox{\hyperlink{structgui_1_1_map}{Map}}\ \mbox{\hyperlink{structgui_1_1_game_state_a1e5997f65efb4bb6067bc30711f9a8ba}{map}};}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structgui_1_1_game_state_a75bbeb621ca282f2157ef89a4c0b7aa6}{timeUnit}}\ =\ 0;}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ std::vector<std::string>\ \mbox{\hyperlink{structgui_1_1_game_state_a29a228b4885f699f68062cb55d54f270}{teamNames}};}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ std::unordered\_map<int,\ Player>\ \mbox{\hyperlink{structgui_1_1_game_state_a1a729d8694e4207b089e2df68d0dafc5}{players}};}
+\DoxyCodeLine{00035\ \ \ \ \ \ \ std::unordered\_map<int,\ Egg>\ \mbox{\hyperlink{structgui_1_1_game_state_a21adbd6ae7fabdb01307c1c55a1ab138}{eggs}};}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structgui_1_1_game_state_aa13722262e33cf3b78d637f77df80dd4}{isGameOver}}\ =\ \textcolor{keyword}{false};}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{structgui_1_1_game_state_aeb2644e45ba156d08d2d11493b96b6a6}{winningTeamName}}\ =\ \textcolor{stringliteral}{"{}"{}};}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00048\ \ \ \ \ \ \ std::vector<IncantationEffect>\ \mbox{\hyperlink{structgui_1_1_game_state_a2923697ed1cba0d811aa7d735d3b2287}{activeIncantations}};}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structgui_1_1_player}{Player}}\ \&\mbox{\hyperlink{structgui_1_1_game_state_ac70f65f8a90ad4d8099f8649b18fd0d7}{getPlayerById}}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structgui_1_1_egg}{Egg}}\ \&\mbox{\hyperlink{structgui_1_1_game_state_a9247d8c4d8ed864bc1afc24c2e4bf082}{getEggById}}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id})\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00070\ \ \ \ \ \ \ std::vector<std::string>\ \mbox{\hyperlink{structgui_1_1_game_state_a13ddb557bc4c84c0c7bbfdf8b9cd4586}{broadcastLog}};}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ std::size\_t\ \mbox{\hyperlink{structgui_1_1_game_state_a20a0c2b6f11ea520b36750366490dac4}{MAX\_BROADCAST\_LOG\_SIZE}}\ =\ 10;}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \mbox{\hyperlink{structgui_1_1_game_state_a2e983053e9b81605ac8437b947d8e55b}{GameState}}(std::size\_t\ width,\ std::size\_t\ height)\ :\ \mbox{\hyperlink{structgui_1_1_game_state_a1e5997f65efb4bb6067bc30711f9a8ba}{map}}(width,\ height)\ \{}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00083\ \ \ \};}
+\DoxyCodeLine{00084\ \}\ \ \textcolor{comment}{//\ namespace\ gui}}
+
+\end{DoxyCode}

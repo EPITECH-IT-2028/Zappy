@@ -1,0 +1,132 @@
+\doxysection{gui\+::Game\+Engine Class Reference}
+\hypertarget{classgui_1_1_game_engine}{}\label{classgui_1_1_game_engine}\index{gui::GameEngine@{gui::GameEngine}}
+
+
+Main class responsible for running and rendering the game GUI.  
+
+
+
+
+{\ttfamily \#include $<$Game\+Engine.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classgui_1_1_game_engine_ab18ffe006f72637a5da89013dacb1c8f}{Game\+Engine}} (\mbox{\hyperlink{classnetwork_1_1_server_communication}{network\+::\+Server\+Communication}} \&server\+Communication)
+\begin{DoxyCompactList}\small\item\em Constructs the \doxylink{classgui_1_1_game_engine}{Game\+Engine}. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{classgui_1_1_game_engine_a008035910d4816916cfd9451eb294f41}{\texorpdfstring{$\sim$}{\string~}\+Game\+Engine}} ()
+\begin{DoxyCompactList}\small\item\em Destructor for \doxylink{classgui_1_1_game_engine}{Game\+Engine}. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{classgui_1_1_game_engine_a22a71d0c6be438866a3342b4b2bb311a}{get\+World\+Scale}} () const
+\begin{DoxyCompactList}\small\item\em Gets the current world scale. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classgui_1_1_game_engine_aa134a26d045d5ef7d2a8fe2b07697cad}{set\+World\+Scale}} (float value)
+\begin{DoxyCompactList}\small\item\em Sets the world scale. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classgui_1_1_game_engine_addcee205af831e19bb5c08b6736fd514}{run}} ()
+\begin{DoxyCompactList}\small\item\em Main loop to run the game engine. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classgui_1_1_game_engine_a461fb71607cae9fa07bc212d0384e8cc}{initialize}} ()
+\begin{DoxyCompactList}\small\item\em Initializes the game engine and resources. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Main class responsible for running and rendering the game GUI. 
+
+\label{doc-constructors}
+\Hypertarget{classgui_1_1_game_engine_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classgui_1_1_game_engine_ab18ffe006f72637a5da89013dacb1c8f}\index{gui::GameEngine@{gui::GameEngine}!GameEngine@{GameEngine}}
+\index{GameEngine@{GameEngine}!gui::GameEngine@{gui::GameEngine}}
+\doxysubsubsection{\texorpdfstring{GameEngine()}{GameEngine()}}
+{\footnotesize\ttfamily \label{classgui_1_1_game_engine_ab18ffe006f72637a5da89013dacb1c8f} 
+gui\+::\+Game\+Engine\+::\+Game\+Engine (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classnetwork_1_1_server_communication}{network\+::\+Server\+Communication}} \&}]{server\+Communication}{}\end{DoxyParamCaption})}
+
+
+
+Constructs the \doxylink{classgui_1_1_game_engine}{Game\+Engine}. 
+
+Constructs the \doxylink{classgui_1_1_game_engine}{Game\+Engine}, initializes the window, camera, and loads the egg texture.
+
+
+\begin{DoxyParams}{Parameters}
+{\em server\+Communication} & Reference to the server communication handler.\\
+\hline
+{\em server\+Communication} & Reference to the server communication handler. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::runtime\+\_\+error} & if the Raylib window or egg texture cannot be initialized. \\
+\hline
+\end{DoxyExceptions}
+\Hypertarget{classgui_1_1_game_engine_a008035910d4816916cfd9451eb294f41}\index{gui::GameEngine@{gui::GameEngine}!````~GameEngine@{\texorpdfstring{$\sim$}{\string~}GameEngine}}
+\index{````~GameEngine@{\texorpdfstring{$\sim$}{\string~}GameEngine}!gui::GameEngine@{gui::GameEngine}}
+\doxysubsubsection{\texorpdfstring{\texorpdfstring{$\sim$}{\string~}GameEngine()}{\string~GameEngine()}}
+{\footnotesize\ttfamily \label{classgui_1_1_game_engine_a008035910d4816916cfd9451eb294f41} 
+gui\+::\+Game\+Engine\+::\texorpdfstring{$\sim$}{\string~}\+Game\+Engine (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Destructor for \doxylink{classgui_1_1_game_engine}{Game\+Engine}. 
+
+Destructor for \doxylink{classgui_1_1_game_engine}{Game\+Engine}. Unloads models, textures, and shaders if loaded. 
+
+\label{doc-func-members}
+\Hypertarget{classgui_1_1_game_engine_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classgui_1_1_game_engine_a22a71d0c6be438866a3342b4b2bb311a}\index{gui::GameEngine@{gui::GameEngine}!getWorldScale@{getWorldScale}}
+\index{getWorldScale@{getWorldScale}!gui::GameEngine@{gui::GameEngine}}
+\doxysubsubsection{\texorpdfstring{getWorldScale()}{getWorldScale()}}
+{\footnotesize\ttfamily \label{classgui_1_1_game_engine_a22a71d0c6be438866a3342b4b2bb311a} 
+float gui\+::\+Game\+Engine\+::get\+World\+Scale (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Gets the current world scale. 
+
+Gets the current world scale factor.
+
+\begin{DoxyReturn}{Returns}
+The world scale factor. 
+\end{DoxyReturn}
+\Hypertarget{classgui_1_1_game_engine_a461fb71607cae9fa07bc212d0384e8cc}\index{gui::GameEngine@{gui::GameEngine}!initialize@{initialize}}
+\index{initialize@{initialize}!gui::GameEngine@{gui::GameEngine}}
+\doxysubsubsection{\texorpdfstring{initialize()}{initialize()}}
+{\footnotesize\ttfamily \label{classgui_1_1_game_engine_a461fb71607cae9fa07bc212d0384e8cc} 
+void gui\+::\+Game\+Engine\+::initialize (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Initializes the game engine and resources. 
+
+Initializes models, shaders, and resources. Sets error state if initialization fails. \Hypertarget{classgui_1_1_game_engine_addcee205af831e19bb5c08b6736fd514}\index{gui::GameEngine@{gui::GameEngine}!run@{run}}
+\index{run@{run}!gui::GameEngine@{gui::GameEngine}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \label{classgui_1_1_game_engine_addcee205af831e19bb5c08b6736fd514} 
+void gui\+::\+Game\+Engine\+::run (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Main loop to run the game engine. 
+
+Main loop for running the game engine. Handles input, updates, and rendering. \Hypertarget{classgui_1_1_game_engine_aa134a26d045d5ef7d2a8fe2b07697cad}\index{gui::GameEngine@{gui::GameEngine}!setWorldScale@{setWorldScale}}
+\index{setWorldScale@{setWorldScale}!gui::GameEngine@{gui::GameEngine}}
+\doxysubsubsection{\texorpdfstring{setWorldScale()}{setWorldScale()}}
+{\footnotesize\ttfamily \label{classgui_1_1_game_engine_aa134a26d045d5ef7d2a8fe2b07697cad} 
+void gui\+::\+Game\+Engine\+::set\+World\+Scale (\begin{DoxyParamCaption}\item[{float}]{value}{}\end{DoxyParamCaption})}
+
+
+
+Sets the world scale. 
+
+Sets the world scale factor, clamped between MIN\+\_\+\+SCALE and MAX\+\_\+\+SCALE.
+
+
+\begin{DoxyParams}{Parameters}
+{\em value} & The new world scale factor. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/game\+Engine/\mbox{\hyperlink{_game_engine_8hpp}{Game\+Engine.\+hpp}}\item 
+src/game\+Engine/\mbox{\hyperlink{draw_text3_d_8cpp}{draw\+Text3\+D.\+cpp}}\item 
+src/game\+Engine/\mbox{\hyperlink{_game_engine_8cpp}{Game\+Engine.\+cpp}}\end{DoxyCompactItemize}

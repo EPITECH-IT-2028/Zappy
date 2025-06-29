@@ -1,0 +1,227 @@
+\doxysection{gui\+::Tile Struct Reference}
+\hypertarget{structgui_1_1_tile}{}\label{structgui_1_1_tile}\index{gui::Tile@{gui::Tile}}
+
+
+Represents a map tile in the Zappy game world.  
+
+
+
+
+{\ttfamily \#include $<$Tile.\+hpp$>$}
+
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{structgui_1_1_tile_a720d5e90e2362609148765566cc93257}{Resource}} \{ \newline
+\mbox{\hyperlink{structgui_1_1_tile_a720d5e90e2362609148765566cc93257acc9284597026dcc021735c0970ca0c93}{FOOD}}
+, \mbox{\hyperlink{structgui_1_1_tile_a720d5e90e2362609148765566cc93257a0768321a27c3ad95ba420acdf0c68b9a}{LINEMATE}}
+, \mbox{\hyperlink{structgui_1_1_tile_a720d5e90e2362609148765566cc93257a77ce51f915f4f169cfa127081729ac47}{DERAUMERE}}
+, \mbox{\hyperlink{structgui_1_1_tile_a720d5e90e2362609148765566cc93257a39aae65aa8300a7c78243cac9b1b26ff}{SIBUR}}
+, \newline
+\mbox{\hyperlink{structgui_1_1_tile_a720d5e90e2362609148765566cc93257a9f05163be9e3bb9402b99bd9812e45a2}{MENDIANE}}
+, \mbox{\hyperlink{structgui_1_1_tile_a720d5e90e2362609148765566cc93257a3c1c5a164f11c086dc42d7d43d7274d2}{PHIRAS}}
+, \mbox{\hyperlink{structgui_1_1_tile_a720d5e90e2362609148765566cc93257a0d20733804020bb21e57a0cdb7082f14}{THYSTAME}}
+ \}
+\begin{DoxyCompactList}\small\item\em Enum representing the different resource types available on a tile. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \mbox{\hyperlink{structgui_1_1_tile_a99e24fda9896399d8b24a8e6a6f60bea}{is\+Empty}} () const
+\begin{DoxyCompactList}\small\item\em Checks if the tile is empty (no resources, players, or eggs). \end{DoxyCompactList}\item 
+Color \mbox{\hyperlink{structgui_1_1_tile_a4b331ad73d2dba0eb18a1d99c1a0d28a}{get\+Resource\+Color}} (\mbox{\hyperlink{structgui_1_1_tile_a720d5e90e2362609148765566cc93257}{Resource}} type) const
+\begin{DoxyCompactList}\small\item\em Gets the color associated with a given resource type. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{structgui_1_1_tile_aa9086ba456a5de296c94e9291a8f444d}{get\+Resource\+Name}} (\mbox{\hyperlink{structgui_1_1_tile_a720d5e90e2362609148765566cc93257}{Resource}} type) const
+\begin{DoxyCompactList}\small\item\em Gets the display name of a given resource type. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::array$<$ int, \mbox{\hyperlink{structgui_1_1_tile_aa44fac2a6a542cc25e9caae85f1e182b}{RESOURCE\+\_\+\+COUNT}} $>$ \mbox{\hyperlink{structgui_1_1_tile_aedec88a7d466ff5e04cc1723fcac4188}{resources}} \{\}
+\begin{DoxyCompactList}\small\item\em Array holding the count of each resource type on the tile. The index corresponds to the \doxylink{structgui_1_1_tile_a720d5e90e2362609148765566cc93257}{Resource} enum. \end{DoxyCompactList}\item 
+std\+::vector$<$ int $>$ \mbox{\hyperlink{structgui_1_1_tile_ae7eda5f27b530c5d99290598f7218a85}{player\+Ids\+On\+Tile}}
+\begin{DoxyCompactList}\small\item\em List of player IDs currently present on the tile. \end{DoxyCompactList}\item 
+std\+::vector$<$ int $>$ \mbox{\hyperlink{structgui_1_1_tile_a5beaf2306b1a7738c7b91fae2ee68157}{egg\+Ids\+On\+Tile}}
+\begin{DoxyCompactList}\small\item\em List of egg IDs currently present on the tile. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{structgui_1_1_tile_effects}{Tile\+Effects}} \mbox{\hyperlink{structgui_1_1_tile_adb52cd7c073be89478eae7dbe93ffab6}{effects}}
+\begin{DoxyCompactList}\small\item\em Visual effects currently active on the tile. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static constexpr int \mbox{\hyperlink{structgui_1_1_tile_aa44fac2a6a542cc25e9caae85f1e182b}{RESOURCE\+\_\+\+COUNT}} = 7
+\begin{DoxyCompactList}\small\item\em Number of resource types per tile. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents a map tile in the Zappy game world. 
+
+Stores resource counts, player and egg IDs present on the tile, and visual effects. 
+
+\label{doc-enum-members}
+\Hypertarget{structgui_1_1_tile_doc-enum-members}
+\doxysubsection{Member Enumeration Documentation}
+\Hypertarget{structgui_1_1_tile_a720d5e90e2362609148765566cc93257}\index{gui::Tile@{gui::Tile}!Resource@{Resource}}
+\index{Resource@{Resource}!gui::Tile@{gui::Tile}}
+\doxysubsubsection{\texorpdfstring{Resource}{Resource}}
+{\footnotesize\ttfamily \label{structgui_1_1_tile_a720d5e90e2362609148765566cc93257} 
+enum class \mbox{\hyperlink{structgui_1_1_tile_a720d5e90e2362609148765566cc93257}{gui\+::\+Tile\+::\+Resource}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+Enum representing the different resource types available on a tile. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{FOOD@{FOOD}!gui::Tile@{gui::Tile}}\index{gui::Tile@{gui::Tile}!FOOD@{FOOD}}}\Hypertarget{structgui_1_1_tile_a720d5e90e2362609148765566cc93257acc9284597026dcc021735c0970ca0c93}\label{structgui_1_1_tile_a720d5e90e2362609148765566cc93257acc9284597026dcc021735c0970ca0c93} 
+FOOD&Food resource. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{LINEMATE@{LINEMATE}!gui::Tile@{gui::Tile}}\index{gui::Tile@{gui::Tile}!LINEMATE@{LINEMATE}}}\Hypertarget{structgui_1_1_tile_a720d5e90e2362609148765566cc93257a0768321a27c3ad95ba420acdf0c68b9a}\label{structgui_1_1_tile_a720d5e90e2362609148765566cc93257a0768321a27c3ad95ba420acdf0c68b9a} 
+LINEMATE&Linemate resource. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{DERAUMERE@{DERAUMERE}!gui::Tile@{gui::Tile}}\index{gui::Tile@{gui::Tile}!DERAUMERE@{DERAUMERE}}}\Hypertarget{structgui_1_1_tile_a720d5e90e2362609148765566cc93257a77ce51f915f4f169cfa127081729ac47}\label{structgui_1_1_tile_a720d5e90e2362609148765566cc93257a77ce51f915f4f169cfa127081729ac47} 
+DERAUMERE&Deraumere resource. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SIBUR@{SIBUR}!gui::Tile@{gui::Tile}}\index{gui::Tile@{gui::Tile}!SIBUR@{SIBUR}}}\Hypertarget{structgui_1_1_tile_a720d5e90e2362609148765566cc93257a39aae65aa8300a7c78243cac9b1b26ff}\label{structgui_1_1_tile_a720d5e90e2362609148765566cc93257a39aae65aa8300a7c78243cac9b1b26ff} 
+SIBUR&Sibur resource. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{MENDIANE@{MENDIANE}!gui::Tile@{gui::Tile}}\index{gui::Tile@{gui::Tile}!MENDIANE@{MENDIANE}}}\Hypertarget{structgui_1_1_tile_a720d5e90e2362609148765566cc93257a9f05163be9e3bb9402b99bd9812e45a2}\label{structgui_1_1_tile_a720d5e90e2362609148765566cc93257a9f05163be9e3bb9402b99bd9812e45a2} 
+MENDIANE&Mendiane resource. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PHIRAS@{PHIRAS}!gui::Tile@{gui::Tile}}\index{gui::Tile@{gui::Tile}!PHIRAS@{PHIRAS}}}\Hypertarget{structgui_1_1_tile_a720d5e90e2362609148765566cc93257a3c1c5a164f11c086dc42d7d43d7274d2}\label{structgui_1_1_tile_a720d5e90e2362609148765566cc93257a3c1c5a164f11c086dc42d7d43d7274d2} 
+PHIRAS&Phiras resource. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{THYSTAME@{THYSTAME}!gui::Tile@{gui::Tile}}\index{gui::Tile@{gui::Tile}!THYSTAME@{THYSTAME}}}\Hypertarget{structgui_1_1_tile_a720d5e90e2362609148765566cc93257a0d20733804020bb21e57a0cdb7082f14}\label{structgui_1_1_tile_a720d5e90e2362609148765566cc93257a0d20733804020bb21e57a0cdb7082f14} 
+THYSTAME&Thystame resource. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\label{doc-func-members}
+\Hypertarget{structgui_1_1_tile_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{structgui_1_1_tile_a4b331ad73d2dba0eb18a1d99c1a0d28a}\index{gui::Tile@{gui::Tile}!getResourceColor@{getResourceColor}}
+\index{getResourceColor@{getResourceColor}!gui::Tile@{gui::Tile}}
+\doxysubsubsection{\texorpdfstring{getResourceColor()}{getResourceColor()}}
+{\footnotesize\ttfamily \label{structgui_1_1_tile_a4b331ad73d2dba0eb18a1d99c1a0d28a} 
+Color gui\+::\+Tile\+::get\+Resource\+Color (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structgui_1_1_tile_a720d5e90e2362609148765566cc93257}{Resource}}}]{type}{}\end{DoxyParamCaption}) const}
+
+
+
+Gets the color associated with a given resource type. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & The resource type. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The color for the specified resource.
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em type} & The resource type. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The color corresponding to the specified resource. 
+\end{DoxyReturn}
+\Hypertarget{structgui_1_1_tile_aa9086ba456a5de296c94e9291a8f444d}\index{gui::Tile@{gui::Tile}!getResourceName@{getResourceName}}
+\index{getResourceName@{getResourceName}!gui::Tile@{gui::Tile}}
+\doxysubsubsection{\texorpdfstring{getResourceName()}{getResourceName()}}
+{\footnotesize\ttfamily \label{structgui_1_1_tile_aa9086ba456a5de296c94e9291a8f444d} 
+std\+::string gui\+::\+Tile\+::get\+Resource\+Name (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structgui_1_1_tile_a720d5e90e2362609148765566cc93257}{Resource}}}]{type}{}\end{DoxyParamCaption}) const}
+
+
+
+Gets the display name of a given resource type. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em type} & The resource type. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The name of the resource as a string. 
+\end{DoxyReturn}
+\Hypertarget{structgui_1_1_tile_a99e24fda9896399d8b24a8e6a6f60bea}\index{gui::Tile@{gui::Tile}!isEmpty@{isEmpty}}
+\index{isEmpty@{isEmpty}!gui::Tile@{gui::Tile}}
+\doxysubsubsection{\texorpdfstring{isEmpty()}{isEmpty()}}
+{\footnotesize\ttfamily \label{structgui_1_1_tile_a99e24fda9896399d8b24a8e6a6f60bea} 
+bool gui\+::\+Tile\+::is\+Empty (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Checks if the tile is empty (no resources, players, or eggs). 
+
+Checks if the tile is empty (no players or eggs present).
+
+\begin{DoxyReturn}{Returns}
+true if the tile is empty, false otherwise.
+
+true if there are no players or eggs on the tile, false otherwise. 
+\end{DoxyReturn}
+
+
+\label{doc-variable-members}
+\Hypertarget{structgui_1_1_tile_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structgui_1_1_tile_adb52cd7c073be89478eae7dbe93ffab6}\index{gui::Tile@{gui::Tile}!effects@{effects}}
+\index{effects@{effects}!gui::Tile@{gui::Tile}}
+\doxysubsubsection{\texorpdfstring{effects}{effects}}
+{\footnotesize\ttfamily \label{structgui_1_1_tile_adb52cd7c073be89478eae7dbe93ffab6} 
+\mbox{\hyperlink{structgui_1_1_tile_effects}{Tile\+Effects}} gui\+::\+Tile\+::effects}
+
+
+
+Visual effects currently active on the tile. 
+
+\Hypertarget{structgui_1_1_tile_a5beaf2306b1a7738c7b91fae2ee68157}\index{gui::Tile@{gui::Tile}!eggIdsOnTile@{eggIdsOnTile}}
+\index{eggIdsOnTile@{eggIdsOnTile}!gui::Tile@{gui::Tile}}
+\doxysubsubsection{\texorpdfstring{eggIdsOnTile}{eggIdsOnTile}}
+{\footnotesize\ttfamily \label{structgui_1_1_tile_a5beaf2306b1a7738c7b91fae2ee68157} 
+std\+::vector$<$int$>$ gui\+::\+Tile\+::egg\+Ids\+On\+Tile}
+
+
+
+List of egg IDs currently present on the tile. 
+
+\Hypertarget{structgui_1_1_tile_ae7eda5f27b530c5d99290598f7218a85}\index{gui::Tile@{gui::Tile}!playerIdsOnTile@{playerIdsOnTile}}
+\index{playerIdsOnTile@{playerIdsOnTile}!gui::Tile@{gui::Tile}}
+\doxysubsubsection{\texorpdfstring{playerIdsOnTile}{playerIdsOnTile}}
+{\footnotesize\ttfamily \label{structgui_1_1_tile_ae7eda5f27b530c5d99290598f7218a85} 
+std\+::vector$<$int$>$ gui\+::\+Tile\+::player\+Ids\+On\+Tile}
+
+
+
+List of player IDs currently present on the tile. 
+
+\Hypertarget{structgui_1_1_tile_aa44fac2a6a542cc25e9caae85f1e182b}\index{gui::Tile@{gui::Tile}!RESOURCE\_COUNT@{RESOURCE\_COUNT}}
+\index{RESOURCE\_COUNT@{RESOURCE\_COUNT}!gui::Tile@{gui::Tile}}
+\doxysubsubsection{\texorpdfstring{RESOURCE\_COUNT}{RESOURCE\_COUNT}}
+{\footnotesize\ttfamily \label{structgui_1_1_tile_aa44fac2a6a542cc25e9caae85f1e182b} 
+int gui\+::\+Tile\+::\+RESOURCE\+\_\+\+COUNT = 7\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+
+
+Number of resource types per tile. 
+
+\Hypertarget{structgui_1_1_tile_aedec88a7d466ff5e04cc1723fcac4188}\index{gui::Tile@{gui::Tile}!resources@{resources}}
+\index{resources@{resources}!gui::Tile@{gui::Tile}}
+\doxysubsubsection{\texorpdfstring{resources}{resources}}
+{\footnotesize\ttfamily \label{structgui_1_1_tile_aedec88a7d466ff5e04cc1723fcac4188} 
+std\+::array$<$int, \mbox{\hyperlink{structgui_1_1_tile_aa44fac2a6a542cc25e9caae85f1e182b}{RESOURCE\+\_\+\+COUNT}}$>$ gui\+::\+Tile\+::resources \{\}}
+
+
+
+Array holding the count of each resource type on the tile. The index corresponds to the \doxylink{structgui_1_1_tile_a720d5e90e2362609148765566cc93257}{Resource} enum. 
+
+
+
+The documentation for this struct was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/entities/\mbox{\hyperlink{_tile_8hpp}{Tile.\+hpp}}\item 
+src/entities/\mbox{\hyperlink{_tile_8cpp}{Tile.\+cpp}}\end{DoxyCompactItemize}

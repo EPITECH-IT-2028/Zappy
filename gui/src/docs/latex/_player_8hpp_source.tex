@@ -1,0 +1,34 @@
+\doxysection{Player.\+hpp}
+\hypertarget{_player_8hpp_source}{}\label{_player_8hpp_source}\index{src/entities/Player.hpp@{src/entities/Player.hpp}}
+\mbox{\hyperlink{_player_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ <array>}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_orientation_8hpp}{Orientation.hpp}}"{}}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacegui}{gui}}\ \{}
+\DoxyCodeLine{00012\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structgui_1_1_player_ad516aca6b2afbddbbfbb698f11e48d0d}{Player}}\ \{}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structgui_1_1_player_a55a8d661f1a33d3ae9379a38f1f709dc}{RESOURCE\_COUNT}}\ =\ 7;}
+\DoxyCodeLine{00020\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structgui_1_1_player_a0092f41d6be0ad541db0b7316ebcf0dd}{id}};}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structgui_1_1_player_a5f8bfc2feaa38aeeb30bad38b4a6e307}{x}};}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structgui_1_1_player_ad89d4059feaeb6f0d9b750dcf9667974}{y}};}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ \mbox{\hyperlink{namespacegui_ad4abd679184df2f6e5bc0de521f37bd0}{gui::Orientation}}\ \mbox{\hyperlink{structgui_1_1_player_a327572d8a068a7e9fdc82b5a6251a65c}{orientation}};}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structgui_1_1_player_af0e940e96bc28e5bb4ad08abae04500c}{level}};}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{structgui_1_1_player_a9b56d32296456596ac532913fd9311b1}{teamName}};}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ std::array<int,\ RESOURCE\_COUNT>\ \mbox{\hyperlink{structgui_1_1_player_aa6b957e72b01a15ea2ee1fcfbb4070ae}{inventoryPlayer}};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \mbox{\hyperlink{structgui_1_1_player_ad516aca6b2afbddbbfbb698f11e48d0d}{Player}}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structgui_1_1_player_a5f8bfc2feaa38aeeb30bad38b4a6e307}{x}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structgui_1_1_player_ad89d4059feaeb6f0d9b750dcf9667974}{y}},\ \mbox{\hyperlink{namespacegui_ad4abd679184df2f6e5bc0de521f37bd0}{Orientation}}\ \mbox{\hyperlink{structgui_1_1_player_a327572d8a068a7e9fdc82b5a6251a65c}{orientation}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structgui_1_1_player_af0e940e96bc28e5bb4ad08abae04500c}{level}},}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ \mbox{\hyperlink{structgui_1_1_player_a9b56d32296456596ac532913fd9311b1}{teamName}})\ noexcept}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{structgui_1_1_player_a0092f41d6be0ad541db0b7316ebcf0dd}{id}}(\textcolor{keywordtype}{id}),}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structgui_1_1_player_a5f8bfc2feaa38aeeb30bad38b4a6e307}{x}}(\mbox{\hyperlink{structgui_1_1_player_a5f8bfc2feaa38aeeb30bad38b4a6e307}{x}}),}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structgui_1_1_player_ad89d4059feaeb6f0d9b750dcf9667974}{y}}(\mbox{\hyperlink{structgui_1_1_player_ad89d4059feaeb6f0d9b750dcf9667974}{y}}),}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structgui_1_1_player_a327572d8a068a7e9fdc82b5a6251a65c}{orientation}}(\mbox{\hyperlink{structgui_1_1_player_a327572d8a068a7e9fdc82b5a6251a65c}{orientation}}),}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structgui_1_1_player_af0e940e96bc28e5bb4ad08abae04500c}{level}}(\mbox{\hyperlink{structgui_1_1_player_af0e940e96bc28e5bb4ad08abae04500c}{level}}),}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structgui_1_1_player_a9b56d32296456596ac532913fd9311b1}{teamName}}(\mbox{\hyperlink{structgui_1_1_player_a9b56d32296456596ac532913fd9311b1}{teamName}}),}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structgui_1_1_player_aa6b957e72b01a15ea2ee1fcfbb4070ae}{inventoryPlayer}}\{\}\ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00067\ \ \ \};}
+\DoxyCodeLine{00068\ \}\ \ \textcolor{comment}{//\ namespace\ gui}}
+
+\end{DoxyCode}

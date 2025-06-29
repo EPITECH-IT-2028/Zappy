@@ -1,0 +1,144 @@
+\doxysection{gui\+::Incantation\+Effect Struct Reference}
+\hypertarget{structgui_1_1_incantation_effect}{}\label{structgui_1_1_incantation_effect}\index{gui::IncantationEffect@{gui::IncantationEffect}}
+
+
+Represents the visual effect of an incantation in progress on the map.  
+
+
+
+
+{\ttfamily \#include $<$Incantations\+Effect.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structgui_1_1_incantation_effect_a3ca7a35bcca42cdb4ef5699eee0a8ee6}{Incantation\+Effect}} (int \mbox{\hyperlink{structgui_1_1_incantation_effect_a18555f6489188a26cd0e767cd0f3612c}{x}}, int \mbox{\hyperlink{structgui_1_1_incantation_effect_a33a5aa1dd517b4a1a5117094997f7585}{y}}, int \mbox{\hyperlink{structgui_1_1_incantation_effect_af7f6bebe203fd12571ce77beef3da8dc}{level}}, std\+::vector$<$ int $>$ \mbox{\hyperlink{structgui_1_1_incantation_effect_a2c7de7e62fea4b6e4b2697d1edd5022a}{players}})
+\begin{DoxyCompactList}\small\item\em Constructs an \doxylink{structgui_1_1_incantation_effect}{Incantation\+Effect} with the given attributes. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{structgui_1_1_incantation_effect_a18555f6489188a26cd0e767cd0f3612c}{x}}
+\begin{DoxyCompactList}\small\item\em X coordinate of the incantation on the map. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{structgui_1_1_incantation_effect_a33a5aa1dd517b4a1a5117094997f7585}{y}}
+\begin{DoxyCompactList}\small\item\em Y coordinate of the incantation on the map. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{structgui_1_1_incantation_effect_af7f6bebe203fd12571ce77beef3da8dc}{level}}
+\begin{DoxyCompactList}\small\item\em Level of the incantation. \end{DoxyCompactList}\item 
+std\+::vector$<$ int $>$ \mbox{\hyperlink{structgui_1_1_incantation_effect_a2c7de7e62fea4b6e4b2697d1edd5022a}{players}}
+\begin{DoxyCompactList}\small\item\em List of player IDs participating in the incantation. \end{DoxyCompactList}\item 
+float \mbox{\hyperlink{structgui_1_1_incantation_effect_abdce28c80543e7f27fab234847c33dc6}{time\+Since\+Start}} = 0.f
+\begin{DoxyCompactList}\small\item\em Time elapsed since the incantation started (in seconds). \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{structgui_1_1_incantation_effect_af5b8130d3654f2531c7205ff5786e7f8}{success}} = false
+\begin{DoxyCompactList}\small\item\em True if the incantation was successful, false otherwise. \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{structgui_1_1_incantation_effect_a9b54dfd47dda0d4790fa5cbd11c326ef}{finished}} = false
+\begin{DoxyCompactList}\small\item\em True if the incantation effect has finished displaying. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents the visual effect of an incantation in progress on the map. 
+
+Stores the incantation\textquotesingle{}s position, level, involved players, timing, and result state. 
+
+\label{doc-constructors}
+\Hypertarget{structgui_1_1_incantation_effect_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{structgui_1_1_incantation_effect_a3ca7a35bcca42cdb4ef5699eee0a8ee6}\index{gui::IncantationEffect@{gui::IncantationEffect}!IncantationEffect@{IncantationEffect}}
+\index{IncantationEffect@{IncantationEffect}!gui::IncantationEffect@{gui::IncantationEffect}}
+\doxysubsubsection{\texorpdfstring{IncantationEffect()}{IncantationEffect()}}
+{\footnotesize\ttfamily \label{structgui_1_1_incantation_effect_a3ca7a35bcca42cdb4ef5699eee0a8ee6} 
+gui\+::\+Incantation\+Effect\+::\+Incantation\+Effect (\begin{DoxyParamCaption}\item[{int}]{x}{, }\item[{int}]{y}{, }\item[{int}]{level}{, }\item[{std\+::vector$<$ int $>$}]{players}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Constructs an \doxylink{structgui_1_1_incantation_effect}{Incantation\+Effect} with the given attributes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & X coordinate on the map. \\
+\hline
+{\em y} & Y coordinate on the map. \\
+\hline
+{\em level} & Incantation level. \\
+\hline
+{\em players} & List of player IDs involved in the incantation. \\
+\hline
+\end{DoxyParams}
+
+
+\label{doc-variable-members}
+\Hypertarget{structgui_1_1_incantation_effect_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structgui_1_1_incantation_effect_a9b54dfd47dda0d4790fa5cbd11c326ef}\index{gui::IncantationEffect@{gui::IncantationEffect}!finished@{finished}}
+\index{finished@{finished}!gui::IncantationEffect@{gui::IncantationEffect}}
+\doxysubsubsection{\texorpdfstring{finished}{finished}}
+{\footnotesize\ttfamily \label{structgui_1_1_incantation_effect_a9b54dfd47dda0d4790fa5cbd11c326ef} 
+bool gui\+::\+Incantation\+Effect\+::finished = false}
+
+
+
+True if the incantation effect has finished displaying. 
+
+\Hypertarget{structgui_1_1_incantation_effect_af7f6bebe203fd12571ce77beef3da8dc}\index{gui::IncantationEffect@{gui::IncantationEffect}!level@{level}}
+\index{level@{level}!gui::IncantationEffect@{gui::IncantationEffect}}
+\doxysubsubsection{\texorpdfstring{level}{level}}
+{\footnotesize\ttfamily \label{structgui_1_1_incantation_effect_af7f6bebe203fd12571ce77beef3da8dc} 
+int gui\+::\+Incantation\+Effect\+::level}
+
+
+
+Level of the incantation. 
+
+\Hypertarget{structgui_1_1_incantation_effect_a2c7de7e62fea4b6e4b2697d1edd5022a}\index{gui::IncantationEffect@{gui::IncantationEffect}!players@{players}}
+\index{players@{players}!gui::IncantationEffect@{gui::IncantationEffect}}
+\doxysubsubsection{\texorpdfstring{players}{players}}
+{\footnotesize\ttfamily \label{structgui_1_1_incantation_effect_a2c7de7e62fea4b6e4b2697d1edd5022a} 
+std\+::vector$<$int$>$ gui\+::\+Incantation\+Effect\+::players}
+
+
+
+List of player IDs participating in the incantation. 
+
+\Hypertarget{structgui_1_1_incantation_effect_af5b8130d3654f2531c7205ff5786e7f8}\index{gui::IncantationEffect@{gui::IncantationEffect}!success@{success}}
+\index{success@{success}!gui::IncantationEffect@{gui::IncantationEffect}}
+\doxysubsubsection{\texorpdfstring{success}{success}}
+{\footnotesize\ttfamily \label{structgui_1_1_incantation_effect_af5b8130d3654f2531c7205ff5786e7f8} 
+bool gui\+::\+Incantation\+Effect\+::success = false}
+
+
+
+True if the incantation was successful, false otherwise. 
+
+\Hypertarget{structgui_1_1_incantation_effect_abdce28c80543e7f27fab234847c33dc6}\index{gui::IncantationEffect@{gui::IncantationEffect}!timeSinceStart@{timeSinceStart}}
+\index{timeSinceStart@{timeSinceStart}!gui::IncantationEffect@{gui::IncantationEffect}}
+\doxysubsubsection{\texorpdfstring{timeSinceStart}{timeSinceStart}}
+{\footnotesize\ttfamily \label{structgui_1_1_incantation_effect_abdce28c80543e7f27fab234847c33dc6} 
+float gui\+::\+Incantation\+Effect\+::time\+Since\+Start = 0.f}
+
+
+
+Time elapsed since the incantation started (in seconds). 
+
+\Hypertarget{structgui_1_1_incantation_effect_a18555f6489188a26cd0e767cd0f3612c}\index{gui::IncantationEffect@{gui::IncantationEffect}!x@{x}}
+\index{x@{x}!gui::IncantationEffect@{gui::IncantationEffect}}
+\doxysubsubsection{\texorpdfstring{x}{x}}
+{\footnotesize\ttfamily \label{structgui_1_1_incantation_effect_a18555f6489188a26cd0e767cd0f3612c} 
+int gui\+::\+Incantation\+Effect\+::x}
+
+
+
+X coordinate of the incantation on the map. 
+
+\Hypertarget{structgui_1_1_incantation_effect_a33a5aa1dd517b4a1a5117094997f7585}\index{gui::IncantationEffect@{gui::IncantationEffect}!y@{y}}
+\index{y@{y}!gui::IncantationEffect@{gui::IncantationEffect}}
+\doxysubsubsection{\texorpdfstring{y}{y}}
+{\footnotesize\ttfamily \label{structgui_1_1_incantation_effect_a33a5aa1dd517b4a1a5117094997f7585} 
+int gui\+::\+Incantation\+Effect\+::y}
+
+
+
+Y coordinate of the incantation on the map. 
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/entities/\mbox{\hyperlink{_incantations_effect_8hpp}{Incantations\+Effect.\+hpp}}\end{DoxyCompactItemize}

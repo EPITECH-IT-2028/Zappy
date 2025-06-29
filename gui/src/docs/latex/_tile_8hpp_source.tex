@@ -1,0 +1,37 @@
+\doxysection{Tile.\+hpp}
+\hypertarget{_tile_8hpp_source}{}\label{_tile_8hpp_source}\index{src/entities/Tile.hpp@{src/entities/Tile.hpp}}
+\mbox{\hyperlink{_tile_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ <raylib.h>}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <array>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_tile_effects_8hpp}{TileEffects.hpp}}"{}}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespacegui}{gui}}\ \{}
+\DoxyCodeLine{00014\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structgui_1_1_tile}{Tile}}\ \{}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structgui_1_1_tile_aa44fac2a6a542cc25e9caae85f1e182b}{RESOURCE\_COUNT}}\ =\ 7;}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \textcolor{keyword}{enum\ class}\ \mbox{\hyperlink{structgui_1_1_tile_a720d5e90e2362609148765566cc93257}{Resource}}\ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structgui_1_1_tile_a720d5e90e2362609148765566cc93257acc9284597026dcc021735c0970ca0c93}{FOOD}},\ \ \ \ \ \ }
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structgui_1_1_tile_a720d5e90e2362609148765566cc93257a0768321a27c3ad95ba420acdf0c68b9a}{LINEMATE}},\ \ }
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structgui_1_1_tile_a720d5e90e2362609148765566cc93257a77ce51f915f4f169cfa127081729ac47}{DERAUMERE}},\ }
+\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structgui_1_1_tile_a720d5e90e2362609148765566cc93257a39aae65aa8300a7c78243cac9b1b26ff}{SIBUR}},\ \ \ \ \ }
+\DoxyCodeLine{00028\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structgui_1_1_tile_a720d5e90e2362609148765566cc93257a9f05163be9e3bb9402b99bd9812e45a2}{MENDIANE}},\ \ }
+\DoxyCodeLine{00029\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structgui_1_1_tile_a720d5e90e2362609148765566cc93257a3c1c5a164f11c086dc42d7d43d7274d2}{PHIRAS}},\ \ \ \ }
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{structgui_1_1_tile_a720d5e90e2362609148765566cc93257a0d20733804020bb21e57a0cdb7082f14}{THYSTAME}}\ \ \ }
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00037\ \ \ \ \ \ \ std::array<int,\ RESOURCE\_COUNT>\ \mbox{\hyperlink{structgui_1_1_tile_aedec88a7d466ff5e04cc1723fcac4188}{resources}}\{\};}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ std::vector<int>\ \mbox{\hyperlink{structgui_1_1_tile_ae7eda5f27b530c5d99290598f7218a85}{playerIdsOnTile}};}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ std::vector<int>\ \mbox{\hyperlink{structgui_1_1_tile_a5beaf2306b1a7738c7b91fae2ee68157}{eggIdsOnTile}};}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \mbox{\hyperlink{structgui_1_1_tile_effects}{TileEffects}}\ \mbox{\hyperlink{structgui_1_1_tile_adb52cd7c073be89478eae7dbe93ffab6}{effects}};}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structgui_1_1_tile_a99e24fda9896399d8b24a8e6a6f60bea}{isEmpty}}()\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ Color\ \mbox{\hyperlink{structgui_1_1_tile_a4b331ad73d2dba0eb18a1d99c1a0d28a}{getResourceColor}}(\mbox{\hyperlink{structgui_1_1_tile_a720d5e90e2362609148765566cc93257}{Resource}}\ type)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{structgui_1_1_tile_aa9086ba456a5de296c94e9291a8f444d}{getResourceName}}(\mbox{\hyperlink{structgui_1_1_tile_a720d5e90e2362609148765566cc93257}{Resource}}\ type)\ \textcolor{keyword}{const};}
+\DoxyCodeLine{00068\ \ \ \};}
+\DoxyCodeLine{00069\ \}\ \ \textcolor{comment}{//\ namespace\ gui}}
+
+\end{DoxyCode}

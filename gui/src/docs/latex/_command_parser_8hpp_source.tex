@@ -1,0 +1,189 @@
+\doxysection{Command\+Parser.\+hpp}
+\hypertarget{_command_parser_8hpp_source}{}\label{_command_parser_8hpp_source}\index{src/parser/CommandParser.hpp@{src/parser/CommandParser.hpp}}
+\mbox{\hyperlink{_command_parser_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <array>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{_orientation_8hpp}{entities/Orientation.hpp}}"{}}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{keyword}{namespace\ }\mbox{\hyperlink{namespaceparser}{parser}}\ \{}
+\DoxyCodeLine{00009\ \ \ \textcolor{keyword}{inline}\ \textcolor{keyword}{constexpr}\ std::size\_t\ \mbox{\hyperlink{namespaceparser_a0300f391e4bd3bccfa500b7cb99e5221}{RESOURCE\_COUNT}}\ =\ 7;}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00014\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structparser_1_1_map_size_a7aa00b2d96a69722afe380c4f54f7fac}{MapSize}}\ \{}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_map_size_ac551270d669808b834615a44b2d7cc83}{width}};\ \ }
+\DoxyCodeLine{00016\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_map_size_a9fe588eed9e0af9a35bc2c97f0b9dfe5}{height}};\ }
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \mbox{\hyperlink{structparser_1_1_map_size_a7aa00b2d96a69722afe380c4f54f7fac}{MapSize}}(\textcolor{keywordtype}{int}\ w,\ \textcolor{keywordtype}{int}\ h)\ :\ \mbox{\hyperlink{structparser_1_1_map_size_ac551270d669808b834615a44b2d7cc83}{width}}(w),\ \mbox{\hyperlink{structparser_1_1_map_size_a9fe588eed9e0af9a35bc2c97f0b9dfe5}{height}}(h)\ \{\}}
+\DoxyCodeLine{00018\ \ \ \};}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00023\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structparser_1_1_time_unit_a2c487546169a7377a2c61cee5844f8b7}{TimeUnit}}\ \{}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_time_unit_a532fa4feafe3c80241f3129cedea5b41}{time}};\ }
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \mbox{\hyperlink{structparser_1_1_time_unit_a2c487546169a7377a2c61cee5844f8b7}{TimeUnit}}(\textcolor{keywordtype}{int}\ t)\ :\ \mbox{\hyperlink{structparser_1_1_time_unit_a532fa4feafe3c80241f3129cedea5b41}{time}}(t)\ \{\}}
+\DoxyCodeLine{00026\ \ \ \};}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00031\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structparser_1_1_team_names_a2c3b41161bb049548df593457afcec96}{TeamNames}}\ \{}
+\DoxyCodeLine{00032\ \ \ \ \ \ \ std::vector<std::string>\ \mbox{\hyperlink{structparser_1_1_team_names_a81c3fed2c0a6fb253729b5dae7e92118}{names}};\ }
+\DoxyCodeLine{00033\ \ \ \ \ \ \ \mbox{\hyperlink{structparser_1_1_team_names_a2c3b41161bb049548df593457afcec96}{TeamNames}}(\textcolor{keyword}{const}\ std::vector<std::string>\&\ n)\ :\ \mbox{\hyperlink{structparser_1_1_team_names_a81c3fed2c0a6fb253729b5dae7e92118}{names}}(n)\ \{\}}
+\DoxyCodeLine{00034\ \ \ \};}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00039\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structparser_1_1_tile_update_a63b8715df84d6d7bd9fee521b229f86e}{TileUpdate}}\ \{}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_tile_update_ae71e1163bd12bb49702ce9c0383e461c}{x}};\ }
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_tile_update_ac17572cfa614b59928f53038acbde035}{y}};\ }
+\DoxyCodeLine{00042\ \ \ \ \ \ \ std::array<int,\ RESOURCE\_COUNT>\ \mbox{\hyperlink{structparser_1_1_tile_update_a01c26de7c8bd262c0ca8bcf60b231bbf}{resources}};\ }
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \mbox{\hyperlink{structparser_1_1_tile_update_a63b8715df84d6d7bd9fee521b229f86e}{TileUpdate}}(\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_tile_update_ae71e1163bd12bb49702ce9c0383e461c}{x}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_tile_update_ac17572cfa614b59928f53038acbde035}{y}},\ \textcolor{keyword}{const}\ std::array<int,\ RESOURCE\_COUNT>\&\ q)}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{structparser_1_1_tile_update_ae71e1163bd12bb49702ce9c0383e461c}{x}}(\mbox{\hyperlink{structparser_1_1_tile_update_ae71e1163bd12bb49702ce9c0383e461c}{x}}),\ \mbox{\hyperlink{structparser_1_1_tile_update_ac17572cfa614b59928f53038acbde035}{y}}(\mbox{\hyperlink{structparser_1_1_tile_update_ac17572cfa614b59928f53038acbde035}{y}}),\ \mbox{\hyperlink{structparser_1_1_tile_update_a01c26de7c8bd262c0ca8bcf60b231bbf}{resources}}(q)\ \{\}}
+\DoxyCodeLine{00045\ \ \ \};}
+\DoxyCodeLine{00046\ }
+\DoxyCodeLine{00050\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structparser_1_1_player_info_aff903ce85016a0c6aa373ec3e34b79b6}{PlayerInfo}}\ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_player_info_a044a2d43e720c10163c39517c892d88f}{id}};\ }
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_player_info_a5b85f23b312a329814c81a4c2f6598a3}{x}};\ }
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_player_info_ab60da3575775efad5e933b8de49f6f52}{y}};\ }
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \mbox{\hyperlink{namespacegui_ad4abd679184df2f6e5bc0de521f37bd0}{gui::Orientation}}\ \mbox{\hyperlink{structparser_1_1_player_info_a648c4de53403887387498432d797a9c0}{orientation}};\ }
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_player_info_a9c88c4ca4c2955356a01471e8ae4dd98}{level}};\ }
+\DoxyCodeLine{00056\ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{structparser_1_1_player_info_aa9f99ece56d49439436b94704530cfe7}{teamName}};\ }
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \mbox{\hyperlink{structparser_1_1_player_info_aff903ce85016a0c6aa373ec3e34b79b6}{PlayerInfo}}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_player_info_a5b85f23b312a329814c81a4c2f6598a3}{x}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_player_info_ab60da3575775efad5e933b8de49f6f52}{y}},\ \mbox{\hyperlink{namespacegui_ad4abd679184df2f6e5bc0de521f37bd0}{gui::Orientation}}\ \mbox{\hyperlink{structparser_1_1_player_info_a648c4de53403887387498432d797a9c0}{orientation}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_player_info_a9c88c4ca4c2955356a01471e8ae4dd98}{level}},}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::string\&\ team)}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{structparser_1_1_player_info_a044a2d43e720c10163c39517c892d88f}{id}}(\mbox{\hyperlink{structparser_1_1_player_info_a044a2d43e720c10163c39517c892d88f}{id}}),\ \mbox{\hyperlink{structparser_1_1_player_info_a5b85f23b312a329814c81a4c2f6598a3}{x}}(\mbox{\hyperlink{structparser_1_1_player_info_a5b85f23b312a329814c81a4c2f6598a3}{x}}),\ \mbox{\hyperlink{structparser_1_1_player_info_ab60da3575775efad5e933b8de49f6f52}{y}}(\mbox{\hyperlink{structparser_1_1_player_info_ab60da3575775efad5e933b8de49f6f52}{y}}),\ \mbox{\hyperlink{structparser_1_1_player_info_a648c4de53403887387498432d797a9c0}{orientation}}(\mbox{\hyperlink{structparser_1_1_player_info_a648c4de53403887387498432d797a9c0}{orientation}}),\ \mbox{\hyperlink{structparser_1_1_player_info_a9c88c4ca4c2955356a01471e8ae4dd98}{level}}(\mbox{\hyperlink{structparser_1_1_player_info_a9c88c4ca4c2955356a01471e8ae4dd98}{level}}),\ \mbox{\hyperlink{structparser_1_1_player_info_aa9f99ece56d49439436b94704530cfe7}{teamName}}(team)\ \{\}}
+\DoxyCodeLine{00060\ \ \ \};}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00065\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structparser_1_1_player_position_update_a7a0fdc74b24bfa496fe40aca11073b76}{PlayerPositionUpdate}}\ \{}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_player_position_update_a21fb762c30f5d1a8e080b2d88065dc5f}{id}};\ }
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_player_position_update_ae3a37c57775d8ae88f0858f391833158}{x}};\ }
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_player_position_update_ab8a7862b90c5fc0d4ef6dd06792469b9}{y}};\ }
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \mbox{\hyperlink{namespacegui_ad4abd679184df2f6e5bc0de521f37bd0}{gui::Orientation}}\ \mbox{\hyperlink{structparser_1_1_player_position_update_a2d378a611479b9985254866ea5de41c9}{orientation}};\ }
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \mbox{\hyperlink{structparser_1_1_player_position_update_a7a0fdc74b24bfa496fe40aca11073b76}{PlayerPositionUpdate}}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_player_position_update_ae3a37c57775d8ae88f0858f391833158}{x}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_player_position_update_ab8a7862b90c5fc0d4ef6dd06792469b9}{y}},\ \mbox{\hyperlink{namespacegui_ad4abd679184df2f6e5bc0de521f37bd0}{gui::Orientation}}\ \mbox{\hyperlink{structparser_1_1_player_position_update_a2d378a611479b9985254866ea5de41c9}{orientation}})}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{structparser_1_1_player_position_update_a21fb762c30f5d1a8e080b2d88065dc5f}{id}}(\mbox{\hyperlink{structparser_1_1_player_position_update_a21fb762c30f5d1a8e080b2d88065dc5f}{id}}),\ \mbox{\hyperlink{structparser_1_1_player_position_update_ae3a37c57775d8ae88f0858f391833158}{x}}(\mbox{\hyperlink{structparser_1_1_player_position_update_ae3a37c57775d8ae88f0858f391833158}{x}}),\ \mbox{\hyperlink{structparser_1_1_player_position_update_ab8a7862b90c5fc0d4ef6dd06792469b9}{y}}(\mbox{\hyperlink{structparser_1_1_player_position_update_ab8a7862b90c5fc0d4ef6dd06792469b9}{y}}),\ \mbox{\hyperlink{structparser_1_1_player_position_update_a2d378a611479b9985254866ea5de41c9}{orientation}}(\mbox{\hyperlink{structparser_1_1_player_position_update_a2d378a611479b9985254866ea5de41c9}{orientation}})\ \{\}}
+\DoxyCodeLine{00072\ \ \ \};}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00077\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structparser_1_1_player_level_update_ad363ed2eac2acd7554024f752cee1b21}{PlayerLevelUpdate}}\ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_player_level_update_aa8d5d12e74839cef071fe9c83988dbc3}{id}};\ }
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_player_level_update_a242c0799d36204d73e2a48fae1316fa0}{level}};\ }
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \mbox{\hyperlink{structparser_1_1_player_level_update_ad363ed2eac2acd7554024f752cee1b21}{PlayerLevelUpdate}}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_player_level_update_a242c0799d36204d73e2a48fae1316fa0}{level}})\ :\ \mbox{\hyperlink{structparser_1_1_player_level_update_aa8d5d12e74839cef071fe9c83988dbc3}{id}}(\mbox{\hyperlink{structparser_1_1_player_level_update_aa8d5d12e74839cef071fe9c83988dbc3}{id}}),\ \mbox{\hyperlink{structparser_1_1_player_level_update_a242c0799d36204d73e2a48fae1316fa0}{level}}(\mbox{\hyperlink{structparser_1_1_player_level_update_a242c0799d36204d73e2a48fae1316fa0}{level}})\ \{\}}
+\DoxyCodeLine{00081\ \ \ \};}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00086\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structparser_1_1_player_inventory_adb10cbcc2d8c23053bb891c0b9dca373}{PlayerInventory}}\ \{}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_player_inventory_a622893f8ca0bb93b65c972fda2160f56}{id}};\ }
+\DoxyCodeLine{00088\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_player_inventory_a41ff03808c22a1e5f1e7108060a43096}{x}};\ }
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_player_inventory_ad0668aed175b22775ac1e9a88a7caba2}{y}};\ }
+\DoxyCodeLine{00090\ \ \ \ \ \ \ std::array<int,\ RESOURCE\_COUNT>\ \mbox{\hyperlink{structparser_1_1_player_inventory_aaaf231cf8047325b93577b1f99729800}{resources}};\ }
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \mbox{\hyperlink{structparser_1_1_player_inventory_adb10cbcc2d8c23053bb891c0b9dca373}{PlayerInventory}}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_player_inventory_a41ff03808c22a1e5f1e7108060a43096}{x}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_player_inventory_ad0668aed175b22775ac1e9a88a7caba2}{y}},}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keyword}{const}\ std::array<int,\ RESOURCE\_COUNT>\&\ res)}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{structparser_1_1_player_inventory_a622893f8ca0bb93b65c972fda2160f56}{id}}(\mbox{\hyperlink{structparser_1_1_player_inventory_a622893f8ca0bb93b65c972fda2160f56}{id}}),\ \mbox{\hyperlink{structparser_1_1_player_inventory_a41ff03808c22a1e5f1e7108060a43096}{x}}(\mbox{\hyperlink{structparser_1_1_player_inventory_a41ff03808c22a1e5f1e7108060a43096}{x}}),\ \mbox{\hyperlink{structparser_1_1_player_inventory_ad0668aed175b22775ac1e9a88a7caba2}{y}}(\mbox{\hyperlink{structparser_1_1_player_inventory_ad0668aed175b22775ac1e9a88a7caba2}{y}}),\ \mbox{\hyperlink{structparser_1_1_player_inventory_aaaf231cf8047325b93577b1f99729800}{resources}}(res)\ \{\}}
+\DoxyCodeLine{00094\ \ \ \};}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00099\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structparser_1_1_egg_laid_aa72ded66a4b18b9a0f3afabb32470c2f}{EggLaid}}\ \{}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_egg_laid_ab7e5d0831710dcc6f126615023126996}{idEgg}};\ }
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_egg_laid_a206de7aa5f16e910690b4aad3ad05457}{idPlayer}};\ }
+\DoxyCodeLine{00102\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_egg_laid_a5126192fcd36519938e2661ffa6312ef}{x}};\ }
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_egg_laid_a59959536dc63d90743cd1b9eb85245e8}{y}};\ }
+\DoxyCodeLine{00104\ \ \ \ \ \ \ \mbox{\hyperlink{structparser_1_1_egg_laid_aa72ded66a4b18b9a0f3afabb32470c2f}{EggLaid}}(\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_egg_laid_ab7e5d0831710dcc6f126615023126996}{idEgg}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_egg_laid_a206de7aa5f16e910690b4aad3ad05457}{idPlayer}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_egg_laid_a5126192fcd36519938e2661ffa6312ef}{x}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_egg_laid_a59959536dc63d90743cd1b9eb85245e8}{y}})}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{structparser_1_1_egg_laid_ab7e5d0831710dcc6f126615023126996}{idEgg}}(\mbox{\hyperlink{structparser_1_1_egg_laid_ab7e5d0831710dcc6f126615023126996}{idEgg}}),\ \mbox{\hyperlink{structparser_1_1_egg_laid_a206de7aa5f16e910690b4aad3ad05457}{idPlayer}}(\mbox{\hyperlink{structparser_1_1_egg_laid_a206de7aa5f16e910690b4aad3ad05457}{idPlayer}}),\ \mbox{\hyperlink{structparser_1_1_egg_laid_a5126192fcd36519938e2661ffa6312ef}{x}}(\mbox{\hyperlink{structparser_1_1_egg_laid_a5126192fcd36519938e2661ffa6312ef}{x}}),\ \mbox{\hyperlink{structparser_1_1_egg_laid_a59959536dc63d90743cd1b9eb85245e8}{y}}(\mbox{\hyperlink{structparser_1_1_egg_laid_a59959536dc63d90743cd1b9eb85245e8}{y}})\ \{\}}
+\DoxyCodeLine{00106\ \ \ \};}
+\DoxyCodeLine{00107\ }
+\DoxyCodeLine{00111\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structparser_1_1_egg_hatch_a360159070642272ca91e6de228706b6e}{EggHatch}}\ \{}
+\DoxyCodeLine{00112\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_egg_hatch_acbd0c6c39962a7d70da6d57123612a86}{eggId}};\ }
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \mbox{\hyperlink{structparser_1_1_egg_hatch_a360159070642272ca91e6de228706b6e}{EggHatch}}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id})\ :\ \mbox{\hyperlink{structparser_1_1_egg_hatch_acbd0c6c39962a7d70da6d57123612a86}{eggId}}(id)\ \{\}}
+\DoxyCodeLine{00114\ \ \ \};}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00119\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structparser_1_1_egg_death_af5d8fce60a9e93fa8e261cc8f5c6a895}{EggDeath}}\ \{}
+\DoxyCodeLine{00120\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_egg_death_a222fb457589e7cf5aba9fc03867bc57b}{eggId}};\ }
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \mbox{\hyperlink{structparser_1_1_egg_death_af5d8fce60a9e93fa8e261cc8f5c6a895}{EggDeath}}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id})\ :\ \mbox{\hyperlink{structparser_1_1_egg_death_a222fb457589e7cf5aba9fc03867bc57b}{eggId}}(id)\ \{\}}
+\DoxyCodeLine{00122\ \ \ \};}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00127\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structparser_1_1_player_death_a001f075c285d3ac7e277da322b5492d4}{PlayerDeath}}\ \{}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_player_death_abe824267cf656f48e75b45350a2669c5}{id}};\ }
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \mbox{\hyperlink{structparser_1_1_player_death_a001f075c285d3ac7e277da322b5492d4}{PlayerDeath}}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id})\ :\ \mbox{\hyperlink{structparser_1_1_player_death_abe824267cf656f48e75b45350a2669c5}{id}}(\mbox{\hyperlink{structparser_1_1_player_death_abe824267cf656f48e75b45350a2669c5}{id}})\ \{\}}
+\DoxyCodeLine{00130\ \ \ \};}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00135\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structparser_1_1_incantation_ae81566dbfd2cd7bc2c0a8bc8b2c117ae}{Incantation}}\ \{}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_incantation_a6b09d2a2c4c915e2c547b71546f2c8c5}{x}};\ }
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_incantation_a99613dfefda364ba9ed08d133d0ba88f}{y}};\ }
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_incantation_ad2abdf710dc2af422b8f4a7f352b758d}{level}};\ }
+\DoxyCodeLine{00139\ \ \ \ \ \ \ std::vector<int>\ \mbox{\hyperlink{structparser_1_1_incantation_a83c486ce361fb48f2414a68403c05b76}{playersNumber}};\ }
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \mbox{\hyperlink{structparser_1_1_incantation_ae81566dbfd2cd7bc2c0a8bc8b2c117ae}{Incantation}}(\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_incantation_a6b09d2a2c4c915e2c547b71546f2c8c5}{x}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_incantation_a99613dfefda364ba9ed08d133d0ba88f}{y}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_incantation_ad2abdf710dc2af422b8f4a7f352b758d}{level}},\ \textcolor{keyword}{const}\ std::vector<int>\&\ players)}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{structparser_1_1_incantation_a6b09d2a2c4c915e2c547b71546f2c8c5}{x}}(\mbox{\hyperlink{structparser_1_1_incantation_a6b09d2a2c4c915e2c547b71546f2c8c5}{x}}),\ \mbox{\hyperlink{structparser_1_1_incantation_a99613dfefda364ba9ed08d133d0ba88f}{y}}(\mbox{\hyperlink{structparser_1_1_incantation_a99613dfefda364ba9ed08d133d0ba88f}{y}}),\ \mbox{\hyperlink{structparser_1_1_incantation_ad2abdf710dc2af422b8f4a7f352b758d}{level}}(\mbox{\hyperlink{structparser_1_1_incantation_ad2abdf710dc2af422b8f4a7f352b758d}{level}}),\ \mbox{\hyperlink{structparser_1_1_incantation_a83c486ce361fb48f2414a68403c05b76}{playersNumber}}(players)\ \{\}}
+\DoxyCodeLine{00142\ \ \ \};}
+\DoxyCodeLine{00143\ }
+\DoxyCodeLine{00147\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structparser_1_1_incantation_end_a3e74ec019baa713715518f1ff2456144}{IncantationEnd}}\ \{}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_incantation_end_a590170471ee070d096b784464423e962}{x}};\ }
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_incantation_end_add79bbd3239756fccc278c17e39e954a}{y}};\ }
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structparser_1_1_incantation_end_a9ec753cb8f32effe5a19a3a1c2721875}{success}};\ }
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \mbox{\hyperlink{structparser_1_1_incantation_end_a3e74ec019baa713715518f1ff2456144}{IncantationEnd}}(\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_incantation_end_a590170471ee070d096b784464423e962}{x}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_incantation_end_add79bbd3239756fccc278c17e39e954a}{y}},\ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{structparser_1_1_incantation_end_a9ec753cb8f32effe5a19a3a1c2721875}{success}})}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{structparser_1_1_incantation_end_a590170471ee070d096b784464423e962}{x}}(\mbox{\hyperlink{structparser_1_1_incantation_end_a590170471ee070d096b784464423e962}{x}}),\ \mbox{\hyperlink{structparser_1_1_incantation_end_add79bbd3239756fccc278c17e39e954a}{y}}(\mbox{\hyperlink{structparser_1_1_incantation_end_add79bbd3239756fccc278c17e39e954a}{y}}),\ \mbox{\hyperlink{structparser_1_1_incantation_end_a9ec753cb8f32effe5a19a3a1c2721875}{success}}(\mbox{\hyperlink{structparser_1_1_incantation_end_a9ec753cb8f32effe5a19a3a1c2721875}{success}})\ \{\}}
+\DoxyCodeLine{00153\ \ \ \};}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00158\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structparser_1_1_fork_event_a4a398e85900e76a72f5cf459be5f2f3e}{ForkEvent}}\ \{}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_fork_event_ac0aa9f313d2cfbd2f84591fc043cfd9e}{playerID}};\ }
+\DoxyCodeLine{00160\ \ \ \ \ \ \ \mbox{\hyperlink{structparser_1_1_fork_event_a4a398e85900e76a72f5cf459be5f2f3e}{ForkEvent}}(\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_fork_event_ac0aa9f313d2cfbd2f84591fc043cfd9e}{playerID}})\ :\ \mbox{\hyperlink{structparser_1_1_fork_event_ac0aa9f313d2cfbd2f84591fc043cfd9e}{playerID}}(\mbox{\hyperlink{structparser_1_1_fork_event_ac0aa9f313d2cfbd2f84591fc043cfd9e}{playerID}})\ \{\}}
+\DoxyCodeLine{00161\ \ \ \};}
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00166\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structparser_1_1_drop_resource_acc0509c3fa2765d63e88115fe97f6426}{DropResource}}\ \{}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_drop_resource_afe622132ab7b923261465eb6f5518f47}{playerID}};\ }
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_drop_resource_a6ad3cffb79f6be1c47e2ed72d074d76a}{resourceNumber}};\ }
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \mbox{\hyperlink{structparser_1_1_drop_resource_acc0509c3fa2765d63e88115fe97f6426}{DropResource}}(\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_drop_resource_afe622132ab7b923261465eb6f5518f47}{playerID}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_drop_resource_a6ad3cffb79f6be1c47e2ed72d074d76a}{resourceNumber}})}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{structparser_1_1_drop_resource_afe622132ab7b923261465eb6f5518f47}{playerID}}(\mbox{\hyperlink{structparser_1_1_drop_resource_afe622132ab7b923261465eb6f5518f47}{playerID}}),\ \mbox{\hyperlink{structparser_1_1_drop_resource_a6ad3cffb79f6be1c47e2ed72d074d76a}{resourceNumber}}(\mbox{\hyperlink{structparser_1_1_drop_resource_a6ad3cffb79f6be1c47e2ed72d074d76a}{resourceNumber}})\ \{\}}
+\DoxyCodeLine{00171\ \ \ \};}
+\DoxyCodeLine{00172\ }
+\DoxyCodeLine{00176\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structparser_1_1_collect_resource_ae08c9756fed599ee2a2e782c2d4e63af}{CollectResource}}\ \{}
+\DoxyCodeLine{00177\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_collect_resource_a1845c2c0dea29b99545c26ee255d1909}{playerID}};\ }
+\DoxyCodeLine{00178\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_collect_resource_adb8c7d47aaf860d61cd222ead6f484f8}{resourceNumber}};\ }
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \mbox{\hyperlink{structparser_1_1_collect_resource_ae08c9756fed599ee2a2e782c2d4e63af}{CollectResource}}(\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_collect_resource_a1845c2c0dea29b99545c26ee255d1909}{playerID}},\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_collect_resource_adb8c7d47aaf860d61cd222ead6f484f8}{resourceNumber}})}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{structparser_1_1_collect_resource_a1845c2c0dea29b99545c26ee255d1909}{playerID}}(\mbox{\hyperlink{structparser_1_1_collect_resource_a1845c2c0dea29b99545c26ee255d1909}{playerID}}),\ \mbox{\hyperlink{structparser_1_1_collect_resource_adb8c7d47aaf860d61cd222ead6f484f8}{resourceNumber}}(\mbox{\hyperlink{structparser_1_1_collect_resource_adb8c7d47aaf860d61cd222ead6f484f8}{resourceNumber}})\ \{\}}
+\DoxyCodeLine{00181\ \ \ \};}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00186\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structparser_1_1_player_expulsion_a756871b2ff00b4349e23c28cb65a78c2}{PlayerExpulsion}}\ \{}
+\DoxyCodeLine{00187\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_player_expulsion_a9c2843b5279beabc4c2003aa2dc31998}{playerID}};\ }
+\DoxyCodeLine{00188\ \ \ \ \ \ \ \mbox{\hyperlink{structparser_1_1_player_expulsion_a756871b2ff00b4349e23c28cb65a78c2}{PlayerExpulsion}}(\textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_player_expulsion_a9c2843b5279beabc4c2003aa2dc31998}{playerID}})\ :\ \mbox{\hyperlink{structparser_1_1_player_expulsion_a9c2843b5279beabc4c2003aa2dc31998}{playerID}}(\mbox{\hyperlink{structparser_1_1_player_expulsion_a9c2843b5279beabc4c2003aa2dc31998}{playerID}})\ \{\}}
+\DoxyCodeLine{00189\ \ \ \};}
+\DoxyCodeLine{00190\ }
+\DoxyCodeLine{00194\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structparser_1_1_broadcast_event_acabd0f97a6f5e13b562ee67a581864b5}{BroadcastEvent}}\ \{}
+\DoxyCodeLine{00195\ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structparser_1_1_broadcast_event_adc1a9e23db1d4255230da3ff1ff7a9e1}{playerID}};\ }
+\DoxyCodeLine{00196\ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{structparser_1_1_broadcast_event_ad6d71ff6c06453e32af5c00396c5d44e}{message}};\ }
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \mbox{\hyperlink{structparser_1_1_broadcast_event_acabd0f97a6f5e13b562ee67a581864b5}{BroadcastEvent}}(\textcolor{keywordtype}{int}\ \textcolor{keywordtype}{id},\ \textcolor{keyword}{const}\ std::string\&\ msg)}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ :\ \mbox{\hyperlink{structparser_1_1_broadcast_event_adc1a9e23db1d4255230da3ff1ff7a9e1}{playerID}}(id),\ \mbox{\hyperlink{structparser_1_1_broadcast_event_ad6d71ff6c06453e32af5c00396c5d44e}{message}}(msg)\ \{\}}
+\DoxyCodeLine{00199\ \ \ \};}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00204\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structparser_1_1_server_message_event_aa657b2dcb28e7416bc8d54f3202e0827}{ServerMessageEvent}}\ \{}
+\DoxyCodeLine{00205\ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{structparser_1_1_server_message_event_a1fa154655c5b0fa5682aac90ef1b3192}{message}};\ }
+\DoxyCodeLine{00206\ \ \ \ \ \ \ \mbox{\hyperlink{structparser_1_1_server_message_event_aa657b2dcb28e7416bc8d54f3202e0827}{ServerMessageEvent}}(\textcolor{keyword}{const}\ std::string\&\ msg)\ :\ \mbox{\hyperlink{structparser_1_1_server_message_event_a1fa154655c5b0fa5682aac90ef1b3192}{message}}(msg)\ \{\}}
+\DoxyCodeLine{00207\ \ \ \};}
+\DoxyCodeLine{00208\ }
+\DoxyCodeLine{00212\ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structparser_1_1_game_over_event_a442fb06ff6d761e7d56aa9c12da878e1}{GameOverEvent}}\ \{}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ std::string\ \mbox{\hyperlink{structparser_1_1_game_over_event_a1d2b35f25c0e58c12c88037e4e9d8669}{winningTeamName}};\ }
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \mbox{\hyperlink{structparser_1_1_game_over_event_a442fb06ff6d761e7d56aa9c12da878e1}{GameOverEvent}}(\textcolor{keyword}{const}\ std::string\&\ name)\ :\ \mbox{\hyperlink{structparser_1_1_game_over_event_a1d2b35f25c0e58c12c88037e4e9d8669}{winningTeamName}}(name)\ \{\}}
+\DoxyCodeLine{00215\ \ \ \};}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00220\ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{classparser_1_1_command_parser_a64116173fb80529ab76aaa868523a4be}{CommandParser}}\ \{}
+\DoxyCodeLine{00221\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00222\ \ \ \ \ \ \ \mbox{\hyperlink{classparser_1_1_command_parser_a64116173fb80529ab76aaa868523a4be}{CommandParser}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00223\ \ \ \ \ \ \ \mbox{\hyperlink{classparser_1_1_command_parser_ae16337693ea246ef55ad92df2dbef7f9}{\string~CommandParser}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00230\ \ \ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{structparser_1_1_map_size}{MapSize}}\ \mbox{\hyperlink{classparser_1_1_command_parser_a28e45ba0f83a3336305cbc74d3140400}{parseMsz}}(\textcolor{keyword}{const}\ std::string\&\ command);}
+\DoxyCodeLine{00236\ \ \ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{structparser_1_1_time_unit}{TimeUnit}}\ \mbox{\hyperlink{classparser_1_1_command_parser_a8f646f690ce196808b6aa6e1a3968d2e}{parseSgt}}(\textcolor{keyword}{const}\ std::string\&\ command);}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{structparser_1_1_team_names}{TeamNames}}\ \mbox{\hyperlink{classparser_1_1_command_parser_ad588f647481cf414481b1a18e857ae48}{parseTna}}(\textcolor{keyword}{const}\ std::string\&\ command);}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{structparser_1_1_tile_update}{TileUpdate}}\ \mbox{\hyperlink{classparser_1_1_command_parser_ab8fadb774922eb1efca06a9a09343cf3}{parseBct}}(\textcolor{keyword}{const}\ std::string\&\ command);}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{structparser_1_1_player_info}{PlayerInfo}}\ \mbox{\hyperlink{classparser_1_1_command_parser_a26b6d09de8578114b75ebcb3615b1866}{parsePnw}}(\textcolor{keyword}{const}\ std::string\&\ command);}
+\DoxyCodeLine{00260\ \ \ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{structparser_1_1_player_position_update}{PlayerPositionUpdate}}\ \mbox{\hyperlink{classparser_1_1_command_parser_a6e4969f8f455b1ccd13b3f346a268672}{parsePpo}}(\textcolor{keyword}{const}\ std::string\&\ command);}
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{structparser_1_1_player_level_update}{PlayerLevelUpdate}}\ \mbox{\hyperlink{classparser_1_1_command_parser_a5df1c3d98c397f0e6f38e1bd348d260a}{parsePlv}}(\textcolor{keyword}{const}\ std::string\&\ command);}
+\DoxyCodeLine{00272\ \ \ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{structparser_1_1_player_inventory}{PlayerInventory}}\ \mbox{\hyperlink{classparser_1_1_command_parser_a5acef12830fb5d6c962311cfb1972881}{parsePin}}(\textcolor{keyword}{const}\ std::string\&\ command);}
+\DoxyCodeLine{00278\ \ \ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{structparser_1_1_egg_laid}{EggLaid}}\ \mbox{\hyperlink{classparser_1_1_command_parser_a66aa47410014efecc2d2026692e4e87b}{parseEnw}}(\textcolor{keyword}{const}\ std::string\&\ command);}
+\DoxyCodeLine{00284\ \ \ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{structparser_1_1_egg_hatch}{EggHatch}}\ \mbox{\hyperlink{classparser_1_1_command_parser_ae9a902944f5a76a7511f7a778c442a39}{parseEbo}}(\textcolor{keyword}{const}\ std::string\&\ command);}
+\DoxyCodeLine{00290\ \ \ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{structparser_1_1_egg_death}{EggDeath}}\ \mbox{\hyperlink{classparser_1_1_command_parser_a6663745e00db7f5233982f303c1c4ebc}{parseEdi}}(\textcolor{keyword}{const}\ std::string\&\ command);}
+\DoxyCodeLine{00296\ \ \ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{structparser_1_1_player_death}{PlayerDeath}}\ \mbox{\hyperlink{classparser_1_1_command_parser_a37c1084dfafec3268f75a627cfe1b706}{parsePdi}}(\textcolor{keyword}{const}\ std::string\&\ command);}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{structparser_1_1_incantation}{Incantation}}\ \mbox{\hyperlink{classparser_1_1_command_parser_a25cff618721619419a2f5c173e87fd06}{parsePic}}(\textcolor{keyword}{const}\ std::string\&\ command);}
+\DoxyCodeLine{00308\ \ \ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{structparser_1_1_incantation_end}{IncantationEnd}}\ \mbox{\hyperlink{classparser_1_1_command_parser_a0411e9f674a7bfefd02475a41f85d8d1}{parsePie}}(\textcolor{keyword}{const}\ std::string\&\ command);}
+\DoxyCodeLine{00314\ \ \ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{structparser_1_1_fork_event}{ForkEvent}}\ \mbox{\hyperlink{classparser_1_1_command_parser_a6b851505aa40198a1b64de377a8b3848}{parsePfk}}(\textcolor{keyword}{const}\ std::string\&\ command);}
+\DoxyCodeLine{00320\ \ \ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{structparser_1_1_drop_resource}{DropResource}}\ \mbox{\hyperlink{classparser_1_1_command_parser_a60576cae9cd4965b14585593200396ac}{parsePdr}}(\textcolor{keyword}{const}\ std::string\&\ command);}
+\DoxyCodeLine{00326\ \ \ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{structparser_1_1_collect_resource}{CollectResource}}\ \mbox{\hyperlink{classparser_1_1_command_parser_a080d1fa6677f31bd2b8633c69ebd8eb2}{parsePgt}}(\textcolor{keyword}{const}\ std::string\&\ command);}
+\DoxyCodeLine{00332\ \ \ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{structparser_1_1_player_expulsion}{PlayerExpulsion}}\ \mbox{\hyperlink{classparser_1_1_command_parser_ad2b1b2d8f4434afbef11f7e28bebd820}{parsePex}}(\textcolor{keyword}{const}\ std::string\&\ command);}
+\DoxyCodeLine{00338\ \ \ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{structparser_1_1_broadcast_event}{BroadcastEvent}}\ \mbox{\hyperlink{classparser_1_1_command_parser_a7b403ef1242ac603a7683f9904fea639}{parsePbc}}(\textcolor{keyword}{const}\ std::string\&\ command);}
+\DoxyCodeLine{00344\ \ \ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{structparser_1_1_server_message_event}{ServerMessageEvent}}\ \mbox{\hyperlink{classparser_1_1_command_parser_a623d344d431c207a48e1cdca11d03e6d}{parseSmg}}(\textcolor{keyword}{const}\ std::string\&\ command);}
+\DoxyCodeLine{00350\ \ \ \ \ \ \ \textcolor{keyword}{static}\ \mbox{\hyperlink{structparser_1_1_game_over_event}{GameOverEvent}}\ \mbox{\hyperlink{classparser_1_1_command_parser_a532ab4eb23bc287f3a24b2d10da33f8f}{parseSeg}}(\textcolor{keyword}{const}\ std::string\&\ command);}
+\DoxyCodeLine{00351\ }
+\DoxyCodeLine{00352\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00353\ \ \ \};}
+\DoxyCodeLine{00354\ \}\ \ \textcolor{comment}{//\ namespace\ parser}}
+
+\end{DoxyCode}

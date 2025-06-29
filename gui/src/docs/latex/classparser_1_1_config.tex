@@ -1,0 +1,105 @@
+\doxysection{parser\+::Config Class Reference}
+\hypertarget{classparser_1_1_config}{}\label{classparser_1_1_config}\index{parser::Config@{parser::Config}}
+
+
+Configuration class for parsing and storing command-\/line arguments for the Zappy GUI.  
+
+
+
+
+{\ttfamily \#include $<$Args\+Parser.\+hpp$>$}
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classparser_1_1_config_a6e8f68487298b24ec67b4ed723d687c6}{parse}} (int argc, char \texorpdfstring{$\ast$}{*}argv\mbox{[}$\,$\mbox{]})
+\begin{DoxyCompactList}\small\item\em Parses command-\/line arguments and stores the port and host options. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classparser_1_1_config_acea26c305e34f2276e2c12c40d3372a6}{display\+Help}} () const
+\begin{DoxyCompactList}\small\item\em Displays help information for the Zappy GUI command-\/line arguments. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classparser_1_1_config_a99addbe17c7d7d1bf2bd859656a04b29}{get\+OptionP}} () const
+\begin{DoxyCompactList}\small\item\em Gets the port option value as a string. \end{DoxyCompactList}\item 
+std\+::string \mbox{\hyperlink{classparser_1_1_config_a9d91f58416af35404cdc0d61c13525eb}{get\+OptionH}} () const
+\begin{DoxyCompactList}\small\item\em Gets the host option value as a string. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Configuration class for parsing and storing command-\/line arguments for the Zappy GUI. 
+
+\label{doc-func-members}
+\Hypertarget{classparser_1_1_config_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classparser_1_1_config_acea26c305e34f2276e2c12c40d3372a6}\index{parser::Config@{parser::Config}!displayHelp@{displayHelp}}
+\index{displayHelp@{displayHelp}!parser::Config@{parser::Config}}
+\doxysubsubsection{\texorpdfstring{displayHelp()}{displayHelp()}}
+{\footnotesize\ttfamily \label{classparser_1_1_config_acea26c305e34f2276e2c12c40d3372a6} 
+void parser\+::\+Config\+::display\+Help (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Displays help information for the Zappy GUI command-\/line arguments. 
+
+\Hypertarget{classparser_1_1_config_a9d91f58416af35404cdc0d61c13525eb}\index{parser::Config@{parser::Config}!getOptionH@{getOptionH}}
+\index{getOptionH@{getOptionH}!parser::Config@{parser::Config}}
+\doxysubsubsection{\texorpdfstring{getOptionH()}{getOptionH()}}
+{\footnotesize\ttfamily \label{classparser_1_1_config_a9d91f58416af35404cdc0d61c13525eb} 
+std\+::string parser\+::\+Config\+::get\+OptionH (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Gets the host option value as a string. 
+
+\begin{DoxyReturn}{Returns}
+The host value provided by the user. 
+\end{DoxyReturn}
+\Hypertarget{classparser_1_1_config_a99addbe17c7d7d1bf2bd859656a04b29}\index{parser::Config@{parser::Config}!getOptionP@{getOptionP}}
+\index{getOptionP@{getOptionP}!parser::Config@{parser::Config}}
+\doxysubsubsection{\texorpdfstring{getOptionP()}{getOptionP()}}
+{\footnotesize\ttfamily \label{classparser_1_1_config_a99addbe17c7d7d1bf2bd859656a04b29} 
+std\+::string parser\+::\+Config\+::get\+OptionP (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const}
+
+
+
+Gets the port option value as a string. 
+
+\begin{DoxyReturn}{Returns}
+The port value provided by the user. 
+\end{DoxyReturn}
+\Hypertarget{classparser_1_1_config_a6e8f68487298b24ec67b4ed723d687c6}\index{parser::Config@{parser::Config}!parse@{parse}}
+\index{parse@{parse}!parser::Config@{parser::Config}}
+\doxysubsubsection{\texorpdfstring{parse()}{parse()}}
+{\footnotesize\ttfamily \label{classparser_1_1_config_a6e8f68487298b24ec67b4ed723d687c6} 
+void parser\+::\+Config\+::parse (\begin{DoxyParamCaption}\item[{int}]{argc}{, }\item[{char \texorpdfstring{$\ast$}{*}}]{argv}{\mbox{[}$\,$\mbox{]}}\end{DoxyParamCaption})}
+
+
+
+Parses command-\/line arguments and stores the port and host options. 
+
+Parses command-\/line arguments for the Zappy GUI application.
+
+
+\begin{DoxyParams}{Parameters}
+{\em argc} & Number of command-\/line arguments. \\
+\hline
+{\em argv} & Array of command-\/line argument strings. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em std\+::invalid\+\_\+argument} & or std\+::out\+\_\+of\+\_\+range on invalid input.\\
+\hline
+\end{DoxyExceptions}
+Expects exactly 4 arguments\+: -\/p $<$port$>$ -\/h $<$host$>$ (in any order). Throws std\+::invalid\+\_\+argument or std\+::out\+\_\+of\+\_\+range on invalid input.
+
+
+\begin{DoxyParams}{Parameters}
+{\em argc} & Number of command-\/line arguments. \\
+\hline
+{\em argv} & Array of command-\/line argument strings. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/parser/\mbox{\hyperlink{_args_parser_8hpp}{Args\+Parser.\+hpp}}\item 
+src/parser/\mbox{\hyperlink{_args_parser_8cpp}{Args\+Parser.\+cpp}}\end{DoxyCompactItemize}
