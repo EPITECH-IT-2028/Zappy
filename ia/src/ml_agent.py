@@ -1,3 +1,12 @@
+"""
+@file ml_agent.py
+@brief Machine Learning Agent for Zappy AI
+@author Epitech Project 2025
+@date 2025
+
+This module implements a machine learning agent for the Zappy AI game.
+"""
+
 import protocole
 import game
 import math
@@ -5,10 +14,33 @@ import random
 import utils
 
 def create_help_message(level, food_count):
+    """
+    @brief Creates a help message for incantation assistance
+    @param level: The current level of the player
+    @param food_count: The amount of food the player has
+    @return: A formatted help message string
+
+    @details This function generates a message that can be broadcasted to other players
+    to request assistance for an incantation. The message includes the player's current level
+    and the amount of food they have. The message format is standardized for easy recognition.
+    """
+
     return f"I_need_help_to_level_up_to_{level + 1}_with_{food_count}"
 
 
 def get_position(index, total_cells) -> tuple[int, int]:
+    """
+    @brief Calculates the (x, y) position in a spiral grid based on the index
+    @param index: The index of the cell in the spiral grid
+    @param total_cells: The total number of cells in the spiral grid
+    @return: A tuple (x, y) representing the position in the grid
+
+    @details This function computes the (x, y) coordinates of a cell in a spiral grid
+    based on its index. The grid is structured such that the center cell is (0, 0),
+    and the cells are arranged in concentric squares. The function iterates through
+    the spiral layers until it finds the correct position for the given index.
+    If the index is 0, it returns (0, 0) as the center of the grid.
+    """
     if index == 0:
         return (0, 0)
 
@@ -27,6 +59,20 @@ def get_position(index, total_cells) -> tuple[int, int]:
 
 
 def search_closest_resource(client, needed_resources):
+    """
+    @brief Searches for the closest resource in the client's vision data
+    @param client: The ZappyClient object containing the client's state
+    @param needed_resources: A dictionary of resources needed by the client
+    @return: A dictionary with the closest resource's position and name, or None if no resources are found
+
+    @details This function scans the client's vision data for resources that match
+    the names in the `needed_resources` dictionary. It calculates the distance of each
+    resource from the center of the vision grid (0, 0) and keeps track of the closest
+    resource found. The distance is calculated using the Euclidean formula.
+    If a resource is found, it returns a dictionary containing the x and y coordinates
+    of the resource and its name. If no resources are found, it returns None.
+    """
+
     vision_data = client.last_look
     closest_resource = None
     min_distance = float('inf')
@@ -50,6 +96,29 @@ def search_closest_resource(client, needed_resources):
 
 
 def get_action(client, needed_resources):
+    """
+    @brief Determines the next action for the client based on needed resources
+    @param client: The ZappyClient object containing the client's state
+    @param needed_resources: A dictionary of resources needed by the client
+    @return: A tuple containing the action to take and the resource name if applicable
+
+    @details This function decides the next action for the client based on the resources
+    it needs. It first searches for the closest resource that matches the needed resources.
+    If no resources are found, it checks if the client has reached the maximum number of
+    consecutive turns without finding a resource. If so, it resets the turn count and
+    sets the action to move forward. If the client has a last target direction, it checks
+    if the distance to that target is zero and decides to turn left or right accordingly.
+    If a resource is found, it checks the coordinates of the resource and decides whether
+    to move forward, turn left, or turn right based on the resource's position relative to the client.
+    If the resource is at the center (0, 0), it sets the action to take the resource.
+    If the resource is directly in front (0, y > 0), it moves forward. If the resource is to the right or left,
+    it updates the last target direction and sets the action to move forward.
+    If the resource is to the right (x > 0) or left (x < 0), it updates the last target direction and sets
+    the action to move forward, while also updating the distance to the target.
+    If the client has not reached the maximum consecutive turns, it increments the turn count and decides
+    to turn left or right randomly.
+    """
+
     closest_resources = search_closest_resource(client, needed_resources)
 
     if closest_resources is None:
@@ -113,6 +182,18 @@ def get_action(client, needed_resources):
 
 
 def get_resources(client, needed_resources):
+    """
+    @brief Executes the action to get resources based on the client's state
+    @param client: The ZappyClient object containing the client's state
+    @param needed_resources: A dictionary of resources needed by the client
+    @return: None
+
+    @details This function handle the action to take resources based on the client's state.
+    If the action is to take a resource, it executes the command to take that resource.
+    If the action is to move forward, it executes the command to move forward.
+    If the action is to turn left or right, it executes the corresponding command.
+    """
+
     action, arg = get_action(client, needed_resources)
 
     if action == utils.TAKE:
@@ -122,6 +203,20 @@ def get_resources(client, needed_resources):
 
 
 def analyze_vision(client):
+    """
+    @brief Analyzes the client's vision data to categorize cells
+    @param client: The ZappyClient object containing the client's state
+    @return: A dictionary with the total number of cells, food cells, and resource cells
+
+    @details This function processes the client's last look at the game world,
+    categorizing each cell into food or resources. It creates a dictionary that
+    contains the total number of cells, a list of food cells, and a list of resource cells.
+    Each cell is represented by its index, x and y coordinates, and its content.
+    The function iterates through the vision data, calculates the (x, y) position of each cell
+    using the `get_position` function, and checks if the cell contains food or resources.
+    The results are stored in a dictionary that is returned at the end.
+    """
+
     vision_data = client.last_look
     analyzed_vision = {
         'total_cells': len(vision_data),
@@ -148,6 +243,16 @@ def analyze_vision(client):
 
 
 def define_needed_resources(client):
+    """
+    @brief Defines the resources needed for the client's current level
+    @param client: The ZappyClient object containing the client's state
+    @return: A dictionary of resources needed by the client
+
+    @details This function checks the client's current level and returns a dictionary
+    containing the resources needed for that level. The resources are defined in a
+    predefined dictionary that maps levels to their required resources.
+    """
+
     needed = client.needed_resources
     inventory = client.inventory
     missing_resources = {}
@@ -162,6 +267,23 @@ def define_needed_resources(client):
 
 
 def verify_incantation(client, current_cell, needed_resources):
+    """
+    @brief Verifies if the client can perform an incantation
+    @param client: The ZappyClient object containing the client's state
+    @param current_cell: The current cell the client is in
+    @param needed_resources: A dictionary of resources needed by the client
+    @return: None
+
+    @details This function checks if the client can perform an incantation based on
+    the resources available in the current cell and the number of players present.
+    It first checks if the client has the required resources for incantation.
+    If the client is at level 1, it sets the required number of players to the minimum.
+    If the current cell does not have the needed resources or if the number of players
+    is less than the required number, it sets the client's incantation status to False
+    and waiting_for_help status to True. If the conditions are met, it sets the
+    client's incantation status to True and waiting_for_help status to False.
+    """
+
     required_players = utils.MAX_REQUIRED_PLAYERS
     count_players = current_cell.count("player")
 
@@ -182,6 +304,21 @@ def verify_incantation(client, current_cell, needed_resources):
 
 
 def setting_up_incantation(client, current_cell):
+    """
+    @brief Sets up the incantation for the client based on current cell resources
+    @param client: The ZappyClient object containing the client's state
+    @param current_cell: The current cell the client is in
+    @return: True if the incantation can be performed, False otherwise
+
+    @details This function checks if the current cell has the required resources for
+    incantation and if the number of players is sufficient. It iterates through
+    the valid resources and checks if the quantity in the current cell meets the
+    client's needed resources. If any resource is present, it sets the resource
+    in the client's inventory. If the current cell does not have enough resources
+    or if the number of players is less than the required number, it returns False.
+    If all conditions are met, it returns True, indicating that the incantation can be performed.
+    """
+
     valid_resources = ["linemate", "deraumere", "sibur", "mendiane", "phiras", "thystame"]
     count_players = current_cell.count("player")
     required_players = utils.MAX_REQUIRED_PLAYERS
@@ -207,6 +344,20 @@ def setting_up_incantation(client, current_cell):
 
 
 def get_action_from_broadcast(client, direction):
+    """
+    @brief Executes the action based on the direction received from a broadcast
+    @param client: The ZappyClient object containing the client's state
+    @param direction: The direction to move based on the broadcast
+    @return: None
+
+    @details This function interprets the direction received from a broadcast message
+    and executes the corresponding actions. It uses a predefined mapping of directions
+    to actions, where each direction corresponds to a list of actions to be executed.
+    The function checks the direction and executes the actions in the order specified
+    in the mapping. If the direction is not recognized, it defaults to an empty action list.
+    The actions include moving forward, turning left, or turning right.
+    """
+
     direction_actions = {
         0: [],
         1: [utils.FORWARD],
@@ -227,6 +378,24 @@ def get_action_from_broadcast(client, direction):
     client.help_direction = 0
 
 def strategy(client):
+    """
+    @brief Main strategy function for the Zappy AI client
+    @param client: The ZappyClient object containing the client's state
+    @return: None
+
+    @details This function implements the main strategy for the Zappy AI client.
+    It analyzes the client's vision data, defines the needed resources based on the
+    client's level, and manages the client's actions based on its current state.
+    The function first checks if the client is ready to start playing. If not, it waits
+    for the required number of players to start the game. If the client has enough food,
+    it attempts to gather resources or move around the game world. If the client is in a
+    critical state (low food), it prioritizes gathering food and resources. If the client
+    is ready to incant, it verifies if the conditions are met for performing an incantation.
+    If the client is waiting for help, it broadcasts a message to request assistance.
+    If the client is not in a critical state, it checks if it needs to gather resources
+    or food, and executes the appropriate actions based on the current cell's content.
+    """
+    
     vision_data = analyze_vision(client)
     needed = define_needed_resources(client)
     food_count = client.inventory.get("food", 0)
