@@ -100,17 +100,14 @@ void send_plv(server_t *server, client_t **incantators)
 
     for (int i = 0; incantators[i] != NULL; i++) {
         response = realloc(response, sizeof(char *) * (size + 1));
-        sprintf(level, "plv #%d %d\n", incantators[i]->data.id, incantators[i]->data.level);
+        sprintf(level, "plv #%d %d\n", incantators[i]->data.id,
+                incantators[i]->data.level);
         response[i] = strdup(level);
         response[i + 1] = NULL;
         size++;
     }
     for (int i = MIN_CLIENT; i < server->nfds; i++)
         for (int j = 0; response && response[j] != NULL; j++) {
-            if (server->clients[i] && server->clients[i]->fd > 0 &&
-                server->clients[i]->data.is_graphic &&
-                server->clients[i]->connected) {
-                send_level_to_gui(server, response[j]);
-            }
+            send_level_to_gui(server, response[j]);
         }
 }
