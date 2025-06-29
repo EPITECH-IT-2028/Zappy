@@ -997,4 +997,6 @@ int check_request(server_t *server, response_t *response, request_t *request);
  */
 void cleanup_old_actions(client_t *client);
 
+void send_plv(server_t *server, client_t **incantators);
+
 #endif /* SERVER_H_ */
