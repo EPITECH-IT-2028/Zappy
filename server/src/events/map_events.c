@@ -22,7 +22,8 @@ void send_bct(server_t *server, int x, int y)
         server->map[x][y].phiras,
         server->map[x][y].thystame);
     for (int i = 1; i < server->nfds; i++) {
-        if (server->clients[i] != NULL && server->clients[i]->data.is_graphic) {
+        if (server->clients[i] != NULL &&
+            server->clients[i]->data.is_graphic) {
             send_code(server->clients[i]->fd, response);
         }
     }

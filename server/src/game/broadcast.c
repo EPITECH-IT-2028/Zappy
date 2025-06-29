@@ -199,19 +199,13 @@ int handle_broadcast(server_t *server, response_t *response,
 
     if (!client || client->data.is_graphic ||
         !server || !response || !request) {
-        send_pbc(server, client, 
-            "1: Broadcast: You are not allowed to broadcast\n");
         return ERROR;
     }
     broadcast = get_text_in_commands(request->request, WORD_BROADCAST_LENGTH);
     if (!broadcast) {
-        send_pbc(server, client,
-            "2: Broadcast: You are not allowed to broadcast\n");
         return ERROR;
     }
     if (client_broadcast_sound(server, request, broadcast) == ERROR) {
-        send_pbc(server, client,
-            "3: Broadcast: You are not allowed to broadcast\n");
         free(broadcast);
         return ERROR;
     }

@@ -76,10 +76,9 @@ void remove_player(server_t *server, int index)
 static
 void append_to_client_buffer(client_t *client, char *buffer, int bytes)
 {
-    char *client_buffer = client->buffer;
     char *new_buffer = NULL;
 
-    if (client_buffer == NULL) {
+    if (client->buffer == NULL) {
         client->buffer = malloc(bytes + 1);
         if (client->buffer == NULL)
             return;
@@ -87,10 +86,13 @@ void append_to_client_buffer(client_t *client, char *buffer, int bytes)
         client->buffer[bytes] = '\0';
         return;
     }
-    new_buffer = realloc(client_buffer, sizeof(char)
-        * (strlen(client_buffer) + bytes + 1));
-    if (new_buffer == NULL)
+    new_buffer = realloc(client->buffer, sizeof(char)
+        * (strlen(client->buffer) + bytes + 1));
+    if (new_buffer == NULL) {
+        free(client->buffer);
+        client->buffer = NULL;
         return;
+    }
     client->buffer = new_buffer;
     memcpy(client->buffer + strlen(client->buffer), buffer, bytes);
     client->buffer[strlen(client->buffer) + bytes] = '\0';
