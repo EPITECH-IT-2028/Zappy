@@ -62,8 +62,8 @@ def get_action(client, needed_resources):
                 client.move["consecutive_turns"] += 1
                 return utils.RIGHT, None
             else:
-                client.move["consecutive_turns"] = 0
-                return utils.FORWARD, None
+                client.move["consecutive_turns"] += 1
+                return utils.LEFT, None
 
     x, y = closest_resources["x"], closest_resources["y"]
     resources_name = closest_resources["resource_name"]
@@ -175,8 +175,6 @@ def verify_incantation(client, current_cell, needed_resources):
     if count_players < required_players:
         client.incantation = False
         client.waiting_for_help = True
-        # protocole.execute_command(client, utils.BROADCAST,
-        #                           create_help_message(client.level, client.inventory.get("food", 0)))
         return
 
     client.waiting_for_help = False

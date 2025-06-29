@@ -1,7 +1,6 @@
 import socket
 import game
 import ml_agent
-import random
 import message as msg
 import time
 import utils
@@ -105,7 +104,8 @@ def handle_Broadcast(client, response) -> None:
             return
         if client.waiting_for_help and food > int(client.inventory.get("food", 0)):
             client.waiting_for_help = False
-        if target_level == client.level + 1:
+            execute_command(client, utils.LOOK, None)
+        if target_level == client.level + 1 and not client.waiting_for_help:
             client.help_status = True
             client.help_direction = direction
             return
@@ -167,19 +167,16 @@ def execute_command(client, command, args) -> None:
 
     if command not in allowed_commands:
         raise ValueError(f"Command '{command}' non autorisée")
+    if (command == utils.LOOK and len(client.commands) > 0 and client.commands[-1] == utils.LOOK):
+        return
     if len(client.commands) < utils.MAX_COMMANDS:
         client.commands.append(command)
     else:
         return
     if command == utils.BROADCAST:
         send_message(client, f"{command} {msg.encrypt(args)}")
-        print(f"Broadcast sent: {msg.encrypt(args)}")
     elif command == utils.SET or command == utils.TAKE:
         send_message(client, f"{command} {args}")
-    elif command == utils.FORWARD:
-        if client.last_look[utils.PLAYER_CELL].count("player") > utils.CANT_MOVE and client.help_status:
-            return
-        send_message(client, command)
     else:
         send_message(client, command)
 
