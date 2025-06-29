@@ -16,7 +16,7 @@ int add_player_to_group(client_data_t *client, client_t *player,
     client_t **new_group = NULL;
 
     new_group = realloc(client->incantation.client_group,
-        sizeof(client_t *) * (*nbr_of_incantators + 1));
+        sizeof(client_t *) * (*nbr_of_incantators + 2));
     if (!new_group)
         return ERROR;
     client->incantation.client_group = new_group;
@@ -61,14 +61,11 @@ uint8_t build_incantation_group(client_t *main_client, map_t *unit_space)
     uint8_t nbr_of_incantators = 0;
     client_data_t *client = &main_client->data;
 
-    client->incantation.client_group = malloc(sizeof(client_t *));
+    client->incantation.client_group = malloc(sizeof(client_t *) * 2);
     if (!client->incantation.client_group)
         return ERROR;
     client->incantation.client_group[nbr_of_incantators] = main_client;
     nbr_of_incantators += 1;
-    client->incantation.client_group = realloc(
-        client->incantation.client_group,
-        sizeof(client_t *) * (nbr_of_incantators + 1));
     if (init_client_group(main_client, unit_space, &nbr_of_incantators)
         == ERROR) {
         return ERROR;

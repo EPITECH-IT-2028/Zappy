@@ -137,6 +137,7 @@ void *game(void *arg)
     while (server->running) {
         process_all_clients(server);
         check_time_events(server);
+        check_victory(server);
         sleep_time(server);
     }
     return NULL;

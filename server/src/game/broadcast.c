@@ -12,7 +12,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
 /**
  * @brief Calculates the shortest distance between two coordinates
  * on a wrapped map
@@ -44,6 +43,34 @@ int calculate_shortest_distance_component(int coord1, int coord2, int map_size)
 }
 
 /**
+ * @brief Calculates the player's rotation based on their direction
+ *
+ * This function sets the player's rotation angle based on their current
+ * direction (UP, RIGHT, DOWN, LEFT).
+ *
+ * @param client Client data containing the player's direction
+ * @param player_rotation Pointer to store the calculated rotation angle
+ */
+static
+void calculate_direction_tile_test(const client_data_t *client, double *player_rotation)
+{
+    switch (client->direction) {
+        case UP:
+            *player_rotation = 270;
+            break;
+        case RIGHT:
+            *player_rotation = 0;
+            break;
+        case DOWN:
+            *player_rotation = 90;
+            break;
+        case LEFT:
+            *player_rotation = 180;
+            break;
+    }
+}
+
+/**
  * @brief Calculates the direction tile (1-8) for a broadcast message
  *
  * This function determines which direction tile to send to a client
@@ -58,26 +85,27 @@ int calculate_shortest_distance_component(int coord1, int coord2, int map_size)
  *         - 1-8: direction tiles around emitter
  */
 static
-int calcalute_direction_tile(server_t *server, const client_data_t *emitter,
+int calculate_direction_tile(server_t *server, const client_data_t *emitter,
     const client_data_t *client)
 {
     int dx = 0;
     int dy = 0;
     double angle_deg = 0;
     int tile = 0;
+    double player_rotation = 0;
 
     if (client->x == emitter->x && client->y == emitter->y) {
         return 0;
     }
     dx = calculate_shortest_distance_component(emitter->x, client->x,
         server->params.width);
-    dy = -calculate_shortest_distance_component(emitter->y, client->y,
+    dy = calculate_shortest_distance_component(emitter->y, client->y,
         server->params.height);
     angle_deg = atan2(dy, dx) * HALF_CIRCLE_DEG / M_PI;
     if (angle_deg < 0)
         angle_deg += FULL_CIRCLE_DEG;
-    angle_deg = fmod(QUARTER_CIRCLE_DEG - angle_deg + FULL_CIRCLE_DEG,
-        FULL_CIRCLE_DEG);
+    calculate_direction_tile_test(client, &player_rotation);
+    angle_deg = fmod(angle_deg + HALF_CIRCLE_DEG - player_rotation + FULL_CIRCLE_DEG, FULL_CIRCLE_DEG);
     tile = ((int)((angle_deg + DIRECTION_TOLERANCE)
         / DEGREES_PER_DIRECTION) % NUM_DIRECTIONS) + 1;
     return tile;
@@ -113,7 +141,7 @@ void transmit_sound(server_t *server, client_t *emitter,
             results[i].received = false;
             continue;
         }
-        results[i].direction_tile = calcalute_direction_tile(server,
+        results[i].direction_tile = calculate_direction_tile(server,
             &emitter->data, &client->data);
         results[i].received = true;
     }
