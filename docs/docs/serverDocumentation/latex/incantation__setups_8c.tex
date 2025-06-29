@@ -1,0 +1,112 @@
+\doxysection{/home/arthur/\+Tek2/\+Project/\+Zappy/server/src/game/incantation/incantation\+\_\+setups.c File Reference}
+\hypertarget{incantation__setups_8c}{}\label{incantation__setups_8c}\index{/home/arthur/Tek2/Project/Zappy/server/src/game/incantation/incantation\_setups.c@{/home/arthur/Tek2/Project/Zappy/server/src/game/incantation/incantation\_setups.c}}
+{\ttfamily \#include "{}server.\+h"{}}\newline
+{\ttfamily \#include $<$stdint.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+Include dependency graph for incantation\+\_\+setups.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{incantation__setups_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{incantation__setups_8c_aaf86aefcf24f87d095170070c9bba933}{build\+\_\+incantation\+\_\+group}} (\mbox{\hyperlink{server_8h_a7bfebc8e763f36d1870198931d6b5eb1}{client\+\_\+t}} \texorpdfstring{$\ast$}{*}main\+\_\+client, \mbox{\hyperlink{server_8h_ae80c6c8b9f9e5f88c65337bb1cd2eb65}{map\+\_\+t}} \texorpdfstring{$\ast$}{*}unit\+\_\+space)
+\begin{DoxyCompactList}\small\item\em Build complete incantation group with matching level players. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{incantation__setups_8c_a22c1e6488adb37839a82248c267ad162}{setup\+\_\+main\+\_\+incantator}} (\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{server_8c_ab140ac62eb02ac9134b3120c0a6829e6}{server}}, \mbox{\hyperlink{server_8h_a21bca4ad2bc83c2b3f0fe45dce419625}{client\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}client)
+\begin{DoxyCompactList}\small\item\em Set up incantation data for the main incantator. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{incantation__setups_8c_ae8342685d9341b41c0d9d5dead598b44}{setup\+\_\+group\+\_\+members}} (\mbox{\hyperlink{server_8h_a21bca4ad2bc83c2b3f0fe45dce419625}{client\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}client, uint8\+\_\+t nbr\+\_\+of\+\_\+incantators)
+\begin{DoxyCompactList}\small\item\em Set up incantation data for all group members. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{incantation__setups_8c_a68b7a159abdb415cf03a1fc45d2c4800}{init\+\_\+incantation\+\_\+state}} (\mbox{\hyperlink{server_8h_ac5f01523ea966702dfffd50cbde62274}{incantation\+\_\+t}} \texorpdfstring{$\ast$}{*}inc)
+\begin{DoxyCompactList}\small\item\em Initialize incantation structure to default values. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{incantation__setups_8c_aaf86aefcf24f87d095170070c9bba933}\label{incantation__setups_8c_aaf86aefcf24f87d095170070c9bba933} 
+\index{incantation\_setups.c@{incantation\_setups.c}!build\_incantation\_group@{build\_incantation\_group}}
+\index{build\_incantation\_group@{build\_incantation\_group}!incantation\_setups.c@{incantation\_setups.c}}
+\doxysubsubsection{\texorpdfstring{build\_incantation\_group()}{build\_incantation\_group()}}
+{\footnotesize\ttfamily uint8\+\_\+t build\+\_\+incantation\+\_\+group (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_a7bfebc8e763f36d1870198931d6b5eb1}{client\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{main\+\_\+client,  }\item[{\mbox{\hyperlink{server_8h_ae80c6c8b9f9e5f88c65337bb1cd2eb65}{map\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{unit\+\_\+space }\end{DoxyParamCaption})}
+
+
+
+Build complete incantation group with matching level players. 
+
+Build group of clients for incantation.
+
+This function creates and populates an incantation group by finding all players on the same tile with the same level as the initiator.
+
+
+\begin{DoxyParams}{Parameters}
+{\em main\+\_\+client} & Pointer to the client initiating the incantation \\
+\hline
+{\em unit\+\_\+space} & Pointer to the map tile to search for players \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Number of players in the group, or ERROR on failure 
+\end{DoxyReturn}
+\Hypertarget{incantation__setups_8c_a68b7a159abdb415cf03a1fc45d2c4800}\label{incantation__setups_8c_a68b7a159abdb415cf03a1fc45d2c4800} 
+\index{incantation\_setups.c@{incantation\_setups.c}!init\_incantation\_state@{init\_incantation\_state}}
+\index{init\_incantation\_state@{init\_incantation\_state}!incantation\_setups.c@{incantation\_setups.c}}
+\doxysubsubsection{\texorpdfstring{init\_incantation\_state()}{init\_incantation\_state()}}
+{\footnotesize\ttfamily void init\+\_\+incantation\+\_\+state (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_ac5f01523ea966702dfffd50cbde62274}{incantation\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{inc }\end{DoxyParamCaption})}
+
+
+
+Initialize incantation structure to default values. 
+
+Initialize incantation state structure.
+
+This function resets all fields of an incantation structure to their default/initial state for clean initialization.
+
+
+\begin{DoxyParams}{Parameters}
+{\em inc} & Pointer to the incantation structure to initialize \\
+\hline
+\end{DoxyParams}
+\Hypertarget{incantation__setups_8c_ae8342685d9341b41c0d9d5dead598b44}\label{incantation__setups_8c_ae8342685d9341b41c0d9d5dead598b44} 
+\index{incantation\_setups.c@{incantation\_setups.c}!setup\_group\_members@{setup\_group\_members}}
+\index{setup\_group\_members@{setup\_group\_members}!incantation\_setups.c@{incantation\_setups.c}}
+\doxysubsubsection{\texorpdfstring{setup\_group\_members()}{setup\_group\_members()}}
+{\footnotesize\ttfamily void setup\+\_\+group\+\_\+members (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_a21bca4ad2bc83c2b3f0fe45dce419625}{client\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{client,  }\item[{uint8\+\_\+t}]{nbr\+\_\+of\+\_\+incantators }\end{DoxyParamCaption})}
+
+
+
+Set up incantation data for all group members. 
+
+Setup group members for incantation ceremony.
+
+This function initializes the incantation state for all members of the incantation group, synchronizing their incantation data.
+
+
+\begin{DoxyParams}{Parameters}
+{\em client} & Pointer to the main incantator\textquotesingle{}s client data \\
+\hline
+{\em nbr\+\_\+of\+\_\+incantators} & Number of players in the incantation group \\
+\hline
+\end{DoxyParams}
+\Hypertarget{incantation__setups_8c_a22c1e6488adb37839a82248c267ad162}\label{incantation__setups_8c_a22c1e6488adb37839a82248c267ad162} 
+\index{incantation\_setups.c@{incantation\_setups.c}!setup\_main\_incantator@{setup\_main\_incantator}}
+\index{setup\_main\_incantator@{setup\_main\_incantator}!incantation\_setups.c@{incantation\_setups.c}}
+\doxysubsubsection{\texorpdfstring{setup\_main\_incantator()}{setup\_main\_incantator()}}
+{\footnotesize\ttfamily void setup\+\_\+main\+\_\+incantator (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{server,  }\item[{\mbox{\hyperlink{server_8h_a21bca4ad2bc83c2b3f0fe45dce419625}{client\+\_\+data\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{client }\end{DoxyParamCaption})}
+
+
+
+Set up incantation data for the main incantator. 
+
+Setup main incantator for ceremony.
+
+This function initializes the incantation state for the client who initiated the incantation, setting position, timing, and flags.
+
+
+\begin{DoxyParams}{Parameters}
+{\em server} & Pointer to the server structure for timing calculations \\
+\hline
+{\em client} & Pointer to the main incantator\textquotesingle{}s client data \\
+\hline
+\end{DoxyParams}

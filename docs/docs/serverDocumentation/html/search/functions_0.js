@@ -1,0 +1,7 @@
+var searchData=
+[
+  ['add_5faction_5fto_5fclient_5fqueue_0',['add_action_to_client_queue',['../game_2queue_8c.html#a89fef84712653c585f1d73ccf0bb9d58',1,'add_action_to_client_queue(client_t *client, const char *command, server_t *server):&#160;queue.c'],['../server_8h.html#a89fef84712653c585f1d73ccf0bb9d58',1,'add_action_to_client_queue(client_t *client, const char *command, server_t *server):&#160;queue.c']]],
+  ['add_5fbuffer_5fto_5fresponse_1',['add_buffer_to_response',['../utils__buffer__management_8c.html#a98ea36b08826b397c843dac3b63935fa',1,'add_buffer_to_response(char *buffer, char ***response, int *index):&#160;utils_buffer_management.c'],['../server_8h.html#a98ea36b08826b397c843dac3b63935fa',1,'add_buffer_to_response(char *buffer, char ***response, int *index):&#160;utils_buffer_management.c']]],
+  ['add_5fplayer_5fmap_2',['add_player_map',['../utils__map_8c.html#a020b619ee725b90300c2909f92ce2987',1,'add_player_map(server_t *server, map_t **map, client_t *client):&#160;utils_map.c'],['../server_8h.html#a020b619ee725b90300c2909f92ce2987',1,'add_player_map(server_t *server, map_t **map, client_t *client):&#160;utils_map.c']]],
+  ['assign_5frandom_5fegg_5fposition_3',['assign_random_egg_position',['../egg_8c.html#a02a9b393e83d419fe8a31090f573e689',1,'assign_random_egg_position(server_t *server, client_t *client):&#160;egg.c'],['../server_8h.html#a02a9b393e83d419fe8a31090f573e689',1,'assign_random_egg_position(server_t *server, client_t *client):&#160;egg.c']]]
+];

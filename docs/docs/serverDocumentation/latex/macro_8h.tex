@@ -1,0 +1,456 @@
+\doxysection{/home/arthur/\+Tek2/\+Project/\+Zappy/server/include/macro.h File Reference}
+\hypertarget{macro_8h}{}\label{macro_8h}\index{/home/arthur/Tek2/Project/Zappy/server/include/macro.h@{/home/arthur/Tek2/Project/Zappy/server/include/macro.h}}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{macro_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{macro_8h_a4bc7220517e2c86c3ff674bd7a90a313}{NFDS\+\_\+\+REALLOC\+\_\+\+NUMBER}}~1
+\item 
+\#define \mbox{\hyperlink{macro_8h_a8fe83ac76edc595f6b98cd4a4127aed5}{ERROR}}~84
+\item 
+\#define \mbox{\hyperlink{macro_8h_aa90cac659d18e8ef6294c7ae337f6b58}{SUCCESS}}~0
+\item 
+\#define \mbox{\hyperlink{macro_8h_a2b389cf7afab6275c9341df7a7dcd18f}{MIN\+\_\+\+PARAMS}}~14
+\item 
+\#define \mbox{\hyperlink{macro_8h_af84752da4f94b833148a4191cc2003c5}{SERVER\+\_\+\+INDEX}}~0
+\item 
+\#define \mbox{\hyperlink{macro_8h_aea06aa299d379b6abab6308dd705f6b0}{REMOVE\+\_\+\+USELESS\+\_\+\+COMMA}}~1
+\item 
+\#define \mbox{\hyperlink{macro_8h_aee4957cfaf5640c7a69e8e201823a7cb}{MIN\+\_\+X}}~10
+\item 
+\#define \mbox{\hyperlink{macro_8h_aafcf7a22fac9162858c6f00742c6bad9}{MIN\+\_\+Y}}~10
+\item 
+\#define \mbox{\hyperlink{macro_8h_a9cb1bb16172ea94cf568303008c8d77d}{MIN\+\_\+\+CLIENT}}~1
+\item 
+\#define \mbox{\hyperlink{macro_8h_ab20d7e02b789f189dea035e2bffa672e}{GRAPHIC\+\_\+\+NAME}}~"{}GRAPHIC"{}
+\item 
+\#define \mbox{\hyperlink{macro_8h_a6b20d41d6252e9871430c242cb1a56e7}{BUFFER\+\_\+\+SIZE}}~2048
+\item 
+\#define \mbox{\hyperlink{macro_8h_a4b56a6f23e044affca38eed1834e98dc}{QUEUE\+\_\+\+MAX\+\_\+\+SIZE}}~200
+\item 
+\#define \mbox{\hyperlink{macro_8h_a2ea7d49e25f1af9eda8b1b9570212812}{MAX\+\_\+\+DIRECTION}}~4
+\item 
+\#define \mbox{\hyperlink{macro_8h_a2bcc79ad717d6083ee514e09fda03df8}{DEFAULT\+\_\+\+VISION\+\_\+\+DEPTH}}~2
+\item 
+\#define \mbox{\hyperlink{macro_8h_a3dfc89fd8ebd05bd8164f7e2240f3f0a}{ADDITIONAL\+\_\+\+VISION}}~1
+\item 
+\#define \mbox{\hyperlink{macro_8h_af30007c914905213063cc6cfaf44705d}{UNASSIGNED\+\_\+\+PLAYER\+\_\+\+ID}}~-\/1
+\item 
+\#define \mbox{\hyperlink{macro_8h_a5df38c677104658963501aa1e2a88e60}{NANOSECONDS\+\_\+\+PER\+\_\+\+SECOND}}~1000000000L
+\item 
+\#define \mbox{\hyperlink{macro_8h_aa99a2eccb5e8fc393cea9342ff1a77cd}{WORD\+\_\+\+BROADCAST\+\_\+\+LENGTH}}~(sizeof("{}Broadcast "{}) -\/ 1)
+\item 
+\#define \mbox{\hyperlink{macro_8h_a3b97be3980b6ae876afff389d23b16f0}{WORD\+\_\+\+TAKE\+\_\+\+LENGTH}}~(sizeof("{}Take "{}) -\/ 1)
+\item 
+\#define \mbox{\hyperlink{macro_8h_a19a89808c0481325b8bd9e08950ad14d}{WORD\+\_\+\+SET\+\_\+\+LENGTH}}~(sizeof("{}Set "{}) -\/ 1)
+\item 
+\#define \mbox{\hyperlink{macro_8h_a996f7be338ccb40d1a2a5abc1ad61759}{ABS}}(x)~(((x) $<$ 0) ? -\/ (x) \+: (x))
+\item 
+\#define \mbox{\hyperlink{macro_8h_a8679d9b49f6e85e449957aa49cc59a9f}{FULL\+\_\+\+CIRCLE\+\_\+\+DEG}}~360.\+0
+\item 
+\#define \mbox{\hyperlink{macro_8h_a330cba603adfb82662e602220915b083}{HALF\+\_\+\+CIRCLE\+\_\+\+DEG}}~180.\+0
+\item 
+\#define \mbox{\hyperlink{macro_8h_aec1495af064c53bda89f9e8127cd33ce}{QUARTER\+\_\+\+CIRCLE\+\_\+\+DEG}}~90.\+0
+\item 
+\#define \mbox{\hyperlink{macro_8h_a394b4d9597382758840287dd52c17292}{NUM\+\_\+\+DIRECTIONS}}~8
+\item 
+\#define \mbox{\hyperlink{macro_8h_a3f26034698dbedc5c2c15fd2ca332a0e}{DEGREES\+\_\+\+PER\+\_\+\+DIRECTION}}~(\mbox{\hyperlink{macro_8h_a8679d9b49f6e85e449957aa49cc59a9f}{FULL\+\_\+\+CIRCLE\+\_\+\+DEG}} / \mbox{\hyperlink{macro_8h_a394b4d9597382758840287dd52c17292}{NUM\+\_\+\+DIRECTIONS}})
+\item 
+\#define \mbox{\hyperlink{macro_8h_a2805809d1428a3b8d0678dd6aeaeec07}{DIRECTION\+\_\+\+TOLERANCE}}~(\mbox{\hyperlink{macro_8h_a3f26034698dbedc5c2c15fd2ca332a0e}{DEGREES\+\_\+\+PER\+\_\+\+DIRECTION}} / 2.\+0)
+\item 
+\#define \mbox{\hyperlink{macro_8h_af65d272fb4330ee8621abdad55357cbe}{ACTUAL\+\_\+\+PLAYER}}~1
+\item 
+\#define \mbox{\hyperlink{macro_8h_a8a6a4f093b0a5607216115540ed1fa23}{MAX\+\_\+\+REQUEST\+\_\+\+PER\+\_\+\+CLIENT}}~10
+\item 
+\#define \mbox{\hyperlink{macro_8h_ab4e2d1c36943e332ff82a95847532dc5}{FOOD}}~0.\+5f
+\item 
+\#define \mbox{\hyperlink{macro_8h_a767fbc0c12d815976812e475aae88c4a}{LINEMATE}}~0.\+3f
+\item 
+\#define \mbox{\hyperlink{macro_8h_a4f3d00556c0216220e9d14e3b0b143c8}{DERAUMERE}}~0.\+15f
+\item 
+\#define \mbox{\hyperlink{macro_8h_a79e0b6fb4ae2ebc162a16ecf0cf00acc}{SIBUR}}~0.\+10f
+\item 
+\#define \mbox{\hyperlink{macro_8h_ad46711bd2d413786779b881ebad9660e}{MENDIANE}}~0.\+10f
+\item 
+\#define \mbox{\hyperlink{macro_8h_a3992834bb85d803be13d15e7f14ca6d8}{PHIRAS}}~0.\+08f
+\item 
+\#define \mbox{\hyperlink{macro_8h_a572177a8879ea9aacecbd9617beeb1a1}{THYSTAME}}~0.\+05f
+\item 
+\#define \mbox{\hyperlink{macro_8h_a5f73ac757d595fc5b07e0cf4f49d0e3f}{TOTAL\+\_\+\+RESOURCES}}~7
+\item 
+\#define \mbox{\hyperlink{macro_8h_ad6b23b707382a911829a9aad8cf90571}{FORWARD\+\_\+\+TIME}}~7
+\item 
+\#define \mbox{\hyperlink{macro_8h_a17c58b22f6c1d070980d2cfa8f1c3289}{RIGHT\+\_\+\+TIME}}~7
+\item 
+\#define \mbox{\hyperlink{macro_8h_a8e484ebc719dc3fcf6454fd6d202d707}{LEFT\+\_\+\+TIME}}~7
+\item 
+\#define \mbox{\hyperlink{macro_8h_aed7db6ce1814ba3d7a3f571b5ab53640}{LOOK\+\_\+\+TIME}}~7
+\item 
+\#define \mbox{\hyperlink{macro_8h_a8a6910cad977e7df51846448db640cbf}{INVENTORY\+\_\+\+TIME}}~1
+\item 
+\#define \mbox{\hyperlink{macro_8h_a41cf14e2b54dacb4d8f7254982d94672}{CONNECT\+\_\+\+NBR\+\_\+\+TIME}}~0
+\item 
+\#define \mbox{\hyperlink{macro_8h_a39be34414fd3eaec04d636bfed678998}{BROADCAST\+\_\+\+TIME}}~0
+\item 
+\#define \mbox{\hyperlink{macro_8h_abf81ae9807caf396a3a1da4dadc66364}{FORK\+\_\+\+TIME}}~42
+\item 
+\#define \mbox{\hyperlink{macro_8h_aa87e3614a0d9364d80a394978702cc32}{EJECT\+\_\+\+TIME}}~7
+\item 
+\#define \mbox{\hyperlink{macro_8h_aea4d260a1adc7e3a3094ff7bc620620f}{DEATH\+\_\+\+TIME}}~7
+\item 
+\#define \mbox{\hyperlink{macro_8h_add2eb549595c660b60dc542f810e3bbb}{TAKE\+\_\+\+TIME}}~7
+\item 
+\#define \mbox{\hyperlink{macro_8h_a7c606e826d94f0a60f13692e6814cc03}{SET\+\_\+\+TIME}}~7
+\item 
+\#define \mbox{\hyperlink{macro_8h_a06ef6f0a825f848249bd1c23244eb935}{INCANTATION\+\_\+\+TIME}}~300
+\item 
+\#define \mbox{\hyperlink{macro_8h_a20aa0533fdc8bb4466251568349ad322}{FOOD\+\_\+\+DURATION}}~126
+\item 
+\#define \mbox{\hyperlink{macro_8h_afb39db6fc47d1d8a343915481b505e66}{DENSITY\+\_\+\+DURATION}}~20
+\item 
+\#define \mbox{\hyperlink{macro_8h_a795a39b49d93751a31e1407429eb5f8a}{TAB\+\_\+\+LVL\+\_\+\+INCANTATION\+\_\+\+SIZE}}~6
+\item 
+\#define \mbox{\hyperlink{macro_8h_a9180b10dd7db4f912755469aa64da9c4}{INCANTATION\+\_\+\+ID\+\_\+\+LEN}}~4
+\item 
+\#define \mbox{\hyperlink{macro_8h_af84a0f47593ef7c884ee633f96473629}{INDEX\+\_\+\+INCANTATOR}}~0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{macro_8h_a996f7be338ccb40d1a2a5abc1ad61759}\label{macro_8h_a996f7be338ccb40d1a2a5abc1ad61759} 
+\index{macro.h@{macro.h}!ABS@{ABS}}
+\index{ABS@{ABS}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{ABS}{ABS}}
+{\footnotesize\ttfamily \#define ABS(\begin{DoxyParamCaption}\item[{}]{x }\end{DoxyParamCaption})~(((x) $<$ 0) ? -\/ (x) \+: (x))}
+
+\Hypertarget{macro_8h_af65d272fb4330ee8621abdad55357cbe}\label{macro_8h_af65d272fb4330ee8621abdad55357cbe} 
+\index{macro.h@{macro.h}!ACTUAL\_PLAYER@{ACTUAL\_PLAYER}}
+\index{ACTUAL\_PLAYER@{ACTUAL\_PLAYER}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{ACTUAL\_PLAYER}{ACTUAL\_PLAYER}}
+{\footnotesize\ttfamily \#define ACTUAL\+\_\+\+PLAYER~1}
+
+\Hypertarget{macro_8h_a3dfc89fd8ebd05bd8164f7e2240f3f0a}\label{macro_8h_a3dfc89fd8ebd05bd8164f7e2240f3f0a} 
+\index{macro.h@{macro.h}!ADDITIONAL\_VISION@{ADDITIONAL\_VISION}}
+\index{ADDITIONAL\_VISION@{ADDITIONAL\_VISION}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{ADDITIONAL\_VISION}{ADDITIONAL\_VISION}}
+{\footnotesize\ttfamily \#define ADDITIONAL\+\_\+\+VISION~1}
+
+\Hypertarget{macro_8h_a39be34414fd3eaec04d636bfed678998}\label{macro_8h_a39be34414fd3eaec04d636bfed678998} 
+\index{macro.h@{macro.h}!BROADCAST\_TIME@{BROADCAST\_TIME}}
+\index{BROADCAST\_TIME@{BROADCAST\_TIME}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{BROADCAST\_TIME}{BROADCAST\_TIME}}
+{\footnotesize\ttfamily \#define BROADCAST\+\_\+\+TIME~0}
+
+\Hypertarget{macro_8h_a6b20d41d6252e9871430c242cb1a56e7}\label{macro_8h_a6b20d41d6252e9871430c242cb1a56e7} 
+\index{macro.h@{macro.h}!BUFFER\_SIZE@{BUFFER\_SIZE}}
+\index{BUFFER\_SIZE@{BUFFER\_SIZE}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{BUFFER\_SIZE}{BUFFER\_SIZE}}
+{\footnotesize\ttfamily \#define BUFFER\+\_\+\+SIZE~2048}
+
+\Hypertarget{macro_8h_a41cf14e2b54dacb4d8f7254982d94672}\label{macro_8h_a41cf14e2b54dacb4d8f7254982d94672} 
+\index{macro.h@{macro.h}!CONNECT\_NBR\_TIME@{CONNECT\_NBR\_TIME}}
+\index{CONNECT\_NBR\_TIME@{CONNECT\_NBR\_TIME}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{CONNECT\_NBR\_TIME}{CONNECT\_NBR\_TIME}}
+{\footnotesize\ttfamily \#define CONNECT\+\_\+\+NBR\+\_\+\+TIME~0}
+
+\Hypertarget{macro_8h_aea4d260a1adc7e3a3094ff7bc620620f}\label{macro_8h_aea4d260a1adc7e3a3094ff7bc620620f} 
+\index{macro.h@{macro.h}!DEATH\_TIME@{DEATH\_TIME}}
+\index{DEATH\_TIME@{DEATH\_TIME}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{DEATH\_TIME}{DEATH\_TIME}}
+{\footnotesize\ttfamily \#define DEATH\+\_\+\+TIME~7}
+
+\Hypertarget{macro_8h_a2bcc79ad717d6083ee514e09fda03df8}\label{macro_8h_a2bcc79ad717d6083ee514e09fda03df8} 
+\index{macro.h@{macro.h}!DEFAULT\_VISION\_DEPTH@{DEFAULT\_VISION\_DEPTH}}
+\index{DEFAULT\_VISION\_DEPTH@{DEFAULT\_VISION\_DEPTH}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{DEFAULT\_VISION\_DEPTH}{DEFAULT\_VISION\_DEPTH}}
+{\footnotesize\ttfamily \#define DEFAULT\+\_\+\+VISION\+\_\+\+DEPTH~2}
+
+\Hypertarget{macro_8h_a3f26034698dbedc5c2c15fd2ca332a0e}\label{macro_8h_a3f26034698dbedc5c2c15fd2ca332a0e} 
+\index{macro.h@{macro.h}!DEGREES\_PER\_DIRECTION@{DEGREES\_PER\_DIRECTION}}
+\index{DEGREES\_PER\_DIRECTION@{DEGREES\_PER\_DIRECTION}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{DEGREES\_PER\_DIRECTION}{DEGREES\_PER\_DIRECTION}}
+{\footnotesize\ttfamily \#define DEGREES\+\_\+\+PER\+\_\+\+DIRECTION~(\mbox{\hyperlink{macro_8h_a8679d9b49f6e85e449957aa49cc59a9f}{FULL\+\_\+\+CIRCLE\+\_\+\+DEG}} / \mbox{\hyperlink{macro_8h_a394b4d9597382758840287dd52c17292}{NUM\+\_\+\+DIRECTIONS}})}
+
+\Hypertarget{macro_8h_afb39db6fc47d1d8a343915481b505e66}\label{macro_8h_afb39db6fc47d1d8a343915481b505e66} 
+\index{macro.h@{macro.h}!DENSITY\_DURATION@{DENSITY\_DURATION}}
+\index{DENSITY\_DURATION@{DENSITY\_DURATION}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{DENSITY\_DURATION}{DENSITY\_DURATION}}
+{\footnotesize\ttfamily \#define DENSITY\+\_\+\+DURATION~20}
+
+\Hypertarget{macro_8h_a4f3d00556c0216220e9d14e3b0b143c8}\label{macro_8h_a4f3d00556c0216220e9d14e3b0b143c8} 
+\index{macro.h@{macro.h}!DERAUMERE@{DERAUMERE}}
+\index{DERAUMERE@{DERAUMERE}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{DERAUMERE}{DERAUMERE}}
+{\footnotesize\ttfamily \#define DERAUMERE~0.\+15f}
+
+\Hypertarget{macro_8h_a2805809d1428a3b8d0678dd6aeaeec07}\label{macro_8h_a2805809d1428a3b8d0678dd6aeaeec07} 
+\index{macro.h@{macro.h}!DIRECTION\_TOLERANCE@{DIRECTION\_TOLERANCE}}
+\index{DIRECTION\_TOLERANCE@{DIRECTION\_TOLERANCE}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{DIRECTION\_TOLERANCE}{DIRECTION\_TOLERANCE}}
+{\footnotesize\ttfamily \#define DIRECTION\+\_\+\+TOLERANCE~(\mbox{\hyperlink{macro_8h_a3f26034698dbedc5c2c15fd2ca332a0e}{DEGREES\+\_\+\+PER\+\_\+\+DIRECTION}} / 2.\+0)}
+
+\Hypertarget{macro_8h_aa87e3614a0d9364d80a394978702cc32}\label{macro_8h_aa87e3614a0d9364d80a394978702cc32} 
+\index{macro.h@{macro.h}!EJECT\_TIME@{EJECT\_TIME}}
+\index{EJECT\_TIME@{EJECT\_TIME}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{EJECT\_TIME}{EJECT\_TIME}}
+{\footnotesize\ttfamily \#define EJECT\+\_\+\+TIME~7}
+
+\Hypertarget{macro_8h_a8fe83ac76edc595f6b98cd4a4127aed5}\label{macro_8h_a8fe83ac76edc595f6b98cd4a4127aed5} 
+\index{macro.h@{macro.h}!ERROR@{ERROR}}
+\index{ERROR@{ERROR}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{ERROR}{ERROR}}
+{\footnotesize\ttfamily \#define ERROR~84}
+
+\Hypertarget{macro_8h_ab4e2d1c36943e332ff82a95847532dc5}\label{macro_8h_ab4e2d1c36943e332ff82a95847532dc5} 
+\index{macro.h@{macro.h}!FOOD@{FOOD}}
+\index{FOOD@{FOOD}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{FOOD}{FOOD}}
+{\footnotesize\ttfamily \#define FOOD~0.\+5f}
+
+\Hypertarget{macro_8h_a20aa0533fdc8bb4466251568349ad322}\label{macro_8h_a20aa0533fdc8bb4466251568349ad322} 
+\index{macro.h@{macro.h}!FOOD\_DURATION@{FOOD\_DURATION}}
+\index{FOOD\_DURATION@{FOOD\_DURATION}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{FOOD\_DURATION}{FOOD\_DURATION}}
+{\footnotesize\ttfamily \#define FOOD\+\_\+\+DURATION~126}
+
+\Hypertarget{macro_8h_abf81ae9807caf396a3a1da4dadc66364}\label{macro_8h_abf81ae9807caf396a3a1da4dadc66364} 
+\index{macro.h@{macro.h}!FORK\_TIME@{FORK\_TIME}}
+\index{FORK\_TIME@{FORK\_TIME}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{FORK\_TIME}{FORK\_TIME}}
+{\footnotesize\ttfamily \#define FORK\+\_\+\+TIME~42}
+
+\Hypertarget{macro_8h_ad6b23b707382a911829a9aad8cf90571}\label{macro_8h_ad6b23b707382a911829a9aad8cf90571} 
+\index{macro.h@{macro.h}!FORWARD\_TIME@{FORWARD\_TIME}}
+\index{FORWARD\_TIME@{FORWARD\_TIME}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{FORWARD\_TIME}{FORWARD\_TIME}}
+{\footnotesize\ttfamily \#define FORWARD\+\_\+\+TIME~7}
+
+\Hypertarget{macro_8h_a8679d9b49f6e85e449957aa49cc59a9f}\label{macro_8h_a8679d9b49f6e85e449957aa49cc59a9f} 
+\index{macro.h@{macro.h}!FULL\_CIRCLE\_DEG@{FULL\_CIRCLE\_DEG}}
+\index{FULL\_CIRCLE\_DEG@{FULL\_CIRCLE\_DEG}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{FULL\_CIRCLE\_DEG}{FULL\_CIRCLE\_DEG}}
+{\footnotesize\ttfamily \#define FULL\+\_\+\+CIRCLE\+\_\+\+DEG~360.\+0}
+
+\Hypertarget{macro_8h_ab20d7e02b789f189dea035e2bffa672e}\label{macro_8h_ab20d7e02b789f189dea035e2bffa672e} 
+\index{macro.h@{macro.h}!GRAPHIC\_NAME@{GRAPHIC\_NAME}}
+\index{GRAPHIC\_NAME@{GRAPHIC\_NAME}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{GRAPHIC\_NAME}{GRAPHIC\_NAME}}
+{\footnotesize\ttfamily \#define GRAPHIC\+\_\+\+NAME~"{}GRAPHIC"{}}
+
+\Hypertarget{macro_8h_a330cba603adfb82662e602220915b083}\label{macro_8h_a330cba603adfb82662e602220915b083} 
+\index{macro.h@{macro.h}!HALF\_CIRCLE\_DEG@{HALF\_CIRCLE\_DEG}}
+\index{HALF\_CIRCLE\_DEG@{HALF\_CIRCLE\_DEG}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{HALF\_CIRCLE\_DEG}{HALF\_CIRCLE\_DEG}}
+{\footnotesize\ttfamily \#define HALF\+\_\+\+CIRCLE\+\_\+\+DEG~180.\+0}
+
+\Hypertarget{macro_8h_a9180b10dd7db4f912755469aa64da9c4}\label{macro_8h_a9180b10dd7db4f912755469aa64da9c4} 
+\index{macro.h@{macro.h}!INCANTATION\_ID\_LEN@{INCANTATION\_ID\_LEN}}
+\index{INCANTATION\_ID\_LEN@{INCANTATION\_ID\_LEN}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{INCANTATION\_ID\_LEN}{INCANTATION\_ID\_LEN}}
+{\footnotesize\ttfamily \#define INCANTATION\+\_\+\+ID\+\_\+\+LEN~4}
+
+\Hypertarget{macro_8h_a06ef6f0a825f848249bd1c23244eb935}\label{macro_8h_a06ef6f0a825f848249bd1c23244eb935} 
+\index{macro.h@{macro.h}!INCANTATION\_TIME@{INCANTATION\_TIME}}
+\index{INCANTATION\_TIME@{INCANTATION\_TIME}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{INCANTATION\_TIME}{INCANTATION\_TIME}}
+{\footnotesize\ttfamily \#define INCANTATION\+\_\+\+TIME~300}
+
+\Hypertarget{macro_8h_af84a0f47593ef7c884ee633f96473629}\label{macro_8h_af84a0f47593ef7c884ee633f96473629} 
+\index{macro.h@{macro.h}!INDEX\_INCANTATOR@{INDEX\_INCANTATOR}}
+\index{INDEX\_INCANTATOR@{INDEX\_INCANTATOR}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{INDEX\_INCANTATOR}{INDEX\_INCANTATOR}}
+{\footnotesize\ttfamily \#define INDEX\+\_\+\+INCANTATOR~0}
+
+\Hypertarget{macro_8h_a8a6910cad977e7df51846448db640cbf}\label{macro_8h_a8a6910cad977e7df51846448db640cbf} 
+\index{macro.h@{macro.h}!INVENTORY\_TIME@{INVENTORY\_TIME}}
+\index{INVENTORY\_TIME@{INVENTORY\_TIME}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{INVENTORY\_TIME}{INVENTORY\_TIME}}
+{\footnotesize\ttfamily \#define INVENTORY\+\_\+\+TIME~1}
+
+\Hypertarget{macro_8h_a8e484ebc719dc3fcf6454fd6d202d707}\label{macro_8h_a8e484ebc719dc3fcf6454fd6d202d707} 
+\index{macro.h@{macro.h}!LEFT\_TIME@{LEFT\_TIME}}
+\index{LEFT\_TIME@{LEFT\_TIME}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{LEFT\_TIME}{LEFT\_TIME}}
+{\footnotesize\ttfamily \#define LEFT\+\_\+\+TIME~7}
+
+\Hypertarget{macro_8h_a767fbc0c12d815976812e475aae88c4a}\label{macro_8h_a767fbc0c12d815976812e475aae88c4a} 
+\index{macro.h@{macro.h}!LINEMATE@{LINEMATE}}
+\index{LINEMATE@{LINEMATE}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{LINEMATE}{LINEMATE}}
+{\footnotesize\ttfamily \#define LINEMATE~0.\+3f}
+
+\Hypertarget{macro_8h_aed7db6ce1814ba3d7a3f571b5ab53640}\label{macro_8h_aed7db6ce1814ba3d7a3f571b5ab53640} 
+\index{macro.h@{macro.h}!LOOK\_TIME@{LOOK\_TIME}}
+\index{LOOK\_TIME@{LOOK\_TIME}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{LOOK\_TIME}{LOOK\_TIME}}
+{\footnotesize\ttfamily \#define LOOK\+\_\+\+TIME~7}
+
+\Hypertarget{macro_8h_a2ea7d49e25f1af9eda8b1b9570212812}\label{macro_8h_a2ea7d49e25f1af9eda8b1b9570212812} 
+\index{macro.h@{macro.h}!MAX\_DIRECTION@{MAX\_DIRECTION}}
+\index{MAX\_DIRECTION@{MAX\_DIRECTION}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{MAX\_DIRECTION}{MAX\_DIRECTION}}
+{\footnotesize\ttfamily \#define MAX\+\_\+\+DIRECTION~4}
+
+\Hypertarget{macro_8h_a8a6a4f093b0a5607216115540ed1fa23}\label{macro_8h_a8a6a4f093b0a5607216115540ed1fa23} 
+\index{macro.h@{macro.h}!MAX\_REQUEST\_PER\_CLIENT@{MAX\_REQUEST\_PER\_CLIENT}}
+\index{MAX\_REQUEST\_PER\_CLIENT@{MAX\_REQUEST\_PER\_CLIENT}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{MAX\_REQUEST\_PER\_CLIENT}{MAX\_REQUEST\_PER\_CLIENT}}
+{\footnotesize\ttfamily \#define MAX\+\_\+\+REQUEST\+\_\+\+PER\+\_\+\+CLIENT~10}
+
+\Hypertarget{macro_8h_ad46711bd2d413786779b881ebad9660e}\label{macro_8h_ad46711bd2d413786779b881ebad9660e} 
+\index{macro.h@{macro.h}!MENDIANE@{MENDIANE}}
+\index{MENDIANE@{MENDIANE}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{MENDIANE}{MENDIANE}}
+{\footnotesize\ttfamily \#define MENDIANE~0.\+10f}
+
+\Hypertarget{macro_8h_a9cb1bb16172ea94cf568303008c8d77d}\label{macro_8h_a9cb1bb16172ea94cf568303008c8d77d} 
+\index{macro.h@{macro.h}!MIN\_CLIENT@{MIN\_CLIENT}}
+\index{MIN\_CLIENT@{MIN\_CLIENT}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{MIN\_CLIENT}{MIN\_CLIENT}}
+{\footnotesize\ttfamily \#define MIN\+\_\+\+CLIENT~1}
+
+\Hypertarget{macro_8h_a2b389cf7afab6275c9341df7a7dcd18f}\label{macro_8h_a2b389cf7afab6275c9341df7a7dcd18f} 
+\index{macro.h@{macro.h}!MIN\_PARAMS@{MIN\_PARAMS}}
+\index{MIN\_PARAMS@{MIN\_PARAMS}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{MIN\_PARAMS}{MIN\_PARAMS}}
+{\footnotesize\ttfamily \#define MIN\+\_\+\+PARAMS~14}
+
+\Hypertarget{macro_8h_aee4957cfaf5640c7a69e8e201823a7cb}\label{macro_8h_aee4957cfaf5640c7a69e8e201823a7cb} 
+\index{macro.h@{macro.h}!MIN\_X@{MIN\_X}}
+\index{MIN\_X@{MIN\_X}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{MIN\_X}{MIN\_X}}
+{\footnotesize\ttfamily \#define MIN\+\_\+X~10}
+
+\Hypertarget{macro_8h_aafcf7a22fac9162858c6f00742c6bad9}\label{macro_8h_aafcf7a22fac9162858c6f00742c6bad9} 
+\index{macro.h@{macro.h}!MIN\_Y@{MIN\_Y}}
+\index{MIN\_Y@{MIN\_Y}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{MIN\_Y}{MIN\_Y}}
+{\footnotesize\ttfamily \#define MIN\+\_\+Y~10}
+
+\Hypertarget{macro_8h_a5df38c677104658963501aa1e2a88e60}\label{macro_8h_a5df38c677104658963501aa1e2a88e60} 
+\index{macro.h@{macro.h}!NANOSECONDS\_PER\_SECOND@{NANOSECONDS\_PER\_SECOND}}
+\index{NANOSECONDS\_PER\_SECOND@{NANOSECONDS\_PER\_SECOND}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{NANOSECONDS\_PER\_SECOND}{NANOSECONDS\_PER\_SECOND}}
+{\footnotesize\ttfamily \#define NANOSECONDS\+\_\+\+PER\+\_\+\+SECOND~1000000000L}
+
+\Hypertarget{macro_8h_a4bc7220517e2c86c3ff674bd7a90a313}\label{macro_8h_a4bc7220517e2c86c3ff674bd7a90a313} 
+\index{macro.h@{macro.h}!NFDS\_REALLOC\_NUMBER@{NFDS\_REALLOC\_NUMBER}}
+\index{NFDS\_REALLOC\_NUMBER@{NFDS\_REALLOC\_NUMBER}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{NFDS\_REALLOC\_NUMBER}{NFDS\_REALLOC\_NUMBER}}
+{\footnotesize\ttfamily \#define NFDS\+\_\+\+REALLOC\+\_\+\+NUMBER~1}
+
+\Hypertarget{macro_8h_a394b4d9597382758840287dd52c17292}\label{macro_8h_a394b4d9597382758840287dd52c17292} 
+\index{macro.h@{macro.h}!NUM\_DIRECTIONS@{NUM\_DIRECTIONS}}
+\index{NUM\_DIRECTIONS@{NUM\_DIRECTIONS}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{NUM\_DIRECTIONS}{NUM\_DIRECTIONS}}
+{\footnotesize\ttfamily \#define NUM\+\_\+\+DIRECTIONS~8}
+
+\Hypertarget{macro_8h_a3992834bb85d803be13d15e7f14ca6d8}\label{macro_8h_a3992834bb85d803be13d15e7f14ca6d8} 
+\index{macro.h@{macro.h}!PHIRAS@{PHIRAS}}
+\index{PHIRAS@{PHIRAS}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{PHIRAS}{PHIRAS}}
+{\footnotesize\ttfamily \#define PHIRAS~0.\+08f}
+
+\Hypertarget{macro_8h_aec1495af064c53bda89f9e8127cd33ce}\label{macro_8h_aec1495af064c53bda89f9e8127cd33ce} 
+\index{macro.h@{macro.h}!QUARTER\_CIRCLE\_DEG@{QUARTER\_CIRCLE\_DEG}}
+\index{QUARTER\_CIRCLE\_DEG@{QUARTER\_CIRCLE\_DEG}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{QUARTER\_CIRCLE\_DEG}{QUARTER\_CIRCLE\_DEG}}
+{\footnotesize\ttfamily \#define QUARTER\+\_\+\+CIRCLE\+\_\+\+DEG~90.\+0}
+
+\Hypertarget{macro_8h_a4b56a6f23e044affca38eed1834e98dc}\label{macro_8h_a4b56a6f23e044affca38eed1834e98dc} 
+\index{macro.h@{macro.h}!QUEUE\_MAX\_SIZE@{QUEUE\_MAX\_SIZE}}
+\index{QUEUE\_MAX\_SIZE@{QUEUE\_MAX\_SIZE}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{QUEUE\_MAX\_SIZE}{QUEUE\_MAX\_SIZE}}
+{\footnotesize\ttfamily \#define QUEUE\+\_\+\+MAX\+\_\+\+SIZE~200}
+
+\Hypertarget{macro_8h_aea06aa299d379b6abab6308dd705f6b0}\label{macro_8h_aea06aa299d379b6abab6308dd705f6b0} 
+\index{macro.h@{macro.h}!REMOVE\_USELESS\_COMMA@{REMOVE\_USELESS\_COMMA}}
+\index{REMOVE\_USELESS\_COMMA@{REMOVE\_USELESS\_COMMA}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{REMOVE\_USELESS\_COMMA}{REMOVE\_USELESS\_COMMA}}
+{\footnotesize\ttfamily \#define REMOVE\+\_\+\+USELESS\+\_\+\+COMMA~1}
+
+\Hypertarget{macro_8h_a17c58b22f6c1d070980d2cfa8f1c3289}\label{macro_8h_a17c58b22f6c1d070980d2cfa8f1c3289} 
+\index{macro.h@{macro.h}!RIGHT\_TIME@{RIGHT\_TIME}}
+\index{RIGHT\_TIME@{RIGHT\_TIME}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{RIGHT\_TIME}{RIGHT\_TIME}}
+{\footnotesize\ttfamily \#define RIGHT\+\_\+\+TIME~7}
+
+\Hypertarget{macro_8h_af84752da4f94b833148a4191cc2003c5}\label{macro_8h_af84752da4f94b833148a4191cc2003c5} 
+\index{macro.h@{macro.h}!SERVER\_INDEX@{SERVER\_INDEX}}
+\index{SERVER\_INDEX@{SERVER\_INDEX}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{SERVER\_INDEX}{SERVER\_INDEX}}
+{\footnotesize\ttfamily \#define SERVER\+\_\+\+INDEX~0}
+
+\Hypertarget{macro_8h_a7c606e826d94f0a60f13692e6814cc03}\label{macro_8h_a7c606e826d94f0a60f13692e6814cc03} 
+\index{macro.h@{macro.h}!SET\_TIME@{SET\_TIME}}
+\index{SET\_TIME@{SET\_TIME}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{SET\_TIME}{SET\_TIME}}
+{\footnotesize\ttfamily \#define SET\+\_\+\+TIME~7}
+
+\Hypertarget{macro_8h_a79e0b6fb4ae2ebc162a16ecf0cf00acc}\label{macro_8h_a79e0b6fb4ae2ebc162a16ecf0cf00acc} 
+\index{macro.h@{macro.h}!SIBUR@{SIBUR}}
+\index{SIBUR@{SIBUR}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{SIBUR}{SIBUR}}
+{\footnotesize\ttfamily \#define SIBUR~0.\+10f}
+
+\Hypertarget{macro_8h_aa90cac659d18e8ef6294c7ae337f6b58}\label{macro_8h_aa90cac659d18e8ef6294c7ae337f6b58} 
+\index{macro.h@{macro.h}!SUCCESS@{SUCCESS}}
+\index{SUCCESS@{SUCCESS}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{SUCCESS}{SUCCESS}}
+{\footnotesize\ttfamily \#define SUCCESS~0}
+
+\Hypertarget{macro_8h_a795a39b49d93751a31e1407429eb5f8a}\label{macro_8h_a795a39b49d93751a31e1407429eb5f8a} 
+\index{macro.h@{macro.h}!TAB\_LVL\_INCANTATION\_SIZE@{TAB\_LVL\_INCANTATION\_SIZE}}
+\index{TAB\_LVL\_INCANTATION\_SIZE@{TAB\_LVL\_INCANTATION\_SIZE}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{TAB\_LVL\_INCANTATION\_SIZE}{TAB\_LVL\_INCANTATION\_SIZE}}
+{\footnotesize\ttfamily \#define TAB\+\_\+\+LVL\+\_\+\+INCANTATION\+\_\+\+SIZE~6}
+
+\Hypertarget{macro_8h_add2eb549595c660b60dc542f810e3bbb}\label{macro_8h_add2eb549595c660b60dc542f810e3bbb} 
+\index{macro.h@{macro.h}!TAKE\_TIME@{TAKE\_TIME}}
+\index{TAKE\_TIME@{TAKE\_TIME}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{TAKE\_TIME}{TAKE\_TIME}}
+{\footnotesize\ttfamily \#define TAKE\+\_\+\+TIME~7}
+
+\Hypertarget{macro_8h_a572177a8879ea9aacecbd9617beeb1a1}\label{macro_8h_a572177a8879ea9aacecbd9617beeb1a1} 
+\index{macro.h@{macro.h}!THYSTAME@{THYSTAME}}
+\index{THYSTAME@{THYSTAME}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{THYSTAME}{THYSTAME}}
+{\footnotesize\ttfamily \#define THYSTAME~0.\+05f}
+
+\Hypertarget{macro_8h_a5f73ac757d595fc5b07e0cf4f49d0e3f}\label{macro_8h_a5f73ac757d595fc5b07e0cf4f49d0e3f} 
+\index{macro.h@{macro.h}!TOTAL\_RESOURCES@{TOTAL\_RESOURCES}}
+\index{TOTAL\_RESOURCES@{TOTAL\_RESOURCES}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{TOTAL\_RESOURCES}{TOTAL\_RESOURCES}}
+{\footnotesize\ttfamily \#define TOTAL\+\_\+\+RESOURCES~7}
+
+\Hypertarget{macro_8h_af30007c914905213063cc6cfaf44705d}\label{macro_8h_af30007c914905213063cc6cfaf44705d} 
+\index{macro.h@{macro.h}!UNASSIGNED\_PLAYER\_ID@{UNASSIGNED\_PLAYER\_ID}}
+\index{UNASSIGNED\_PLAYER\_ID@{UNASSIGNED\_PLAYER\_ID}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{UNASSIGNED\_PLAYER\_ID}{UNASSIGNED\_PLAYER\_ID}}
+{\footnotesize\ttfamily \#define UNASSIGNED\+\_\+\+PLAYER\+\_\+\+ID~-\/1}
+
+\Hypertarget{macro_8h_aa99a2eccb5e8fc393cea9342ff1a77cd}\label{macro_8h_aa99a2eccb5e8fc393cea9342ff1a77cd} 
+\index{macro.h@{macro.h}!WORD\_BROADCAST\_LENGTH@{WORD\_BROADCAST\_LENGTH}}
+\index{WORD\_BROADCAST\_LENGTH@{WORD\_BROADCAST\_LENGTH}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{WORD\_BROADCAST\_LENGTH}{WORD\_BROADCAST\_LENGTH}}
+{\footnotesize\ttfamily \#define WORD\+\_\+\+BROADCAST\+\_\+\+LENGTH~(sizeof("{}Broadcast "{}) -\/ 1)}
+
+\Hypertarget{macro_8h_a19a89808c0481325b8bd9e08950ad14d}\label{macro_8h_a19a89808c0481325b8bd9e08950ad14d} 
+\index{macro.h@{macro.h}!WORD\_SET\_LENGTH@{WORD\_SET\_LENGTH}}
+\index{WORD\_SET\_LENGTH@{WORD\_SET\_LENGTH}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{WORD\_SET\_LENGTH}{WORD\_SET\_LENGTH}}
+{\footnotesize\ttfamily \#define WORD\+\_\+\+SET\+\_\+\+LENGTH~(sizeof("{}Set "{}) -\/ 1)}
+
+\Hypertarget{macro_8h_a3b97be3980b6ae876afff389d23b16f0}\label{macro_8h_a3b97be3980b6ae876afff389d23b16f0} 
+\index{macro.h@{macro.h}!WORD\_TAKE\_LENGTH@{WORD\_TAKE\_LENGTH}}
+\index{WORD\_TAKE\_LENGTH@{WORD\_TAKE\_LENGTH}!macro.h@{macro.h}}
+\doxysubsubsection{\texorpdfstring{WORD\_TAKE\_LENGTH}{WORD\_TAKE\_LENGTH}}
+{\footnotesize\ttfamily \#define WORD\+\_\+\+TAKE\+\_\+\+LENGTH~(sizeof("{}Take "{}) -\/ 1)}
+

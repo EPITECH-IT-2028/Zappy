@@ -1,0 +1,140 @@
+\doxysection{/home/arthur/\+Tek2/\+Project/\+Zappy/server/src/utils.c File Reference}
+\hypertarget{utils_8c}{}\label{utils_8c}\index{/home/arthur/Tek2/Project/Zappy/server/src/utils.c@{/home/arthur/Tek2/Project/Zappy/server/src/utils.c}}
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include "{}utils.\+h"{}}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include "{}macro.\+h"{}}\newline
+Include dependency graph for utils.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{utils_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{utils_8c_a23c94860f3972ef5d92ca18af23e15f9}{send\+\_\+code}} (int fd, const char \texorpdfstring{$\ast$}{*}msg)
+\begin{DoxyCompactList}\small\item\em Sends a formatted message to a file descriptor. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{utils_8c_adafac11e730e518a7dd0838294948148}{remove\+\_\+newline}} (char \texorpdfstring{$\ast$}{*}buffer)
+\begin{DoxyCompactList}\small\item\em Removes trailing newline character from a string. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{utils_8c_a51db68cecfc5735c2516a5876de2c6ef}{find\+\_\+team\+\_\+index}} (\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{server_8c_ab140ac62eb02ac9134b3120c0a6829e6}{server}}, const char \texorpdfstring{$\ast$}{*}team\+\_\+name)
+\begin{DoxyCompactList}\small\item\em Finds the index of a team in the server\textquotesingle{}s team array by its name. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{server_8h_a7bfebc8e763f36d1870198931d6b5eb1}{client\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{utils_8c_a4e2d5d65c016461e82d43ac9ea0a19f5}{find\+\_\+ai\+\_\+by\+\_\+id}} (\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{server_8c_ab140ac62eb02ac9134b3120c0a6829e6}{server}}, unsigned int player\+\_\+id)
+\begin{DoxyCompactList}\small\item\em Find an AI client by player ID. \end{DoxyCompactList}\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{utils_8c_a9b9c850ef28c47e1164a00ed54ec3ef2}{get\+\_\+text\+\_\+in\+\_\+commands}} (const char \texorpdfstring{$\ast$}{*}raw\+\_\+message, unsigned long length)
+\begin{DoxyCompactList}\small\item\em Extracts the actual message content from a raw broadcast command. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{utils_8c_a4e2d5d65c016461e82d43ac9ea0a19f5}\label{utils_8c_a4e2d5d65c016461e82d43ac9ea0a19f5} 
+\index{utils.c@{utils.c}!find\_ai\_by\_id@{find\_ai\_by\_id}}
+\index{find\_ai\_by\_id@{find\_ai\_by\_id}!utils.c@{utils.c}}
+\doxysubsubsection{\texorpdfstring{find\_ai\_by\_id()}{find\_ai\_by\_id()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{server_8h_a7bfebc8e763f36d1870198931d6b5eb1}{client\+\_\+t}} \texorpdfstring{$\ast$}{*} find\+\_\+ai\+\_\+by\+\_\+id (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{server,  }\item[{unsigned int}]{player\+\_\+id }\end{DoxyParamCaption})}
+
+
+
+Find an AI client by player ID. 
+
+Finds the AI client by its player ID. The player ID is the index of the AI in the list of clients, excluding graphic clients and clients without a team name.
+
+
+\begin{DoxyParams}{Parameters}
+{\em server} & The server instance. \\
+\hline
+{\em player\+\_\+id} & The ID of the AI player to find. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The client\+\_\+t pointer if found, NULL otherwise. 
+\end{DoxyReturn}
+\Hypertarget{utils_8c_a51db68cecfc5735c2516a5876de2c6ef}\label{utils_8c_a51db68cecfc5735c2516a5876de2c6ef} 
+\index{utils.c@{utils.c}!find\_team\_index@{find\_team\_index}}
+\index{find\_team\_index@{find\_team\_index}!utils.c@{utils.c}}
+\doxysubsubsection{\texorpdfstring{find\_team\_index()}{find\_team\_index()}}
+{\footnotesize\ttfamily int find\+\_\+team\+\_\+index (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{server,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{team\+\_\+name }\end{DoxyParamCaption})}
+
+
+
+Finds the index of a team in the server\textquotesingle{}s team array by its name. 
+
+Find the index of a team by name.
+
+
+\begin{DoxyParams}{Parameters}
+{\em server} & Pointer to the server structure \\
+\hline
+{\em team\+\_\+name} & Name of the team to find\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Index of the team if found, ERROR (84) if not found or parameters are invalid 
+\end{DoxyReturn}
+\Hypertarget{utils_8c_a9b9c850ef28c47e1164a00ed54ec3ef2}\label{utils_8c_a9b9c850ef28c47e1164a00ed54ec3ef2} 
+\index{utils.c@{utils.c}!get\_text\_in\_commands@{get\_text\_in\_commands}}
+\index{get\_text\_in\_commands@{get\_text\_in\_commands}!utils.c@{utils.c}}
+\doxysubsubsection{\texorpdfstring{get\_text\_in\_commands()}{get\_text\_in\_commands()}}
+{\footnotesize\ttfamily char \texorpdfstring{$\ast$}{*} get\+\_\+text\+\_\+in\+\_\+commands (\begin{DoxyParamCaption}\item[{const char \texorpdfstring{$\ast$}{*}}]{raw\+\_\+message,  }\item[{unsigned long}]{length }\end{DoxyParamCaption})}
+
+
+
+Extracts the actual message content from a raw broadcast command. 
+
+Extract text content from broadcast command.
+
+This function takes a raw broadcast command string (format\+: "{}\+Broadcast \mbox{[}message\mbox{]}"{}) and extracts only the message part, removing the command prefix and any leading spaces.
+
+
+\begin{DoxyParams}{Parameters}
+{\em raw\+\_\+broadcast} & The raw broadcast command string to process \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+A newly allocated string containing only the message content
+\begin{DoxyItemize}
+\item Returns NULL if input is NULL
+\item Returns empty string if input has no message content
+\item The caller is responsible for freeing the returned string 
+\end{DoxyItemize}
+\end{DoxyReturn}
+\Hypertarget{utils_8c_adafac11e730e518a7dd0838294948148}\label{utils_8c_adafac11e730e518a7dd0838294948148} 
+\index{utils.c@{utils.c}!remove\_newline@{remove\_newline}}
+\index{remove\_newline@{remove\_newline}!utils.c@{utils.c}}
+\doxysubsubsection{\texorpdfstring{remove\_newline()}{remove\_newline()}}
+{\footnotesize\ttfamily void remove\+\_\+newline (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{buffer }\end{DoxyParamCaption})}
+
+
+
+Removes trailing newline character from a string. 
+
+Remove newline characters from a buffer.
+
+
+\begin{DoxyParams}{Parameters}
+{\em buffer} & String to be modified\\
+\hline
+\end{DoxyParams}
+Checks if the last character of the string is a newline character (\textquotesingle{}~\newline
+\textquotesingle{}) and replaces it with a null terminator if present. \Hypertarget{utils_8c_a23c94860f3972ef5d92ca18af23e15f9}\label{utils_8c_a23c94860f3972ef5d92ca18af23e15f9} 
+\index{utils.c@{utils.c}!send\_code@{send\_code}}
+\index{send\_code@{send\_code}!utils.c@{utils.c}}
+\doxysubsubsection{\texorpdfstring{send\_code()}{send\_code()}}
+{\footnotesize\ttfamily void send\+\_\+code (\begin{DoxyParamCaption}\item[{int}]{fd,  }\item[{const char \texorpdfstring{$\ast$}{*}}]{msg }\end{DoxyParamCaption})}
+
+
+
+Sends a formatted message to a file descriptor. 
+
+Send a message to a client via file descriptor.
+
+
+\begin{DoxyParams}{Parameters}
+{\em fd} & File descriptor to write to \\
+\hline
+{\em msg} & Message string to be sent\\
+\hline
+\end{DoxyParams}
+Copies the message to a buffer and writes it to the specified file descriptor. Prints an error message if the write operation fails. 
