@@ -33,6 +33,12 @@ namespace gui {
     ERROR
   };
 
+  struct TileSelection {
+      int x = -1;
+      int y = -1;
+      bool valid = false;
+  };
+
   class GameEngine {
     public:
       GameEngine(network::ServerCommunication &serverCommunication);
@@ -84,6 +90,7 @@ namespace gui {
       GameState _gameState;
       handlecommand::CommandHandler _commandHandler;
       float worldScale = 1.0f;
+      TileSelection hoveredTile;
 
       void LogoScreenInput();
       void TitleScreenInput();

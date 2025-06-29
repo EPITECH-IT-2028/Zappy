@@ -8,7 +8,7 @@
 #include <unordered_map>
 #include "entities/Map.hpp"
 #define RLIGHTS_IMPLEMENTATION
-
+#include <cfloat>
 #include "header/rlights.h"
 
 gui::GameEngine::GameEngine(network::ServerCommunication &serverCommunication)
@@ -281,6 +281,7 @@ void gui::GameEngine::renderTitleScreen() {
 }
 
 void gui::GameEngine::renderGameplayScreen() {
+  updateTileSelection();
   std::vector<std::pair<Vector3, int>> resourceCount;
 
   DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, GAMEPLAY_BACKGROUND_COLOR);
@@ -307,6 +308,7 @@ void gui::GameEngine::renderGameplayScreen() {
   EndMode3D();
 
   drawBroadcastLog();
+  drawTileInfoPanel();
   // DrawText("GAMEPLAY SCREEN", 20, 20, 40, MAROON);
 }
 
@@ -676,5 +678,60 @@ void gui::GameEngine::drawBroadcastLog() {
     int yPos = startY + i * lineHeight;
     DrawText(_gameState.broadcastLog[messageIndex].c_str(), startX, yPos,
              fontSize, DARKGRAY);
+  }
+}
+
+void gui::GameEngine::updateTileSelection() {
+  float brickSpacing = BRICK_SPACING * worldScale;
+  float mapWidth = static_cast<float>(_gameState.map.width);
+  float mapHeight = static_cast<float>(_gameState.map.height);
+  Vector3 gridOrigin = calculateGridOrigin(mapWidth, mapHeight, brickSpacing);
+  int tileX;
+  int tileY;
+
+  hoveredTile.valid = false;
+  if (getTileUnderMouse(mapWidth, mapHeight, brickSpacing, gridOrigin, tileX,
+                        tileY)) {
+    hoveredTile.x = tileX;
+    hoveredTile.y = tileY;
+    hoveredTile.valid = true;
+  }
+}
+
+void gui::GameEngine::drawTileInfoPanel() {
+  const int panelWidth = 260;
+  const int panelHeight = 210;
+  const int panelX = 20;
+  const int panelY = SCREEN_HEIGHT - panelHeight - 20;
+  int textY = panelY + 18;
+  int textX = panelX + 16;
+  int fontSize = 20;
+  TileSelection *activeTile = nullptr;
+
+  DrawRectangle(panelX, panelY, panelWidth, panelHeight, Fade(LIGHTGRAY, 1.1f));
+  if (hoveredTile.valid)
+    activeTile = &hoveredTile;
+  if (activeTile && activeTile->valid && activeTile->x >= 0 &&
+      activeTile->y >= 0 &&
+      activeTile->x < static_cast<int>(_gameState.map.width) &&
+      activeTile->y < static_cast<int>(_gameState.map.height)) {
+    DrawText(TextFormat("Tile: (%d, %d)", activeTile->x, activeTile->y), textX,
+             textY, fontSize, DARKGREEN);
+    textY += fontSize + 6;
+    const gui::Tile &tile = _gameState.map.tiles[activeTile->x][activeTile->y];
+    for (int i = 0; i < static_cast<int>(gui::Tile::RESOURCE_COUNT); ++i) {
+      int resourcesCount = tile.resources[i];
+      Color resourceColor =
+          tile.getResourceColor(static_cast<gui::Tile::Resource>(i));
+      DrawRectangle(textX, textY + 2, 16, 16, resourceColor);
+      DrawRectangleLines(textX, textY + 2, 16, 16, DARKGRAY);
+      std::string resourceName =
+          tile.getResourceName(static_cast<gui::Tile::Resource>(i));
+      DrawText(TextFormat("%s: %d", resourceName.c_str(), resourcesCount),
+               textX + 24, textY, fontSize - 2, BLACK);
+      textY += fontSize + 2;
+    }
+  } else {
+    DrawText("Hover a tile to see info", textX, textY, fontSize - 2, GRAY);
   }
 }
