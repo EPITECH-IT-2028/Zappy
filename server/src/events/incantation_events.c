@@ -98,6 +98,8 @@ void send_plv(server_t *server, client_t **incantators)
     char level[BUFFER_SIZE] = {0};
     int size = 1;
 
+    if (!incantators || !incantators[INDEX_INCANTATOR])
+        return;
     for (int i = 0; incantators[i] != NULL; i++) {
         response = realloc(response, sizeof(char *) * (size + 1));
         sprintf(level, "plv #%d %d\n", incantators[i]->data.id,
