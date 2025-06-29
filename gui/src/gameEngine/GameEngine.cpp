@@ -309,7 +309,6 @@ void gui::GameEngine::renderGameplayScreen() {
 
   drawBroadcastLog();
   drawTileInfoPanel();
-  // DrawText("GAMEPLAY SCREEN", 20, 20, 40, MAROON);
 }
 
 void gui::GameEngine::renderEndingScreen() {
