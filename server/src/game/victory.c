@@ -13,10 +13,10 @@
 
 /**
  * @brief Counts the number of level 8 players in each team
- * 
+ *
  * This function iterates through all connected clients and counts
  * how many players of each team have reached level 8.
- * 
+ *
  * @param server Server instance containing client and team data
  * @param counts Array to store the count for each team
  */
@@ -41,10 +41,10 @@ void count_levels_team(server_t *server, char *counts)
 
 /**
  * @brief Checks if any team has won the game
- * 
+ *
  * Victory condition: A team wins when it has at least 6 players at level 8.
  * This function checks all teams and returns the winning team ID if found.
- * 
+ *
  * @param server Server instance containing game state
  * @return Team ID of winning team, or ERROR if no team has won yet
  */
@@ -52,7 +52,7 @@ int check_victory(server_t *server)
 {
     char *counts = NULL;
     int winning_team = ERROR;
-    
+
     if (!server || server->params.teams_count <= 0)
         return ERROR;
     counts = calloc(server->params.teams_count, sizeof(int));
@@ -63,7 +63,7 @@ int check_victory(server_t *server)
         if (counts[i] >= 6) {
             winning_team = i;
             printf("Team '%s' has won the game\n",
-                   server->teams[i].name);
+                server->teams[i].name);
             server->running = false;
             break;
         }

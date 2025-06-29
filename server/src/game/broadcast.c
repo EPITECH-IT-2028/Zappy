@@ -52,7 +52,8 @@ int calculate_shortest_distance_component(int coord1, int coord2, int map_size)
  * @param player_rotation Pointer to store the calculated rotation angle
  */
 static
-void calculate_direction_tile_test(const client_data_t *client, double *player_rotation)
+void calculate_direction_tile_test(const client_data_t *client,
+    double *player_rotation)
 {
     switch (client->direction) {
         case UP:
@@ -94,20 +95,18 @@ int calculate_direction_tile(server_t *server, const client_data_t *emitter,
     int tile = 0;
     double player_rotation = 0;
 
-    if (client->x == emitter->x && client->y == emitter->y) {
-        return 0;
-    }
-    dx = calculate_shortest_distance_component(emitter->x, client->x,
+    dx = calculate_shortest_distance_component(client->x, emitter->x,
         server->params.width);
-    dy = calculate_shortest_distance_component(emitter->y, client->y,
+    dy = calculate_shortest_distance_component(client->y, emitter->y,
         server->params.height);
     angle_deg = atan2(dy, dx) * HALF_CIRCLE_DEG / M_PI;
     if (angle_deg < 0)
         angle_deg += FULL_CIRCLE_DEG;
     calculate_direction_tile_test(client, &player_rotation);
-    angle_deg = fmod(angle_deg + HALF_CIRCLE_DEG - player_rotation + FULL_CIRCLE_DEG, FULL_CIRCLE_DEG);
-    tile = ((int)((angle_deg + DIRECTION_TOLERANCE)
-        / DEGREES_PER_DIRECTION) % NUM_DIRECTIONS) + 1;
+    angle_deg = fmod(angle_deg - player_rotation +
+        FULL_CIRCLE_DEG, FULL_CIRCLE_DEG);
+    tile = ((int)((angle_deg + DIRECTION_TOLERANCE) /
+        DEGREES_PER_DIRECTION) % NUM_DIRECTIONS) + 1;
     return tile;
 }
 

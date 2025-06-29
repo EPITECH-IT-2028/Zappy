@@ -14,6 +14,20 @@
 #include <string.h>
 #include <stdlib.h>
 
+static
+void resize_tab(server_t *server, int index, int client_fd)
+{
+    if (index == server->nfds) {
+        pthread_mutex_lock(&server->clients_mutex);
+        if (resize_fds(server, server->nfds + NFDS_REALLOC_NUMBER) == ERROR) {
+            pthread_mutex_unlock(&server->clients_mutex);
+            close(client_fd);
+            return;
+        }
+        pthread_mutex_unlock(&server->clients_mutex);
+    }
+}
+
 /**
  * @brief Accept and initialize a new client connection
  *
@@ -28,22 +42,13 @@ void accept_client(server_t *server, int client_fd)
 {
     int index = define_index(server);
 
-    if (index == server->nfds) {
-        pthread_mutex_lock(&server->clients_mutex);
-        if (resize_fds(server, server->nfds + NFDS_REALLOC_NUMBER) == ERROR) {
-            pthread_mutex_unlock(&server->clients_mutex);
-            close(client_fd);
-            return;
-        }
-        pthread_mutex_unlock(&server->clients_mutex);
-    }
+    resize_tab(server, index, client_fd);
     pthread_mutex_lock(&server->clients_mutex);
     if (server->clients[index] != NULL)
         cleanup_client_data(server, index);
     server->clients[index] = malloc(sizeof(client_t));
     if (server->clients[index] == NULL) {
         pthread_mutex_unlock(&server->clients_mutex);
-        perror("malloc failed");
         close(client_fd);
         return;
     }
