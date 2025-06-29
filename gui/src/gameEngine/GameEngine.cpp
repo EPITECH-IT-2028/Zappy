@@ -1,5 +1,4 @@
 #include "GameEngine.hpp"
-#include "entities/Map.hpp"
 #include <raylib.h>
 #include <algorithm>
 #include <cstddef>
@@ -7,6 +6,7 @@
 #include <iostream>
 #include <ostream>
 #include <unordered_map>
+#include "entities/Map.hpp"
 #define RLIGHTS_IMPLEMENTATION
 
 #include "header/rlights.h"
@@ -195,15 +195,14 @@ void gui::GameEngine::loadResources() {
   _backgroundLogo = LoadTexture("resources/MarioBack.png");
 
   if (_backgroundLogo.id == 0) {
-      std::cerr << "Error: Failed to load logo background image.\n";
-  }
-  else {
-      std::cout << "Logo background image loaded successfully.\n";
+    std::cerr << "Error: Failed to load logo background image.\n";
+  } else {
+    std::cout << "Logo background image loaded successfully.\n";
   }
 }
 
 void gui::GameEngine::dimensionAsset() {
-   if (_backgroundLogo.id == 0) {
+  if (_backgroundLogo.id == 0) {
     std::cerr << "Warning: Cannot calculate dimensions for invalid texture.\n";
     return;
   }
@@ -217,7 +216,8 @@ void gui::GameEngine::dimensionAsset() {
 void gui::GameEngine::renderLogoScreen() {
   if (_backgroundLogo.id != 0) {
     dimensionAsset();
-    DrawTextureEx(_backgroundLogo, Vector2{ _xAsset, _yAsset }, 0.0f, _scaleAsset, WHITE);
+    DrawTextureEx(_backgroundLogo, Vector2{_xAsset, _yAsset}, 0.0f, _scaleAsset,
+                  WHITE);
   } else {
     ClearBackground(BLACK);
   }
@@ -230,7 +230,7 @@ void gui::GameEngine::renderLogoScreen() {
   _dots = (int)(GetTime() * 2) % 4;
   _loadingText = "Loading";
   for (int i = 0; i < _dots; ++i)
-      _loadingText += ".";
+    _loadingText += ".";
 
   _loadingFontSize = 24;
   _loadingWidth = MeasureText(_loadingText.c_str(), _loadingFontSize);
@@ -241,7 +241,8 @@ void gui::GameEngine::renderLogoScreen() {
 void gui::GameEngine::renderTitleScreen() {
   if (_backgroundLogo.id != 0) {
     dimensionAsset();
-    DrawTextureEx(_backgroundLogo, Vector2{ _xAsset, _yAsset }, 0.0f, _scaleAsset, WHITE);
+    DrawTextureEx(_backgroundLogo, Vector2{_xAsset, _yAsset}, 0.0f, _scaleAsset,
+                  WHITE);
   } else {
     ClearBackground(BLACK);
   }
@@ -249,7 +250,9 @@ void gui::GameEngine::renderTitleScreen() {
   _boxHeight = 300;
   _boxX = (SCREEN_WIDTH - _boxWidth) / 2;
   _boxY = (SCREEN_HEIGHT - _boxHeight) / 2;
-  DrawRectangleRounded({ (float)_boxX, (float)_boxY, (float)_boxWidth, (float)_boxHeight }, 0.2f, 10, LIGHTGRAY);
+  DrawRectangleRounded(
+      {(float)_boxX, (float)_boxY, (float)_boxWidth, (float)_boxHeight}, 0.2f,
+      10, LIGHTGRAY);
 
   _title = "ZAPPY GAME";
   _titleFontSize = 50;

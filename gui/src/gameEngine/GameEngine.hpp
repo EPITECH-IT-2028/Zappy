@@ -144,7 +144,7 @@ namespace gui {
 
       Texture _backgroundLogo;
       void loadResources();
-      
+
       void dimensionAsset();
       float _scaleAsset;
       float _texWidthAsset;
