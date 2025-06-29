@@ -1,3 +1,10 @@
+##
+## EPITECH PROJECT, 2024
+## Zappy
+## File description:
+## Makefile
+##
+
 NAME = zappy_ai
 TEST_NAME = zappy_ai_test
 TEST_DIR = ia/test
@@ -19,7 +26,8 @@ $(TEST_NAME):
 	@echo '#!/bin/bash' > $(TEST_NAME)
 	@echo 'python3 -m coverage erase' >> $(TEST_NAME)
 	@echo 'echo "Successfully erased previous coverage data."' >> $(TEST_NAME)
-	@echo 'python3 -m coverage run -m unittest discover -s $(TEST_DIR) -p "unitTest.py"' >> $(TEST_NAME)
+	@echo 'python3 -m coverage run -m unittest discover -s $(TEST_DIR) \
+        -p "unitTest.py"' >> $(TEST_NAME)
 	@echo 'python3 -m coverage report -m' >> $(TEST_NAME)
 	@chmod +x $(TEST_NAME)
 	@echo "$(TEST_NAME) wrapper created successfully."
