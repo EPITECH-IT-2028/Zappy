@@ -27,8 +27,5 @@ int handle_inventory(server_t *server, response_t *response,
         response->client->data.inventory.phiras,
         response->client->data.inventory.thystame);
     add_buffer_to_response(buffer, &response->response, &response->size);
-    response->client->data.is_busy = true;
-    response->client->data.action_end_time = get_action_end_time(server,
-        INVENTORY_TIME);
     return SUCCESS;
 }

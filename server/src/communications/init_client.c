@@ -45,7 +45,6 @@ void init_client_struct(client_t *clients, int fd)
     clients->data.x = 0;
     clients->data.y = 0;
     clients->data.id = -1;
-    clients->data.orientation = 0;
     clients->data.level = 1;
     clients->data.is_graphic = false;
     init_incantation_state(&clients->data.incantation);
@@ -54,5 +53,7 @@ void init_client_struct(client_t *clients, int fd)
     init_direction(&clients->data.direction);
     pthread_mutex_init(&clients->data.pending_mutex, NULL);
     init_client_inventory(&clients->data);
+    clients->data.queue_head = NULL;
+    clients->data.queue_tail = NULL;
     clients->buffer = NULL;
 }

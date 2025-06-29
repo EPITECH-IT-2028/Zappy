@@ -6,6 +6,7 @@
 */
 
 #include "server.h"
+#include <utils.h>
 #include <unistd.h>
 
 static
@@ -14,6 +15,7 @@ void check_death(server_t *server, int i)
     client_t *client = server->clients[i];
 
     if (client->data.inventory.food == -1) {
+        send_code(client->fd, "dead\n");
         shutdown(client->fd, SHUT_RDWR);
     } else {
         send_pin(server, i);

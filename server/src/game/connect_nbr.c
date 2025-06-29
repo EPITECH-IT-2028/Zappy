@@ -26,8 +26,5 @@ int handle_connect_nbr(server_t *server, response_t *response,
     if (add_buffer_to_response(buffer, &response->response, &response->size)
         == ERROR)
         return ERROR;
-    response->client->data.is_busy = true;
-    response->client->data.action_end_time = get_action_end_time(server,
-        INVENTORY_TIME);
     return SUCCESS;
 }

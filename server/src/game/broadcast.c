@@ -71,7 +71,7 @@ int calcalute_direction_tile(server_t *server, const client_data_t *emitter,
     }
     dx = calculate_shortest_distance_component(emitter->x, client->x,
         server->params.width);
-    dy = calculate_shortest_distance_component(emitter->y, client->y,
+    dy = -calculate_shortest_distance_component(emitter->y, client->y,
         server->params.height);
     angle_deg = atan2(dy, dx) * HALF_CIRCLE_DEG / M_PI;
     if (angle_deg < 0)
@@ -197,12 +197,14 @@ int handle_broadcast(server_t *server, response_t *response,
     client_t *client = request->client;
     char *broadcast = NULL;
 
-    if (!client || client->data.is_graphic || client->data.is_busy ||
-        !server || !response || !request)
+    if (!client || client->data.is_graphic ||
+        !server || !response || !request) {
         return ERROR;
+    }
     broadcast = get_text_in_commands(request->request, WORD_BROADCAST_LENGTH);
-    if (!broadcast)
+    if (!broadcast) {
         return ERROR;
+    }
     if (client_broadcast_sound(server, request, broadcast) == ERROR) {
         free(broadcast);
         return ERROR;
@@ -210,8 +212,5 @@ int handle_broadcast(server_t *server, response_t *response,
     send_pbc(server, client, broadcast);
     free(broadcast);
     add_buffer_to_response("ok", &response->response, &response->size);
-    response->client->data.is_busy = true;
-    response->client->data.action_end_time = get_action_end_time(server,
-        BROADCAST_TIME);
     return SUCCESS;
 }

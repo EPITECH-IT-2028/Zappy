@@ -120,8 +120,5 @@ int handle_eject(server_t *server, response_t *response, request_t *request)
     }
     if (send_correct_response(response, has_eggs, has_players) == ERROR)
         return ERROR;
-    response->client->data.is_busy = true;
-    response->client->data.action_end_time = get_action_end_time(server,
-        EJECT_TIME);
     return SUCCESS;
 }
