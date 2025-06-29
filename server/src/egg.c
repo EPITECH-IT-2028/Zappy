@@ -9,6 +9,15 @@
 #include "server.h"
 #include <stdlib.h>
 
+/**
+ * @brief Count the total number of eggs on the entire map
+ *
+ * This function iterates through all tiles on the map and sums up
+ * the number of eggs present on each tile.
+ *
+ * @param server Pointer to the server structure containing the map
+ * @return Total number of eggs on the map
+ */
 int count_total_eggs(server_t *server)
 {
     int total_eggs = 0;
@@ -20,6 +29,15 @@ int count_total_eggs(server_t *server)
     return total_eggs;
 }
 
+/**
+ * @brief Remove an egg from a tile at the specified index
+ *
+ * This function removes an egg from a tile's egg array by swapping
+ * it with the last egg and reducing the array size.
+ *
+ * @param tile Pointer to the map tile containing the eggs
+ * @param index Index of the egg to remove
+ */
 void remove_egg(map_t *tile, int index)
 {
     egg_t *new_eggs = NULL;
@@ -39,6 +57,16 @@ void remove_egg(map_t *tile, int index)
     }
 }
 
+/**
+ * @brief Create a new egg with the given parameters
+ *
+ * This function allocates memory for a new egg structure and
+ * initializes it with the provided arguments.
+ *
+ * @param id Unique identifier for the egg
+ * @param args Structure containing egg creation parameters
+ * @return Pointer to the newly created egg, or NULL on failure
+ */
 egg_t *create_egg(int id, egg_args_t args)
 {
     egg_t *egg = malloc(sizeof(egg_t));
@@ -55,6 +83,16 @@ egg_t *create_egg(int id, egg_args_t args)
     return egg;
 }
 
+/**
+ * @brief Place an egg on a tile
+ *
+ * This function adds an egg to a tile's egg array by reallocating
+ * memory and copying the egg data.
+ *
+ * @param tile Pointer to the map tile where the egg will be placed
+ * @param egg Pointer to the egg to be placed
+ * @return SUCCESS on successful placement, ERROR on failure
+ */
 int place_egg(map_t *tile, egg_t *egg)
 {
     egg_t *new_eggs = realloc(tile->eggs, sizeof(egg_t) *
@@ -72,6 +110,17 @@ int place_egg(map_t *tile, egg_t *egg)
     return SUCCESS;
 }
 
+/**
+ * @brief Assign a client to an egg position and add them to the tile
+ *
+ * This function assigns a client to a specific egg's position,
+ * adds the client to the tile's player list, and removes the egg.
+ *
+ * @param tile Pointer to the map tile containing the egg
+ * @param client Pointer to the client to assign
+ * @param target Index of the target egg
+ * @return true on success, false on failure
+ */
 static
 int assign_egg_position(map_t *tile, client_t *client, int target)
 {
@@ -92,6 +141,18 @@ int assign_egg_position(map_t *tile, client_t *client, int target)
     return true;
 }
 
+/**
+ * @brief Assign client to egg position and send notification
+ *
+ * This function assigns a client to an egg position and sends
+ * an egg broken (ebo) notification to the server.
+ *
+ * @param server Pointer to the server structure
+ * @param client Pointer to the client to assign
+ * @param tile Pointer to the map tile containing the egg
+ * @param target Index of the target egg
+ * @return SUCCESS on success, ERROR on failure
+ */
 static
 int assign_and_send(server_t *server, client_t *client,
     map_t *tile, int target)
@@ -105,6 +166,18 @@ int assign_and_send(server_t *server, client_t *client,
     return SUCCESS;
 }
 
+/**
+ * @brief Loop through eggs on a tile to find a matching team egg
+ *
+ * This function searches through all eggs on a tile to find one
+ * belonging to the specified team and assigns it to the client.
+ *
+ * @param server Pointer to the server structure
+ * @param client Pointer to the client to assign
+ * @param tile Pointer to the map tile to search
+ * @param team_id ID of the team to match
+ * @return SUCCESS if egg found and assigned, ERROR otherwise
+ */
 static
 int loop_eggs(server_t *server, client_t *client, map_t *tile, int team_id)
 {
@@ -115,6 +188,17 @@ int loop_eggs(server_t *server, client_t *client, map_t *tile, int team_id)
     return ERROR;
 }
 
+/**
+ * @brief Find and assign an egg belonging to a specific team
+ *
+ * This function searches the entire map for an egg belonging to
+ * the specified team and assigns it to the client.
+ *
+ * @param server Pointer to the server structure
+ * @param client Pointer to the client to assign
+ * @param team_id ID of the team to search for
+ * @return SUCCESS if team egg found and assigned, ERROR otherwise
+ */
 static
 int find_and_assign_team_egg(server_t *server, client_t *client, int team_id)
 {
@@ -131,6 +215,16 @@ int find_and_assign_team_egg(server_t *server, client_t *client, int team_id)
     return ERROR;
 }
 
+/**
+ * @brief Assign a random egg position to a client
+ *
+ * This function attempts to assign an egg to a client, first trying
+ * to find an egg from their team, then falling back to unassigned eggs.
+ *
+ * @param server Pointer to the server structure
+ * @param client Pointer to the client to assign an egg position
+ * @return SUCCESS if egg assigned, ERROR if no suitable egg found
+ */
 int assign_random_egg_position(server_t *server, client_t *client)
 {
     if (find_and_assign_team_egg(server, client,

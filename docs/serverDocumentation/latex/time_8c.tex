@@ -1,0 +1,90 @@
+\doxysection{/home/arthur/\+Tek2/\+Project/\+Zappy/server/src/game/time.c File Reference}
+\hypertarget{time_8c}{}\label{time_8c}\index{/home/arthur/Tek2/Project/Zappy/server/src/game/time.c@{/home/arthur/Tek2/Project/Zappy/server/src/game/time.c}}
+{\ttfamily \#include "{}server.\+h"{}}\newline
+Include dependency graph for time.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{time_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+struct timespec \mbox{\hyperlink{time_8c_a3405cac3648ad75ddfff9c287306ece0}{timespec\+\_\+add}} (struct timespec \texorpdfstring{$\ast$}{*}start, struct timespec \texorpdfstring{$\ast$}{*}duration)
+\begin{DoxyCompactList}\small\item\em Adds two timespec structures together. \end{DoxyCompactList}\item 
+struct timespec \mbox{\hyperlink{time_8c_a349f3afaf16995413ed403f7161975c0}{calculate\+\_\+action\+\_\+duration}} (int action\+\_\+units, int frequency)
+\begin{DoxyCompactList}\small\item\em Calculates the real-\/time duration for game actions. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{time_8c_ace8edb01fce2cb32de77dd436666bbc7}{check\+\_\+time\+\_\+events}} (\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{server_8c_ab140ac62eb02ac9134b3120c0a6829e6}{server}})
+\begin{DoxyCompactList}\small\item\em Manages periodic server events based on elapsed time. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{time_8c_a349f3afaf16995413ed403f7161975c0}\label{time_8c_a349f3afaf16995413ed403f7161975c0} 
+\index{time.c@{time.c}!calculate\_action\_duration@{calculate\_action\_duration}}
+\index{calculate\_action\_duration@{calculate\_action\_duration}!time.c@{time.c}}
+\doxysubsubsection{\texorpdfstring{calculate\_action\_duration()}{calculate\_action\_duration()}}
+{\footnotesize\ttfamily struct timespec calculate\+\_\+action\+\_\+duration (\begin{DoxyParamCaption}\item[{int}]{action\+\_\+units,  }\item[{int}]{frequency }\end{DoxyParamCaption})}
+
+
+
+Calculates the real-\/time duration for game actions. 
+
+Calculate action duration based on units and frequency.
+
+This function converts game action units into real-\/time duration based on the server frequency. It handles the conversion from action units to nanoseconds and structures the result properly.
+
+
+\begin{DoxyParams}{Parameters}
+{\em action\+\_\+units} & Number of game time units for the action \\
+\hline
+{\em frequency} & Server frequency (actions per second) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+timespec structure representing the real-\/time duration 
+\end{DoxyReturn}
+\Hypertarget{time_8c_ace8edb01fce2cb32de77dd436666bbc7}\label{time_8c_ace8edb01fce2cb32de77dd436666bbc7} 
+\index{time.c@{time.c}!check\_time\_events@{check\_time\_events}}
+\index{check\_time\_events@{check\_time\_events}!time.c@{time.c}}
+\doxysubsubsection{\texorpdfstring{check\_time\_events()}{check\_time\_events()}}
+{\footnotesize\ttfamily void check\+\_\+time\+\_\+events (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{server }\end{DoxyParamCaption})}
+
+
+
+Manages periodic server events based on elapsed time. 
+
+Check and handle time-\/based events.
+
+This function checks if enough time has passed for periodic server events and triggers them accordingly. It handles food consumption and resource respawning events with their respective timers.
+
+
+\begin{DoxyParams}{Parameters}
+{\em server} & Pointer to the server structure containing timers \\
+\hline
+\end{DoxyParams}
+\Hypertarget{time_8c_a3405cac3648ad75ddfff9c287306ece0}\label{time_8c_a3405cac3648ad75ddfff9c287306ece0} 
+\index{time.c@{time.c}!timespec\_add@{timespec\_add}}
+\index{timespec\_add@{timespec\_add}!time.c@{time.c}}
+\doxysubsubsection{\texorpdfstring{timespec\_add()}{timespec\_add()}}
+{\footnotesize\ttfamily struct timespec timespec\+\_\+add (\begin{DoxyParamCaption}\item[{struct timespec \texorpdfstring{$\ast$}{*}}]{start,  }\item[{struct timespec \texorpdfstring{$\ast$}{*}}]{duration }\end{DoxyParamCaption})}
+
+
+
+Adds two timespec structures together. 
+
+Add two timespec structures.
+
+This function performs addition of two timespec structures, handling nanosecond overflow properly by carrying over to the seconds field when nanoseconds exceed one second.
+
+
+\begin{DoxyParams}{Parameters}
+{\em start} & Pointer to the base timespec structure \\
+\hline
+{\em duration} & Pointer to the duration timespec to add \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+New timespec structure containing the sum 
+\end{DoxyReturn}

@@ -11,6 +11,17 @@
 #include <string.h>
 #include "server.h"
 
+/**
+ * @brief Parse and store team names from command line arguments
+ *
+ * This function reads team names from command line arguments until
+ * it encounters another flag, storing them in the parameters structure.
+ *
+ * @param params Pointer to the parameters structure to update
+ * @param av Array of command line arguments
+ * @param av_idx Pointer to current argument index
+ * @return SUCCESS if team names parsed successfully, ERROR otherwise
+ */
 int check_teams_names(params_t *params, char **av, size_t *av_idx)
 {
     if (!av || !av_idx)

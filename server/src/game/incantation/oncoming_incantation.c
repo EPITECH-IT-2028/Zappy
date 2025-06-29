@@ -14,6 +14,16 @@
 #include <string.h>
 #include <sys/socket.h>
 
+/**
+ * @brief Remove required resources from a tile for incantation
+ *
+ * This function removes the resources needed for an incantation of
+ * the specified level from the given map tile.
+ *
+ * @param tile Pointer to the map tile to remove resources from
+ * @param level Level of the incantation (0-6)
+ * @return SUCCESS on successful removal, ERROR on invalid parameters
+ */
 int remove_needed_ressources(map_t *tile, uint8_t level)
 {
     if (!tile || level > 6) {
@@ -28,6 +38,17 @@ int remove_needed_ressources(map_t *tile, uint8_t level)
     return SUCCESS;
 }
 
+/**
+ * @brief Check if an incantation has failed due to changed conditions
+ *
+ * This function verifies if the incantation should fail by checking
+ * if the incantator moved or if resources/players are insufficient.
+ *
+ * @param incantator Pointer to the incantator's client data
+ * @param clients Array of all clients on the server
+ * @param tile Pointer to the map tile where incantation takes place
+ * @return SUCCESS if conditions are still met, ERROR if failed
+ */
 int check_if_incantation_failed(
     client_data_t *incantator,
     client_t **clients,
@@ -51,7 +72,14 @@ int check_if_incantation_failed(
 }
 
 /**
- * Check if resources are sufficient for incantation
+ * @brief Check if resources are sufficient for incantation
+ *
+ * This function verifies that a tile has enough resources and players
+ * to perform an incantation of the specified level.
+ *
+ * @param unit_space Pointer to the map tile to check
+ * @param level Level of incantation to check requirements for
+ * @return SUCCESS if requirements met, ERROR if insufficient resources
  */
 static
 int check_resources_requirements(map_t *unit_space, uint8_t level)
@@ -68,7 +96,14 @@ int check_resources_requirements(map_t *unit_space, uint8_t level)
 }
 
 /**
- * Count players with required level on the tile
+ * @brief Count players with required level on the tile
+ *
+ * This function counts how many players on a tile have the exact
+ * level needed for the incantation.
+ *
+ * @param unit_space Pointer to the map tile containing players
+ * @param level_needed The level that players must have
+ * @return Number of players with the required level
  */
 static
 uint8_t count_players_with_level(map_t *unit_space, uint8_t level_needed)
@@ -107,9 +142,11 @@ int check_incantation_condition(server_t *server, request_t *request)
 }
 
 /**
- * Freeze all players on the current tile during incantation ritual
- * Sets all players as busy and assigns them the same action end time
- * to prevent them from performing other actions during the ritual
+ * @brief Freeze all players on tile during incantation ritual
+ *
+ * This function sets all players as busy and assigns them the same
+ * action end time to prevent other actions during the ritual.
+ *
  * @param server Pointer to the server structure
  * @param request Pointer to the client request containing position data
  * @return SUCCESS always (function cannot fail)
@@ -128,7 +165,12 @@ int freeze_every_player(server_t *server, request_t *request)
 }
 
 /**
- * Send elevation message to all incantators
+ * @brief Send elevation message to all incantators
+ *
+ * This function notifies all connected incantators that an elevation
+ * ritual is underway by sending them a message.
+ *
+ * @param incantators Array of client pointers participating in ritual
  */
 static
 void notify_incantators(client_t **incantators)
@@ -142,7 +184,15 @@ void notify_incantators(client_t **incantators)
 }
 
 /**
- * Initialize and start new incantation
+ * @brief Initialize and start new incantation
+ *
+ * This function validates all conditions and starts a new incantation
+ * by building the group, freezing players, and sending notifications.
+ *
+ * @param server Pointer to the server structure
+ * @param response Pointer to the response structure
+ * @param request Pointer to the client request
+ * @return SUCCESS if incantation started, ERROR if conditions not met
  */
 static
 int start_new_incantation(server_t *server, response_t *response,
@@ -168,13 +218,15 @@ int start_new_incantation(server_t *server, response_t *response,
 }
 
 /**
- * Handle incantation ritual request from a client
- * Validates all preconditions and initiates the ritual by
- * freezing all players
+ * @brief Handle incantation ritual request from a client
+ *
+ * This function validates all preconditions and either initiates
+ * a new ritual or handles completion of an ongoing incantation.
+ *
  * @param server Pointer to the server structure
  * @param response Pointer to the response structure
  * @param request Pointer to the client request containing player data
- * @return SUCCESS if incantation can proceed, ERROR if conditions not met
+ * @return SUCCESS if incantation handled, ERROR if conditions not met
  */
 int handle_oncoming_incantation(server_t *server, response_t *response,
     request_t *request)

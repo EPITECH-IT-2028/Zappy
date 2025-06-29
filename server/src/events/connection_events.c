@@ -11,11 +11,13 @@
 #include <stdio.h>
 
 /**
- * @brief Sends the pnw (player new) event to the GUI client.
+ * @brief Send pnw (player new) event to all GUI clients
  *
- * @param server The server instance.
- * @param index The index of the player in the server's client list.
- * @param gui The index of the GUI client to send the event to.
+ * This function formats and sends a player new message containing
+ * the player's ID, position, direction, level, and team name.
+ *
+ * @param server Pointer to the server instance
+ * @param index Index of the player in the server's client list
  */
 void send_pnw(server_t *server, int index)
 {
@@ -35,11 +37,13 @@ void send_pnw(server_t *server, int index)
 }
 
 /**
- * @brief Sends the pdi (player disconnect) event to the GUI client.
+ * @brief Send pdi (player disconnect) event to all GUI clients
  *
- * @param server The server instance.
- * @param index The index of the player in the server's client list.
- * @param gui The index of the GUI client to send the event to.
+ * This function formats and sends a player disconnect message
+ * containing the disconnected player's ID.
+ *
+ * @param server Pointer to the server instance
+ * @param index Index of the player in the server's client list
  */
 void send_pdi(server_t *server, int index)
 {

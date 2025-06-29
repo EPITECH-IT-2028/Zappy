@@ -33,6 +33,12 @@ namespace gui {
     ERROR
   };
 
+  struct TileSelection {
+      int x = -1;
+      int y = -1;
+      bool valid = false;
+  };
+
   class GameEngine {
     public:
       GameEngine(network::ServerCommunication &serverCommunication);
@@ -64,6 +70,21 @@ namespace gui {
       static constexpr int BROADCAST_LOG_LINE_HEIGHT = 25;
       static constexpr int BROADCAST_LOG_FONT_SIZE = 20;
 
+      static constexpr float PLAYER_SHADOW_RADIUS = 0.44f;
+      static constexpr int PLAYER_SHADOW_ALPHA = 60;
+      static constexpr float EGG_SHADOW_RADIUS = 0.22f;
+      static constexpr int EGG_SHADOW_ALPHA = 120;
+
+      static constexpr int TILE_PANEL_WIDTH = 260;
+      static constexpr int TILE_PANEL_HEIGHT = 210;
+      static constexpr int TILE_PANEL_X = 20;
+      static constexpr int TILE_PANEL_Y = SCREEN_HEIGHT - TILE_PANEL_HEIGHT - 20;
+
+      static constexpr int PLAYER_PANEL_WIDTH = 260;
+      static constexpr int PLAYER_PANEL_HEIGHT = 320;
+      static constexpr int PLAYER_PANEL_X = SCREEN_WIDTH - PLAYER_PANEL_WIDTH - 20;
+      static constexpr int PLAYER_PANEL_Y = 20;
+
       void DrawTextCodepoint3D(Font font, int codepoint, Vector3 position,
                                float fontSize, bool backface, Color tint);
       void DrawText3D(Font font, const char *text, Vector3 position,
@@ -79,6 +100,9 @@ namespace gui {
       GameState _gameState;
       handlecommand::CommandHandler _commandHandler;
       float worldScale = 1.0f;
+      TileSelection hoveredTile;
+      TileSelection clickedTile;
+      int selectedPlayerId = -1;
 
       void LogoScreenInput();
       void TitleScreenInput();
@@ -105,6 +129,9 @@ namespace gui {
       void drawResource(const Vector3 position, int x, int y,
                         std::vector<std::pair<Vector3, int>> &resourceTexts);
       void drawPlayers();
+      void drawEggs();
+      void drawPlayerShadows();
+      void drawEggShadows();
       void drawLights();
       void moveCamera();
       void handleCameraMovement();
@@ -113,8 +140,61 @@ namespace gui {
       void resetCamera();
       void drawBroadcastLog();
 
+      Vector3 calculatePlayerPosition(const gui::Player &player,
+                                      const Vector3 &gridOrigin,
+                                      float brickSpacing) const;
+      Vector3 calculateEggPosition(const gui::Egg &egg,
+                                   const Vector3 &gridOrigin,
+                                   float brickSpacing) const;
+      Vector3 calculateGridOrigin(float mapWidth, float mapHeight,
+                                  float brickSpacing) const;
+
       Shader _lightingShader;
       Light _lights[2];
       int _ambientLoc;
+      Texture2D _eggTexture;
+
+      // Title Screen
+      int _boxWidth;
+      int _boxHeight;
+      int _boxX;
+      int _boxY;
+
+      std::string _title;
+      int _titleFontSize;
+      int _titleTextWidth;
+
+      std::string _subtitle;
+      int _subtitleFontSize;
+      int _subtitleTextWidth;
+
+      // Wait screen
+      std::string _logoText;
+      int _fontSize;
+      int _textWidth;
+
+      int _dots;
+      std::string _loadingText;
+
+      int _loadingFontSize;
+      int _loadingWidth;
+
+      Texture _backgroundLogo;
+      void loadResources();
+
+      void dimensionAsset();
+      float _scaleAsset;
+      float _texWidthAsset;
+      float _texHeightAsset;
+      float _xAsset;
+      float _yAsset;
+
+      void updateTileSelection();
+      void drawTileInfoPanel();
+      bool getTileUnderMouse(float mapWidth, float mapHeight,
+                             float brickSpacing, Vector3 gridOrigin, int &tileX,
+                             int &tileY);
+      void drawPlayerListPanel();
+      void drawPlayerInfoPanel();
   };
 }  // namespace gui

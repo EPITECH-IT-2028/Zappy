@@ -1,0 +1,102 @@
+\doxysection{/home/arthur/\+Tek2/\+Project/\+Zappy/server/src/game/movement.c File Reference}
+\hypertarget{movement_8c}{}\label{movement_8c}\index{/home/arthur/Tek2/Project/Zappy/server/src/game/movement.c@{/home/arthur/Tek2/Project/Zappy/server/src/game/movement.c}}
+{\ttfamily \#include "{}macro.\+h"{}}\newline
+{\ttfamily \#include "{}server.\+h"{}}\newline
+Include dependency graph for movement.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{movement_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{movement_8c_a775a67dc1a7d498ec3c8d313e8e68dc2}{move\+\_\+forward}} (\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{server_8c_ab140ac62eb02ac9134b3120c0a6829e6}{server}}, \mbox{\hyperlink{server_8h_a0a742c24c6cf5a8824f8b0399778b0f4}{response\+\_\+t}} \texorpdfstring{$\ast$}{*}response, \mbox{\hyperlink{server_8h_a2fc1b64f51f8225195d32592e6fe8fc5}{request\+\_\+t}} \texorpdfstring{$\ast$}{*}request)
+\begin{DoxyCompactList}\small\item\em Handles the "{}\+Forward"{} command for a client. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{movement_8c_a0eef8b548b027987aca619e6f06b30f7}{rotate\+\_\+right}} (\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{server_8c_ab140ac62eb02ac9134b3120c0a6829e6}{server}}, \mbox{\hyperlink{server_8h_a0a742c24c6cf5a8824f8b0399778b0f4}{response\+\_\+t}} \texorpdfstring{$\ast$}{*}response, \mbox{\hyperlink{server_8h_a2fc1b64f51f8225195d32592e6fe8fc5}{request\+\_\+t}} \texorpdfstring{$\ast$}{*}request)
+\begin{DoxyCompactList}\small\item\em Handles the "{}\+Right"{} command for a client. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{movement_8c_a5f9fb954b98d1da3fd849a6f0b355822}{rotate\+\_\+left}} (\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{server_8c_ab140ac62eb02ac9134b3120c0a6829e6}{server}}, \mbox{\hyperlink{server_8h_a0a742c24c6cf5a8824f8b0399778b0f4}{response\+\_\+t}} \texorpdfstring{$\ast$}{*}response, \mbox{\hyperlink{server_8h_a2fc1b64f51f8225195d32592e6fe8fc5}{request\+\_\+t}} \texorpdfstring{$\ast$}{*}request)
+\begin{DoxyCompactList}\small\item\em Handles the "{}\+Left"{} command for a client. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{movement_8c_a775a67dc1a7d498ec3c8d313e8e68dc2}\label{movement_8c_a775a67dc1a7d498ec3c8d313e8e68dc2} 
+\index{movement.c@{movement.c}!move\_forward@{move\_forward}}
+\index{move\_forward@{move\_forward}!movement.c@{movement.c}}
+\doxysubsubsection{\texorpdfstring{move\_forward()}{move\_forward()}}
+{\footnotesize\ttfamily int move\+\_\+forward (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{server,  }\item[{\mbox{\hyperlink{server_8h_a0a742c24c6cf5a8824f8b0399778b0f4}{response\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{response,  }\item[{\mbox{\hyperlink{server_8h_a2fc1b64f51f8225195d32592e6fe8fc5}{request\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{request }\end{DoxyParamCaption})}
+
+
+
+Handles the "{}\+Forward"{} command for a client. 
+
+Handle forward movement command from AI player.
+
+This function processes a client\textquotesingle{}s request to move forward one tile in their current facing direction. Updates the client\textquotesingle{}s position on the map and sends appropriate responses.
+
+
+\begin{DoxyParams}{Parameters}
+{\em server} & Pointer to the server structure \\
+\hline
+{\em response} & Pointer to response structure to fill with result \\
+\hline
+{\em request} & Pointer to the client\textquotesingle{}s movement request \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+SUCCESS if movement completed successfully, ERROR otherwise 
+\end{DoxyReturn}
+\Hypertarget{movement_8c_a5f9fb954b98d1da3fd849a6f0b355822}\label{movement_8c_a5f9fb954b98d1da3fd849a6f0b355822} 
+\index{movement.c@{movement.c}!rotate\_left@{rotate\_left}}
+\index{rotate\_left@{rotate\_left}!movement.c@{movement.c}}
+\doxysubsubsection{\texorpdfstring{rotate\_left()}{rotate\_left()}}
+{\footnotesize\ttfamily int rotate\+\_\+left (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{server,  }\item[{\mbox{\hyperlink{server_8h_a0a742c24c6cf5a8824f8b0399778b0f4}{response\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{response,  }\item[{\mbox{\hyperlink{server_8h_a2fc1b64f51f8225195d32592e6fe8fc5}{request\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{request }\end{DoxyParamCaption})}
+
+
+
+Handles the "{}\+Left"{} command for a client. 
+
+Handle left rotation command from AI player.
+
+This function processes a client\textquotesingle{}s request to rotate 90 degrees counter-\/clockwise. Updates the client\textquotesingle{}s facing direction and sends appropriate responses to the client and GUI.
+
+
+\begin{DoxyParams}{Parameters}
+{\em server} & Pointer to the server structure \\
+\hline
+{\em response} & Pointer to response structure to fill with result \\
+\hline
+{\em request} & Pointer to the client\textquotesingle{}s rotation request \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+SUCCESS if rotation completed successfully, ERROR otherwise 
+\end{DoxyReturn}
+\Hypertarget{movement_8c_a0eef8b548b027987aca619e6f06b30f7}\label{movement_8c_a0eef8b548b027987aca619e6f06b30f7} 
+\index{movement.c@{movement.c}!rotate\_right@{rotate\_right}}
+\index{rotate\_right@{rotate\_right}!movement.c@{movement.c}}
+\doxysubsubsection{\texorpdfstring{rotate\_right()}{rotate\_right()}}
+{\footnotesize\ttfamily int rotate\+\_\+right (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{server,  }\item[{\mbox{\hyperlink{server_8h_a0a742c24c6cf5a8824f8b0399778b0f4}{response\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{response,  }\item[{\mbox{\hyperlink{server_8h_a2fc1b64f51f8225195d32592e6fe8fc5}{request\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{request }\end{DoxyParamCaption})}
+
+
+
+Handles the "{}\+Right"{} command for a client. 
+
+Handle right rotation command from AI player.
+
+This function processes a client\textquotesingle{}s request to rotate 90 degrees clockwise. Updates the client\textquotesingle{}s facing direction and sends appropriate responses to the client and GUI.
+
+
+\begin{DoxyParams}{Parameters}
+{\em server} & Pointer to the server structure \\
+\hline
+{\em response} & Pointer to response structure to fill with result \\
+\hline
+{\em request} & Pointer to the client\textquotesingle{}s rotation request \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+SUCCESS if rotation completed successfully, ERROR otherwise 
+\end{DoxyReturn}

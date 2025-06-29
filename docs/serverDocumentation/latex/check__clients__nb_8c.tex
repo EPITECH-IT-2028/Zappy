@@ -1,0 +1,48 @@
+\doxysection{/home/arthur/\+Tek2/\+Project/\+Zappy/server/src/error/check\+\_\+clients\+\_\+nb.c File Reference}
+\hypertarget{check__clients__nb_8c}{}\label{check__clients__nb_8c}\index{/home/arthur/Tek2/Project/Zappy/server/src/error/check\_clients\_nb.c@{/home/arthur/Tek2/Project/Zappy/server/src/error/check\_clients\_nb.c}}
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include "{}server.\+h"{}}\newline
+{\ttfamily \#include "{}macro.\+h"{}}\newline
+Include dependency graph for check\+\_\+clients\+\_\+nb.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{check__clients__nb_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{check__clients__nb_8c_a5f746d400b3077627cf9db4cffef2ab0}{check\+\_\+clients\+\_\+nb}} (\mbox{\hyperlink{server_8h_ad9ef31b4161fdea2cae57c1185ba461a}{params\+\_\+t}} \texorpdfstring{$\ast$}{*}params, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}av, size\+\_\+t \texorpdfstring{$\ast$}{*}av\+\_\+idx)
+\begin{DoxyCompactList}\small\item\em Validate and set the number of clients per team parameter. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{check__clients__nb_8c_a5f746d400b3077627cf9db4cffef2ab0}\label{check__clients__nb_8c_a5f746d400b3077627cf9db4cffef2ab0} 
+\index{check\_clients\_nb.c@{check\_clients\_nb.c}!check\_clients\_nb@{check\_clients\_nb}}
+\index{check\_clients\_nb@{check\_clients\_nb}!check\_clients\_nb.c@{check\_clients\_nb.c}}
+\doxysubsubsection{\texorpdfstring{check\_clients\_nb()}{check\_clients\_nb()}}
+{\footnotesize\ttfamily int check\+\_\+clients\+\_\+nb (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_ad9ef31b4161fdea2cae57c1185ba461a}{params\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{params,  }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{av,  }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{av\+\_\+idx }\end{DoxyParamCaption})}
+
+
+
+Validate and set the number of clients per team parameter. 
+
+Validate and set clients per team parameter.
+
+This function checks if the provided client number is valid and sets it in the parameters structure.
+
+
+\begin{DoxyParams}{Parameters}
+{\em params} & Pointer to the parameters structure to update \\
+\hline
+{\em av} & Array of command line arguments \\
+\hline
+{\em av\+\_\+idx} & Pointer to current argument index \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+SUCCESS if valid client number, ERROR otherwise 
+\end{DoxyReturn}

@@ -1,0 +1,48 @@
+\doxysection{/home/arthur/\+Tek2/\+Project/\+Zappy/server/src/error/check\+\_\+port.c File Reference}
+\hypertarget{check__port_8c}{}\label{check__port_8c}\index{/home/arthur/Tek2/Project/Zappy/server/src/error/check\_port.c@{/home/arthur/Tek2/Project/Zappy/server/src/error/check\_port.c}}
+{\ttfamily \#include "{}server.\+h"{}}\newline
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include "{}macro.\+h"{}}\newline
+Include dependency graph for check\+\_\+port.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{check__port_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{check__port_8c_a087f49d92982e8babf281f3e97db7da4}{check\+\_\+port}} (\mbox{\hyperlink{server_8h_ad9ef31b4161fdea2cae57c1185ba461a}{params\+\_\+t}} \texorpdfstring{$\ast$}{*}params, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}av, size\+\_\+t \texorpdfstring{$\ast$}{*}av\+\_\+idx)
+\begin{DoxyCompactList}\small\item\em Validate and set the server port parameter. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{check__port_8c_a087f49d92982e8babf281f3e97db7da4}\label{check__port_8c_a087f49d92982e8babf281f3e97db7da4} 
+\index{check\_port.c@{check\_port.c}!check\_port@{check\_port}}
+\index{check\_port@{check\_port}!check\_port.c@{check\_port.c}}
+\doxysubsubsection{\texorpdfstring{check\_port()}{check\_port()}}
+{\footnotesize\ttfamily int check\+\_\+port (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_ad9ef31b4161fdea2cae57c1185ba461a}{params\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{params,  }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{av,  }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{av\+\_\+idx }\end{DoxyParamCaption})}
+
+
+
+Validate and set the server port parameter. 
+
+Validate and set port parameter.
+
+This function checks if the provided port number is within valid range (1-\/65535) and sets it in the parameters structure.
+
+
+\begin{DoxyParams}{Parameters}
+{\em params} & Pointer to the parameters structure to update \\
+\hline
+{\em av} & Array of command line arguments \\
+\hline
+{\em av\+\_\+idx} & Pointer to current argument index \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+SUCCESS if valid port number, ERROR otherwise 
+\end{DoxyReturn}

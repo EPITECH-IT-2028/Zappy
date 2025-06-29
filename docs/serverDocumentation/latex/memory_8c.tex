@@ -1,0 +1,119 @@
+\doxysection{/home/arthur/\+Tek2/\+Project/\+Zappy/server/src/memory.c File Reference}
+\hypertarget{memory_8c}{}\label{memory_8c}\index{/home/arthur/Tek2/Project/Zappy/server/src/memory.c@{/home/arthur/Tek2/Project/Zappy/server/src/memory.c}}
+{\ttfamily \#include "{}server.\+h"{}}\newline
+{\ttfamily \#include "{}utils.\+h"{}}\newline
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$pthread.\+h$>$}\newline
+Include dependency graph for memory.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{memory_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{memory_8c_a3561216815a7200b985a23b7c55798ed}{free\+\_\+params}} (\mbox{\hyperlink{server_8h_ad9ef31b4161fdea2cae57c1185ba461a}{params\+\_\+t}} \texorpdfstring{$\ast$}{*}params)
+\begin{DoxyCompactList}\small\item\em Frees memory allocated for team names in params structure. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{memory_8c_a63eb92c097354f07699c5745adfe6f94}{free\+\_\+map}} (\mbox{\hyperlink{server_8h_ae80c6c8b9f9e5f88c65337bb1cd2eb65}{map\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}map, \mbox{\hyperlink{server_8h_ad9ef31b4161fdea2cae57c1185ba461a}{params\+\_\+t}} \texorpdfstring{$\ast$}{*}params)
+\begin{DoxyCompactList}\small\item\em Frees memory allocated for the game map. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{memory_8c_ac961bbf79393524d3c09d328eb452ac5}{cleanup\+\_\+client\+\_\+data}} (\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{server_8c_ab140ac62eb02ac9134b3120c0a6829e6}{server}}, int index)
+\begin{DoxyCompactList}\small\item\em Cleans up and frees resources associated with a client. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{memory_8c_ae09ebc63d3ad141520add97450e435b7}{free\+\_\+server}} (\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{server_8c_ab140ac62eb02ac9134b3120c0a6829e6}{server}})
+\begin{DoxyCompactList}\small\item\em Performs complete cleanup of the server structure. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{memory_8c_ae4e0c2055db747abf7342a71dd779457}{free\+\_\+incantators}} (\mbox{\hyperlink{server_8h_a7bfebc8e763f36d1870198931d6b5eb1}{client\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}incantators)
+\begin{DoxyCompactList}\small\item\em Frees an array of incantator clients. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{memory_8c_ac961bbf79393524d3c09d328eb452ac5}\label{memory_8c_ac961bbf79393524d3c09d328eb452ac5} 
+\index{memory.c@{memory.c}!cleanup\_client\_data@{cleanup\_client\_data}}
+\index{cleanup\_client\_data@{cleanup\_client\_data}!memory.c@{memory.c}}
+\doxysubsubsection{\texorpdfstring{cleanup\_client\_data()}{cleanup\_client\_data()}}
+{\footnotesize\ttfamily void cleanup\+\_\+client\+\_\+data (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{server,  }\item[{int}]{index }\end{DoxyParamCaption})}
+
+
+
+Cleans up and frees resources associated with a client. 
+
+Cleanup client data at specified index.
+
+
+\begin{DoxyParams}{Parameters}
+{\em server} & Server structure containing the client \\
+\hline
+{\em index} & Index of the client to clean up\\
+\hline
+\end{DoxyParams}
+Decrements team client count if applicable, frees team name, cleans up pending responses with proper mutex protection, and finally frees the client structure itself. \Hypertarget{memory_8c_ae4e0c2055db747abf7342a71dd779457}\label{memory_8c_ae4e0c2055db747abf7342a71dd779457} 
+\index{memory.c@{memory.c}!free\_incantators@{free\_incantators}}
+\index{free\_incantators@{free\_incantators}!memory.c@{memory.c}}
+\doxysubsubsection{\texorpdfstring{free\_incantators()}{free\_incantators()}}
+{\footnotesize\ttfamily void free\+\_\+incantators (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_a7bfebc8e763f36d1870198931d6b5eb1}{client\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{incantators }\end{DoxyParamCaption})}
+
+
+
+Frees an array of incantator clients. 
+
+Free memory allocated for incantator array.
+
+
+\begin{DoxyParams}{Parameters}
+{\em incantators} & NULL-\/terminated array of incantator client pointers\\
+\hline
+\end{DoxyParams}
+Iterates through the array and frees each incantator pointer before freeing the array itself. \Hypertarget{memory_8c_a63eb92c097354f07699c5745adfe6f94}\label{memory_8c_a63eb92c097354f07699c5745adfe6f94} 
+\index{memory.c@{memory.c}!free\_map@{free\_map}}
+\index{free\_map@{free\_map}!memory.c@{memory.c}}
+\doxysubsubsection{\texorpdfstring{free\_map()}{free\_map()}}
+{\footnotesize\ttfamily void free\+\_\+map (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_ae80c6c8b9f9e5f88c65337bb1cd2eb65}{map\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{map,  }\item[{\mbox{\hyperlink{server_8h_ad9ef31b4161fdea2cae57c1185ba461a}{params\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{params }\end{DoxyParamCaption})}
+
+
+
+Frees memory allocated for the game map. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em map} & 2D array representing the map \\
+\hline
+{\em params} & Parameters containing map dimensions\\
+\hline
+\end{DoxyParams}
+Releases all memory for the 2D map structure by freeing each row and then freeing the array of rows. \Hypertarget{memory_8c_a3561216815a7200b985a23b7c55798ed}\label{memory_8c_a3561216815a7200b985a23b7c55798ed} 
+\index{memory.c@{memory.c}!free\_params@{free\_params}}
+\index{free\_params@{free\_params}!memory.c@{memory.c}}
+\doxysubsubsection{\texorpdfstring{free\_params()}{free\_params()}}
+{\footnotesize\ttfamily void free\+\_\+params (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_ad9ef31b4161fdea2cae57c1185ba461a}{params\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{params }\end{DoxyParamCaption})}
+
+
+
+Frees memory allocated for team names in params structure. 
+
+Free allocated memory in parameters structure.
+
+
+\begin{DoxyParams}{Parameters}
+{\em params} & Pointer to parameters structure containing team names\\
+\hline
+\end{DoxyParams}
+Iterates through the teams\+\_\+names array and frees each team name string before freeing the array itself. \Hypertarget{memory_8c_ae09ebc63d3ad141520add97450e435b7}\label{memory_8c_ae09ebc63d3ad141520add97450e435b7} 
+\index{memory.c@{memory.c}!free\_server@{free\_server}}
+\index{free\_server@{free\_server}!memory.c@{memory.c}}
+\doxysubsubsection{\texorpdfstring{free\_server()}{free\_server()}}
+{\footnotesize\ttfamily void free\+\_\+server (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{server }\end{DoxyParamCaption})}
+
+
+
+Performs complete cleanup of the server structure. 
+
+Free all server resources and cleanup.
+
+
+\begin{DoxyParams}{Parameters}
+{\em server} & Pointer to server structure to be freed\\
+\hline
+\end{DoxyParams}
+Stops the server, joins the game thread, and systematically frees all resources\+: clients, mutexes, map, parameters, teams, and file descriptors. 

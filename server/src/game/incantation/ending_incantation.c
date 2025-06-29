@@ -10,6 +10,14 @@
 #include "utils.h"
 #include <stdlib.h>
 
+/**
+ * @brief Notify all incantators about the end of incantation
+ *
+ * This function sends a message to all connected incantators
+ * informing them of their current level after the incantation.
+ *
+ * @param incantators Array of client pointers participating in incantation
+ */
 static
 void notify_incantators_end(client_t **incantators)
 {
@@ -26,6 +34,14 @@ void notify_incantators_end(client_t **incantators)
     }
 }
 
+/**
+ * @brief Level up all clients in the incantation group
+ *
+ * This function increments the level of all clients participating
+ * in a successful incantation and maintains incantation state.
+ *
+ * @param incantator Pointer to the main incantator client
+ */
 static
 void level_up_all_client(client_t *incantator)
 {
@@ -36,6 +52,14 @@ void level_up_all_client(client_t *incantator)
     incantator->data.incantation.is_incantating = true;
 }
 
+/**
+ * @brief Clear and reset incantation data for all participants
+ *
+ * This function resets the incantation state for all group members
+ * and frees the allocated memory for the client group.
+ *
+ * @param client_incantation_data Pointer to incantation data to clear
+ */
 static
 void clear_incantation_data(incantation_t *client_incantation_data)
 {
@@ -52,6 +76,17 @@ void clear_incantation_data(incantation_t *client_incantation_data)
     client_incantation_data->client_group = NULL;
 }
 
+/**
+ * @brief Handle the completion of an incantation process
+ *
+ * This function processes the end of an incantation by checking
+ * success conditions, leveling up participants, and cleaning up.
+ *
+ * @param server Pointer to the server structure
+ * @param response Pointer to the response structure to fill
+ * @param request Pointer to the client request
+ * @return SUCCESS if incantation succeeded, ERROR if it failed
+ */
 int handle_ending_incantation(server_t *server, response_t *response,
     request_t *request)
 {

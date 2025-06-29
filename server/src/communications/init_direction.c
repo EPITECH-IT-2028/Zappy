@@ -8,6 +8,13 @@
 #include "server.h"
 #include <stdlib.h>
 
+/**
+ * @brief Initialize a random direction for a client
+ *
+ * This function randomly selects a direction from the predefined
+ *
+ * @param direction Pointer to the direction_t variable to initialize
+ */
 void init_direction(direction_t *direction)
 {
     static const direction_t directions[MAX_DIRECTION] =

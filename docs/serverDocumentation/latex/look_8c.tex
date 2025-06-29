@@ -1,0 +1,47 @@
+\doxysection{/home/arthur/\+Tek2/\+Project/\+Zappy/server/src/game/look.c File Reference}
+\hypertarget{look_8c}{}\label{look_8c}\index{/home/arthur/Tek2/Project/Zappy/server/src/game/look.c@{/home/arthur/Tek2/Project/Zappy/server/src/game/look.c}}
+{\ttfamily \#include "{}macro.\+h"{}}\newline
+{\ttfamily \#include "{}server.\+h"{}}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+Include dependency graph for look.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{look_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{look_8c_a347b70b6aeb0b7859e64420a1dff9a26}{handle\+\_\+look}} (\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{server_8c_ab140ac62eb02ac9134b3120c0a6829e6}{server}}, \mbox{\hyperlink{server_8h_a0a742c24c6cf5a8824f8b0399778b0f4}{response\+\_\+t}} \texorpdfstring{$\ast$}{*}response, \mbox{\hyperlink{server_8h_a2fc1b64f51f8225195d32592e6fe8fc5}{request\+\_\+t}} \texorpdfstring{$\ast$}{*}request)
+\begin{DoxyCompactList}\small\item\em Handle the look command to show player\textquotesingle{}s vision. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{look_8c_a347b70b6aeb0b7859e64420a1dff9a26}\label{look_8c_a347b70b6aeb0b7859e64420a1dff9a26} 
+\index{look.c@{look.c}!handle\_look@{handle\_look}}
+\index{handle\_look@{handle\_look}!look.c@{look.c}}
+\doxysubsubsection{\texorpdfstring{handle\_look()}{handle\_look()}}
+{\footnotesize\ttfamily int handle\+\_\+look (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{server,  }\item[{\mbox{\hyperlink{server_8h_a0a742c24c6cf5a8824f8b0399778b0f4}{response\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{response,  }\item[{\mbox{\hyperlink{server_8h_a2fc1b64f51f8225195d32592e6fe8fc5}{request\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{request }\end{DoxyParamCaption})}
+
+
+
+Handle the look command to show player\textquotesingle{}s vision. 
+
+Handle look command from AI player.
+
+This function processes the look command by building a formatted response showing all visible tiles and their contents.
+
+
+\begin{DoxyParams}{Parameters}
+{\em server} & Pointer to the server structure \\
+\hline
+{\em response} & Pointer to the response structure to fill \\
+\hline
+{\em request} & Pointer to the client request \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+SUCCESS on successful look processing, ERROR on failure 
+\end{DoxyReturn}

@@ -1,0 +1,72 @@
+\doxysection{/home/arthur/\+Tek2/\+Project/\+Zappy/server/src/utils\+\_\+map.c File Reference}
+\hypertarget{utils__map_8c}{}\label{utils__map_8c}\index{/home/arthur/Tek2/Project/Zappy/server/src/utils\_map.c@{/home/arthur/Tek2/Project/Zappy/server/src/utils\_map.c}}
+{\ttfamily \#include "{}server.\+h"{}}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+Include dependency graph for utils\+\_\+map.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{utils__map_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{utils__map_8c_a1119cde55d5c2b695090201865e17a07}{remove\+\_\+player\+\_\+map}} (\mbox{\hyperlink{server_8h_ae80c6c8b9f9e5f88c65337bb1cd2eb65}{map\+\_\+t}} \texorpdfstring{$\ast$}{*}map, \mbox{\hyperlink{server_8h_a7bfebc8e763f36d1870198931d6b5eb1}{client\+\_\+t}} \texorpdfstring{$\ast$}{*}client)
+\begin{DoxyCompactList}\small\item\em Removes a player from a map tile. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{utils__map_8c_a020b619ee725b90300c2909f92ce2987}{add\+\_\+player\+\_\+map}} (\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{server_8c_ab140ac62eb02ac9134b3120c0a6829e6}{server}}, \mbox{\hyperlink{server_8h_ae80c6c8b9f9e5f88c65337bb1cd2eb65}{map\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}map, \mbox{\hyperlink{server_8h_a7bfebc8e763f36d1870198931d6b5eb1}{client\+\_\+t}} \texorpdfstring{$\ast$}{*}client)
+\begin{DoxyCompactList}\small\item\em Adds a player to the map at their current coordinates. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{utils__map_8c_a020b619ee725b90300c2909f92ce2987}\label{utils__map_8c_a020b619ee725b90300c2909f92ce2987} 
+\index{utils\_map.c@{utils\_map.c}!add\_player\_map@{add\_player\_map}}
+\index{add\_player\_map@{add\_player\_map}!utils\_map.c@{utils\_map.c}}
+\doxysubsubsection{\texorpdfstring{add\_player\_map()}{add\_player\_map()}}
+{\footnotesize\ttfamily int add\+\_\+player\+\_\+map (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{server,  }\item[{\mbox{\hyperlink{server_8h_ae80c6c8b9f9e5f88c65337bb1cd2eb65}{map\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{map,  }\item[{\mbox{\hyperlink{server_8h_a7bfebc8e763f36d1870198931d6b5eb1}{client\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{client }\end{DoxyParamCaption})}
+
+
+
+Adds a player to the map at their current coordinates. 
+
+Add player to map tile.
+
+
+\begin{DoxyParams}{Parameters}
+{\em server} & Server containing map parameters \\
+\hline
+{\em map} & 2D array of map tiles \\
+\hline
+{\em client} & Client to be added to the map\\
+\hline
+\end{DoxyParams}
+Ensures the client\textquotesingle{}s coordinates are within bounds, then adds them to the appropriate map tile by reallocating the players array and incrementing the player count.
+
+\begin{DoxyReturn}{Returns}
+SUCCESS if the player was successfully added, ERROR on memory allocation failure 
+\end{DoxyReturn}
+\Hypertarget{utils__map_8c_a1119cde55d5c2b695090201865e17a07}\label{utils__map_8c_a1119cde55d5c2b695090201865e17a07} 
+\index{utils\_map.c@{utils\_map.c}!remove\_player\_map@{remove\_player\_map}}
+\index{remove\_player\_map@{remove\_player\_map}!utils\_map.c@{utils\_map.c}}
+\doxysubsubsection{\texorpdfstring{remove\_player\_map()}{remove\_player\_map()}}
+{\footnotesize\ttfamily int remove\+\_\+player\+\_\+map (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_ae80c6c8b9f9e5f88c65337bb1cd2eb65}{map\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{map,  }\item[{\mbox{\hyperlink{server_8h_a7bfebc8e763f36d1870198931d6b5eb1}{client\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{client }\end{DoxyParamCaption})}
+
+
+
+Removes a player from a map tile. 
+
+Remove player from map tile.
+
+
+\begin{DoxyParams}{Parameters}
+{\em map} & Pointer to the map tile \\
+\hline
+{\em client} & Client to be removed\\
+\hline
+\end{DoxyParams}
+Finds the player in the tile\textquotesingle{}s player array, removes them by shifting the array, and reallocates memory to reduce the array size. If the tile has no more players, the players array is freed.
+
+\begin{DoxyReturn}{Returns}
+SUCCESS (0) if the player was successfully removed, ERROR on failure 
+\end{DoxyReturn}

@@ -11,6 +11,12 @@
     #include <stdbool.h>
     #include <stdint.h>
 
+/**
+ * @brief Structure defining incantation requirements for level advancement
+ *
+ * Contains the minimum number of players and resources required
+ * on a tile for a successful incantation to advance to the next level.
+ */
 typedef struct incantation_condition_s {
     uint8_t player;
     uint8_t linemate;
@@ -21,6 +27,13 @@ typedef struct incantation_condition_s {
     uint8_t thystame;
 } incantation_condition_t;
 
+/**
+ * @brief Array of incantation requirements for each level advancement
+ *
+ * This constant array defines the exact requirements (players and
+ * resources) needed for each level transition from 1 to 8.
+ * Index corresponds to the source level (0 = level 1->2, etc.).
+ */
 const incantation_condition_t tab_incantation[] = {
     {1, 1, 0, 0, 0, 0, 0},  // Level 1->2
     {2, 1, 1, 1, 0, 0, 0},  // Level 2->3

@@ -1,0 +1,46 @@
+\doxysection{/home/arthur/\+Tek2/\+Project/\+Zappy/server/src/communications/gui\+\_\+commands/time\+\_\+commands.c File Reference}
+\hypertarget{time__commands_8c}{}\label{time__commands_8c}\index{/home/arthur/Tek2/Project/Zappy/server/src/communications/gui\_commands/time\_commands.c@{/home/arthur/Tek2/Project/Zappy/server/src/communications/gui\_commands/time\_commands.c}}
+{\ttfamily \#include "{}macro.\+h"{}}\newline
+{\ttfamily \#include "{}server.\+h"{}}\newline
+{\ttfamily \#include "{}utils.\+h"{}}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+Include dependency graph for time\+\_\+commands.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{time__commands_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{time__commands_8c_ae76dc5623e03324210741965b4e21918}{time\+\_\+commands}} (\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{server_8c_ab140ac62eb02ac9134b3120c0a6829e6}{server}}, int index, char \texorpdfstring{$\ast$}{*}buffer)
+\begin{DoxyCompactList}\small\item\em Handle time-\/related commands from GUI clients. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{time__commands_8c_ae76dc5623e03324210741965b4e21918}\label{time__commands_8c_ae76dc5623e03324210741965b4e21918} 
+\index{time\_commands.c@{time\_commands.c}!time\_commands@{time\_commands}}
+\index{time\_commands@{time\_commands}!time\_commands.c@{time\_commands.c}}
+\doxysubsubsection{\texorpdfstring{time\_commands()}{time\_commands()}}
+{\footnotesize\ttfamily void time\+\_\+commands (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{server,  }\item[{int}]{index,  }\item[{char \texorpdfstring{$\ast$}{*}}]{buffer }\end{DoxyParamCaption})}
+
+
+
+Handle time-\/related commands from GUI clients. 
+
+Handle GUI time-\/related commands.
+
+This function processes time commands (sgt, sst) from GUI clients and sends appropriate responses or modifies server settings.
+
+
+\begin{DoxyParams}{Parameters}
+{\em server} & Pointer to the server structure \\
+\hline
+{\em index} & Index of the GUI client sending the command \\
+\hline
+{\em buffer} & Command string to process \\
+\hline
+\end{DoxyParams}

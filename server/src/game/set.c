@@ -12,11 +12,15 @@
 #include <stdlib.h>
 #include <string.h>
 
-/*
- * Updates the server's resource density counters when a resource is added
- * to the map
- * @param server Server structure
- * @param type Resource type (0-6)
+/**
+ * @brief Updates the server's resource density counters when a resource
+ * is added to the map
+ *
+ * This function increments the density counter for a specific resource
+ * type when that resource is placed on the game map.
+ *
+ * @param server Pointer to the server structure
+ * @param type Resource type index (0-6)
  */
 void increment_resource_density(server_t *server, int type)
 {
@@ -33,10 +37,14 @@ void increment_resource_density(server_t *server, int type)
 }
 
 /**
- * Updates the server's resource density counters when a resource is removed
- * from the map
- * @param server Server structure
- * @param type Resource type (0-6)
+ * @brief Updates the server's resource density counters when a resource
+ * is removed from the map
+ *
+ * This function decrements the density counter for a specific resource
+ * type when that resource is taken from the game map.
+ *
+ * @param server Pointer to the server structure
+ * @param type Resource type index (0-6)
  */
 void decrement_resource_density(server_t *server, int type)
 {
@@ -52,6 +60,19 @@ void decrement_resource_density(server_t *server, int type)
     (*density_fields[type])--;
 }
 
+/**
+ * @brief Handles resource transfer between inventory and map
+ *
+ * This function manages the transfer of resources either from a client's
+ * inventory to the map (set operation) or from the map to inventory
+ * (take operation). It updates both locations and density counters.
+ *
+ * @param server Pointer to the server structure
+ * @param resources Array of resource structures containing pointers
+ * @param from_inv_to_map True for set operation, false for take operation
+ * @param idx_resource Index of the resource type to transfer
+ * @return SUCCESS if transfer completed, ERROR otherwise
+ */
 int remove_or_add_ressource(server_t *server, ressources_t *resources,
     bool from_inv_to_map, uint8_t idx_resource)
 {
@@ -74,6 +95,19 @@ int remove_or_add_ressource(server_t *server, ressources_t *resources,
     return ERROR;
 }
 
+/**
+ * @brief Validates if a resource exists and can be transferred
+ *
+ * This function checks if a named resource exists in the game and whether
+ * the requested transfer operation (set/take) can be performed based on
+ * availability in the source location.
+ *
+ * @param server Pointer to the server structure
+ * @param client Pointer to the client data
+ * @param resource String name of the resource to check
+ * @param from_inv_to_map Transfer direction flag
+ * @return Resource index if valid transfer, ERROR otherwise
+ */
 static
 int check_if_ressources_exists(
     server_t *server,
@@ -103,6 +137,19 @@ int check_if_ressources_exists(
     return idx_resource;
 }
 
+/**
+ * @brief Processes and validates a resource transfer request
+ *
+ * This function parses a client's command to extract the resource name,
+ * validates the request, and performs the actual resource transfer
+ * operation between inventory and map.
+ *
+ * @param server Pointer to the server structure
+ * @param request Pointer to the client's request
+ * @param client Pointer to the client data
+ * @param from_inv_to_map True for set command, false for take command
+ * @return Resource ID if successful, ERROR otherwise
+ */
 int check_ressource_update(
     server_t *server,
     request_t *request,
@@ -127,6 +174,18 @@ int check_ressource_update(
     return id;
 }
 
+/**
+ * @brief Handles the "Set" command for placing resources on the map
+ *
+ * This function processes a client's request to place a resource from
+ * their inventory onto the current map tile. It validates the operation,
+ * updates the game state, and sends appropriate notifications.
+ *
+ * @param server Pointer to the server structure
+ * @param response Pointer to response structure to fill with result
+ * @param request Pointer to the client's set request
+ * @return SUCCESS if resource was placed successfully, ERROR otherwise
+ */
 int handle_set(server_t *server, response_t *response, request_t *request)
 {
     client_data_t *client = &request->client->data;

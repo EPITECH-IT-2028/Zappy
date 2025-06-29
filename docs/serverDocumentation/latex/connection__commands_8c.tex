@@ -1,0 +1,45 @@
+\doxysection{/home/arthur/\+Tek2/\+Project/\+Zappy/server/src/communications/connection\+\_\+commands.c File Reference}
+\hypertarget{connection__commands_8c}{}\label{connection__commands_8c}\index{/home/arthur/Tek2/Project/Zappy/server/src/communications/connection\_commands.c@{/home/arthur/Tek2/Project/Zappy/server/src/communications/connection\_commands.c}}
+{\ttfamily \#include "{}macro.\+h"{}}\newline
+{\ttfamily \#include "{}server.\+h"{}}\newline
+{\ttfamily \#include "{}utils.\+h"{}}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+Include dependency graph for connection\+\_\+commands.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{connection__commands_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{connection__commands_8c_a349863656207cd31d2d30fc45ab2ed8e}{connection\+\_\+command}} (\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{server_8c_ab140ac62eb02ac9134b3120c0a6829e6}{server}}, int index, char \texorpdfstring{$\ast$}{*}buffer)
+\begin{DoxyCompactList}\small\item\em Handle initial client connections based on client type. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{connection__commands_8c_a349863656207cd31d2d30fc45ab2ed8e}\label{connection__commands_8c_a349863656207cd31d2d30fc45ab2ed8e} 
+\index{connection\_commands.c@{connection\_commands.c}!connection\_command@{connection\_command}}
+\index{connection\_command@{connection\_command}!connection\_commands.c@{connection\_commands.c}}
+\doxysubsubsection{\texorpdfstring{connection\_command()}{connection\_command()}}
+{\footnotesize\ttfamily void connection\+\_\+command (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{server,  }\item[{int}]{index,  }\item[{char \texorpdfstring{$\ast$}{*}}]{buffer }\end{DoxyParamCaption})}
+
+
+
+Handle initial client connections based on client type. 
+
+Handle initial connection commands from clients.
+
+This function processes new client connections and routes them to appropriate handlers based on whether they are GUI or AI clients.
+
+
+\begin{DoxyParams}{Parameters}
+{\em server} & Pointer to the server structure \\
+\hline
+{\em index} & Index of the connecting client \\
+\hline
+{\em buffer} & Connection identifier or team name from client \\
+\hline
+\end{DoxyParams}

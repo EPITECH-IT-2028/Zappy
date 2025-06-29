@@ -1,0 +1,47 @@
+\doxysection{/home/arthur/\+Tek2/\+Project/\+Zappy/server/src/error/check\+\_\+freq.c File Reference}
+\hypertarget{check__freq_8c}{}\label{check__freq_8c}\index{/home/arthur/Tek2/Project/Zappy/server/src/error/check\_freq.c@{/home/arthur/Tek2/Project/Zappy/server/src/error/check\_freq.c}}
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include "{}server.\+h"{}}\newline
+{\ttfamily \#include "{}macro.\+h"{}}\newline
+Include dependency graph for check\+\_\+freq.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{check__freq_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{check__freq_8c_ac1b5c7e605b784bf6c8af82d2bb1b3de}{check\+\_\+freq}} (\mbox{\hyperlink{server_8h_ad9ef31b4161fdea2cae57c1185ba461a}{params\+\_\+t}} \texorpdfstring{$\ast$}{*}params, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}av, size\+\_\+t \texorpdfstring{$\ast$}{*}av\+\_\+idx)
+\begin{DoxyCompactList}\small\item\em Validate and set the server frequency parameter. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{check__freq_8c_ac1b5c7e605b784bf6c8af82d2bb1b3de}\label{check__freq_8c_ac1b5c7e605b784bf6c8af82d2bb1b3de} 
+\index{check\_freq.c@{check\_freq.c}!check\_freq@{check\_freq}}
+\index{check\_freq@{check\_freq}!check\_freq.c@{check\_freq.c}}
+\doxysubsubsection{\texorpdfstring{check\_freq()}{check\_freq()}}
+{\footnotesize\ttfamily int check\+\_\+freq (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_ad9ef31b4161fdea2cae57c1185ba461a}{params\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{params,  }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{av,  }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{av\+\_\+idx }\end{DoxyParamCaption})}
+
+
+
+Validate and set the server frequency parameter. 
+
+Validate and set frequency parameter.
+
+This function checks if the provided frequency value is valid (greater than 0) and sets it in the parameters structure.
+
+
+\begin{DoxyParams}{Parameters}
+{\em params} & Pointer to the parameters structure to update \\
+\hline
+{\em av} & Array of command line arguments \\
+\hline
+{\em av\+\_\+idx} & Pointer to current argument index \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+SUCCESS if valid frequency, ERROR otherwise 
+\end{DoxyReturn}

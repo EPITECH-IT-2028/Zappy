@@ -1,0 +1,93 @@
+\doxysection{/home/arthur/\+Tek2/\+Project/\+Zappy/server/src/communications/utils\+\_\+events\+\_\+server.c File Reference}
+\hypertarget{utils__events__server_8c}{}\label{utils__events__server_8c}\index{/home/arthur/Tek2/Project/Zappy/server/src/communications/utils\_events\_server.c@{/home/arthur/Tek2/Project/Zappy/server/src/communications/utils\_events\_server.c}}
+{\ttfamily \#include "{}server.\+h"{}}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+Include dependency graph for utils\+\_\+events\+\_\+server.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{utils__events__server_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{utils__events__server_8c_ae201700ee8504eb191295bf1fdd3c1d8}{define\+\_\+index}} (\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{server_8c_ab140ac62eb02ac9134b3120c0a6829e6}{server}})
+\begin{DoxyCompactList}\small\item\em Find the next available index in the server\textquotesingle{}s client array. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{utils__events__server_8c_a6e828eee404b43a6726f114ab5fcb34a}{resize\+\_\+fds}} (\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{server_8c_ab140ac62eb02ac9134b3120c0a6829e6}{server}}, int new\+\_\+size)
+\begin{DoxyCompactList}\small\item\em Resize the server\textquotesingle{}s file descriptor and client arrays. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{utils__events__server_8c_adb89c1c964e9f2279eb3e47801003fe4}{init\+\_\+fds}} (\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{server_8c_ab140ac62eb02ac9134b3120c0a6829e6}{server}}, int index, int client\+\_\+fd)
+\begin{DoxyCompactList}\small\item\em Initialize a file descriptor entry for a new client. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{utils__events__server_8c_ae201700ee8504eb191295bf1fdd3c1d8}\label{utils__events__server_8c_ae201700ee8504eb191295bf1fdd3c1d8} 
+\index{utils\_events\_server.c@{utils\_events\_server.c}!define\_index@{define\_index}}
+\index{define\_index@{define\_index}!utils\_events\_server.c@{utils\_events\_server.c}}
+\doxysubsubsection{\texorpdfstring{define\_index()}{define\_index()}}
+{\footnotesize\ttfamily int define\+\_\+index (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{server }\end{DoxyParamCaption})}
+
+
+
+Find the next available index in the server\textquotesingle{}s client array. 
+
+Define available index in server structures.
+
+Searches for an unused slot in the file descriptor array starting from index 1 (skipping the server socket at index 0).
+
+
+\begin{DoxyParams}{Parameters}
+{\em server} & Pointer to the server structure \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Index of the next available slot 
+\end{DoxyReturn}
+\Hypertarget{utils__events__server_8c_adb89c1c964e9f2279eb3e47801003fe4}\label{utils__events__server_8c_adb89c1c964e9f2279eb3e47801003fe4} 
+\index{utils\_events\_server.c@{utils\_events\_server.c}!init\_fds@{init\_fds}}
+\index{init\_fds@{init\_fds}!utils\_events\_server.c@{utils\_events\_server.c}}
+\doxysubsubsection{\texorpdfstring{init\_fds()}{init\_fds()}}
+{\footnotesize\ttfamily void init\+\_\+fds (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{server,  }\item[{int}]{index,  }\item[{int}]{client\+\_\+fd }\end{DoxyParamCaption})}
+
+
+
+Initialize a file descriptor entry for a new client. 
+
+Initialize file descriptor structure.
+
+Sets up the pollfd structure for a new client connection and updates the server\textquotesingle{}s file descriptor count if necessary.
+
+
+\begin{DoxyParams}{Parameters}
+{\em server} & Pointer to the server structure \\
+\hline
+{\em index} & Index where to place the new client \\
+\hline
+{\em client\+\_\+fd} & File descriptor of the new client connection \\
+\hline
+\end{DoxyParams}
+\Hypertarget{utils__events__server_8c_a6e828eee404b43a6726f114ab5fcb34a}\label{utils__events__server_8c_a6e828eee404b43a6726f114ab5fcb34a} 
+\index{utils\_events\_server.c@{utils\_events\_server.c}!resize\_fds@{resize\_fds}}
+\index{resize\_fds@{resize\_fds}!utils\_events\_server.c@{utils\_events\_server.c}}
+\doxysubsubsection{\texorpdfstring{resize\_fds()}{resize\_fds()}}
+{\footnotesize\ttfamily int resize\+\_\+fds (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{server,  }\item[{int}]{new\+\_\+size }\end{DoxyParamCaption})}
+
+
+
+Resize the server\textquotesingle{}s file descriptor and client arrays. 
+
+Resize file descriptor array.
+
+Reallocates memory for both the pollfd array and client pointer array to accommodate more connections. Initializes new slots.
+
+
+\begin{DoxyParams}{Parameters}
+{\em server} & Pointer to the server structure \\
+\hline
+{\em new\+\_\+size} & New size for the arrays \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+SUCCESS on successful resize, ERROR on allocation failure 
+\end{DoxyReturn}

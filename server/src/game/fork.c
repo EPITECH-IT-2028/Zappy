@@ -8,6 +8,17 @@
 #include "macro.h"
 #include "server.h"
 
+/**
+ * @brief Handle the fork command to create a new egg
+ *
+ * This function creates a new egg at the player's current position,
+ * places it on the map, and sends notifications to all clients.
+ *
+ * @param server Pointer to the server structure
+ * @param response Pointer to the response structure to fill
+ * @param request Pointer to the client request
+ * @return SUCCESS on successful egg creation, ERROR on failure
+ */
 int fork_player(server_t *server, response_t *response, request_t *request)
 {
     int x = request->client->data.x;

@@ -1,0 +1,35 @@
+\doxysection{params.\+h}
+\hypertarget{params_8h_source}{}\label{params_8h_source}\index{/home/arthur/Tek2/Project/Zappy/server/include/params.h@{/home/arthur/Tek2/Project/Zappy/server/include/params.h}}
+\mbox{\hyperlink{params_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{**\ EPITECH\ PROJECT,\ 2025}}
+\DoxyCodeLine{00003\ \textcolor{comment}{**\ zappy}}
+\DoxyCodeLine{00004\ \textcolor{comment}{**\ File\ description:}}
+\DoxyCodeLine{00005\ \textcolor{comment}{**\ params.h}}
+\DoxyCodeLine{00006\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#ifndef\ PARAMS\_H\_}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\ \ \ \ \#define\ PARAMS\_H\_}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\ \ \ \ \#include\ "{}\mbox{\hyperlink{server_8h}{server.h}}"{}}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\ \ \ \ \#include\ <stddef.h>}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00020\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structflags__s}{flags\_s}}\ \{}
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keywordtype}{char}\ *\mbox{\hyperlink{structflags__s_a9cd5cf20f71c4fad612743a3f2277c17}{params\_name}};}
+\DoxyCodeLine{00022\ \ \ \ \ int\ (*\mbox{\hyperlink{structflags__s_af3411622ce488497afd030d028ffd84d}{func}})(\mbox{\hyperlink{structparams__s}{params\_t}}\ *params,\ \textcolor{keywordtype}{char}\ **av,\ \textcolor{keywordtype}{size\_t}\ *av\_idx);}
+\DoxyCodeLine{00023\ \}\ \mbox{\hyperlink{params_8h_a84a92ad93aa1c2977aa0ed3fbfd7772d}{flags\_t}};}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structflags__s}{flags\_t}}\ \mbox{\hyperlink{params_8h_a40de7201b60e001a3d63f09f1cbe49f8}{tab\_check\_func}}[]\ =\ \{}
+\DoxyCodeLine{00032\ \ \ \ \ \{\textcolor{stringliteral}{"{}-\/p"{}},\ \&\mbox{\hyperlink{check__port_8c_a087f49d92982e8babf281f3e97db7da4}{check\_port}}\},}
+\DoxyCodeLine{00033\ \ \ \ \ \{\textcolor{stringliteral}{"{}-\/x"{}},\ \&\mbox{\hyperlink{check__width_8c_ac009e364b60d4d2bf654338e51840a40}{check\_width}}\},}
+\DoxyCodeLine{00034\ \ \ \ \ \{\textcolor{stringliteral}{"{}-\/y"{}},\ \&\mbox{\hyperlink{check__height_8c_a365471ffa65648432b66dcc4a359e638}{check\_height}}\},}
+\DoxyCodeLine{00035\ \ \ \ \ \{\textcolor{stringliteral}{"{}-\/n"{}},\ \&\mbox{\hyperlink{check__teams__names_8c_aedb06e21abbc309c09c19effd8575e14}{check\_teams\_names}}\},}
+\DoxyCodeLine{00036\ \ \ \ \ \{\textcolor{stringliteral}{"{}-\/c"{}},\ \&\mbox{\hyperlink{check__clients__nb_8c_a5f746d400b3077627cf9db4cffef2ab0}{check\_clients\_nb}}\},}
+\DoxyCodeLine{00037\ \ \ \ \ \{\textcolor{stringliteral}{"{}-\/f"{}},\ \&\mbox{\hyperlink{check__freq_8c_ac1b5c7e605b784bf6c8af82d2bb1b3de}{check\_freq}}\},}
+\DoxyCodeLine{00038\ \ \ \ \ \{NULL,\ NULL\}}
+\DoxyCodeLine{00039\ \};}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ PARAMS\_H\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

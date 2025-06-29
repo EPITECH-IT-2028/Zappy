@@ -1,0 +1,77 @@
+\doxysection{queue\+\_\+response\+\_\+s Struct Reference}
+\hypertarget{structqueue__response__s}{}\label{structqueue__response__s}\index{queue\_response\_s@{queue\_response\_s}}
+
+
+Response queue structure.  
+
+
+
+
+{\ttfamily \#include $<$server.\+h$>$}
+
+
+
+Collaboration diagram for queue\+\_\+response\+\_\+s\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structqueue__response__s__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{server_8h_a0a742c24c6cf5a8824f8b0399778b0f4}{response\+\_\+t}} \mbox{\hyperlink{structqueue__response__s_acebd374f430fd8a35b14e148b6845c4a}{queue}} \mbox{[}\mbox{\hyperlink{macro_8h_a4b56a6f23e044affca38eed1834e98dc}{QUEUE\+\_\+\+MAX\+\_\+\+SIZE}}\mbox{]}
+\item 
+int \mbox{\hyperlink{structqueue__response__s_a518195ea1a9a015ecf1e2e6ffd4b502e}{head}}
+\item 
+int \mbox{\hyperlink{structqueue__response__s_aa8b3931fdb491d663d6a80e1d561602c}{tail}}
+\item 
+int \mbox{\hyperlink{structqueue__response__s_a045866b668436f0204e7d47fead1e228}{len}}
+\item 
+pthread\+\_\+mutex\+\_\+t \mbox{\hyperlink{structqueue__response__s_a29ff230217c2dbe688b89a650a78ae3d}{mutex}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Response queue structure. 
+
+Thread-\/safe circular queue for managing server responses to clients. 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structqueue__response__s_a518195ea1a9a015ecf1e2e6ffd4b502e}\label{structqueue__response__s_a518195ea1a9a015ecf1e2e6ffd4b502e} 
+\index{queue\_response\_s@{queue\_response\_s}!head@{head}}
+\index{head@{head}!queue\_response\_s@{queue\_response\_s}}
+\doxysubsubsection{\texorpdfstring{head}{head}}
+{\footnotesize\ttfamily int queue\+\_\+response\+\_\+s\+::head}
+
+\Hypertarget{structqueue__response__s_a045866b668436f0204e7d47fead1e228}\label{structqueue__response__s_a045866b668436f0204e7d47fead1e228} 
+\index{queue\_response\_s@{queue\_response\_s}!len@{len}}
+\index{len@{len}!queue\_response\_s@{queue\_response\_s}}
+\doxysubsubsection{\texorpdfstring{len}{len}}
+{\footnotesize\ttfamily int queue\+\_\+response\+\_\+s\+::len}
+
+\Hypertarget{structqueue__response__s_a29ff230217c2dbe688b89a650a78ae3d}\label{structqueue__response__s_a29ff230217c2dbe688b89a650a78ae3d} 
+\index{queue\_response\_s@{queue\_response\_s}!mutex@{mutex}}
+\index{mutex@{mutex}!queue\_response\_s@{queue\_response\_s}}
+\doxysubsubsection{\texorpdfstring{mutex}{mutex}}
+{\footnotesize\ttfamily pthread\+\_\+mutex\+\_\+t queue\+\_\+response\+\_\+s\+::mutex}
+
+\Hypertarget{structqueue__response__s_acebd374f430fd8a35b14e148b6845c4a}\label{structqueue__response__s_acebd374f430fd8a35b14e148b6845c4a} 
+\index{queue\_response\_s@{queue\_response\_s}!queue@{queue}}
+\index{queue@{queue}!queue\_response\_s@{queue\_response\_s}}
+\doxysubsubsection{\texorpdfstring{queue}{queue}}
+{\footnotesize\ttfamily \mbox{\hyperlink{server_8h_a0a742c24c6cf5a8824f8b0399778b0f4}{response\+\_\+t}} queue\+\_\+response\+\_\+s\+::queue\mbox{[}\mbox{\hyperlink{macro_8h_a4b56a6f23e044affca38eed1834e98dc}{QUEUE\+\_\+\+MAX\+\_\+\+SIZE}}\mbox{]}}
+
+\Hypertarget{structqueue__response__s_aa8b3931fdb491d663d6a80e1d561602c}\label{structqueue__response__s_aa8b3931fdb491d663d6a80e1d561602c} 
+\index{queue\_response\_s@{queue\_response\_s}!tail@{tail}}
+\index{tail@{tail}!queue\_response\_s@{queue\_response\_s}}
+\doxysubsubsection{\texorpdfstring{tail}{tail}}
+{\footnotesize\ttfamily int queue\+\_\+response\+\_\+s\+::tail}
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/arthur/\+Tek2/\+Project/\+Zappy/server/include/\mbox{\hyperlink{server_8h}{server.\+h}}\end{DoxyCompactItemize}

@@ -1,6 +1,7 @@
 #pragma once
 #include <raylib.h>
 #include <array>
+#include <string>
 #include <vector>
 #include "TileEffects.hpp"
 
@@ -25,5 +26,6 @@ namespace gui {
 
       bool isEmpty() const;
       Color getResourceColor(Resource type) const;
+      std::string getResourceName(Resource type) const;
   };
 }  // namespace gui

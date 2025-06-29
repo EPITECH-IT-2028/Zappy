@@ -10,12 +10,30 @@
 #include "utils.h"
 #include <string.h>
 
+/**
+ * @brief Check if a team name exists in the server
+ * @param server Pointer to the server structure
+ * @param buffer The team name to check
+ * @return true if team exists, false otherwise
+ */
 static
 bool has_team_name(server_t *server, const char *buffer)
 {
     return find_team_index(server, buffer) != ERROR;
 }
 
+/**
+ * @brief Set client data based on connection type
+ *
+ * This function initializes client data differently based on whether
+ * the client is a GUI client or an AI player.
+ *
+ * @param server Pointer to the server structure
+ * @param index Index of the client in the server's client array
+ * @param name Team name or client identifier
+ * @param is_graphic Boolean indicating if client is a GUI client
+ * @return SUCCESS on successful data setting, ERROR on failure
+ */
 static
 int set_data(server_t *server, int index, const char *name, bool is_graphic)
 {
@@ -34,6 +52,15 @@ int set_data(server_t *server, int index, const char *name, bool is_graphic)
     return SUCCESS;
 }
 
+/**
+ * @brief Send new player notification to all GUI clients
+ *
+ * This function safely sends a player new (pnw) message to all
+ * connected GUI clients using mutex protection.
+ *
+ * @param server Pointer to the server structure
+ * @param index Index of the new player in the client array
+ */
 static
 void send_new_player_to_gui(server_t *server, int index)
 {
@@ -42,6 +69,18 @@ void send_new_player_to_gui(server_t *server, int index)
     pthread_mutex_unlock(&server->clients_mutex);
 }
 
+/**
+ * @brief Handle AI client connection and setup
+ *
+ * This function processes AI client connections by validating team
+ * capacity, setting up client data, and assigning spawn position.
+ *
+ * @param server Pointer to the server structure
+ * @param index Index of the connecting client
+ * @param buffer Team name from the client
+ * @param response Buffer to store the response message
+ * @return SUCCESS on successful AI setup, ERROR on failure
+ */
 static
 int send_ai(server_t *server, int index, char *buffer, char *response)
 {
@@ -66,6 +105,17 @@ int send_ai(server_t *server, int index, char *buffer, char *response)
     return SUCCESS;
 }
 
+/**
+ * @brief Handle GUI client connection and initial data sending
+ *
+ * This function sets up a GUI client connection and sends all
+ * initial game state information including map, time, and players.
+ *
+ * @param server Pointer to the server structure
+ * @param index Index of the connecting GUI client
+ * @param buffer Client identifier from the connection
+ * @return SUCCESS on successful GUI setup, ERROR on failure
+ */
 static
 int send_gui(server_t *server, int index, char *buffer)
 {
@@ -79,6 +129,16 @@ int send_gui(server_t *server, int index, char *buffer)
     return SUCCESS;
 }
 
+/**
+ * @brief Handle initial client connections based on client type
+ *
+ * This function processes new client connections and routes them
+ * to appropriate handlers based on whether they are GUI or AI clients.
+ *
+ * @param server Pointer to the server structure
+ * @param index Index of the connecting client
+ * @param buffer Connection identifier or team name from client
+ */
 void connection_command(server_t *server, int index, char *buffer)
 {
     char response[BUFFER_SIZE];

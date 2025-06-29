@@ -1,0 +1,40 @@
+\doxysection{/home/arthur/\+Tek2/\+Project/\+Zappy/server/src/game/food.c File Reference}
+\hypertarget{food_8c}{}\label{food_8c}\index{/home/arthur/Tek2/Project/Zappy/server/src/game/food.c@{/home/arthur/Tek2/Project/Zappy/server/src/game/food.c}}
+{\ttfamily \#include "{}server.\+h"{}}\newline
+{\ttfamily \#include $<$utils.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+Include dependency graph for food.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{food_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{food_8c_a915a670ce863505971f949fefca10e55}{remove\+\_\+food}} (\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{server_8c_ab140ac62eb02ac9134b3120c0a6829e6}{server}})
+\begin{DoxyCompactList}\small\item\em Remove one food unit from all connected non-\/graphic clients. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{food_8c_a915a670ce863505971f949fefca10e55}\label{food_8c_a915a670ce863505971f949fefca10e55} 
+\index{food.c@{food.c}!remove\_food@{remove\_food}}
+\index{remove\_food@{remove\_food}!food.c@{food.c}}
+\doxysubsubsection{\texorpdfstring{remove\_food()}{remove\_food()}}
+{\footnotesize\ttfamily void remove\+\_\+food (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{server }\end{DoxyParamCaption})}
+
+
+
+Remove one food unit from all connected non-\/graphic clients. 
+
+Remove food from the game world periodically.
+
+This function decreases the food count for all active players and checks for death conditions after food consumption.
+
+
+\begin{DoxyParams}{Parameters}
+{\em server} & Pointer to the server structure containing all clients \\
+\hline
+\end{DoxyParams}

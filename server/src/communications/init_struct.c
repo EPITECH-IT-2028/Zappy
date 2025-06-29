@@ -12,6 +12,16 @@
 #include <stdlib.h>
 #include <time.h>
 
+/**
+ * @brief Initialize teams structure from parameters
+ *
+ * This function creates and initializes team structures using
+ * the team names provided in the server parameters.
+ *
+ * @param teams Pointer to the teams array to initialize
+ * @param params Pointer to server parameters containing team names
+ * @return SUCCESS on successful initialization, ERROR on failure
+ */
 static
 int init_teams_struct(teams_t *teams, params_t *params)
 {
@@ -92,6 +102,16 @@ int init_clients_and_fds(server_t *server)
     return SUCCESS;
 }
 
+/**
+ * @brief Initialize server structure with all components
+ *
+ * This function performs complete server initialization including
+ * socket creation, memory allocation, and all subsystem setup.
+ *
+ * @param server Pointer to the server structure to initialize
+ * @param params Pointer to validated server parameters
+ * @return SUCCESS on successful initialization, ERROR on failure
+ */
 int init_server_struct(server_t *server, params_t *params)
 {
     server->fd = socket(AF_INET, SOCK_STREAM, 0);
@@ -116,6 +136,14 @@ int init_server_struct(server_t *server, params_t *params)
     return SUCCESS;
 }
 
+/**
+ * @brief Initialize parameters structure to default values
+ *
+ * This function sets all parameter fields to their default values,
+ * typically -1 to indicate unset parameters.
+ *
+ * @param params Pointer to the parameters structure to initialize
+ */
 void init_params(params_t *params)
 {
     params->client_per_team = -1;

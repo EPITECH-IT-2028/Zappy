@@ -33,6 +33,15 @@ void send_pbc(server_t *server, client_t *client, const char *message)
     }
 }
 
+/**
+ * @brief Send pex (player expulsion) message to all graphic clients
+ *
+ * This function formats a message indicating the player's ID who
+ * performed an expulsion and sends it to all GUI clients.
+ *
+ * @param server Pointer to the server instance containing client list
+ * @param client Pointer to the client who performed the expulsion
+ */
 void send_pex(server_t *server, client_t *client)
 {
     char response[BUFFER_SIZE];
@@ -75,13 +84,8 @@ void send_pdr(server_t *server, client_t *client, int resource_id)
  * @brief Sends a PGT (Player Get Resource) message to all graphic clients
  *
  * This function formats a message indicating the player's ID and the resource
-<<<<<<< HEAD
- * ID that was obtained, then sends it to
- * all clients that are marked as graphic.
-=======
  * ID that was obtained, then sends it to all clients that are marked as
  * graphic.
->>>>>>> 5ed6f4f3ada0c4e599ebc38341904baee485a396
  *
  * @param server Server instance containing client list
  * @param client The client who obtained the resource

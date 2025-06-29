@@ -6,8 +6,10 @@
 #include <iostream>
 #include <ostream>
 #include <unordered_map>
+#include "entities/Map.hpp"
+#include "entities/Tile.hpp"
 #define RLIGHTS_IMPLEMENTATION
-
+#include <cfloat>
 #include "header/rlights.h"
 
 gui::GameEngine::GameEngine(network::ServerCommunication &serverCommunication)
@@ -26,6 +28,15 @@ gui::GameEngine::GameEngine(network::ServerCommunication &serverCommunication)
   _camera.SetUp({0.0f, 1.0f, 0.0f});
   _camera.SetFovy(45.0f);
   _camera.SetProjection(CAMERA_PERSPECTIVE);
+  if (!FileExists("resources/egg.png")) {
+    std::cerr << "Texture file not found: resources/egg.png" << std::endl;
+    throw std::runtime_error("Texture file not found: resources/egg.png");
+  }
+  _eggTexture = LoadTexture("resources/egg.png");
+  if (_eggTexture.id == 0) {
+    std::cerr << "Failed to load texture: resources/egg.png" << std::endl;
+    throw std::runtime_error("Failed to load texture: resources/egg.png");
+  }
 }
 
 gui::GameEngine::~GameEngine() {
@@ -33,7 +44,12 @@ gui::GameEngine::~GameEngine() {
     UnloadModel(_brick);
     UnloadModel(_goomba);
   }
-  UnloadShader(_lightingShader);
+  if (_eggTexture.id != 0)
+    UnloadTexture(_eggTexture);
+  if (_lightingShader.id != 0)
+    UnloadShader(_lightingShader);
+  if (_backgroundLogo.id != 0)
+    UnloadTexture(_backgroundLogo);
 }
 
 float gui::GameEngine::getWorldScale() const {
@@ -48,6 +64,8 @@ void gui::GameEngine::initialize() {
   try {
     loadModels();
     loadShaders();
+    loadResources();
+
   } catch (const std::exception &e) {
     std::cerr << "Resource initialization failed: " << e.what() << std::endl;
     _resourcesLoaded = 0;
@@ -185,18 +203,86 @@ void gui::GameEngine::processNetworkMessages() {
   }
 }
 
+void gui::GameEngine::loadResources() {
+  if (!FileExists("resources/MarioBack.png")) {
+    std::cerr << "Error: Background logo image not found.\n";
+    throw std::runtime_error("Failed to load texture: resources/MarioBack.png");
+  }
+  _backgroundLogo = LoadTexture("resources/MarioBack.png");
+  if (_backgroundLogo.id == 0) {
+    std::cerr << "Error: Failed to load logo background image.\n";
+    throw std::runtime_error("Failed to load texture: resources/MarioBack.png");
+  }
+}
+
+void gui::GameEngine::dimensionAsset() {
+  if (_backgroundLogo.id == 0) {
+    std::cerr << "Warning: Cannot calculate dimensions for invalid texture.\n";
+    return;
+  }
+  _scaleAsset = 2.7f;
+  _texWidthAsset = _backgroundLogo.width * _scaleAsset;
+  _texHeightAsset = _backgroundLogo.height * _scaleAsset;
+  _xAsset = (SCREEN_WIDTH - _texWidthAsset) / 2.0f;
+  _yAsset = (SCREEN_HEIGHT - _texHeightAsset) / 2.0f;
+}
+
 void gui::GameEngine::renderLogoScreen() {
-  DrawText("LOGO SCREEN", 20, 20, 40, LIGHTGRAY);
-  DrawText("Fake loading... Please wait 2 seconds.", 230, 220, 20, GRAY);
+  if (_backgroundLogo.id != 0) {
+    dimensionAsset();
+    DrawTextureEx(_backgroundLogo, Vector2{_xAsset, _yAsset}, 0.0f, _scaleAsset,
+                  WHITE);
+  } else {
+    ClearBackground(BLACK);
+  }
+  _logoText = "ZAPPY";
+  _fontSize = 60;
+  _textWidth = MeasureText(_logoText.c_str(), _fontSize);
+  DrawText(_logoText.c_str(), SCREEN_WIDTH / 2 - _textWidth / 2,
+           SCREEN_HEIGHT / 2 - 100, _fontSize, DARKGREEN);
+
+  _dots = (int)(GetTime() * 2) % 4;
+  _loadingText = "Loading";
+  for (int i = 0; i < _dots; ++i)
+    _loadingText += ".";
+
+  _loadingFontSize = 24;
+  _loadingWidth = MeasureText(_loadingText.c_str(), _loadingFontSize);
+  DrawText(_loadingText.c_str(), SCREEN_WIDTH / 2 - _loadingWidth / 2,
+           SCREEN_HEIGHT / 2 + 40, _loadingFontSize, LIGHTGRAY);
 }
 
 void gui::GameEngine::renderTitleScreen() {
-  DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, GREEN);
-  DrawText("TITLE SCREEN", 20, 20, 40, DARKGREEN);
-  DrawText("PRESS ENTER to JUMP to GAMEPLAY SCREEN", 120, 220, 20, DARKGREEN);
+  if (_backgroundLogo.id != 0) {
+    dimensionAsset();
+    DrawTextureEx(_backgroundLogo, Vector2{_xAsset, _yAsset}, 0.0f, _scaleAsset,
+                  WHITE);
+  } else {
+    ClearBackground(BLACK);
+  }
+  _boxWidth = 600;
+  _boxHeight = 300;
+  _boxX = (SCREEN_WIDTH - _boxWidth) / 2;
+  _boxY = (SCREEN_HEIGHT - _boxHeight) / 2;
+  DrawRectangleRounded(
+      {(float)_boxX, (float)_boxY, (float)_boxWidth, (float)_boxHeight}, 0.2f,
+      10, LIGHTGRAY);
+
+  _title = "ZAPPY GAME";
+  _titleFontSize = 50;
+  _titleTextWidth = MeasureText(_title.c_str(), _titleFontSize);
+  DrawText(_title.c_str(), SCREEN_WIDTH / 2 - _titleTextWidth / 2, _boxY + 40,
+           _titleFontSize, DARKGREEN);
+
+  _subtitle = "Press ENTER to start";
+  _subtitleFontSize = 24;
+  _subtitleTextWidth = MeasureText(_subtitle.c_str(), _subtitleFontSize);
+  DrawText(_subtitle.c_str(), SCREEN_WIDTH / 2 - _subtitleTextWidth / 2,
+           _boxY + _boxHeight - 70, _subtitleFontSize, DARKGRAY);
 }
 
 void gui::GameEngine::renderGameplayScreen() {
+  updateTileSelection();
   std::vector<std::pair<Vector3, int>> resourceCount;
 
   DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, GAMEPLAY_BACKGROUND_COLOR);
@@ -216,11 +302,16 @@ void gui::GameEngine::renderGameplayScreen() {
   }
 
   EndShaderMode();
+  drawPlayerShadows();
+  drawEggShadows();
+  drawEggs();
   drawLights();
   EndMode3D();
 
   drawBroadcastLog();
-  DrawText("GAMEPLAY SCREEN", 20, 20, 40, MAROON);
+  drawTileInfoPanel();
+  drawPlayerListPanel();
+  drawPlayerInfoPanel();
 }
 
 void gui::GameEngine::renderEndingScreen() {
@@ -394,6 +485,72 @@ void gui::GameEngine::drawPlayers() {
   }
 }
 
+Vector3 gui::GameEngine::calculateGridOrigin(float mapWidth, float mapHeight,
+                                             float brickSpacing) const {
+  return {-(mapWidth - 1) * brickSpacing / 2.0f, 0.0f,
+          -(mapHeight - 1) * brickSpacing / 2.0f};
+}
+
+void gui::GameEngine::drawEggs() {
+  float brickSpacing = BRICK_SPACING * worldScale;
+  float mapWidth = static_cast<float>(_gameState.map.width);
+  float mapHeight = static_cast<float>(_gameState.map.height);
+  Vector3 gridOrigin = calculateGridOrigin(mapWidth, mapHeight, brickSpacing);
+  for (const auto &eggPair : _gameState.eggs) {
+    const gui::Egg &egg = eggPair.second;
+    Vector3 pos = calculateEggPosition(egg, gridOrigin, brickSpacing);
+    DrawBillboard(_camera, _eggTexture, pos, 0.5f * worldScale, WHITE);
+  }
+}
+
+Vector3 gui::GameEngine::calculatePlayerPosition(const gui::Player &player,
+                                                 const Vector3 &gridOrigin,
+                                                 float brickSpacing) const {
+  return {gridOrigin.x + player.x * brickSpacing,
+          gridOrigin.y + 1.1f * worldScale,
+          gridOrigin.z + player.y * brickSpacing};
+}
+
+void gui::GameEngine::drawPlayerShadows() {
+  float brickSpacing = BRICK_SPACING * worldScale;
+  Vector3 gridOrigin = {
+      -((static_cast<float>(_gameState.map.width) - 1) * brickSpacing) / 2.0f,
+      0.0f,
+      -((static_cast<float>(_gameState.map.height) - 1) * brickSpacing) / 2.0f};
+
+  for (const auto &playerPair : _gameState.players) {
+    const gui::Player &player = playerPair.second;
+    Vector3 position =
+        calculatePlayerPosition(player, gridOrigin, brickSpacing);
+    Vector3 shadowPos = {position.x, gridOrigin.y + 1.1f, position.z};
+    DrawCylinder(shadowPos, PLAYER_SHADOW_RADIUS * worldScale,
+                 PLAYER_SHADOW_RADIUS * worldScale, 0.01f, 32,
+                 (Color){0, 0, 0, PLAYER_SHADOW_ALPHA});
+  }
+}
+
+Vector3 gui::GameEngine::calculateEggPosition(const gui::Egg &egg,
+                                              const Vector3 &gridOrigin,
+                                              float brickSpacing) const {
+  return {gridOrigin.x + egg.x * brickSpacing, gridOrigin.y + 1.4f * worldScale,
+          gridOrigin.z + egg.y * brickSpacing};
+}
+
+void gui::GameEngine::drawEggShadows() {
+  float brickSpacing = BRICK_SPACING * worldScale;
+  Vector3 gridOrigin = {-((_gameState.map.width - 1) * brickSpacing) / 2.0f,
+                        0.0f,
+                        -((_gameState.map.height - 1) * brickSpacing) / 2.0f};
+  for (const auto &eggPair : _gameState.eggs) {
+    const gui::Egg &egg = eggPair.second;
+    Vector3 pos = calculateEggPosition(egg, gridOrigin, brickSpacing);
+    Vector3 shadowPos = {pos.x, gridOrigin.y + 1.1f, pos.z};
+    DrawCylinder(shadowPos, EGG_SHADOW_RADIUS * worldScale,
+                 EGG_SHADOW_RADIUS * worldScale, 0.01f, 32,
+                 (Color){0, 0, 0, EGG_SHADOW_ALPHA});
+  }
+}
+
 void gui::GameEngine::drawLights() {
   for (int i = 0; i < MAX_LIGHTS; ++i) {
     if (_lights[i].enabled) {
@@ -523,5 +680,166 @@ void gui::GameEngine::drawBroadcastLog() {
     int yPos = startY + i * lineHeight;
     DrawText(_gameState.broadcastLog[messageIndex].c_str(), startX, yPos,
              fontSize, DARKGRAY);
+  }
+}
+
+bool gui::GameEngine::getTileUnderMouse(float mapWidth, float mapHeight,
+                                        float brickSpacing, Vector3 gridOrigin,
+                                        int &tileX, int &tileY) {
+  Ray ray = GetMouseRay(GetMousePosition(), _camera);
+  float minDist = FLT_MAX;
+  bool found = false;
+  int foundX = -1;
+  int foundY = -1;
+
+  for (int y = 0; y < static_cast<int>(mapHeight); ++y) {
+    for (int x = 0; x < static_cast<int>(mapWidth); ++x) {
+      Vector3 pos = {gridOrigin.x + x * brickSpacing, gridOrigin.y,
+                     gridOrigin.z + y * brickSpacing};
+      BoundingBox box = {(Vector3){pos.x - brickSpacing / 2.0f, pos.y,
+                                   pos.z - brickSpacing / 2.0f},
+                         (Vector3){pos.x + brickSpacing / 2.0f,
+                                   pos.y + BRICK_SPACING * worldScale,
+                                   pos.z + brickSpacing / 2.0f}};
+      RayCollision hit = GetRayCollisionBox(ray, box);
+      if (hit.hit && hit.distance < minDist) {
+        minDist = hit.distance;
+        found = true;
+        foundX = x;
+        foundY = y;
+      }
+    }
+  }
+  if (found) {
+    tileX = foundX;
+    tileY = foundY;
+    return true;
+  }
+  return false;
+}
+
+void gui::GameEngine::updateTileSelection() {
+  float brickSpacing = BRICK_SPACING * worldScale;
+  float mapWidth = static_cast<float>(_gameState.map.width);
+  float mapHeight = static_cast<float>(_gameState.map.height);
+  Vector3 gridOrigin = calculateGridOrigin(mapWidth, mapHeight, brickSpacing);
+  int tileX;
+  int tileY;
+
+  hoveredTile.valid = false;
+  if (getTileUnderMouse(mapWidth, mapHeight, brickSpacing, gridOrigin, tileX,
+                        tileY)) {
+    hoveredTile.x = tileX;
+    hoveredTile.y = tileY;
+    hoveredTile.valid = true;
+  }
+}
+
+void gui::GameEngine::drawTileInfoPanel() {
+  int textY = TILE_PANEL_Y + 18;
+  int textX = TILE_PANEL_X + 16;
+  int fontSize = 20;
+  TileSelection *activeTile = nullptr;
+
+  DrawRectangle(TILE_PANEL_X, TILE_PANEL_Y, TILE_PANEL_WIDTH, TILE_PANEL_HEIGHT,
+                Fade(LIGHTGRAY, 1.0f));
+  if (hoveredTile.valid)
+    activeTile = &hoveredTile;
+  if (activeTile && activeTile->valid && activeTile->x >= 0 &&
+      activeTile->y >= 0 &&
+      activeTile->x < static_cast<int>(_gameState.map.width) &&
+      activeTile->y < static_cast<int>(_gameState.map.height)) {
+    DrawText(TextFormat("Tile: (%d, %d)", activeTile->x, activeTile->y), textX,
+             textY, fontSize, DARKGREEN);
+    textY += fontSize + 6;
+    const gui::Tile &tile = _gameState.map.tiles[activeTile->x][activeTile->y];
+    for (int i = 0; i < static_cast<int>(gui::Tile::RESOURCE_COUNT); ++i) {
+      int resourcesCount = tile.resources[i];
+      Color resourceColor =
+          tile.getResourceColor(static_cast<gui::Tile::Resource>(i));
+      DrawRectangle(textX, textY + 2, 16, 16, resourceColor);
+      DrawRectangleLines(textX, textY + 2, 16, 16, DARKGRAY);
+      std::string resourceName =
+          tile.getResourceName(static_cast<gui::Tile::Resource>(i));
+      DrawText(TextFormat("%s: %d", resourceName.c_str(), resourcesCount),
+               textX + 24, textY, fontSize - 2, BLACK);
+      textY += fontSize + 2;
+    }
+  } else {
+    DrawText("Hover a tile to see info", textX, textY, fontSize - 2, GRAY);
+  }
+}
+
+void gui::GameEngine::drawPlayerListPanel() {
+  DrawRectangle(PLAYER_PANEL_X, PLAYER_PANEL_Y, PLAYER_PANEL_WIDTH,
+                PLAYER_PANEL_HEIGHT, Fade(LIGHTGRAY, 0.95f));
+  DrawRectangleLines(PLAYER_PANEL_X, PLAYER_PANEL_Y, PLAYER_PANEL_WIDTH,
+                     PLAYER_PANEL_HEIGHT, DARKGRAY);
+  int textY = PLAYER_PANEL_Y + 18;
+  int textX = PLAYER_PANEL_X + 16;
+  int fontSize = 20;
+  DrawText("Players", textX, textY, fontSize, DARKGREEN);
+  textY += fontSize + 12;
+  for (const auto &pair : _gameState.players) {
+    int pid = pair.first;
+    const gui::Player &player = pair.second;
+    Color nameColor = (selectedPlayerId == pid) ? BLUE : BLACK;
+    Rectangle nameRect = {(float)textX, (float)textY,
+                          (float)(PLAYER_PANEL_WIDTH - 32),
+                          (float)fontSize + 4};
+    DrawRectangleRec(nameRect, (selectedPlayerId == pid) ? Fade(BLUE, 0.15f)
+                                                         : Fade(GRAY, 0.05f));
+    DrawText(TextFormat("%s: %d", player.teamName.c_str(), pid), textX + 4,
+             textY, fontSize - 2, nameColor);
+    Vector2 mouse = GetMousePosition();
+    if (CheckCollisionPointRec(mouse, nameRect) &&
+        IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) {
+      selectedPlayerId = pid;
+    }
+    textY += fontSize + 8;
+    if (textY > PLAYER_PANEL_Y + PLAYER_PANEL_HEIGHT - fontSize - 10)
+      break;
+  }
+}
+
+void gui::GameEngine::drawPlayerInfoPanel() {
+  if (selectedPlayerId == -1)
+    return;
+  auto it = _gameState.players.find(selectedPlayerId);
+  if (it == _gameState.players.end())
+    return;
+  const gui::Player &player = it->second;
+  const int panelWidth = 260;
+  const int panelHeight = 290;
+  const int panelX = SCREEN_WIDTH - panelWidth - 20;
+  const int panelY = 350;
+  DrawRectangle(panelX, panelY, panelWidth, panelHeight,
+                Fade(LIGHTGRAY, 0.95f));
+  DrawRectangleLines(panelX, panelY, panelWidth, panelHeight, DARKGRAY);
+  int textY = panelY + 18;
+  int textX = panelX + 16;
+  int fontSize = 20;
+  DrawText(TextFormat("Player ID: %d", selectedPlayerId), textX, textY,
+           fontSize, DARKGREEN);
+  textY += fontSize + 6;
+  DrawText(TextFormat("Team: %s", player.teamName.c_str()), textX, textY,
+           fontSize - 2, BLACK);
+  textY += fontSize + 2;
+  DrawText(TextFormat("Level: %d", player.level), textX, textY, fontSize - 2,
+           BLACK);
+  textY += fontSize + 12;
+  DrawText("Inventory:", textX, textY, fontSize - 2, DARKGRAY);
+  textY += fontSize + 6;
+  gui::Tile tileTmp;
+  for (int i = 0; i < (int)gui::Tile::RESOURCE_COUNT; ++i) {
+    int count = player.inventoryPlayer[i];
+    Color color = tileTmp.getResourceColor(static_cast<gui::Tile::Resource>(i));
+    DrawRectangle(textX, textY + 2, 16, 16, color);
+    DrawRectangleLines(textX, textY + 2, 16, 16, DARKGRAY);
+    std::string resourceName =
+        tileTmp.getResourceName(static_cast<gui::Tile::Resource>(i));
+    DrawText(TextFormat("%s: %d", resourceName.c_str(), count), textX + 24,
+             textY, fontSize - 2, BLACK);
+    textY += fontSize + 2;
   }
 }

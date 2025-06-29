@@ -1,0 +1,144 @@
+\doxysection{/home/arthur/\+Tek2/\+Project/\+Zappy/server/src/egg.c File Reference}
+\hypertarget{egg_8c}{}\label{egg_8c}\index{/home/arthur/Tek2/Project/Zappy/server/src/egg.c@{/home/arthur/Tek2/Project/Zappy/server/src/egg.c}}
+{\ttfamily \#include "{}macro.\+h"{}}\newline
+{\ttfamily \#include "{}server.\+h"{}}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+Include dependency graph for egg.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{egg_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{egg_8c_aa001727ea335cde94dfbe3491e06ac6b}{count\+\_\+total\+\_\+eggs}} (\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{server_8c_ab140ac62eb02ac9134b3120c0a6829e6}{server}})
+\begin{DoxyCompactList}\small\item\em Count the total number of eggs on the entire map. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{egg_8c_a309b5eccdd23f7edfe563f5a46a1638c}{remove\+\_\+egg}} (\mbox{\hyperlink{server_8h_ae80c6c8b9f9e5f88c65337bb1cd2eb65}{map\+\_\+t}} \texorpdfstring{$\ast$}{*}tile, int index)
+\begin{DoxyCompactList}\small\item\em Remove an egg from a tile at the specified index. \end{DoxyCompactList}\item 
+\mbox{\hyperlink{server_8h_a6932c3f2f231e8c9f0fb042f01327bf8}{egg\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{egg_8c_a400c372db6c008191840b6f2d6560fd8}{create\+\_\+egg}} (int id, \mbox{\hyperlink{server_8h_ae70a8000387d4972888e3a5f7dd5df45}{egg\+\_\+args\+\_\+t}} args)
+\begin{DoxyCompactList}\small\item\em Create a new egg with the given parameters. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{egg_8c_a9f27007efb1bd48420836e4caf0eef1f}{place\+\_\+egg}} (\mbox{\hyperlink{server_8h_ae80c6c8b9f9e5f88c65337bb1cd2eb65}{map\+\_\+t}} \texorpdfstring{$\ast$}{*}tile, \mbox{\hyperlink{server_8h_a6932c3f2f231e8c9f0fb042f01327bf8}{egg\+\_\+t}} \texorpdfstring{$\ast$}{*}egg)
+\begin{DoxyCompactList}\small\item\em Place an egg on a tile. \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{egg_8c_a02a9b393e83d419fe8a31090f573e689}{assign\+\_\+random\+\_\+egg\+\_\+position}} (\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{server_8c_ab140ac62eb02ac9134b3120c0a6829e6}{server}}, \mbox{\hyperlink{server_8h_a7bfebc8e763f36d1870198931d6b5eb1}{client\+\_\+t}} \texorpdfstring{$\ast$}{*}client)
+\begin{DoxyCompactList}\small\item\em Assign a random egg position to a client. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{egg_8c_a02a9b393e83d419fe8a31090f573e689}\label{egg_8c_a02a9b393e83d419fe8a31090f573e689} 
+\index{egg.c@{egg.c}!assign\_random\_egg\_position@{assign\_random\_egg\_position}}
+\index{assign\_random\_egg\_position@{assign\_random\_egg\_position}!egg.c@{egg.c}}
+\doxysubsubsection{\texorpdfstring{assign\_random\_egg\_position()}{assign\_random\_egg\_position()}}
+{\footnotesize\ttfamily int assign\+\_\+random\+\_\+egg\+\_\+position (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{server,  }\item[{\mbox{\hyperlink{server_8h_a7bfebc8e763f36d1870198931d6b5eb1}{client\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{client }\end{DoxyParamCaption})}
+
+
+
+Assign a random egg position to a client. 
+
+Assign random position for egg placement.
+
+This function attempts to assign an egg to a client, first trying to find an egg from their team, then falling back to unassigned eggs.
+
+
+\begin{DoxyParams}{Parameters}
+{\em server} & Pointer to the server structure \\
+\hline
+{\em client} & Pointer to the client to assign an egg position \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+SUCCESS if egg assigned, ERROR if no suitable egg found 
+\end{DoxyReturn}
+\Hypertarget{egg_8c_aa001727ea335cde94dfbe3491e06ac6b}\label{egg_8c_aa001727ea335cde94dfbe3491e06ac6b} 
+\index{egg.c@{egg.c}!count\_total\_eggs@{count\_total\_eggs}}
+\index{count\_total\_eggs@{count\_total\_eggs}!egg.c@{egg.c}}
+\doxysubsubsection{\texorpdfstring{count\_total\_eggs()}{count\_total\_eggs()}}
+{\footnotesize\ttfamily int count\+\_\+total\+\_\+eggs (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{server }\end{DoxyParamCaption})}
+
+
+
+Count the total number of eggs on the entire map. 
+
+Count total number of eggs in the game.
+
+This function iterates through all tiles on the map and sums up the number of eggs present on each tile.
+
+
+\begin{DoxyParams}{Parameters}
+{\em server} & Pointer to the server structure containing the map \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Total number of eggs on the map 
+\end{DoxyReturn}
+\Hypertarget{egg_8c_a400c372db6c008191840b6f2d6560fd8}\label{egg_8c_a400c372db6c008191840b6f2d6560fd8} 
+\index{egg.c@{egg.c}!create\_egg@{create\_egg}}
+\index{create\_egg@{create\_egg}!egg.c@{egg.c}}
+\doxysubsubsection{\texorpdfstring{create\_egg()}{create\_egg()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{server_8h_a6932c3f2f231e8c9f0fb042f01327bf8}{egg\+\_\+t}} \texorpdfstring{$\ast$}{*} create\+\_\+egg (\begin{DoxyParamCaption}\item[{int}]{id,  }\item[{\mbox{\hyperlink{server_8h_ae70a8000387d4972888e3a5f7dd5df45}{egg\+\_\+args\+\_\+t}}}]{args }\end{DoxyParamCaption})}
+
+
+
+Create a new egg with the given parameters. 
+
+Create a new egg with specified parameters.
+
+This function allocates memory for a new egg structure and initializes it with the provided arguments.
+
+
+\begin{DoxyParams}{Parameters}
+{\em id} & Unique identifier for the egg \\
+\hline
+{\em args} & Structure containing egg creation parameters \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Pointer to the newly created egg, or NULL on failure 
+\end{DoxyReturn}
+\Hypertarget{egg_8c_a9f27007efb1bd48420836e4caf0eef1f}\label{egg_8c_a9f27007efb1bd48420836e4caf0eef1f} 
+\index{egg.c@{egg.c}!place\_egg@{place\_egg}}
+\index{place\_egg@{place\_egg}!egg.c@{egg.c}}
+\doxysubsubsection{\texorpdfstring{place\_egg()}{place\_egg()}}
+{\footnotesize\ttfamily int place\+\_\+egg (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_ae80c6c8b9f9e5f88c65337bb1cd2eb65}{map\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{tile,  }\item[{\mbox{\hyperlink{server_8h_a6932c3f2f231e8c9f0fb042f01327bf8}{egg\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{egg }\end{DoxyParamCaption})}
+
+
+
+Place an egg on a tile. 
+
+Place egg on map tile.
+
+This function adds an egg to a tile\textquotesingle{}s egg array by reallocating memory and copying the egg data.
+
+
+\begin{DoxyParams}{Parameters}
+{\em tile} & Pointer to the map tile where the egg will be placed \\
+\hline
+{\em egg} & Pointer to the egg to be placed \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+SUCCESS on successful placement, ERROR on failure 
+\end{DoxyReturn}
+\Hypertarget{egg_8c_a309b5eccdd23f7edfe563f5a46a1638c}\label{egg_8c_a309b5eccdd23f7edfe563f5a46a1638c} 
+\index{egg.c@{egg.c}!remove\_egg@{remove\_egg}}
+\index{remove\_egg@{remove\_egg}!egg.c@{egg.c}}
+\doxysubsubsection{\texorpdfstring{remove\_egg()}{remove\_egg()}}
+{\footnotesize\ttfamily void remove\+\_\+egg (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_ae80c6c8b9f9e5f88c65337bb1cd2eb65}{map\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{tile,  }\item[{int}]{index }\end{DoxyParamCaption})}
+
+
+
+Remove an egg from a tile at the specified index. 
+
+Remove egg from map tile.
+
+This function removes an egg from a tile\textquotesingle{}s egg array by swapping it with the last egg and reducing the array size.
+
+
+\begin{DoxyParams}{Parameters}
+{\em tile} & Pointer to the map tile containing the eggs \\
+\hline
+{\em index} & Index of the egg to remove \\
+\hline
+\end{DoxyParams}

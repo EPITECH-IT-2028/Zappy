@@ -7,6 +7,10 @@
 
 #include "server.h"
 
+/**
+ * @brief Initialize a response structure to default values
+ * @param response Pointer to the response structure to initialize
+ */
 void init_response(response_t *response)
 {
     response->client = NULL;
@@ -14,6 +18,14 @@ void init_response(response_t *response)
     response->response = NULL;
 }
 
+/**
+ * @brief Initialize client inventory with default starting values
+ *
+ * Sets up the initial inventory for a new client with food and
+ * zero resources.
+ *
+ * @param cd Pointer to the client data structure
+ */
 static
 void init_client_inventory(client_data_t *cd)
 {
@@ -26,6 +38,14 @@ void init_client_inventory(client_data_t *cd)
     cd->inventory.thystame = 0;
 }
 
+/**
+ * @brief Initialize pending request data for a client
+ *
+ * Sets up the pending request structure with default values
+ * for tracking client command queuing.
+ *
+ * @param clients Pointer to the client structure
+ */
 static
 void init_pending_request(client_t *clients)
 {
@@ -35,6 +55,15 @@ void init_pending_request(client_t *clients)
     clients->data.pending_response.size = 0;
 }
 
+/**
+ * @brief Initialize a complete client structure
+ *
+ * Sets up all client data including connection info, game state,
+ * inventory, direction, and communication buffers.
+ *
+ * @param clients Pointer to the client structure to initialize
+ * @param fd File descriptor for the client connection
+ */
 void init_client_struct(client_t *clients, int fd)
 {
     clients->fd = fd;
