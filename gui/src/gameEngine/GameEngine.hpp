@@ -25,29 +25,60 @@
 #define WIREFRAME_OFFSET_Z 0.15f
 
 namespace gui {
+  /**
+   * @brief Enum representing the different screens in the game.
+   */
   enum class Screen {
-    LOGO,
-    TITLE,
-    GAMEPLAY,
-    ENDING,
-    ERROR
+    LOGO,      ///< Logo/loading screen
+    TITLE,     ///< Title/main menu screen
+    GAMEPLAY,  ///< Main gameplay screen
+    ENDING,    ///< Ending/score screen
+    ERROR      ///< Error screen
   };
 
+  /**
+   * @brief Structure representing the selection state of a tile.
+   */
   struct TileSelection {
-      int x = -1;
-      int y = -1;
-      bool valid = false;
+      int x = -1;      ///< X coordinate of the selected tile
+      int y = -1;      ///< Y coordinate of the selected tile
+      bool valid = false; ///< Whether the selection is valid
   };
 
+  /**
+   * @class GameEngine
+   * @brief Main class responsible for running and rendering the game GUI.
+   */
   class GameEngine {
     public:
+      /**
+       * @brief Constructs the GameEngine.
+       * @param serverCommunication Reference to the server communication handler.
+       */
       GameEngine(network::ServerCommunication &serverCommunication);
+      /**
+       * @brief Destructor for GameEngine.
+       */
       ~GameEngine();
 
+      /**
+       * @brief Gets the current world scale.
+       * @return The world scale factor.
+       */
       float getWorldScale() const;
+      /**
+       * @brief Sets the world scale.
+       * @param value The new world scale factor.
+       */
       void setWorldScale(float value);
 
+      /**
+       * @brief Main loop to run the game engine.
+       */
       void run();
+      /**
+       * @brief Initializes the game engine and resources.
+       */
       void initialize();
 
     private:
@@ -149,52 +180,80 @@ namespace gui {
       Vector3 calculateGridOrigin(float mapWidth, float mapHeight,
                                   float brickSpacing) const;
 
-      Shader _lightingShader;
-      Light _lights[2];
-      int _ambientLoc;
-      Texture2D _eggTexture;
+      Shader _lightingShader; ///< Shader used for lighting effects.
+      Light _lights[2]; ///< Array of lights in the scene.
+      int _ambientLoc; ///< Shader location for ambient light.
+      Texture2D _eggTexture; ///< Texture for rendering eggs.
 
       // Title Screen
-      int _boxWidth;
-      int _boxHeight;
-      int _boxX;
-      int _boxY;
+      int _boxWidth; ///< Width of the title box.
+      int _boxHeight; ///< Height of the title box.
+      int _boxX; ///< X position of the title box.
+      int _boxY; ///< Y position of the title box.
 
-      std::string _title;
-      int _titleFontSize;
-      int _titleTextWidth;
+      std::string _title; ///< Main title text.
+      int _titleFontSize; ///< Font size for the title.
+      int _titleTextWidth; ///< Width of the title text.
 
-      std::string _subtitle;
-      int _subtitleFontSize;
-      int _subtitleTextWidth;
+      std::string _subtitle; ///< Subtitle text.
+      int _subtitleFontSize; ///< Font size for the subtitle.
+      int _subtitleTextWidth; ///< Width of the subtitle text.
 
       // Wait screen
-      std::string _logoText;
-      int _fontSize;
-      int _textWidth;
+      std::string _logoText; ///< Text displayed on the logo/wait screen.
+      int _fontSize; ///< Font size for logo/wait screen text.
+      int _textWidth; ///< Width of the logo/wait screen text.
 
-      int _dots;
-      std::string _loadingText;
+      int _dots; ///< Number of dots in the loading animation.
+      std::string _loadingText; ///< Loading text.
 
-      int _loadingFontSize;
-      int _loadingWidth;
+      int _loadingFontSize; ///< Font size for loading text.
+      int _loadingWidth; ///< Width of the loading text.
 
-      Texture _backgroundLogo;
+      Texture _backgroundLogo; ///< Texture for the background logo.
+      /**
+       * @brief Loads all required resources (textures, models, etc.).
+       */
       void loadResources();
 
+      /**
+       * @brief Calculates and sets the dimensions for an asset.
+       */
       void dimensionAsset();
-      float _scaleAsset;
-      float _texWidthAsset;
-      float _texHeightAsset;
-      float _xAsset;
-      float _yAsset;
+      float _scaleAsset; ///< Scale factor for the asset.
+      float _texWidthAsset; ///< Texture width of the asset.
+      float _texHeightAsset; ///< Texture height of the asset.
+      float _xAsset; ///< X position of the asset.
+      float _yAsset; ///< Y position of the asset.
 
+      /**
+       * @brief Updates the currently selected tile based on mouse position.
+       */
       void updateTileSelection();
+      /**
+       * @brief Draws the information panel for the currently selected tile.
+       */
       void drawTileInfoPanel();
+      /**
+       * @brief Gets the tile under the mouse cursor.
+       * @param mapWidth Width of the map.
+       * @param mapHeight Height of the map.
+       * @param brickSpacing Spacing between bricks.
+       * @param gridOrigin Origin of the grid in world coordinates.
+       * @param tileX Output: X coordinate of the tile under the mouse.
+       * @param tileY Output: Y coordinate of the tile under the mouse.
+       * @return true if a tile is under the mouse, false otherwise.
+       */
       bool getTileUnderMouse(float mapWidth, float mapHeight,
                              float brickSpacing, Vector3 gridOrigin, int &tileX,
                              int &tileY);
+      /**
+       * @brief Draws the panel listing all players.
+       */
       void drawPlayerListPanel();
+      /**
+       * @brief Draws the information panel for the selected player.
+       */
       void drawPlayerInfoPanel();
   };
 }  // namespace gui
