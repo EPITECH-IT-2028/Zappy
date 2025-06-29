@@ -33,6 +33,12 @@ namespace gui {
     ERROR
   };
 
+  struct TileSelection {
+      int x = -1;
+      int y = -1;
+      bool valid = false;
+  };
+
   class GameEngine {
     public:
       GameEngine(network::ServerCommunication &serverCommunication);
@@ -69,6 +75,11 @@ namespace gui {
       static constexpr float EGG_SHADOW_RADIUS = 0.22f;
       static constexpr int EGG_SHADOW_ALPHA = 120;
 
+      static constexpr int PANEL_WIDTH = 260;
+      static constexpr int PANEL_HEIGHT = 210;
+      static constexpr int PANEL_X = 20;
+      static constexpr int PANEL_Y = SCREEN_HEIGHT - PANEL_HEIGHT - 20;
+
       void DrawTextCodepoint3D(Font font, int codepoint, Vector3 position,
                                float fontSize, bool backface, Color tint);
       void DrawText3D(Font font, const char *text, Vector3 position,
@@ -84,6 +95,7 @@ namespace gui {
       GameState _gameState;
       handlecommand::CommandHandler _commandHandler;
       float worldScale = 1.0f;
+      TileSelection hoveredTile;
 
       void LogoScreenInput();
       void TitleScreenInput();
@@ -169,5 +181,11 @@ namespace gui {
       float _texHeightAsset;
       float _xAsset;
       float _yAsset;
+
+      void updateTileSelection();
+      void drawTileInfoPanel();
+      bool getTileUnderMouse(float mapWidth, float mapHeight,
+                             float brickSpacing, Vector3 gridOrigin, int &tileX,
+                             int &tileY);
   };
 }  // namespace gui
