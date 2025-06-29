@@ -85,6 +85,8 @@ void handle_incantation(server_t *server, client_t *client)
 
     if (!client->data.incantation.is_incantating)
         return;
+    if (is_client_on_cd(&client->data))
+        return;
     init_response(&completion_response);
     completion_response.client = client;
     completion_request.client = client;

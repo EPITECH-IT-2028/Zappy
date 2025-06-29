@@ -71,7 +71,7 @@ int calcalute_direction_tile(server_t *server, const client_data_t *emitter,
     }
     dx = calculate_shortest_distance_component(emitter->x, client->x,
         server->params.width);
-    dy = calculate_shortest_distance_component(emitter->y, client->y,
+    dy = -calculate_shortest_distance_component(emitter->y, client->y,
         server->params.height);
     angle_deg = atan2(dy, dx) * HALF_CIRCLE_DEG / M_PI;
     if (angle_deg < 0)
