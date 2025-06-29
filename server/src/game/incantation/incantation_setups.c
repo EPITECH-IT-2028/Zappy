@@ -93,10 +93,8 @@ void setup_main_incantator(server_t *server, client_data_t *client)
 /**
  * Set incantation data for group members
  */
-void setup_group_members(server_t *server, client_data_t *client,
-    uint8_t nbr_of_incantators)
+void setup_group_members(client_data_t *client, uint8_t nbr_of_incantators)
 {
-    (void)server;
     for (int i = 0; i < nbr_of_incantators; i++) {
         client->incantation.client_group[i]->data.incantation.x = client->x;
         client->incantation.client_group[i]->data.incantation.y = client->y;

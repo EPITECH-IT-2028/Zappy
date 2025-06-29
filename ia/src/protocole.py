@@ -241,7 +241,6 @@ def handle_client(client) -> None:
             break
 
         buffer += response
-        print(buffer)
 
         if buffer:
             while "\n" in buffer:

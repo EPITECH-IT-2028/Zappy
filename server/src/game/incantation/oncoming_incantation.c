@@ -123,7 +123,7 @@ int freeze_every_player(server_t *server, request_t *request)
 
     nbr_of_incantators = build_incantation_group(request->client, unit_space);
     setup_main_incantator(server, client);
-    setup_group_members(server, client, nbr_of_incantators);
+    setup_group_members(client, nbr_of_incantators);
     return SUCCESS;
 }
 

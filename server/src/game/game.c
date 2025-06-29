@@ -32,8 +32,6 @@ void execute_pending_action(server_t *server, client_t *client,
     if (response.response && response.size > 0)
         check_if_queue_is_full(server, &response);
     free(action);
-    printf("Action '%s' executed for client %d\n",
-        request.request, client->data.id);
 }
 
 static
@@ -56,8 +54,6 @@ void process_client_actions(server_t *server, client_t *client)
         current_time.tv_nsec >= action->execute_time.tv_nsec)) {
         execute_pending_action(server, client, action);
     } else {
-        printf("[DEBUG] Client %d: Action '%s' WAITING (remaining)\n", 
-               client->data.id, action->command);
         pthread_mutex_unlock(&client->data.pending_mutex);
     }
 }

@@ -42,7 +42,6 @@ void cleanup_old_actions(client_t *client)
         current = current->next;
     }
     while (queue_size > MAX_REQUEST_PER_CLIENT) {
-        printf("[DEBUG] Cleaning up old actions for client %d\n", client->data.id);
         if (client->data.queue_head) {
             pending_action_t *old_action = client->data.queue_head;
             client->data.queue_head = old_action->next;
