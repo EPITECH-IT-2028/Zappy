@@ -1,0 +1,28 @@
+<map id="/home/arthur/Tek2/Project/Zappy/server/src/game/fork.c" name="/home/arthur/Tek2/Project/Zappy/server/src/game/fork.c">
+<area shape="rect" id="Node000001" title=" " alt="" coords="207,5,425,45"/>
+<area shape="rect" id="Node000002" href="$macro_8h.html" title=" " alt="" coords="5,167,80,192"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="283,48,77,162,74,157,281,43"/>
+<area shape="rect" id="Node000003" href="$server_8h.html" title=" " alt="" coords="489,93,564,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="367,43,484,86,482,91,366,48"/>
+<area shape="poly" id="edge12_Node000003_Node000002" title=" " alt="" coords="490,114,322,134,94,169,93,164,321,129,489,109"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="105,167,175,192"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="489,116,361,137,189,169,188,164,360,132,489,111"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="200,167,267,192"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="490,119,281,169,280,164,489,114"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="291,167,389,192"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="498,121,384,164,382,159,496,116"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="414,167,517,192"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="519,121,486,158,482,154,515,117"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="541,167,637,192"/>
+<area shape="poly" id="edge7_Node000003_Node000008" title=" " alt="" coords="539,117,572,154,568,158,535,121"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="661,167,720,192"/>
+<area shape="poly" id="edge8_Node000003_Node000009" title=" " alt="" coords="554,116,653,159,650,164,552,121"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="745,167,829,192"/>
+<area shape="poly" id="edge9_Node000003_Node000010" title=" " alt="" coords="565,115,733,161,731,166,564,120"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="853,167,936,192"/>
+<area shape="poly" id="edge10_Node000003_Node000011" title=" " alt="" coords="565,111,840,164,839,169,564,117"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="960,167,1024,192"/>
+<area shape="poly" id="edge11_Node000003_Node000012" title=" " alt="" coords="564,109,727,128,947,164,946,169,726,134,564,114"/>
+<area shape="rect" id="Node000013" href="$inventory_8h.html" title=" " alt="" coords="1049,167,1143,192"/>
+<area shape="poly" id="edge13_Node000003_Node000013" title=" " alt="" coords="565,108,762,129,1035,164,1035,169,761,134,564,113"/>
+</map>

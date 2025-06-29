@@ -1,0 +1,213 @@
+\doxysection{server\+\_\+s Struct Reference}
+\hypertarget{structserver__s}{}\label{structserver__s}\index{server\_s@{server\_s}}
+
+
+Main server structure.  
+
+
+
+
+{\ttfamily \#include $<$server.\+h$>$}
+
+
+
+Collaboration diagram for server\+\_\+s\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structserver__s__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{structserver__s_a6129acbc6b313f77efeb488754f559ec}{fd}}
+\item 
+struct sockaddr\+\_\+in \mbox{\hyperlink{structserver__s_a09fe17ff633d4d26a4080d46749c1fe3}{addr}}
+\item 
+socklen\+\_\+t \mbox{\hyperlink{structserver__s_a578b7f3463c9b99bc70c8304b69b7534}{addr\+\_\+len}}
+\item 
+\mbox{\hyperlink{server_8h_a7bfebc8e763f36d1870198931d6b5eb1}{client\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structserver__s_a1727b40f58aa17015ab91cde3e7b649e}{clients}}
+\item 
+pthread\+\_\+mutex\+\_\+t \mbox{\hyperlink{structserver__s_ad84c219f268608d31bb0b9c72cb36c3a}{clients\+\_\+mutex}}
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structserver__s_a81b0ada4af49a9a66b87e57464462cb2}{path}}
+\item 
+struct pollfd \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structserver__s_aecee94c83360ebf5f7d793529c7b27fd}{fds}}
+\item 
+int \mbox{\hyperlink{structserver__s_a8adb27c3a84b1de5dba18ff76fc10fd5}{nfds}}
+\item 
+\mbox{\hyperlink{server_8h_ad9ef31b4161fdea2cae57c1185ba461a}{params\+\_\+t}} \mbox{\hyperlink{structserver__s_abb1b6460534c6b32019fa2be106a2867}{params}}
+\item 
+\mbox{\hyperlink{server_8h_af5e478a5cd98d0572ca6ae18c56e4da9}{teams\+\_\+t}} \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structserver__s_aaaf0d7d22dd9994b8846a5b3f668fb24}{teams}}
+\item 
+atomic\+\_\+bool \mbox{\hyperlink{structserver__s_aac1d41b71471a9519abf6523d84104f2}{running}}
+\item 
+\mbox{\hyperlink{server_8h_ab6b5d999d86821d99168f35832676f16}{queue\+\_\+response\+\_\+t}} \mbox{\hyperlink{structserver__s_a0fc82457686116743ec6cf0f52174576}{queue\+\_\+response}}
+\item 
+\mbox{\hyperlink{server_8h_ac51645dfb553f158814662260dfe6b91}{queue\+\_\+request\+\_\+t}} \mbox{\hyperlink{structserver__s_a0df53a58bed27abd77ecacf95884ebe9}{queue\+\_\+request}}
+\item 
+\mbox{\hyperlink{inventory_8h_a1938ce702b8d949b623b1c79aa7bd4b7}{inventory\+\_\+t}} \mbox{\hyperlink{structserver__s_a4285ec88d01abb17ec77b94a5a175699}{density}}
+\item 
+struct timespec \mbox{\hyperlink{structserver__s_a2e15603f8e25cffc49b774803ee093ea}{server\+\_\+timer}}
+\item 
+long long \mbox{\hyperlink{structserver__s_ace64ac57ffd26f55cc2d5938ce6500dd}{server\+\_\+timer\+\_\+count}}
+\item 
+struct timespec \mbox{\hyperlink{structserver__s_ade1465235964c8925a0c21b96c8524df}{density\+\_\+timer}}
+\item 
+long long \mbox{\hyperlink{structserver__s_ad817afc8386231b71174389b06751dfa}{density\+\_\+timer\+\_\+count}}
+\item 
+\mbox{\hyperlink{server_8h_ad783939f08472f171b0977c075e5ff3b}{threads\+\_\+t}} \mbox{\hyperlink{structserver__s_a29716e9c59c1476e1f522511489ffaa8}{threads}}
+\item 
+\mbox{\hyperlink{server_8h_ae80c6c8b9f9e5f88c65337bb1cd2eb65}{map\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structserver__s_a1ae2d75867e66102a5d854e7e6265874}{map}}
+\item 
+int \mbox{\hyperlink{structserver__s_ad83e598b6757ae8a927dd670922d5032}{ids}}
+\item 
+int \mbox{\hyperlink{structserver__s_a6837a5f51c23ae4a739f9af58a0eb2ff}{egg\+\_\+ids}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Main server structure. 
+
+Central structure containing all server state, including network configuration, client management, game map, and threading components. 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structserver__s_a09fe17ff633d4d26a4080d46749c1fe3}\label{structserver__s_a09fe17ff633d4d26a4080d46749c1fe3} 
+\index{server\_s@{server\_s}!addr@{addr}}
+\index{addr@{addr}!server\_s@{server\_s}}
+\doxysubsubsection{\texorpdfstring{addr}{addr}}
+{\footnotesize\ttfamily struct sockaddr\+\_\+in server\+\_\+s\+::addr}
+
+\Hypertarget{structserver__s_a578b7f3463c9b99bc70c8304b69b7534}\label{structserver__s_a578b7f3463c9b99bc70c8304b69b7534} 
+\index{server\_s@{server\_s}!addr\_len@{addr\_len}}
+\index{addr\_len@{addr\_len}!server\_s@{server\_s}}
+\doxysubsubsection{\texorpdfstring{addr\_len}{addr\_len}}
+{\footnotesize\ttfamily socklen\+\_\+t server\+\_\+s\+::addr\+\_\+len}
+
+\Hypertarget{structserver__s_a1727b40f58aa17015ab91cde3e7b649e}\label{structserver__s_a1727b40f58aa17015ab91cde3e7b649e} 
+\index{server\_s@{server\_s}!clients@{clients}}
+\index{clients@{clients}!server\_s@{server\_s}}
+\doxysubsubsection{\texorpdfstring{clients}{clients}}
+{\footnotesize\ttfamily \mbox{\hyperlink{server_8h_a7bfebc8e763f36d1870198931d6b5eb1}{client\+\_\+t}}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} server\+\_\+s\+::clients}
+
+\Hypertarget{structserver__s_ad84c219f268608d31bb0b9c72cb36c3a}\label{structserver__s_ad84c219f268608d31bb0b9c72cb36c3a} 
+\index{server\_s@{server\_s}!clients\_mutex@{clients\_mutex}}
+\index{clients\_mutex@{clients\_mutex}!server\_s@{server\_s}}
+\doxysubsubsection{\texorpdfstring{clients\_mutex}{clients\_mutex}}
+{\footnotesize\ttfamily pthread\+\_\+mutex\+\_\+t server\+\_\+s\+::clients\+\_\+mutex}
+
+\Hypertarget{structserver__s_a4285ec88d01abb17ec77b94a5a175699}\label{structserver__s_a4285ec88d01abb17ec77b94a5a175699} 
+\index{server\_s@{server\_s}!density@{density}}
+\index{density@{density}!server\_s@{server\_s}}
+\doxysubsubsection{\texorpdfstring{density}{density}}
+{\footnotesize\ttfamily \mbox{\hyperlink{inventory_8h_a1938ce702b8d949b623b1c79aa7bd4b7}{inventory\+\_\+t}} server\+\_\+s\+::density}
+
+\Hypertarget{structserver__s_ade1465235964c8925a0c21b96c8524df}\label{structserver__s_ade1465235964c8925a0c21b96c8524df} 
+\index{server\_s@{server\_s}!density\_timer@{density\_timer}}
+\index{density\_timer@{density\_timer}!server\_s@{server\_s}}
+\doxysubsubsection{\texorpdfstring{density\_timer}{density\_timer}}
+{\footnotesize\ttfamily struct timespec server\+\_\+s\+::density\+\_\+timer}
+
+\Hypertarget{structserver__s_ad817afc8386231b71174389b06751dfa}\label{structserver__s_ad817afc8386231b71174389b06751dfa} 
+\index{server\_s@{server\_s}!density\_timer\_count@{density\_timer\_count}}
+\index{density\_timer\_count@{density\_timer\_count}!server\_s@{server\_s}}
+\doxysubsubsection{\texorpdfstring{density\_timer\_count}{density\_timer\_count}}
+{\footnotesize\ttfamily long long server\+\_\+s\+::density\+\_\+timer\+\_\+count}
+
+\Hypertarget{structserver__s_a6837a5f51c23ae4a739f9af58a0eb2ff}\label{structserver__s_a6837a5f51c23ae4a739f9af58a0eb2ff} 
+\index{server\_s@{server\_s}!egg\_ids@{egg\_ids}}
+\index{egg\_ids@{egg\_ids}!server\_s@{server\_s}}
+\doxysubsubsection{\texorpdfstring{egg\_ids}{egg\_ids}}
+{\footnotesize\ttfamily int server\+\_\+s\+::egg\+\_\+ids}
+
+\Hypertarget{structserver__s_a6129acbc6b313f77efeb488754f559ec}\label{structserver__s_a6129acbc6b313f77efeb488754f559ec} 
+\index{server\_s@{server\_s}!fd@{fd}}
+\index{fd@{fd}!server\_s@{server\_s}}
+\doxysubsubsection{\texorpdfstring{fd}{fd}}
+{\footnotesize\ttfamily int server\+\_\+s\+::fd}
+
+\Hypertarget{structserver__s_aecee94c83360ebf5f7d793529c7b27fd}\label{structserver__s_aecee94c83360ebf5f7d793529c7b27fd} 
+\index{server\_s@{server\_s}!fds@{fds}}
+\index{fds@{fds}!server\_s@{server\_s}}
+\doxysubsubsection{\texorpdfstring{fds}{fds}}
+{\footnotesize\ttfamily struct pollfd\texorpdfstring{$\ast$}{*} server\+\_\+s\+::fds}
+
+\Hypertarget{structserver__s_ad83e598b6757ae8a927dd670922d5032}\label{structserver__s_ad83e598b6757ae8a927dd670922d5032} 
+\index{server\_s@{server\_s}!ids@{ids}}
+\index{ids@{ids}!server\_s@{server\_s}}
+\doxysubsubsection{\texorpdfstring{ids}{ids}}
+{\footnotesize\ttfamily int server\+\_\+s\+::ids}
+
+\Hypertarget{structserver__s_a1ae2d75867e66102a5d854e7e6265874}\label{structserver__s_a1ae2d75867e66102a5d854e7e6265874} 
+\index{server\_s@{server\_s}!map@{map}}
+\index{map@{map}!server\_s@{server\_s}}
+\doxysubsubsection{\texorpdfstring{map}{map}}
+{\footnotesize\ttfamily \mbox{\hyperlink{server_8h_ae80c6c8b9f9e5f88c65337bb1cd2eb65}{map\+\_\+t}}\texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*} server\+\_\+s\+::map}
+
+\Hypertarget{structserver__s_a8adb27c3a84b1de5dba18ff76fc10fd5}\label{structserver__s_a8adb27c3a84b1de5dba18ff76fc10fd5} 
+\index{server\_s@{server\_s}!nfds@{nfds}}
+\index{nfds@{nfds}!server\_s@{server\_s}}
+\doxysubsubsection{\texorpdfstring{nfds}{nfds}}
+{\footnotesize\ttfamily int server\+\_\+s\+::nfds}
+
+\Hypertarget{structserver__s_abb1b6460534c6b32019fa2be106a2867}\label{structserver__s_abb1b6460534c6b32019fa2be106a2867} 
+\index{server\_s@{server\_s}!params@{params}}
+\index{params@{params}!server\_s@{server\_s}}
+\doxysubsubsection{\texorpdfstring{params}{params}}
+{\footnotesize\ttfamily \mbox{\hyperlink{server_8h_ad9ef31b4161fdea2cae57c1185ba461a}{params\+\_\+t}} server\+\_\+s\+::params}
+
+\Hypertarget{structserver__s_a81b0ada4af49a9a66b87e57464462cb2}\label{structserver__s_a81b0ada4af49a9a66b87e57464462cb2} 
+\index{server\_s@{server\_s}!path@{path}}
+\index{path@{path}!server\_s@{server\_s}}
+\doxysubsubsection{\texorpdfstring{path}{path}}
+{\footnotesize\ttfamily char\texorpdfstring{$\ast$}{*} server\+\_\+s\+::path}
+
+\Hypertarget{structserver__s_a0df53a58bed27abd77ecacf95884ebe9}\label{structserver__s_a0df53a58bed27abd77ecacf95884ebe9} 
+\index{server\_s@{server\_s}!queue\_request@{queue\_request}}
+\index{queue\_request@{queue\_request}!server\_s@{server\_s}}
+\doxysubsubsection{\texorpdfstring{queue\_request}{queue\_request}}
+{\footnotesize\ttfamily \mbox{\hyperlink{server_8h_ac51645dfb553f158814662260dfe6b91}{queue\+\_\+request\+\_\+t}} server\+\_\+s\+::queue\+\_\+request}
+
+\Hypertarget{structserver__s_a0fc82457686116743ec6cf0f52174576}\label{structserver__s_a0fc82457686116743ec6cf0f52174576} 
+\index{server\_s@{server\_s}!queue\_response@{queue\_response}}
+\index{queue\_response@{queue\_response}!server\_s@{server\_s}}
+\doxysubsubsection{\texorpdfstring{queue\_response}{queue\_response}}
+{\footnotesize\ttfamily \mbox{\hyperlink{server_8h_ab6b5d999d86821d99168f35832676f16}{queue\+\_\+response\+\_\+t}} server\+\_\+s\+::queue\+\_\+response}
+
+\Hypertarget{structserver__s_aac1d41b71471a9519abf6523d84104f2}\label{structserver__s_aac1d41b71471a9519abf6523d84104f2} 
+\index{server\_s@{server\_s}!running@{running}}
+\index{running@{running}!server\_s@{server\_s}}
+\doxysubsubsection{\texorpdfstring{running}{running}}
+{\footnotesize\ttfamily atomic\+\_\+bool server\+\_\+s\+::running}
+
+\Hypertarget{structserver__s_a2e15603f8e25cffc49b774803ee093ea}\label{structserver__s_a2e15603f8e25cffc49b774803ee093ea} 
+\index{server\_s@{server\_s}!server\_timer@{server\_timer}}
+\index{server\_timer@{server\_timer}!server\_s@{server\_s}}
+\doxysubsubsection{\texorpdfstring{server\_timer}{server\_timer}}
+{\footnotesize\ttfamily struct timespec server\+\_\+s\+::server\+\_\+timer}
+
+\Hypertarget{structserver__s_ace64ac57ffd26f55cc2d5938ce6500dd}\label{structserver__s_ace64ac57ffd26f55cc2d5938ce6500dd} 
+\index{server\_s@{server\_s}!server\_timer\_count@{server\_timer\_count}}
+\index{server\_timer\_count@{server\_timer\_count}!server\_s@{server\_s}}
+\doxysubsubsection{\texorpdfstring{server\_timer\_count}{server\_timer\_count}}
+{\footnotesize\ttfamily long long server\+\_\+s\+::server\+\_\+timer\+\_\+count}
+
+\Hypertarget{structserver__s_aaaf0d7d22dd9994b8846a5b3f668fb24}\label{structserver__s_aaaf0d7d22dd9994b8846a5b3f668fb24} 
+\index{server\_s@{server\_s}!teams@{teams}}
+\index{teams@{teams}!server\_s@{server\_s}}
+\doxysubsubsection{\texorpdfstring{teams}{teams}}
+{\footnotesize\ttfamily \mbox{\hyperlink{server_8h_af5e478a5cd98d0572ca6ae18c56e4da9}{teams\+\_\+t}}\texorpdfstring{$\ast$}{*} server\+\_\+s\+::teams}
+
+\Hypertarget{structserver__s_a29716e9c59c1476e1f522511489ffaa8}\label{structserver__s_a29716e9c59c1476e1f522511489ffaa8} 
+\index{server\_s@{server\_s}!threads@{threads}}
+\index{threads@{threads}!server\_s@{server\_s}}
+\doxysubsubsection{\texorpdfstring{threads}{threads}}
+{\footnotesize\ttfamily \mbox{\hyperlink{server_8h_ad783939f08472f171b0977c075e5ff3b}{threads\+\_\+t}} server\+\_\+s\+::threads}
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/arthur/\+Tek2/\+Project/\+Zappy/server/include/\mbox{\hyperlink{server_8h}{server.\+h}}\end{DoxyCompactItemize}

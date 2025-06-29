@@ -1,0 +1,49 @@
+\doxysection{/home/arthur/\+Tek2/\+Project/\+Zappy/server/src/error/check\+\_\+teams\+\_\+names.c File Reference}
+\hypertarget{check__teams__names_8c}{}\label{check__teams__names_8c}\index{/home/arthur/Tek2/Project/Zappy/server/src/error/check\_teams\_names.c@{/home/arthur/Tek2/Project/Zappy/server/src/error/check\_teams\_names.c}}
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include "{}macro.\+h"{}}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include "{}server.\+h"{}}\newline
+Include dependency graph for check\+\_\+teams\+\_\+names.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{check__teams__names_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{check__teams__names_8c_aedb06e21abbc309c09c19effd8575e14}{check\+\_\+teams\+\_\+names}} (\mbox{\hyperlink{server_8h_ad9ef31b4161fdea2cae57c1185ba461a}{params\+\_\+t}} \texorpdfstring{$\ast$}{*}params, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}av, size\+\_\+t \texorpdfstring{$\ast$}{*}av\+\_\+idx)
+\begin{DoxyCompactList}\small\item\em Parse and store team names from command line arguments. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{check__teams__names_8c_aedb06e21abbc309c09c19effd8575e14}\label{check__teams__names_8c_aedb06e21abbc309c09c19effd8575e14} 
+\index{check\_teams\_names.c@{check\_teams\_names.c}!check\_teams\_names@{check\_teams\_names}}
+\index{check\_teams\_names@{check\_teams\_names}!check\_teams\_names.c@{check\_teams\_names.c}}
+\doxysubsubsection{\texorpdfstring{check\_teams\_names()}{check\_teams\_names()}}
+{\footnotesize\ttfamily int check\+\_\+teams\+\_\+names (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_ad9ef31b4161fdea2cae57c1185ba461a}{params\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{params,  }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{av,  }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{av\+\_\+idx }\end{DoxyParamCaption})}
+
+
+
+Parse and store team names from command line arguments. 
+
+Validate and set team names parameter.
+
+This function reads team names from command line arguments until it encounters another flag, storing them in the parameters structure.
+
+
+\begin{DoxyParams}{Parameters}
+{\em params} & Pointer to the parameters structure to update \\
+\hline
+{\em av} & Array of command line arguments \\
+\hline
+{\em av\+\_\+idx} & Pointer to current argument index \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+SUCCESS if team names parsed successfully, ERROR otherwise 
+\end{DoxyReturn}

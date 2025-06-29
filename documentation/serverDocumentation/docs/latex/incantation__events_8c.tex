@@ -1,0 +1,66 @@
+\doxysection{/home/arthur/\+Tek2/\+Project/\+Zappy/server/src/events/incantation\+\_\+events.c File Reference}
+\hypertarget{incantation__events_8c}{}\label{incantation__events_8c}\index{/home/arthur/Tek2/Project/Zappy/server/src/events/incantation\_events.c@{/home/arthur/Tek2/Project/Zappy/server/src/events/incantation\_events.c}}
+{\ttfamily \#include "{}macro.\+h"{}}\newline
+{\ttfamily \#include "{}server.\+h"{}}\newline
+{\ttfamily \#include "{}utils.\+h"{}}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+Include dependency graph for incantation\+\_\+events.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{incantation__events_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{incantation__events_8c_ade6d3ef5beaf119434d9b91e83b1bdc8}{send\+\_\+pie}} (\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{server_8c_ab140ac62eb02ac9134b3120c0a6829e6}{server}}, \mbox{\hyperlink{server_8h_a7bfebc8e763f36d1870198931d6b5eb1}{client\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}incantators)
+\begin{DoxyCompactList}\small\item\em Send pie (incantation end) message to all graphic clients. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{incantation__events_8c_abb9b04dac51a7602c1f96cba8c846df9}{send\+\_\+pic}} (\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{server_8c_ab140ac62eb02ac9134b3120c0a6829e6}{server}}, \mbox{\hyperlink{server_8h_a7bfebc8e763f36d1870198931d6b5eb1}{client\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}incantators)
+\begin{DoxyCompactList}\small\item\em Send pic (incantation start) message to all graphic clients. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{incantation__events_8c_abb9b04dac51a7602c1f96cba8c846df9}\label{incantation__events_8c_abb9b04dac51a7602c1f96cba8c846df9} 
+\index{incantation\_events.c@{incantation\_events.c}!send\_pic@{send\_pic}}
+\index{send\_pic@{send\_pic}!incantation\_events.c@{incantation\_events.c}}
+\doxysubsubsection{\texorpdfstring{send\_pic()}{send\_pic()}}
+{\footnotesize\ttfamily void send\+\_\+pic (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{server,  }\item[{\mbox{\hyperlink{server_8h_a7bfebc8e763f36d1870198931d6b5eb1}{client\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{incantators }\end{DoxyParamCaption})}
+
+
+
+Send pic (incantation start) message to all graphic clients. 
+
+Send incantation start (pic) event to GUI clients.
+
+This function formats a message indicating the start of an incantation with position and list of participating players.
+
+
+\begin{DoxyParams}{Parameters}
+{\em server} & Pointer to the server instance containing client list \\
+\hline
+{\em incantators} & Array of clients participating in the incantation \\
+\hline
+\end{DoxyParams}
+\Hypertarget{incantation__events_8c_ade6d3ef5beaf119434d9b91e83b1bdc8}\label{incantation__events_8c_ade6d3ef5beaf119434d9b91e83b1bdc8} 
+\index{incantation\_events.c@{incantation\_events.c}!send\_pie@{send\_pie}}
+\index{send\_pie@{send\_pie}!incantation\_events.c@{incantation\_events.c}}
+\doxysubsubsection{\texorpdfstring{send\_pie()}{send\_pie()}}
+{\footnotesize\ttfamily void send\+\_\+pie (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{server,  }\item[{\mbox{\hyperlink{server_8h_a7bfebc8e763f36d1870198931d6b5eb1}{client\+\_\+t}} \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{incantators }\end{DoxyParamCaption})}
+
+
+
+Send pie (incantation end) message to all graphic clients. 
+
+Send incantation end (pie) event to GUI clients.
+
+This function formats a message indicating the completion of an incantation with position and success/failure status.
+
+
+\begin{DoxyParams}{Parameters}
+{\em server} & Pointer to the server instance containing client list \\
+\hline
+{\em incantators} & Array of clients participating in the incantation \\
+\hline
+\end{DoxyParams}

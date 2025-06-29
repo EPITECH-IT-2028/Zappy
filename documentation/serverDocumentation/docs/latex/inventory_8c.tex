@@ -1,0 +1,47 @@
+\doxysection{/home/arthur/\+Tek2/\+Project/\+Zappy/server/src/game/inventory.c File Reference}
+\hypertarget{inventory_8c}{}\label{inventory_8c}\index{/home/arthur/Tek2/Project/Zappy/server/src/game/inventory.c@{/home/arthur/Tek2/Project/Zappy/server/src/game/inventory.c}}
+{\ttfamily \#include "{}macro.\+h"{}}\newline
+{\ttfamily \#include "{}server.\+h"{}}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+Include dependency graph for inventory.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{inventory_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{inventory_8c_adb73f97e8da8f68f7d3fa5d9f2888ef0}{handle\+\_\+inventory}} (\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{server_8c_ab140ac62eb02ac9134b3120c0a6829e6}{server}}, \mbox{\hyperlink{server_8h_a0a742c24c6cf5a8824f8b0399778b0f4}{response\+\_\+t}} \texorpdfstring{$\ast$}{*}response, \mbox{\hyperlink{server_8h_a2fc1b64f51f8225195d32592e6fe8fc5}{request\+\_\+t}} \texorpdfstring{$\ast$}{*}request)
+\begin{DoxyCompactList}\small\item\em Handle the inventory command to display player\textquotesingle{}s resources. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{inventory_8c_adb73f97e8da8f68f7d3fa5d9f2888ef0}\label{inventory_8c_adb73f97e8da8f68f7d3fa5d9f2888ef0} 
+\index{inventory.c@{inventory.c}!handle\_inventory@{handle\_inventory}}
+\index{handle\_inventory@{handle\_inventory}!inventory.c@{inventory.c}}
+\doxysubsubsection{\texorpdfstring{handle\_inventory()}{handle\_inventory()}}
+{\footnotesize\ttfamily int handle\+\_\+inventory (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{server,  }\item[{\mbox{\hyperlink{server_8h_a0a742c24c6cf5a8824f8b0399778b0f4}{response\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{response,  }\item[{\mbox{\hyperlink{server_8h_a2fc1b64f51f8225195d32592e6fe8fc5}{request\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{request }\end{DoxyParamCaption})}
+
+
+
+Handle the inventory command to display player\textquotesingle{}s resources. 
+
+Handle inventory command from AI player.
+
+This function creates a formatted string containing all the resources in the player\textquotesingle{}s inventory and adds it to the response.
+
+
+\begin{DoxyParams}{Parameters}
+{\em server} & Pointer to the server structure \\
+\hline
+{\em response} & Pointer to the response structure to fill \\
+\hline
+{\em request} & Pointer to the client request \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+SUCCESS on successful inventory display, ERROR on failure 
+\end{DoxyReturn}

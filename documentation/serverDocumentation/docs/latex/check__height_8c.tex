@@ -1,0 +1,48 @@
+\doxysection{/home/arthur/\+Tek2/\+Project/\+Zappy/server/src/error/check\+\_\+height.c File Reference}
+\hypertarget{check__height_8c}{}\label{check__height_8c}\index{/home/arthur/Tek2/Project/Zappy/server/src/error/check\_height.c@{/home/arthur/Tek2/Project/Zappy/server/src/error/check\_height.c}}
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include "{}server.\+h"{}}\newline
+{\ttfamily \#include "{}macro.\+h"{}}\newline
+Include dependency graph for check\+\_\+height.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{check__height_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{check__height_8c_a365471ffa65648432b66dcc4a359e638}{check\+\_\+height}} (\mbox{\hyperlink{server_8h_ad9ef31b4161fdea2cae57c1185ba461a}{params\+\_\+t}} \texorpdfstring{$\ast$}{*}params, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}av, size\+\_\+t \texorpdfstring{$\ast$}{*}av\+\_\+idx)
+\begin{DoxyCompactList}\small\item\em Validate and set the map height parameter. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{check__height_8c_a365471ffa65648432b66dcc4a359e638}\label{check__height_8c_a365471ffa65648432b66dcc4a359e638} 
+\index{check\_height.c@{check\_height.c}!check\_height@{check\_height}}
+\index{check\_height@{check\_height}!check\_height.c@{check\_height.c}}
+\doxysubsubsection{\texorpdfstring{check\_height()}{check\_height()}}
+{\footnotesize\ttfamily int check\+\_\+height (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_ad9ef31b4161fdea2cae57c1185ba461a}{params\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{params,  }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{av,  }\item[{size\+\_\+t \texorpdfstring{$\ast$}{*}}]{av\+\_\+idx }\end{DoxyParamCaption})}
+
+
+
+Validate and set the map height parameter. 
+
+Validate and set height parameter.
+
+This function checks if the provided height value is valid (greater than minimum) and sets it in the parameters structure.
+
+
+\begin{DoxyParams}{Parameters}
+{\em params} & Pointer to the parameters structure to update \\
+\hline
+{\em av} & Array of command line arguments \\
+\hline
+{\em av\+\_\+idx} & Pointer to current argument index \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+SUCCESS if valid height, ERROR otherwise 
+\end{DoxyReturn}

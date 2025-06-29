@@ -1,0 +1,64 @@
+\doxysection{/home/arthur/\+Tek2/\+Project/\+Zappy/server/src/events/player\+\_\+events.c File Reference}
+\hypertarget{player__events_8c}{}\label{player__events_8c}\index{/home/arthur/Tek2/Project/Zappy/server/src/events/player\_events.c@{/home/arthur/Tek2/Project/Zappy/server/src/events/player\_events.c}}
+{\ttfamily \#include "{}server.\+h"{}}\newline
+{\ttfamily \#include "{}utils.\+h"{}}\newline
+Include dependency graph for player\+\_\+events.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{player__events_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{player__events_8c_a24a288eb2f870deb50c9b51b07d6f0c7}{send\+\_\+pin}} (\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{server_8c_ab140ac62eb02ac9134b3120c0a6829e6}{server}}, int index)
+\begin{DoxyCompactList}\small\item\em Send pin (player inventory) message to all graphic clients. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{player__events_8c_a82373849779bcfedcfc0fad22b41d854}{send\+\_\+ppo}} (\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{server_8c_ab140ac62eb02ac9134b3120c0a6829e6}{server}}, \mbox{\hyperlink{server_8h_a7bfebc8e763f36d1870198931d6b5eb1}{client\+\_\+t}} \texorpdfstring{$\ast$}{*}client)
+\begin{DoxyCompactList}\small\item\em Send ppo (player position) message to all graphic clients. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{player__events_8c_a24a288eb2f870deb50c9b51b07d6f0c7}\label{player__events_8c_a24a288eb2f870deb50c9b51b07d6f0c7} 
+\index{player\_events.c@{player\_events.c}!send\_pin@{send\_pin}}
+\index{send\_pin@{send\_pin}!player\_events.c@{player\_events.c}}
+\doxysubsubsection{\texorpdfstring{send\_pin()}{send\_pin()}}
+{\footnotesize\ttfamily void send\+\_\+pin (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{server,  }\item[{int}]{index }\end{DoxyParamCaption})}
+
+
+
+Send pin (player inventory) message to all graphic clients. 
+
+Send player inventory (pin) event to GUI clients.
+
+This function formats a message containing the player\textquotesingle{}s ID, position, and complete inventory contents.
+
+
+\begin{DoxyParams}{Parameters}
+{\em server} & Pointer to the server instance containing client list \\
+\hline
+{\em index} & Index of the client in the server\textquotesingle{}s client array \\
+\hline
+\end{DoxyParams}
+\Hypertarget{player__events_8c_a82373849779bcfedcfc0fad22b41d854}\label{player__events_8c_a82373849779bcfedcfc0fad22b41d854} 
+\index{player\_events.c@{player\_events.c}!send\_ppo@{send\_ppo}}
+\index{send\_ppo@{send\_ppo}!player\_events.c@{player\_events.c}}
+\doxysubsubsection{\texorpdfstring{send\_ppo()}{send\_ppo()}}
+{\footnotesize\ttfamily void send\+\_\+ppo (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{server,  }\item[{\mbox{\hyperlink{server_8h_a7bfebc8e763f36d1870198931d6b5eb1}{client\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{client }\end{DoxyParamCaption})}
+
+
+
+Send ppo (player position) message to all graphic clients. 
+
+Send player position (ppo) event to GUI clients.
+
+This function formats a message containing the player\textquotesingle{}s ID, coordinates, and facing direction.
+
+
+\begin{DoxyParams}{Parameters}
+{\em server} & Pointer to the server instance containing client list \\
+\hline
+{\em client} & Pointer to the client whose position to send \\
+\hline
+\end{DoxyParams}
