@@ -733,16 +733,13 @@ void gui::GameEngine::updateTileSelection() {
 }
 
 void gui::GameEngine::drawTileInfoPanel() {
-  const int panelWidth = 260;
-  const int panelHeight = 210;
-  const int panelX = 20;
-  const int panelY = SCREEN_HEIGHT - panelHeight - 20;
-  int textY = panelY + 18;
-  int textX = panelX + 16;
+  int textY = PANEL_Y + 18;
+  int textX = PANEL_X + 16;
   int fontSize = 20;
   TileSelection *activeTile = nullptr;
 
-  DrawRectangle(panelX, panelY, panelWidth, panelHeight, Fade(LIGHTGRAY, 1.1f));
+  DrawRectangle(PANEL_X, PANEL_Y, PANEL_WIDTH, PANEL_HEIGHT,
+                Fade(LIGHTGRAY, 1.0f));
   if (hoveredTile.valid)
     activeTile = &hoveredTile;
   if (activeTile && activeTile->valid && activeTile->x >= 0 &&
