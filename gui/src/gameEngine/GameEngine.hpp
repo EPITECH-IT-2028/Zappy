@@ -3,6 +3,7 @@
 #include <raylib.h>
 #include "commandHandler/CommandHandler.hpp"
 #include "entities/GameState.hpp"
+#include "header/rlights.h"
 #include "raylib-cpp.hpp"
 #include "server/ServerCommunication.hpp"
 
@@ -15,6 +16,7 @@
 #define MAX_CAMERA_FOVY 45.0f
 
 #define BRICK_MODEL_PATH "resources/mario_brick/scene.gltf"
+#define GOOMBA_MODEL_PATH "resources/goomba.glb"
 
 #define BRICK_SPACING 1.1f
 #define BRICK_MODEL_SCALE 0.01f
@@ -43,6 +45,8 @@ namespace gui {
       void initialize();
 
     private:
+      static constexpr std::size_t TOTAL_MODELS = 2;
+
       static constexpr float SPHERE_HORIZONTAL_SPACING = 0.15f;
       static constexpr float SPHERE_BASE_X = -0.4f;
       static constexpr float SPHERE_BASE_Y = 1.15f;
@@ -60,6 +64,12 @@ namespace gui {
       static constexpr int BROADCAST_LOG_LINE_HEIGHT = 25;
       static constexpr int BROADCAST_LOG_FONT_SIZE = 20;
 
+      void DrawTextCodepoint3D(Font font, int codepoint, Vector3 position,
+                               float fontSize, bool backface, Color tint);
+      void DrawText3D(Font font, const char *text, Vector3 position,
+                      float fontSize, float fontSpacing, float lineSpacing,
+                      bool backface, Color tint);
+
       raylib::Window _window;
       int _framesCounter;
       raylib::Camera3D _camera;
@@ -70,10 +80,10 @@ namespace gui {
       handlecommand::CommandHandler _commandHandler;
       float worldScale = 1.0f;
 
-      void updateLogoScreen();
-      void updateTitleScreen();
-      void updateGameplayScreen();
-      void updateEndingScreen();
+      void LogoScreenInput();
+      void TitleScreenInput();
+      void GameplayScreenInput();
+      void EndingScreenInput();
       void processNetworkMessages();
 
       void renderLogoScreen();
@@ -82,19 +92,29 @@ namespace gui {
       void renderEndingScreen();
       void renderErrorScreen();
 
-      void loadResources();
+      void updateShaders();
+
+      void loadModels();
+      void loadShaders();
       Model _brick;
-      bool _resourcesLoaded;
+      Model _goomba;
+      std::size_t _resourcesLoaded;
       std::string _errorMessage;
 
-      void drawMap();
+      void drawMap(std::vector<std::pair<Vector3, int>> *resourceCount);
       void drawResource(const Vector3 position, int x, int y,
-                        std::vector<std::pair<Vector2, int>> &resourceTexts);
+                        std::vector<std::pair<Vector3, int>> &resourceTexts);
+      void drawPlayers();
+      void drawLights();
       void moveCamera();
       void handleCameraMovement();
       void handleCameraRotation();
       void handleCameraZoom();
       void resetCamera();
       void drawBroadcastLog();
+
+      Shader _lightingShader;
+      Light _lights[2];
+      int _ambientLoc;
   };
 }  // namespace gui

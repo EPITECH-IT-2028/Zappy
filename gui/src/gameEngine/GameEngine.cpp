@@ -6,6 +6,9 @@
 #include <iostream>
 #include <ostream>
 #include <unordered_map>
+#define RLIGHTS_IMPLEMENTATION
+
+#include "header/rlights.h"
 
 gui::GameEngine::GameEngine(network::ServerCommunication &serverCommunication)
     : _window(SCREEN_WIDTH, SCREEN_HEIGHT, "Zappy"),
@@ -14,7 +17,7 @@ gui::GameEngine::GameEngine(network::ServerCommunication &serverCommunication)
       _serverCommunication(serverCommunication),
       _gameState(0, 0),
       _commandHandler(_gameState),
-      _resourcesLoaded(false) {
+      _resourcesLoaded(0) {
   if (!IsWindowReady())
     throw std::runtime_error("Failed to initialize Raylib window");
   initialize();
@@ -26,9 +29,11 @@ gui::GameEngine::GameEngine(network::ServerCommunication &serverCommunication)
 }
 
 gui::GameEngine::~GameEngine() {
-  if (_resourcesLoaded) {
+  if (_resourcesLoaded == TOTAL_MODELS) {
     UnloadModel(_brick);
+    UnloadModel(_goomba);
   }
+  UnloadShader(_lightingShader);
 }
 
 float gui::GameEngine::getWorldScale() const {
@@ -41,10 +46,11 @@ void gui::GameEngine::setWorldScale(float value) {
 
 void gui::GameEngine::initialize() {
   try {
-    loadResources();
+    loadModels();
+    loadShaders();
   } catch (const std::exception &e) {
     std::cerr << "Resource initialization failed: " << e.what() << std::endl;
-    _resourcesLoaded = false;
+    _resourcesLoaded = 0;
     _currentScreen = Screen::ERROR;
     _errorMessage = std::string("Resource loading failed: ") + e.what();
   }
@@ -57,16 +63,16 @@ void gui::GameEngine::run() {
     processNetworkMessages();
     switch (_currentScreen) {
       case Screen::LOGO:
-        updateLogoScreen();
+        LogoScreenInput();
         break;
       case Screen::TITLE:
-        updateTitleScreen();
+        TitleScreenInput();
         break;
       case Screen::GAMEPLAY:
-        updateGameplayScreen();
+        GameplayScreenInput();
         break;
       case Screen::ENDING:
-        updateEndingScreen();
+        EndingScreenInput();
         break;
       default:
         break;
@@ -99,7 +105,7 @@ void gui::GameEngine::run() {
   }
 }
 
-void gui::GameEngine::updateLogoScreen() {
+void gui::GameEngine::LogoScreenInput() {
   _framesCounter++;
   if (_framesCounter > LOGO_DURATION_FRAMES) {
     _currentScreen = Screen::TITLE;
@@ -107,19 +113,19 @@ void gui::GameEngine::updateLogoScreen() {
   }
 }
 
-void gui::GameEngine::updateTitleScreen() {
+void gui::GameEngine::TitleScreenInput() {
   if (IsKeyPressed(KEY_ENTER))
     _currentScreen = Screen::GAMEPLAY;
 }
 
-void gui::GameEngine::updateGameplayScreen() {
+void gui::GameEngine::GameplayScreenInput() {
   if (IsKeyPressed(KEY_ENTER))
     _currentScreen = Screen::ENDING;
 
   moveCamera();
 }
 
-void gui::GameEngine::updateEndingScreen() {
+void gui::GameEngine::EndingScreenInput() {
   if (IsKeyPressed(KEY_ENTER))
     _currentScreen = Screen::TITLE;
 }
@@ -191,8 +197,28 @@ void gui::GameEngine::renderTitleScreen() {
 }
 
 void gui::GameEngine::renderGameplayScreen() {
+  std::vector<std::pair<Vector3, int>> resourceCount;
+
   DrawRectangle(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT, GAMEPLAY_BACKGROUND_COLOR);
-  drawMap();
+  updateShaders();
+
+  BeginMode3D(_camera);
+  BeginShaderMode(_lightingShader);
+
+  drawMap(&resourceCount);
+  drawPlayers();
+  for (const auto &info : resourceCount) {
+    Vector3 worldPos = info.first;
+    DrawText3D(GetFontDefault(), TextFormat("%d", info.second),
+               {worldPos.x + 0.1f, worldPos.y - 0.05f, worldPos.z - 0.1f},
+               0.2f * worldScale, 0.05f, 0.0f, false,
+               (Color){255, 255, 255, 255});
+  }
+
+  EndShaderMode();
+  drawLights();
+  EndMode3D();
+
   drawBroadcastLog();
   DrawText("GAMEPLAY SCREEN", 20, 20, 40, MAROON);
 }
@@ -214,20 +240,33 @@ void gui::GameEngine::renderErrorScreen() {
   DrawText(_errorMessage.c_str(), 60, 120, 20, BLACK);
 }
 
-void gui::GameEngine::loadResources() {
-  if (_resourcesLoaded)
+void gui::GameEngine::updateShaders() {
+  float cameraPos[3] = {_camera.GetPosition().x, _camera.GetPosition().y,
+                        _camera.GetPosition().z};
+  SetShaderValue(_lightingShader, _lightingShader.locs[SHADER_LOC_VECTOR_VIEW],
+                 cameraPos, SHADER_UNIFORM_VEC3);
+  for (int i = 0; i < MAX_LIGHTS; ++i)
+    UpdateLightValues(_lightingShader, _lights[i]);
+}
+
+void gui::GameEngine::loadModels() {
+  if (_resourcesLoaded == TOTAL_MODELS)
     return;
 
   if (!FileExists(BRICK_MODEL_PATH))
     throw std::runtime_error("Model file not found: " +
                              std::string(BRICK_MODEL_PATH));
+  else if (!FileExists(GOOMBA_MODEL_PATH))
+    throw std::runtime_error("Model file not found: " +
+                             std::string(GOOMBA_MODEL_PATH));
 
   _brick = LoadModel(BRICK_MODEL_PATH);
+  _goomba = LoadModel(GOOMBA_MODEL_PATH);
 
   if (_brick.meshCount > 0 && _brick.materialCount > 0 &&
       _brick.meshes != nullptr) {
     std::cout << "Brick model loaded successfully." << std::endl;
-    _resourcesLoaded = true;
+    _resourcesLoaded += 1;
   } else {
     std::cerr << "Error: Failed to load model: " << BRICK_MODEL_PATH
               << std::endl;
@@ -235,10 +274,43 @@ void gui::GameEngine::loadResources() {
     throw std::runtime_error(std::string("Failed to load model: ") +
                              BRICK_MODEL_PATH);
   }
+  if (_goomba.meshCount > 0 && _goomba.materialCount > 0 &&
+      _goomba.meshes != nullptr) {
+    std::cout << "Goomba model loaded successfully." << std::endl;
+    _resourcesLoaded += 1;
+  } else {
+    std::cerr << "Error: Failed to load model: " << GOOMBA_MODEL_PATH
+              << std::endl;
+    UnloadModel(_goomba);
+    throw std::runtime_error(std::string("Failed to load model: ") +
+                             GOOMBA_MODEL_PATH);
+  }
 }
 
-void gui::GameEngine::drawMap() {
-  if (!_resourcesLoaded) {
+void gui::GameEngine::loadShaders() {
+  _lightingShader = LoadShader(TextFormat("resources/lighting.vs", 330),
+                               TextFormat("resources/lighting.fs", 330));
+  _lightingShader.locs[SHADER_LOC_VECTOR_VIEW] =
+      GetShaderLocation(_lightingShader, "viewPos");
+  _ambientLoc = GetShaderLocation(_lightingShader, "ambient");
+  float ambient[4] = {0.1f, 0.1f, 0.1f, 1.0f};
+  SetShaderValue(_lightingShader, _ambientLoc, ambient, SHADER_UNIFORM_VEC4);
+
+  for (int i = 0; i < _brick.materialCount; i++)
+    _brick.materials[i].shader = _lightingShader;
+  for (int i = 0; i < _goomba.materialCount; i++)
+    _goomba.materials[i].shader = _lightingShader;
+
+  _lights[0] =
+      CreateLight(LIGHT_DIRECTIONAL, (Vector3){-6, 4, -6}, Vector3Zero(),
+                  (Color){255, 255, 255, 255}, _lightingShader);
+  _lights[1] = CreateLight(LIGHT_DIRECTIONAL, (Vector3){6, 0, 6}, Vector3Zero(),
+                           (Color){32, 32, 32, 255}, _lightingShader);
+}
+
+void gui::GameEngine::drawMap(
+    std::vector<std::pair<Vector3, int>> *resourceCount) {
+  if (_resourcesLoaded != TOTAL_MODELS) {
     std::cerr << "Resources not loaded, cannot draw map." << std::endl;
     return;
   }
@@ -248,9 +320,7 @@ void gui::GameEngine::drawMap() {
   float mapHeight = static_cast<float>(_gameState.map.height);
   Vector3 gridOrigin = {-((mapWidth - 1) * brickSpacing) / 2.0f, 0.0f,
                         -((mapHeight - 1) * brickSpacing) / 2.0f};
-  std::vector<std::pair<Vector2, int>> resourceCount;
 
-  BeginMode3D(_camera);
   for (std::size_t y = 0; y < _gameState.map.height; ++y) {
     for (std::size_t x = 0; x < _gameState.map.width; ++x) {
       Vector3 position = {gridOrigin.x + x * brickSpacing, gridOrigin.y,
@@ -263,22 +333,14 @@ void gui::GameEngine::drawMap() {
           {position.x + offset.x, position.y + offset.y, position.z + offset.z},
           BRICK_SPACING * worldScale, BRICK_SPACING * worldScale,
           BRICK_SPACING * worldScale, WHITE);
-      drawResource(position, x, y, resourceCount);
+      drawResource(position, x, y, *resourceCount);
     }
-  }
-  EndMode3D();
-
-  for (const auto &info : resourceCount) {
-    Vector2 screenPos = info.first;
-    int count = info.second;
-    DrawText(TextFormat("%d", count), static_cast<int>(screenPos.x) + 10,
-             static_cast<int>(screenPos.y) - 5, 15, WHITE);
   }
 }
 
 void gui::GameEngine::drawResource(
     const Vector3 position, int x, int y,
-    std::vector<std::pair<Vector2, int>> &resourceTexts) {
+    std::vector<std::pair<Vector3, int>> &resourceTexts) {
   const gui::Tile &tile = _gameState.map.tiles[x][y];
 
   for (int i = 0; i < static_cast<int>(gui::Tile::RESOURCE_COUNT); i++) {
@@ -291,8 +353,54 @@ void gui::GameEngine::drawResource(
           position.z + SPHERE_BASE_Z * worldScale -
               i * SPHERE_HORIZONTAL_SPACING * worldScale};
       DrawSphere(resourcePosition, 0.035f * worldScale, color);
-      Vector2 screenPos = GetWorldToScreen(resourcePosition, _camera);
-      resourceTexts.push_back(std::make_pair(screenPos, resourceCount));
+      resourceTexts.push_back(std::make_pair(resourcePosition, resourceCount));
+    }
+  }
+}
+
+void gui::GameEngine::drawPlayers() {
+  float brickSpacing = BRICK_SPACING * worldScale;
+  Vector3 gridOrigin = {
+      -((static_cast<float>(_gameState.map.width) - 1) * brickSpacing) / 2.0f,
+      0.0f,
+      -((static_cast<float>(_gameState.map.height) - 1) * brickSpacing) / 2.0f};
+
+  for (const auto &playerPair : _gameState.players) {
+    const gui::Player &player = playerPair.second;
+    Vector3 position = {gridOrigin.x + player.x * brickSpacing,
+                        gridOrigin.y + 1.1f * worldScale,
+                        gridOrigin.z + player.y * brickSpacing};
+    float angle = 0.0f;
+    switch (player.orientation) {
+      case gui::Orientation::NORTH:
+        angle = PI;
+        break;
+      case gui::Orientation::EAST:
+        angle = PI / 2.0f;
+        break;
+      case gui::Orientation::SOUTH:
+        angle = 0.0f;
+        break;
+      case gui::Orientation::WEST:
+        angle = 3 * PI / 2.0f;
+        break;
+      default:
+        break;
+    }
+    DrawModelEx(
+        _goomba, position, (Vector3){0, 1, 0}, angle * RAD2DEG,
+        (Vector3){0.15f * worldScale, 0.15f * worldScale, 0.15f * worldScale},
+        WHITE);
+  }
+}
+
+void gui::GameEngine::drawLights() {
+  for (int i = 0; i < MAX_LIGHTS; ++i) {
+    if (_lights[i].enabled) {
+      DrawSphereEx(_lights[i].position, 0.2f, 8, 8, _lights[i].color);
+    } else {
+      DrawSphereWires(_lights[i].position, 0.2f, 8, 8,
+                      ColorAlpha(_lights[i].color, 0.3f));
     }
   }
 }
