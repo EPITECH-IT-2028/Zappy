@@ -123,16 +123,16 @@ namespace gui {
       int _boxX;
       int _boxY;
 
-      const char* _title;
+      std::string _title;
       int _titleFontSize;
       int _titleTextWidth;
 
-      const char* _subtitle;
+      std::string _subtitle;
       int _subtitleFontSize;
       int _subtitleTextWidth;
 
       // Wait screen
-      const char* _logoText;
+      std::string _logoText;
       int _fontSize;
       int _textWidth;
 

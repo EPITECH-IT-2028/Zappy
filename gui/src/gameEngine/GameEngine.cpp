@@ -223,12 +223,9 @@ void gui::GameEngine::renderLogoScreen() {
   }
   _logoText = "ZAPPY";
   _fontSize = 60;
-  _textWidth = MeasureText(_logoText, _fontSize);
-  DrawText(_logoText,
-            SCREEN_WIDTH / 2 - _textWidth / 2,
-            SCREEN_HEIGHT / 2 - 100,
-            _fontSize,
-            DARKGREEN);
+  _textWidth = MeasureText(_logoText.c_str(), _fontSize);
+  DrawText(_logoText.c_str(), SCREEN_WIDTH / 2 - _textWidth / 2,
+           SCREEN_HEIGHT / 2 - 100, _fontSize, DARKGREEN);
 
   _dots = (int)(GetTime() * 2) % 4;
   _loadingText = "Loading";
@@ -237,11 +234,8 @@ void gui::GameEngine::renderLogoScreen() {
 
   _loadingFontSize = 24;
   _loadingWidth = MeasureText(_loadingText.c_str(), _loadingFontSize);
-  DrawText(_loadingText.c_str(),
-            SCREEN_WIDTH / 2 - _loadingWidth / 2,
-            SCREEN_HEIGHT / 2 + 40,
-            _loadingFontSize,
-            LIGHTGRAY);
+  DrawText(_loadingText.c_str(), SCREEN_WIDTH / 2 - _loadingWidth / 2,
+           SCREEN_HEIGHT / 2 + 40, _loadingFontSize, LIGHTGRAY);
 }
 
 void gui::GameEngine::renderTitleScreen() {
@@ -259,21 +253,15 @@ void gui::GameEngine::renderTitleScreen() {
 
   _title = "ZAPPY GAME";
   _titleFontSize = 50;
-  _titleTextWidth = MeasureText(_title, _titleFontSize);
-  DrawText(_title,
-            SCREEN_WIDTH / 2 - _titleTextWidth / 2,
-            _boxY + 40,
-            _titleFontSize,
-            DARKGREEN);
+  _titleTextWidth = MeasureText(_title.c_str(), _titleFontSize);
+  DrawText(_title.c_str(), SCREEN_WIDTH / 2 - _titleTextWidth / 2, _boxY + 40,
+           _titleFontSize, DARKGREEN);
 
   _subtitle = "Press ENTER to start";
   _subtitleFontSize = 24;
-  _subtitleTextWidth = MeasureText(_subtitle, _subtitleFontSize);
-  DrawText(_subtitle,
-            SCREEN_WIDTH / 2 - _subtitleTextWidth / 2,
-            _boxY + _boxHeight - 70,
-            _subtitleFontSize,
-            DARKGRAY);
+  _subtitleTextWidth = MeasureText(_subtitle.c_str(), _subtitleFontSize);
+  DrawText(_subtitle.c_str(), SCREEN_WIDTH / 2 - _subtitleTextWidth / 2,
+           _boxY + _boxHeight - 70, _subtitleFontSize, DARKGRAY);
 }
 
 void gui::GameEngine::renderGameplayScreen() {
