@@ -1,0 +1,43 @@
+\doxysection{/home/arthur/\+Tek2/\+Project/\+Zappy/server/src/communications/init\+\_\+density.c File Reference}
+\hypertarget{init__density_8c}{}\label{init__density_8c}\index{/home/arthur/Tek2/Project/Zappy/server/src/communications/init\_density.c@{/home/arthur/Tek2/Project/Zappy/server/src/communications/init\_density.c}}
+{\ttfamily \#include "{}server.\+h"{}}\newline
+Include dependency graph for init\+\_\+density.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{init__density_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{init__density_8c_a34028b25be67f9ab3b9593e9d5234f21}{init\+\_\+density}} (\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{server_8c_ab140ac62eb02ac9134b3120c0a6829e6}{server}}, \mbox{\hyperlink{inventory_8h_a1938ce702b8d949b623b1c79aa7bd4b7}{inventory\+\_\+t}} \texorpdfstring{$\ast$}{*}density)
+\begin{DoxyCompactList}\small\item\em Initialize resource density for the game map. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{init__density_8c_a34028b25be67f9ab3b9593e9d5234f21}\label{init__density_8c_a34028b25be67f9ab3b9593e9d5234f21} 
+\index{init\_density.c@{init\_density.c}!init\_density@{init\_density}}
+\index{init\_density@{init\_density}!init\_density.c@{init\_density.c}}
+\doxysubsubsection{\texorpdfstring{init\_density()}{init\_density()}}
+{\footnotesize\ttfamily int init\+\_\+density (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{server,  }\item[{\mbox{\hyperlink{inventory_8h_a1938ce702b8d949b623b1c79aa7bd4b7}{inventory\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{density }\end{DoxyParamCaption})}
+
+
+
+Initialize resource density for the game map. 
+
+Initialize resource density tracking.
+
+Calculates and sets the total density of each resource type based on map dimensions and predefined density constants.
+
+
+\begin{DoxyParams}{Parameters}
+{\em server} & Pointer to the server structure containing map parameters \\
+\hline
+{\em density} & Pointer to the inventory structure to store densities \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+SUCCESS on successful initialization, ERROR on invalid parameters 
+\end{DoxyReturn}

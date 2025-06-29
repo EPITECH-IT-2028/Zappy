@@ -7,6 +7,17 @@
 
 #include "server.h"
 
+/**
+ * @brief Adds two timespec structures together
+ *
+ * This function performs addition of two timespec structures, handling
+ * nanosecond overflow properly by carrying over to the seconds field
+ * when nanoseconds exceed one second.
+ *
+ * @param start Pointer to the base timespec structure
+ * @param duration Pointer to the duration timespec to add
+ * @return New timespec structure containing the sum
+ */
 struct timespec timespec_add(struct timespec *start, struct timespec *duration)
 {
     struct timespec result;
@@ -20,6 +31,17 @@ struct timespec timespec_add(struct timespec *start, struct timespec *duration)
     return result;
 }
 
+/**
+ * @brief Calculates the real-time duration for game actions
+ *
+ * This function converts game action units into real-time duration
+ * based on the server frequency. It handles the conversion from
+ * action units to nanoseconds and structures the result properly.
+ *
+ * @param action_units Number of game time units for the action
+ * @param frequency Server frequency (actions per second)
+ * @return timespec structure representing the real-time duration
+ */
 struct timespec calculate_action_duration(int action_units, int frequency)
 {
     long total_ns = (long)action_units * NANOSECONDS_PER_SECOND / frequency;
@@ -31,6 +53,15 @@ struct timespec calculate_action_duration(int action_units, int frequency)
     return duration;
 }
 
+/**
+ * @brief Manages periodic server events based on elapsed time
+ *
+ * This function checks if enough time has passed for periodic server
+ * events and triggers them accordingly. It handles food consumption
+ * and resource respawning events with their respective timers.
+ *
+ * @param server Pointer to the server structure containing timers
+ */
 void check_time_events(server_t *server)
 {
     if (has_time_passed(server, server->server_timer_count,

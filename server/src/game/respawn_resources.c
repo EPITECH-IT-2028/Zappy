@@ -9,6 +9,17 @@
 #include <stdlib.h>
 
 
+/**
+ * @brief Adds resources randomly to the game map
+ *
+ * This function places a specified number of resources of a given type
+ * randomly across the game map. It updates both the map tiles and the
+ * server's resource density tracking.
+ *
+ * @param server Pointer to the server structure containing the game map
+ * @param missing_resource Number of resources to add
+ * @param type Type of resource to add (0-6: food, linemate, etc.)
+ */
 static
 void add_resource_random(server_t *server, int missing_resource, int type)
 {
@@ -23,6 +34,17 @@ void add_resource_random(server_t *server, int missing_resource, int type)
     }
 }
 
+/**
+ * @brief Checks the current density of a specific resource type
+ *
+ * This function retrieves the current count of a specific resource type
+ * from the server's density tracking structure. It provides a unified
+ * interface to access different resource densities by index.
+ *
+ * @param server Pointer to the server structure
+ * @param type Resource type index (0-6: food, linemate, deraumere, etc.)
+ * @return Current density count for the resource type, or -1 on error
+ */
 static
 int check_resource_density(server_t *server, int type)
 {
@@ -38,6 +60,17 @@ int check_resource_density(server_t *server, int type)
     return density_fields[type];
 }
 
+/**
+ * @brief Manages resource respawning across the game map
+ *
+ * This function maintains proper resource density by checking current
+ * resource levels against target densities and spawning missing resources.
+ * It ensures the game world maintains balanced resource distribution
+ * according to predefined ratios.
+ *
+ * @param server Pointer to the server structure containing game state
+ * @return SUCCESS if respawn completed successfully, ERROR otherwise
+ */
 int respawn_resources(server_t *server)
 {
     const float table[TOTAL_RESOURCES] = {

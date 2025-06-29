@@ -1,0 +1,65 @@
+\doxysection{/home/arthur/\+Tek2/\+Project/\+Zappy/server/src/communications/events\+\_\+server.c File Reference}
+\hypertarget{events__server_8c}{}\label{events__server_8c}\index{/home/arthur/Tek2/Project/Zappy/server/src/communications/events\_server.c@{/home/arthur/Tek2/Project/Zappy/server/src/communications/events\_server.c}}
+{\ttfamily \#include "{}macro.\+h"{}}\newline
+{\ttfamily \#include "{}server.\+h"{}}\newline
+{\ttfamily \#include "{}utils.\+h"{}}\newline
+{\ttfamily \#include $<$strings.\+h$>$}\newline
+{\ttfamily \#include $<$sys/poll.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+Include dependency graph for events\+\_\+server.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{events__server_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{events__server_8c_afcf67c7e2054e546f067fb2dcab9c881}{get\+\_\+new\+\_\+connection}} (\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{server_8c_ab140ac62eb02ac9134b3120c0a6829e6}{server}})
+\begin{DoxyCompactList}\small\item\em Handle new incoming client connections. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{events__server_8c_aad5829cd4801ae64792fcfe7c78e4b0c}{handle\+\_\+all\+\_\+client}} (\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{server_8c_ab140ac62eb02ac9134b3120c0a6829e6}{server}})
+\begin{DoxyCompactList}\small\item\em Handle all connected clients. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{events__server_8c_afcf67c7e2054e546f067fb2dcab9c881}\label{events__server_8c_afcf67c7e2054e546f067fb2dcab9c881} 
+\index{events\_server.c@{events\_server.c}!get\_new\_connection@{get\_new\_connection}}
+\index{get\_new\_connection@{get\_new\_connection}!events\_server.c@{events\_server.c}}
+\doxysubsubsection{\texorpdfstring{get\_new\_connection()}{get\_new\_connection()}}
+{\footnotesize\ttfamily int get\+\_\+new\+\_\+connection (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{server }\end{DoxyParamCaption})}
+
+
+
+Handle new incoming client connections. 
+
+Accept new client connections.
+
+This function checks for new connections on the server socket, accepts them, and sends a welcome message to new clients.
+
+
+\begin{DoxyParams}{Parameters}
+{\em server} & Pointer to the server structure \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 on success, ERROR on failure 
+\end{DoxyReturn}
+\Hypertarget{events__server_8c_aad5829cd4801ae64792fcfe7c78e4b0c}\label{events__server_8c_aad5829cd4801ae64792fcfe7c78e4b0c} 
+\index{events\_server.c@{events\_server.c}!handle\_all\_client@{handle\_all\_client}}
+\index{handle\_all\_client@{handle\_all\_client}!events\_server.c@{events\_server.c}}
+\doxysubsubsection{\texorpdfstring{handle\_all\_client()}{handle\_all\_client()}}
+{\footnotesize\ttfamily void handle\+\_\+all\+\_\+client (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{server }\end{DoxyParamCaption})}
+
+
+
+Handle all connected clients. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em server} & Server instance \\
+\hline
+\end{DoxyParams}

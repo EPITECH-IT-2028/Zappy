@@ -1,0 +1,93 @@
+\doxysection{client\+\_\+s Struct Reference}
+\hypertarget{structclient__s}{}\label{structclient__s}\index{client\_s@{client\_s}}
+
+
+Client connection structure.  
+
+
+
+
+{\ttfamily \#include $<$server.\+h$>$}
+
+
+
+Collaboration diagram for client\+\_\+s\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structclient__s__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{structclient__s_a9babf0c4dea4b555e6b87a47f4ca98cd}{fd}}
+\item 
+struct sockaddr\+\_\+in \mbox{\hyperlink{structclient__s_a0462afe1661e70a0c69fa24f39387d0f}{addr}}
+\item 
+socklen\+\_\+t \mbox{\hyperlink{structclient__s_a8537b72a4a8aecb1e774b5fba56863d5}{addr\+\_\+len}}
+\item 
+int \mbox{\hyperlink{structclient__s_a10e2972a5c7045813a8d86fc97743a65}{fd\+\_\+open}}
+\item 
+bool \mbox{\hyperlink{structclient__s_a2131396f3559cf18587e2a7e55a48c16}{connected}}
+\item 
+\mbox{\hyperlink{server_8h_a21bca4ad2bc83c2b3f0fe45dce419625}{client\+\_\+data\+\_\+t}} \mbox{\hyperlink{structclient__s_a8c9058d907fc0d2ee5c3c52be5ad63c0}{data}}
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{structclient__s_a381a688a500d68fc38055666a6a0be6c}{buffer}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Client connection structure. 
+
+Represents a connected client with network information and game data. 
+
+\doxysubsection{Member Data Documentation}
+\Hypertarget{structclient__s_a0462afe1661e70a0c69fa24f39387d0f}\label{structclient__s_a0462afe1661e70a0c69fa24f39387d0f} 
+\index{client\_s@{client\_s}!addr@{addr}}
+\index{addr@{addr}!client\_s@{client\_s}}
+\doxysubsubsection{\texorpdfstring{addr}{addr}}
+{\footnotesize\ttfamily struct sockaddr\+\_\+in client\+\_\+s\+::addr}
+
+\Hypertarget{structclient__s_a8537b72a4a8aecb1e774b5fba56863d5}\label{structclient__s_a8537b72a4a8aecb1e774b5fba56863d5} 
+\index{client\_s@{client\_s}!addr\_len@{addr\_len}}
+\index{addr\_len@{addr\_len}!client\_s@{client\_s}}
+\doxysubsubsection{\texorpdfstring{addr\_len}{addr\_len}}
+{\footnotesize\ttfamily socklen\+\_\+t client\+\_\+s\+::addr\+\_\+len}
+
+\Hypertarget{structclient__s_a381a688a500d68fc38055666a6a0be6c}\label{structclient__s_a381a688a500d68fc38055666a6a0be6c} 
+\index{client\_s@{client\_s}!buffer@{buffer}}
+\index{buffer@{buffer}!client\_s@{client\_s}}
+\doxysubsubsection{\texorpdfstring{buffer}{buffer}}
+{\footnotesize\ttfamily char\texorpdfstring{$\ast$}{*} client\+\_\+s\+::buffer}
+
+\Hypertarget{structclient__s_a2131396f3559cf18587e2a7e55a48c16}\label{structclient__s_a2131396f3559cf18587e2a7e55a48c16} 
+\index{client\_s@{client\_s}!connected@{connected}}
+\index{connected@{connected}!client\_s@{client\_s}}
+\doxysubsubsection{\texorpdfstring{connected}{connected}}
+{\footnotesize\ttfamily bool client\+\_\+s\+::connected}
+
+\Hypertarget{structclient__s_a8c9058d907fc0d2ee5c3c52be5ad63c0}\label{structclient__s_a8c9058d907fc0d2ee5c3c52be5ad63c0} 
+\index{client\_s@{client\_s}!data@{data}}
+\index{data@{data}!client\_s@{client\_s}}
+\doxysubsubsection{\texorpdfstring{data}{data}}
+{\footnotesize\ttfamily \mbox{\hyperlink{server_8h_a21bca4ad2bc83c2b3f0fe45dce419625}{client\+\_\+data\+\_\+t}} client\+\_\+s\+::data}
+
+\Hypertarget{structclient__s_a9babf0c4dea4b555e6b87a47f4ca98cd}\label{structclient__s_a9babf0c4dea4b555e6b87a47f4ca98cd} 
+\index{client\_s@{client\_s}!fd@{fd}}
+\index{fd@{fd}!client\_s@{client\_s}}
+\doxysubsubsection{\texorpdfstring{fd}{fd}}
+{\footnotesize\ttfamily int client\+\_\+s\+::fd}
+
+\Hypertarget{structclient__s_a10e2972a5c7045813a8d86fc97743a65}\label{structclient__s_a10e2972a5c7045813a8d86fc97743a65} 
+\index{client\_s@{client\_s}!fd\_open@{fd\_open}}
+\index{fd\_open@{fd\_open}!client\_s@{client\_s}}
+\doxysubsubsection{\texorpdfstring{fd\_open}{fd\_open}}
+{\footnotesize\ttfamily int client\+\_\+s\+::fd\+\_\+open}
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/arthur/\+Tek2/\+Project/\+Zappy/server/include/\mbox{\hyperlink{server_8h}{server.\+h}}\end{DoxyCompactItemize}

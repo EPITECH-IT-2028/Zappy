@@ -10,6 +10,17 @@
 #include "server.h"
 #include "macro.h"
 
+/**
+ * @brief Validate and set the map width parameter
+ *
+ * This function checks if the provided width value is valid
+ * (greater than minimum) and sets it in the parameters structure.
+ *
+ * @param params Pointer to the parameters structure to update
+ * @param av Array of command line arguments
+ * @param av_idx Pointer to current argument index
+ * @return SUCCESS if valid width, ERROR otherwise
+ */
 int check_width(params_t *params, char **av, size_t *av_idx)
 {
     int width = atoi(av[*av_idx]);

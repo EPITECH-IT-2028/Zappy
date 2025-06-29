@@ -1,0 +1,49 @@
+\doxysection{/home/arthur/\+Tek2/\+Project/\+Zappy/server/src/communications/server.c File Reference}
+\hypertarget{server_8c}{}\label{server_8c}\index{/home/arthur/Tek2/Project/Zappy/server/src/communications/server.c@{/home/arthur/Tek2/Project/Zappy/server/src/communications/server.c}}
+{\ttfamily \#include "{}server.\+h"{}}\newline
+{\ttfamily \#include "{}macro.\+h"{}}\newline
+{\ttfamily \#include "{}utils.\+h"{}}\newline
+{\ttfamily \#include $<$pthread.\+h$>$}\newline
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+Include dependency graph for server.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{server_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{server_8c_ab140ac62eb02ac9134b3120c0a6829e6}{server}} (int ac, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}av)
+\begin{DoxyCompactList}\small\item\em Main server entry point. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{server_8c_ab140ac62eb02ac9134b3120c0a6829e6}\label{server_8c_ab140ac62eb02ac9134b3120c0a6829e6} 
+\index{server.c@{server.c}!server@{server}}
+\index{server@{server}!server.c@{server.c}}
+\doxysubsubsection{\texorpdfstring{server()}{server()}}
+{\footnotesize\ttfamily int server (\begin{DoxyParamCaption}\item[{int}]{ac,  }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{av }\end{DoxyParamCaption})}
+
+
+
+Main server entry point. 
+
+This function orchestrates the complete server startup process, parameter validation, server initialization, and main loop execution.
+
+
+\begin{DoxyParams}{Parameters}
+{\em ac} & Argument count \\
+\hline
+{\em av} & Array of command line arguments \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+SUCCESS on successful execution, ERROR on failure 
+\end{DoxyReturn}

@@ -1,0 +1,18 @@
+<map id="queue_response_s" name="queue_response_s">
+<area shape="rect" id="Node000001" title="Response queue structure." alt="" coords="67,108,209,133"/>
+<area shape="rect" id="Node000002" href="$structresponse__s.html" title="Server response structure." alt="" coords="71,5,165,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="118,44,122,83,132,106,128,109,117,85,113,45"/>
+<area shape="rect" id="Node000004" href="$structclient__data__s.html" title="Client game data structure." alt="" coords="273,108,381,133"/>
+<area shape="poly" id="edge7_Node000004_Node000002" title=" " alt="" coords="146,37,209,82,242,95,275,105,274,110,240,100,206,86,143,41"/>
+<area shape="rect" id="Node000003" href="$structclient__s.html" title="Client connection structure." alt="" coords="186,196,258,221"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="172,208,131,202,86,189,44,168,26,153,10,135,4,118,5,102,13,86,25,72,58,47,92,28,94,33,61,51,29,76,17,89,10,103,9,117,15,132,30,149,47,163,88,184,132,197,173,203"/>
+<area shape="rect" id="Node000006" href="$structincantation__s.html" title="Incantation ceremony data." alt="" coords="219,284,329,309"/>
+<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="221,235,226,259,236,272,250,282,247,286,232,276,221,261,216,236"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="299,143,277,159,235,198,232,194,274,155,296,139"/>
+<area shape="rect" id="Node000005" href="$structinventory__s.html" title="Structure representing an inventory of resources." alt="" coords="298,5,397,31"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="345,45,332,109,327,107,340,44"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="297,273,306,259,318,225,324,190,325,133,331,133,329,190,323,226,311,261,301,276"/>
+<area shape="rect" id="Node000007" href="$structpending__action__s.html" title="Pending action in client queue." alt="" coords="421,5,556,31"/>
+<area shape="poly" id="edge8_Node000004_Node000007" title=" " alt="" coords="469,43,444,65,414,86,363,110,361,105,411,82,440,61,466,39"/>
+<area shape="poly" id="edge9_Node000007_Node000007" title=" " alt="" coords="571,9,583,18,575,26,557,30,556,25,572,22,577,18,568,13"/>
+</map>

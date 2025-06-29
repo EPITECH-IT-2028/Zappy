@@ -10,6 +10,15 @@
 #include "utils.h"
 #include <string.h>
 
+/**
+ * @brief Send pie (incantation end) message to all graphic clients
+ *
+ * This function formats a message indicating the completion of an
+ * incantation with position and success/failure status.
+ *
+ * @param server Pointer to the server instance containing client list
+ * @param incantators Array of clients participating in the incantation
+ */
 void send_pie(server_t *server, client_t **incantators)
 {
     char response[BUFFER_SIZE];
@@ -29,6 +38,15 @@ void send_pie(server_t *server, client_t **incantators)
     }
 }
 
+/**
+ * @brief Send pic (incantation start) message to all graphic clients
+ *
+ * This function formats a message indicating the start of an
+ * incantation with position and list of participating players.
+ *
+ * @param server Pointer to the server instance containing client list
+ * @param incantators Array of clients participating in the incantation
+ */
 void send_pic(server_t *server, client_t **incantators)
 {
     char response[BUFFER_SIZE];

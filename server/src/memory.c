@@ -11,6 +11,13 @@
 #include <stdlib.h>
 #include <pthread.h>
 
+/**
+ * @brief Frees memory allocated for team names in params structure
+ * @param params Pointer to parameters structure containing team names
+ *
+ * Iterates through the teams_names array and frees each team name string
+ * before freeing the array itself.
+ */
 void free_params(params_t *params)
 {
     if (params->teams_names) {
@@ -21,6 +28,14 @@ void free_params(params_t *params)
     }
 }
 
+/**
+ * @brief Frees memory allocated for the game map
+ * @param map 2D array representing the map
+ * @param params Parameters containing map dimensions
+ *
+ * Releases all memory for the 2D map structure by freeing each row
+ * and then freeing the array of rows.
+ */
 void free_map(map_t **map, params_t *params)
 {
     if (map == NULL || params == NULL)
@@ -31,6 +46,15 @@ void free_map(map_t **map, params_t *params)
     free(map);
 }
 
+/**
+ * @brief Clears all pending responses for a client with proper mutex
+ * protection
+ * @param client Pointer to the client whose responses need to be cleared
+ *
+ * Acquires a mutex lock, frees each response string in the array,
+ * frees the response array itself, and resets the size counter.
+ * Properly handles synchronization to avoid race conditions.
+ */
 static
 void clear_pending_response(client_t *client)
 {
@@ -50,6 +74,15 @@ void clear_pending_response(client_t *client)
     pthread_mutex_unlock(&client->data.pending_mutex);
 }
 
+/**
+ * @brief Decrements the client count for a team when a client disconnects
+ * @param server Server structure containing teams information
+ * @param client Client that is being removed from a team
+ *
+ * Finds the team index for the client's team, decrements the client count
+ * if appropriate (non-graphic client and valid team), and frees the team
+ * name string.
+ */
 static
 void decrement_team_count(server_t *server, client_t *client)
 {
@@ -66,6 +99,15 @@ void decrement_team_count(server_t *server, client_t *client)
     }
 }
 
+/**
+ * @brief Cleans up and frees resources associated with a client
+ * @param server Server structure containing the client
+ * @param index Index of the client to clean up
+ *
+ * Decrements team client count if applicable, frees team name,
+ * cleans up pending responses with proper mutex protection,
+ * and finally frees the client structure itself.
+ */
 void cleanup_client_data(server_t *server, int index)
 {
     client_t *client;
@@ -87,6 +129,14 @@ void cleanup_client_data(server_t *server, int index)
     free(client);
 }
 
+/**
+ * @brief Performs complete cleanup of the server structure
+ * @param server Pointer to server structure to be freed
+ *
+ * Stops the server, joins the game thread, and systematically
+ * frees all resources: clients, mutexes, map, parameters,
+ * teams, and file descriptors.
+ */
 void free_server(server_t *server)
 {
     if (server == NULL)
@@ -94,7 +144,6 @@ void free_server(server_t *server)
     server->running = false;
     pthread_mutex_lock(&server->clients_mutex);
     pthread_join(server->threads.game_thread, NULL);
-    cleanup_game_resources(server);
     for (int i = 0; i < server->nfds; i += 1) {
         if (server->clients[i] != NULL) {
             free(server->clients[i]->data.team_name);
@@ -111,6 +160,13 @@ void free_server(server_t *server)
     free(server);
 }
 
+/**
+ * @brief Frees an array of incantator clients
+ * @param incantators NULL-terminated array of incantator client pointers
+ *
+ * Iterates through the array and frees each incantator pointer
+ * before freeing the array itself.
+ */
 void free_incantators(client_t **incantators)
 {
     if (!incantators)

@@ -1,0 +1,8 @@
+var searchData=
+[
+  ['game_5floop_0',['game_loop',['../game_8c.html#adafbf426c681d2bbd7c6a120a6a76099',1,'game_loop(server_t *server):&#160;game.c'],['../server_8h.html#adafbf426c681d2bbd7c6a120a6a76099',1,'game_loop(server_t *server):&#160;game.c']]],
+  ['get_5faction_5fend_5ftime_1',['get_action_end_time',['../timer__handling_8c.html#a0bb4a72798ede786f82aefeab657d2e1',1,'get_action_end_time(server_t *server, int action_duration):&#160;timer_handling.c'],['../server_8h.html#a0bb4a72798ede786f82aefeab657d2e1',1,'get_action_end_time(server_t *server, int action_duration):&#160;timer_handling.c']]],
+  ['get_5fcurrent_5ftimer_5funits_2',['get_current_timer_units',['../timer__handling_8c.html#a11940ef69e5a079d4f817c9b102bb966',1,'get_current_timer_units(server_t *server, struct timespec *timer):&#160;timer_handling.c'],['../server_8h.html#a11940ef69e5a079d4f817c9b102bb966',1,'get_current_timer_units(server_t *server, struct timespec *timer):&#160;timer_handling.c']]],
+  ['get_5fnew_5fconnection_3',['get_new_connection',['../events__server_8c.html#afcf67c7e2054e546f067fb2dcab9c881',1,'get_new_connection(server_t *server):&#160;events_server.c'],['../server_8h.html#afcf67c7e2054e546f067fb2dcab9c881',1,'get_new_connection(server_t *server):&#160;events_server.c']]],
+  ['get_5ftext_5fin_5fcommands_4',['get_text_in_commands',['../utils_8c.html#a9b9c850ef28c47e1164a00ed54ec3ef2',1,'get_text_in_commands(const char *raw_message, unsigned long length):&#160;utils.c'],['../utils_8h.html#a84796893f83b7e992963148688e8fab7',1,'get_text_in_commands(const char *raw_broadcast, unsigned long length):&#160;utils.c']]]
+];

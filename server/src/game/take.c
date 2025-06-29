@@ -8,6 +8,18 @@
 #include "macro.h"
 #include "server.h"
 
+/**
+ * @brief Handles the "Take" command for taking resources from the map
+ *
+ * This function processes a client's request to take a resource from
+ * the map into their inventory. It validates the operation,
+ * updates the game state, and sends appropriate notifications.
+ *
+ * @param server Pointer to the server structure
+ * @param response Pointer to response structure to fill with result
+ * @param request Pointer to the client's set request
+ * @return SUCCESS if resource was taken successfully, ERROR otherwise
+ */
 int handle_take(server_t *server, response_t *response, request_t *request)
 {
     client_data_t *client = &request->client->data;

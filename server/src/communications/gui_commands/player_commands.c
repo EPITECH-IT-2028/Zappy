@@ -10,6 +10,15 @@
 #include "utils.h"
 #include <string.h>
 
+/**
+ * @brief Send team names to a GUI client
+ *
+ * This function sends all available team names to the specified
+ * GUI client using the tna command format.
+ *
+ * @param server Pointer to the server structure
+ * @param index Index of the GUI client to send to
+ */
 static
 void send_teams_name(server_t *server, int index)
 {
@@ -23,6 +32,16 @@ void send_teams_name(server_t *server, int index)
     }
 }
 
+/**
+ * @brief Send specific player position to a GUI client
+ *
+ * This function sends a player's position and direction to the GUI
+ * client, or an error message if the player is not found.
+ *
+ * @param server Pointer to the server structure
+ * @param index Index of the GUI client to send to
+ * @param id ID of the player to query
+ */
 static
 void player_position(server_t *server, int index, int id)
 {
@@ -41,6 +60,16 @@ void player_position(server_t *server, int index, int id)
     send_code(server->clients[index]->fd, response);
 }
 
+/**
+ * @brief Handle player-related commands from GUI clients
+ *
+ * This function processes player commands (tna, ppo) from GUI clients
+ * and sends appropriate responses with player information.
+ *
+ * @param server Pointer to the server structure
+ * @param index Index of the GUI client sending the command
+ * @param buffer Command string to process
+ */
 void player_commands(server_t *server, int index, char *buffer)
 {
     int player_id;

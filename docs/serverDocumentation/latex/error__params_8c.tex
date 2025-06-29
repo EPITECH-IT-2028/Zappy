@@ -1,0 +1,51 @@
+\doxysection{/home/arthur/\+Tek2/\+Project/\+Zappy/server/src/error/error\+\_\+params.c File Reference}
+\hypertarget{error__params_8c}{}\label{error__params_8c}\index{/home/arthur/Tek2/Project/Zappy/server/src/error/error\_params.c@{/home/arthur/Tek2/Project/Zappy/server/src/error/error\_params.c}}
+{\ttfamily \#include $<$stddef.\+h$>$}\newline
+{\ttfamily \#include "{}macro.\+h"{}}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include "{}params.\+h"{}}\newline
+{\ttfamily \#include "{}server.\+h"{}}\newline
+Include dependency graph for error\+\_\+params.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{error__params_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{error__params_8c_a47002d1cee53cbcb270359fe6b067d75}{check\+\_\+params}} (\mbox{\hyperlink{server_8h_ad9ef31b4161fdea2cae57c1185ba461a}{params\+\_\+t}} \texorpdfstring{$\ast$}{*}params, int ac, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}av)
+\begin{DoxyCompactList}\small\item\em Main parameter validation function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{error__params_8c_a47002d1cee53cbcb270359fe6b067d75}\label{error__params_8c_a47002d1cee53cbcb270359fe6b067d75} 
+\index{error\_params.c@{error\_params.c}!check\_params@{check\_params}}
+\index{check\_params@{check\_params}!error\_params.c@{error\_params.c}}
+\doxysubsubsection{\texorpdfstring{check\_params()}{check\_params()}}
+{\footnotesize\ttfamily int check\+\_\+params (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_ad9ef31b4161fdea2cae57c1185ba461a}{params\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{params,  }\item[{int}]{ac,  }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{av }\end{DoxyParamCaption})}
+
+
+
+Main parameter validation function. 
+
+Validate server parameters from command line.
+
+This function orchestrates the complete parameter validation process, checking help flags, minimum arguments, and all required parameters.
+
+
+\begin{DoxyParams}{Parameters}
+{\em params} & Pointer to the parameters structure to populate \\
+\hline
+{\em ac} & Argument count \\
+\hline
+{\em av} & Array of command line arguments \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+SUCCESS if all parameters are valid, ERROR otherwise 
+\end{DoxyReturn}

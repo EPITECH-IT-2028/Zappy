@@ -1,0 +1,48 @@
+\doxysection{/home/arthur/\+Tek2/\+Project/\+Zappy/server/src/game/connect\+\_\+nbr.c File Reference}
+\hypertarget{connect__nbr_8c}{}\label{connect__nbr_8c}\index{/home/arthur/Tek2/Project/Zappy/server/src/game/connect\_nbr.c@{/home/arthur/Tek2/Project/Zappy/server/src/game/connect\_nbr.c}}
+{\ttfamily \#include "{}macro.\+h"{}}\newline
+{\ttfamily \#include "{}server.\+h"{}}\newline
+{\ttfamily \#include "{}utils.\+h"{}}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+Include dependency graph for connect\+\_\+nbr.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{connect__nbr_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{connect__nbr_8c_af95640fef81b36cd27e12d822336e47d}{handle\+\_\+connect\+\_\+nbr}} (\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{server_8c_ab140ac62eb02ac9134b3120c0a6829e6}{server}}, \mbox{\hyperlink{server_8h_a0a742c24c6cf5a8824f8b0399778b0f4}{response\+\_\+t}} \texorpdfstring{$\ast$}{*}response, \mbox{\hyperlink{server_8h_a2fc1b64f51f8225195d32592e6fe8fc5}{request\+\_\+t}} \texorpdfstring{$\ast$}{*}request)
+\begin{DoxyCompactList}\small\item\em Handle the connect\+\_\+nbr command to get remaining team slots. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{connect__nbr_8c_af95640fef81b36cd27e12d822336e47d}\label{connect__nbr_8c_af95640fef81b36cd27e12d822336e47d} 
+\index{connect\_nbr.c@{connect\_nbr.c}!handle\_connect\_nbr@{handle\_connect\_nbr}}
+\index{handle\_connect\_nbr@{handle\_connect\_nbr}!connect\_nbr.c@{connect\_nbr.c}}
+\doxysubsubsection{\texorpdfstring{handle\_connect\_nbr()}{handle\_connect\_nbr()}}
+{\footnotesize\ttfamily int handle\+\_\+connect\+\_\+nbr (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{server,  }\item[{\mbox{\hyperlink{server_8h_a0a742c24c6cf5a8824f8b0399778b0f4}{response\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{response,  }\item[{\mbox{\hyperlink{server_8h_a2fc1b64f51f8225195d32592e6fe8fc5}{request\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{request }\end{DoxyParamCaption})}
+
+
+
+Handle the connect\+\_\+nbr command to get remaining team slots. 
+
+Handle connect\+\_\+nbr command from AI player.
+
+This function calculates and returns the number of remaining connection slots available for the client\textquotesingle{}s team.
+
+
+\begin{DoxyParams}{Parameters}
+{\em server} & Pointer to the server structure \\
+\hline
+{\em response} & Pointer to the response structure to fill \\
+\hline
+{\em request} & Pointer to the client request \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+SUCCESS on success, ERROR on failure 
+\end{DoxyReturn}

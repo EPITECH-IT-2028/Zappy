@@ -1,0 +1,69 @@
+\doxysection{/home/arthur/\+Tek2/\+Project/\+Zappy/server/src/communications/init\+\_\+struct.c File Reference}
+\hypertarget{init__struct_8c}{}\label{init__struct_8c}\index{/home/arthur/Tek2/Project/Zappy/server/src/communications/init\_struct.c@{/home/arthur/Tek2/Project/Zappy/server/src/communications/init\_struct.c}}
+{\ttfamily \#include "{}macro.\+h"{}}\newline
+{\ttfamily \#include "{}server.\+h"{}}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$pthread.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+Include dependency graph for init\+\_\+struct.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{init__struct_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{init__struct_8c_ae4a158e61d82f24bde6ebae67f6755ab}{init\+\_\+server\+\_\+struct}} (\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}\mbox{\hyperlink{server_8c_ab140ac62eb02ac9134b3120c0a6829e6}{server}}, \mbox{\hyperlink{server_8h_ad9ef31b4161fdea2cae57c1185ba461a}{params\+\_\+t}} \texorpdfstring{$\ast$}{*}params)
+\begin{DoxyCompactList}\small\item\em Initialize server structure with all components. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{init__struct_8c_a3a24095f5b03a8aa2501d87100a7b431}{init\+\_\+params}} (\mbox{\hyperlink{server_8h_ad9ef31b4161fdea2cae57c1185ba461a}{params\+\_\+t}} \texorpdfstring{$\ast$}{*}params)
+\begin{DoxyCompactList}\small\item\em Initialize parameters structure to default values. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{init__struct_8c_a3a24095f5b03a8aa2501d87100a7b431}\label{init__struct_8c_a3a24095f5b03a8aa2501d87100a7b431} 
+\index{init\_struct.c@{init\_struct.c}!init\_params@{init\_params}}
+\index{init\_params@{init\_params}!init\_struct.c@{init\_struct.c}}
+\doxysubsubsection{\texorpdfstring{init\_params()}{init\_params()}}
+{\footnotesize\ttfamily void init\+\_\+params (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_ad9ef31b4161fdea2cae57c1185ba461a}{params\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{params }\end{DoxyParamCaption})}
+
+
+
+Initialize parameters structure to default values. 
+
+Initialize parameters structure with default values.
+
+This function sets all parameter fields to their default values, typically -\/1 to indicate unset parameters.
+
+
+\begin{DoxyParams}{Parameters}
+{\em params} & Pointer to the parameters structure to initialize \\
+\hline
+\end{DoxyParams}
+\Hypertarget{init__struct_8c_ae4a158e61d82f24bde6ebae67f6755ab}\label{init__struct_8c_ae4a158e61d82f24bde6ebae67f6755ab} 
+\index{init\_struct.c@{init\_struct.c}!init\_server\_struct@{init\_server\_struct}}
+\index{init\_server\_struct@{init\_server\_struct}!init\_struct.c@{init\_struct.c}}
+\doxysubsubsection{\texorpdfstring{init\_server\_struct()}{init\_server\_struct()}}
+{\footnotesize\ttfamily int init\+\_\+server\+\_\+struct (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{server_8h_a0d46b4d18005bd6a95dddba0e65bddf6}{server\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{server,  }\item[{\mbox{\hyperlink{server_8h_ad9ef31b4161fdea2cae57c1185ba461a}{params\+\_\+t}} \texorpdfstring{$\ast$}{*}}]{params }\end{DoxyParamCaption})}
+
+
+
+Initialize server structure with all components. 
+
+Initialize server structure with parameters.
+
+This function performs complete server initialization including socket creation, memory allocation, and all subsystem setup.
+
+
+\begin{DoxyParams}{Parameters}
+{\em server} & Pointer to the server structure to initialize \\
+\hline
+{\em params} & Pointer to validated server parameters \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+SUCCESS on successful initialization, ERROR on failure 
+\end{DoxyReturn}
